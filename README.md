@@ -38,5 +38,5 @@ Minishell | 42 Madrid, avec une bonne explication en introduction
 - [Fr-> Un petit tuto de base avec toutes les etapes](https://segfault42.github.io/posts/minishell/)
 - [Fr ->Un tuto avec beaucoup d'info !!](https://chrtophe.developpez.com/tutoriels/minisysteme/)
 - [En -> Tuto pas encore lu Part1](https://dev.to/angelotheman/build-your-own-shell-part-2-5gie)
-- [                         Part2](https://dev.to/angelotheman/build-your-own-shell-part-2-5gie)
+- [En -> Tuto pas encore lu Part2](https://dev.to/angelotheman/build-your-own-shell-part-2-5gie)
 
