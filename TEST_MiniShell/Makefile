@@ -1,6 +1,6 @@
 NAME = test
 
-SRCS = boucle_exit.c
+SRCS = test_readline_history_with_signal.c
 
 OBJS = ${SRCS:.c=.o}
 
@@ -17,6 +17,10 @@ all: ${NAME}
 ${NAME}: ${OBJS}
 	@${MAKE} -C ./libft
 	@${CC} ${CFLAGS} ${OBJS} ./libft/libft.a -lreadline -o ${NAME}
+
+signal:
+	@${MAKE} -C ./libft
+	@${CC} ${CFLAGS} test_readline_history_with_signal.c ./libft/libft.a -lreadline -o ${NAME}
 
 clean: 
 	@${MAKE} -C ./libft fclean
