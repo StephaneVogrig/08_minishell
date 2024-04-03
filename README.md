@@ -39,9 +39,8 @@
 - [En -> Tuto pas encore lu Part2](https://dev.to/angelotheman/build-your-own-shell-part-2-5gie)
 
 #### test
-[tester](https://github.com/StephaneVogrig/minishell_tester)
+[tester](https://github.com/StephaneVogrig/minishell_tester)  
 cat << EOF (cat * && cat *)  
 vs  
-cat << EOF && &&
-
-*
+cat << EOF && &&  
+\*
