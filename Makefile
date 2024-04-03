@@ -6,7 +6,7 @@
 #    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/04/03 19:28:36 by svogrig          ###   ########.fr        #
+#    Updated: 2024/04/03 20:18:24 by svogrig          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,6 +72,8 @@ CC_FLAGS		:=	-Wall -Wextra -Werror
 VAL_FLAGS		:=	--leak-check=full --track-origins=yes --track-fds=yes
 VAL_FLAGS_C		:=	--show-leak-kinds=all --trace-children=yes
 
+VAL_SUPPR		:= 	--suppressions=readline.suppr
+
 SAN_FLAGS		:=	-fsanitize=address -g
 
 # make ------------------------------------------------------------------------#
@@ -125,10 +127,10 @@ debugbonus:
 	@$(MAKE) -j makedebug_b
 
 valgrind: debug
-	- valgrind $(VAL_FLAGS) $(VAL_FLAGS_C) ./$(NAME_DEBUG) $(RUNARGS)
+	- valgrind $(VAL_FLAGS) $(VAL_FLAGS_C) $(VAL_SUPPR) ./$(NAME_DEBUG) $(RUNARGS)
 
 valgrindbonus: debugbonus
-	- valgrind $(VAL_FLAGS) $(VAL_FLAGS_C) ./$(NAME_DEBUG) $(RUNARGS_BONUS)
+	- valgrind $(VAL_FLAGS) $(VAL_FLAGS_C) $(VAL_SUPPR) ./$(NAME_DEBUG) $(RUNARGS_BONUS)
 
 sanitize:
 	@$(MAKE) -j makesanitize
