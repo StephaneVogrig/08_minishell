@@ -32,13 +32,16 @@
 #### terminal
 [Definitions of the Terminal Capabilities](https://www.gnu.org/software/termutils/manual/termcap-1.3/html_chapter/termcap_4.html)
 
-### tuto Shell en C
+#### tuto Shell en C
 - [Fr-> Un petit tuto de base avec toutes les etapes](https://segfault42.github.io/posts/minishell/)
 - [Fr ->Un tuto avec beaucoup d'info !!](https://chrtophe.developpez.com/tutoriels/minisysteme/)
 - [En -> Tuto pas encore lu Part1](https://dev.to/angelotheman/build-your-own-shell-part-2-5gie)
 - [En -> Tuto pas encore lu Part2](https://dev.to/angelotheman/build-your-own-shell-part-2-5gie)
 
-# test tricky
+#### test
+[tester](https://github.com/StephaneVogrig/minishell_tester)
 cat << EOF (cat * && cat *)  
 vs  
 cat << EOF && &&
+
+*
