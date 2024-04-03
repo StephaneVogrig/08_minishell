@@ -6,7 +6,7 @@
 #    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/04/03 20:18:24 by svogrig          ###   ########.fr        #
+#    Updated: 2024/04/03 20:25:34 by svogrig          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,12 +69,15 @@ DEPS			:=	$(OBJ:.o=.d) $(OBJ_SAN:.o=.d) $(OBJ_BONUS:.o=.d)
 CC				:=	cc
 CC_FLAGS		:=	-Wall -Wextra -Werror
 
+# valgrind --------------------------------------------------------------------#
+
 VAL_FLAGS		:=	--leak-check=full --track-origins=yes --track-fds=yes
 VAL_FLAGS_C		:=	--show-leak-kinds=all --trace-children=yes
-
 VAL_SUPPR		:= 	--suppressions=readline.suppr
 
-SAN_FLAGS		:=	-fsanitize=address -g
+# sanitize --------------------------------------------------------------------#
+
+SAN_FLAGS		:=	-fsanitize=address
 
 # make ------------------------------------------------------------------------#
 
