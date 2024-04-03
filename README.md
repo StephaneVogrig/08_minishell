@@ -5,8 +5,7 @@
 - [Shell Command Language](https://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html)
 - [Writing Your Own Shell](https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf)
 - [42Docs](https://harm-smits.github.io/42docs/projects/minishell)
-- [Medium](https://m4nnb3ll.medium.com/minishell-building-a-mini-bash-a-42-project-b55a10598218)  
-Minishell: Building a mini-bash (a @42 project)
+- [Medium - Minishell: Building a mini-bash (a @42 project)](https://m4nnb3ll.medium.com/minishell-building-a-mini-bash-a-42-project-b55a10598218)  
 - [youtube: Frame of Essence - How do computers read code?](https://www.youtube.com/watch?v=QXjU9qTsYCc&t=563s)
 
 #### analyse lexicale - lexer
@@ -27,8 +26,7 @@ Minishell: Building a mini-bash (a @42 project)
 - [youtube : Kris Jordan - LS35.1 - Lexical Analysis Introduction](https://www.youtube.com/watch?v=sF8NVTyC4uo)
 
 #### github
-- [madebypixel02](https://github.com/madebypixel02/minishell?tab=readme-ov-file#lexer-and-expander)  
-Minishell | 42 Madrid, avec une bonne explication en introduction
+- [madebypixel02 - Minishell | 42 Madrid, avec une bonne explication en introduction](https://github.com/madebypixel02/minishell?tab=readme-ov-file#lexer-and-expander)  
 - [yannick](https://yannick.eu/minishell/)
 
 #### terminal
@@ -40,3 +38,7 @@ Minishell | 42 Madrid, avec une bonne explication en introduction
 - [En -> Tuto pas encore lu Part1](https://dev.to/angelotheman/build-your-own-shell-part-2-5gie)
 - [En -> Tuto pas encore lu Part2](https://dev.to/angelotheman/build-your-own-shell-part-2-5gie)
 
+# test tricky
+cat << EOF (cat * && cat *)  
+vs  
+cat << EOF && &&
