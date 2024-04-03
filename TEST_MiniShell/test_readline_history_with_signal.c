@@ -41,6 +41,10 @@ void	handler_ctrl_c(int signal)
 // 	}
 // }
 
+///Pour [ctr + d] -> Si dans here_doc et rien ecrit retourne message d'erreur suivant:
+//     bash: warning: here-document at line 14 delimited by end-of-file (wanted `limiter')
+// faire [ctr + d] dans le here_doc c'est comme entrer le limiter
+
 int	main(void)
 {
 	char				*inpt;
