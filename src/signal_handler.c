@@ -1,20 +1,25 @@
 /******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   signal_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/03 18:59:23 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/04 16:30:16 by stephane         ###   ########.fr       */
+/*   Created: 2024/04/04 16:07:09 by stephane          #+#    #+#             */
+/*   Updated: 2024/04/04 18:22:26 by stephane         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "signal_handler.h"
 
-# include <readline/readline.h>
-# include <readline/history.h>
-# include "signal_handler.h"
-
-#endif
+void	handler_ctrl_c(int signal)
+{
+	if (signal == SIGINT)
+	{
+		write(1, "\n", 1);
+		rl_on_new_line();
+		rl_replace_line("",0);
+		rl_redisplay();
+		// prompt_print();
+	}
+}

@@ -1,20 +1,21 @@
 /******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   test_while.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/03 18:59:23 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/04 16:30:16 by stephane         ###   ########.fr       */
+/*   Created: 2024/04/04 15:44:26 by stephane          #+#    #+#             */
+/*   Updated: 2024/04/04 15:46:57 by stephane         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-
-# include <readline/readline.h>
-# include <readline/history.h>
-# include "signal_handler.h"
-
-#endif
+int main(void)
+{
+	char *str = "bonjour le monde";
+	int	i;
+	
+	i = 0;
+	while(str[i++]);
+	return i;
+}

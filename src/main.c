@@ -1,40 +1,41 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:55:55 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/03 19:00:14 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/05 12:14:21 by stephane         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "minishell.h"
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
 	char	*input;
 
-	
+	if (argc || argv || envp){};	
+	signal(SIGINT, handler_ctrl_c);
+	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
-		// print_prompt();
-		input = readline("");
+		input = readline(PROMPT_MINISHELL);
 		if (!input)
-		{
-			perror("minishell: readline");
-			exit(1);
-		}
-		// add_history(input);
-		// printf("%s", input);
-		// printf("\n");
+			break;
 		if (ft_strncmp("exit", input, 4) == 0)
 		{
 			free(input);
-			exit(0);
+			write(1, "exit\n", 5);
+			break;
+		}
+		if (*input)
+		{
+			add_history(input);
+			exec_input(input);	
 		}
 		free(input);
-	}
-	return (0);
+	}		
+	return (EXIT_SUCCESS);
 }
