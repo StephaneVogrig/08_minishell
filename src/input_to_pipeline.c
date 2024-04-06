@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:25:18 by stephane          #+#    #+#             */
-/*   Updated: 2024/04/06 19:21:03 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/06 21:35:51 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ char	*next_token_to_cmdout(char *str, t_cmd *cmd)
 	}
 	else
 		cmd->append_out = FALSE;
+	if (cmd->out)
+		free(cmd->out);
 	str = skip_blank(str);
 	str = next_token(str, &(cmd->out));
 	return (str);	
@@ -48,6 +50,8 @@ char	*next_token_to_cmdout(char *str, t_cmd *cmd)
 char	*next_token_to_cmdin(char *str, t_cmd *cmd)
 {
 	str = skip_blank(str);
+	if (cmd->in)
+		free(cmd->in);
 	str = next_token(str, &(cmd->in));
 	cmd->heredoc = NULL;
 	return (str);
@@ -59,17 +63,17 @@ char	*new_current_cmd(t_cmd **cmd, char *str)
 	if (!(*cmd)->next)
 		return (NULL);
 	*cmd = (*cmd)->next;
-	return (str);
+	return (++str);
 }
 
 char	*parse(char *input, t_cmd **cmd, t_list **heredoc)
 {
 	if (*input == '|')
-		return (new_current_cmd(cmd, input++));
+		return (new_current_cmd(cmd, input));
 	if (*input == '<' && *(input + 1) == '<')
 		return (next_token_to_heredoc(input + 2, *cmd, heredoc));
 	if (*input == '<')
-		return (next_token_to_cmdin(input, *cmd));
+		return (next_token_to_cmdin(input + 1, *cmd));
 	if (*input == '>')
 		return (next_token_to_cmdout(input + 1, *cmd));
 	return (add_next_token(input, &((*cmd)->argv)));
@@ -78,15 +82,15 @@ char	*parse(char *input, t_cmd **cmd, t_list **heredoc)
 t_cmd	*input_to_pipeline(char *input, t_list **heredocs)
 {
 	t_cmd	*pipeline;
-	t_cmd	*cmd;
+	t_cmd	*current_cmd;
 
-	cmd = cmd_new();
-	if (!cmd)
+	current_cmd = cmd_new();
+	if (!current_cmd)
 		return (NULL);
-	pipeline = cmd;
+	pipeline = current_cmd;
 	while (*input)
 	{
-		input = parse(input, &cmd, heredocs);
+		input = parse(input, &current_cmd, heredocs);
 		if (!input)
 		{
 			pipeline_free(&pipeline);

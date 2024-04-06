@@ -6,7 +6,7 @@
 #    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/04/06 19:32:58 by svogrig          ###   ########.fr        #
+#    Updated: 2024/04/06 20:15:59 by svogrig          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ SRC				:=	main.c \
 					prompt.c \
 					signal_handler.c \
 					str.c \
-					token.c
+					token.c \
+					debug.c
 
 SRC				:=	$(SRC:%=$(DIR_SRC)/%)
 

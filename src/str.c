@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 15:52:14 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/06 19:05:35 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/06 21:01:02 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 t_bool	is_blank(char c)
 {
 	if (c == ' ' || c == '\t')
+		return (TRUE);
+	return (FALSE);
+}
+
+t_bool	is_operator(char c)
+{
+	if (c == '<' || c == '>' || c == '|')
 		return (TRUE);
 	return (FALSE);
 }

@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 00:11:51 by stephane          #+#    #+#             */
-/*   Updated: 2024/04/06 19:17:24 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/06 21:20:55 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*str_to_token(char *str, char *token)
 {
 	char	quote;
 
-	while (*str && !is_blank(*str))
+	while (*str && !is_blank(*str) && !is_operator(*str))
 	{
 		if (*str == '\'' || *str == '\"')
 		{
@@ -39,7 +39,7 @@ int	len_next_token(char *str)
 	char	quote;
 
 	size = 0;
-	while (*str && !is_blank(*str))
+	while (*str && !is_blank(*str) && !is_operator(*str))
 	{
 		if (*str == '\'' || *str == '\"')
 		{

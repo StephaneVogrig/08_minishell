@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:47:14 by stephane          #+#    #+#             */
-/*   Updated: 2024/04/05 13:09:39 by stephane         ###   ########.fr       */
+/*   Updated: 2024/04/06 21:47:49 by svogrig          ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "command.h"
 
@@ -65,4 +65,19 @@ t_cmd	*pipeline_add_newcmd(t_cmd **pipeline)
 		temp = temp->next;
 	temp->next = cmd;
 	return (cmd);
+}
+
+int	cmd_nbr(t_cmd *pipeline)
+{
+	int	i;
+
+	if (!pipeline)
+		return (0);
+	i = 0;
+	while (pipeline)
+	{
+		pipeline = pipeline->next;
+		i++;
+	}
+	return (i);
 }
