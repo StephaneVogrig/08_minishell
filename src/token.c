@@ -1,16 +1,16 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 00:11:51 by stephane          #+#    #+#             */
-/*   Updated: 2024/04/05 13:29:14 by stephane         ###   ########.fr       */
+/*   Updated: 2024/04/06 19:17:24 by svogrig          ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
-#include "libft.h"
+#include "token.h"
 
 char	*str_to_token(char *str, char *token)
 {
@@ -65,6 +65,7 @@ char	*next_token(char *str, char	**token)
 		return (NULL);
 	}
 	str = str_to_token(str, *token);
+	return (str);
 }
 
 char	*add_next_token(char *str, t_list **tokenlist)

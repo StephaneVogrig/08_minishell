@@ -1,25 +1,16 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   exec_input.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:36:43 by stephane          #+#    #+#             */
-/*   Updated: 2024/04/05 21:18:31 by stephane         ###   ########.fr       */
+/*   Updated: 2024/04/06 19:25:26 by svogrig          ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "exec_input.h"
-
-char	*skip_blank(char *str)
-{
-	if (!str)
-		return (NULL);
-	while (is_blank(*str))
-		str++;		
-	return (str);	
-}
 
 t_bool	is_not_valid(char *input)
 {
@@ -43,7 +34,7 @@ void	exec_pipeline(t_cmd *pipeline, t_list *herdocs)
 
 void	exec_input(char *input)
 {
-	t_list	*pipeline;
+	t_cmd	*pipeline;
 	t_list	*heredocs;
 	
 	if (is_not_valid(input))
@@ -55,8 +46,8 @@ void	exec_input(char *input)
 		free(input);
 		exit(EXIT_FAILURE);
 	}
-	heredoc_fill(heredocs);
+	// heredoc_fill(heredocs);
 	exec_pipeline(pipeline, heredocs);
-	pipeline_free(pipeline);
-	ft_lstclear(&heredocs, ft_lstclear);	
+	pipeline_free(&pipeline);
+	// ft_lstclear(&heredocs, ft_lstclear);	
 }

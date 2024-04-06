@@ -1,14 +1,14 @@
-#******************************************************************************#
+# **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: stephane <stephane@student.42.fr>          +#+  +:+       +#+         #
+#    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/04/04 16:21:58 by stephane         ###   ########.fr        #
+#    Updated: 2024/04/06 19:32:58 by svogrig          ###   ########.fr        #
 #                                                                              #
-#******************************************************************************#
+# **************************************************************************** #
 
 
 NAME			:=	minishell
@@ -22,8 +22,14 @@ NAME_SANB		:=	$(NAME)_bonussanitize
 
 DIR_SRC			:=	src
 SRC				:=	main.c \
+					command.c \
+					exec_input.c \
+					exit.c \
+					input_to_pipeline.c \
+					prompt.c \
 					signal_handler.c \
-					prompt.c
+					str.c \
+					token.c
 
 SRC				:=	$(SRC:%=$(DIR_SRC)/%)
 

@@ -1,23 +1,22 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   input_to_pipeline.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:25:18 by stephane          #+#    #+#             */
-/*   Updated: 2024/04/05 20:21:18 by stephane         ###   ########.fr       */
+/*   Updated: 2024/04/06 19:21:03 by svogrig          ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "input_to_pipeline.h"
-#include "command.h"
 
 char	*next_token_to_heredoc(char *str, t_cmd *cmd, t_list **heredocs)
 {
 	t_list	*new_heredoc;
 	
-	new_heredoc = ft_listnew(NULL);
+	new_heredoc = ft_lstnew(NULL);
 	if (!new_heredoc)
 	{
 		perror("minishell: next_token_to_herdoc: ft_listnew");
@@ -63,16 +62,16 @@ char	*new_current_cmd(t_cmd **cmd, char *str)
 	return (str);
 }
 
-t_list	*parse(char *input, t_cmd **cmd, t_list **heredoc)
+char	*parse(char *input, t_cmd **cmd, t_list **heredoc)
 {
 	if (*input == '|')
 		return (new_current_cmd(cmd, input++));
 	if (*input == '<' && *(input + 1) == '<')
 		return (next_token_to_heredoc(input + 2, *cmd, heredoc));
 	if (*input == '<')
-		return (nexttoken_to_cmdin(input, *cmd));
+		return (next_token_to_cmdin(input, *cmd));
 	if (*input == '>')
-		return (nexttoken_to_cmdout(input + 1, *cmd));
+		return (next_token_to_cmdout(input + 1, *cmd));
 	return (add_next_token(input, &((*cmd)->argv)));
 }
 
