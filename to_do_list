@@ -1,0 +1,14 @@
+TO_DO_LIST
+
+1 -> gerer les here_doc
+	-traiter avant les verifs de redir
+	-faire fichiers temporaires qui recup entrees de stdin
+	-gerer les << avec open de fichier temp
+	-unlink
+	-generation de nom de fichier temps ?
+	
+2 -> expansion des variables
+	-structure: tableau ou listes chainees?
+
+3 -> built-ins
+
