@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:47:14 by stephane          #+#    #+#             */
-/*   Updated: 2024/04/06 21:47:49 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/07 20:16:04 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,8 @@ t_cmd	*cmd_new(void)
 
 void cmd_free(t_cmd *cmd)
 {
-	if (cmd->in)
-		free(cmd->in);
-	if (cmd->out)
-		free(cmd->out);
+	if (cmd->redir)
+		redirection_free(&cmd->redir);
 	if (cmd->argv)
 		ft_lstclear(&cmd->argv, free);
 	free(cmd);

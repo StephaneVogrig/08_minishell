@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_input.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:36:43 by stephane          #+#    #+#             */
-/*   Updated: 2024/04/07 16:38:35 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/04/07 21:03:00 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	exec_input(char *input, char **envp)
 	if (is_not_valid(input))
 		return ;
 	heredocs = NULL;
-	pipeline = input_to_pipeline(skip_blank(input), &heredocs);
+	pipeline = input_to_pipeline(skip_blank(input));
 	if (!pipeline)
 	{
 		free(input);

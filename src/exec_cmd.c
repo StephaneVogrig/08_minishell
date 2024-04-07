@@ -6,42 +6,51 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 15:22:47 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/07 14:30:23 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/07 21:06:01 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec_cmd.h"
-#include "command.h"
-#include "stdio.h"//steph
+#include "libft.h"
+
+t_bool	redir_cmd(t_redir *redirs)
+{
+	int		fd;
+	int		fd_dup;
+
+	while (redirs)
+	{
+		fd_dup = STDOUT_FD;
+		if (redirs->type == REDIR_IN || redirs->type == HEREDOC)
+		{
+			fd_dup = STDIN_FD;
+			fd = open(redirs->file_name, O_RDONLY);
+		}
+		else if (redirs->type == REDIR_OUT_APD)
+			fd = open(redirs->file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		else if (redirs->type == REDIR_OUT_TRC)
+			fd = open(redirs->file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		if (fd == -1)
+		{
+			fd_printf(STDERR_FD, "minishell: %s: %s\n", redirs->file_name, strerror(errno));
+			return (FAILURE);
+		}
+		dup2(fd, fd_dup);
+		close(fd);
+		redirs = redirs->next;
+	}
+	return (SUCCESS);
+}
 
 void	exec_cmd(t_cmd *cmd, char **envp)
 {
 	char	*path;
 	char	**argv;
-	char	*file_path;
-	int		fd_in;
-	int		fd_out;
 
-	if (cmd->in)
+	if (!redir_cmd(cmd->redir))
 	{
-		file_path = cmd->in;
-		fd_in = open(file_path, O_RDONLY);
-		if (fd_in == -1)
-			exit_on_open_error(file_path, -1);
-		dup2(fd_in, STDIN_FD);
-		close(fd_in);
-	}
-	if (cmd->out)
-	{
-		file_path = cmd->out;
-		if (cmd->append_out)
-			fd_out = open(file_path, O_WRONLY | O_CREAT | O_APPEND, 0644);
-		else
-			fd_out = open(file_path, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		if (fd_out == -1)
-			exit_on_open_error(file_path, fd_in);
-		dup2(fd_out, STDOUT_FD);
-		close(fd_out);
+		pipeline_free(&cmd);
+		exit(EXIT_FAILURE);
 	}
 	argv = strlist_to_strtab(cmd->argv);
 	cmd->argv = NULL;
@@ -54,7 +63,6 @@ void	exec_cmd(t_cmd *cmd, char **envp)
 		strtab_free(argv);
 		exit(EXIT_FAILURE);
 	}
-	
 	execve(path, argv, envp);
 	perror("pipex");
 	strtab_free(argv);

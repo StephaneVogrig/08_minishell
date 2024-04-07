@@ -6,12 +6,14 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 23:02:22 by stephane          #+#    #+#             */
-/*   Updated: 2024/02/07 18:38:16 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/07 18:24:23 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VS_TYPE_H
 # define VS_TYPE_H
+
+typedef char				t_char_m;
 
 typedef signed char			t_si8;
 typedef signed short		t_si16;
