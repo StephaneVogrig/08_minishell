@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 02:50:36 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/06 23:00:54 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/07 04:15:24 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ char	*skip_blank(char *str);
 void	pipex_strncpy(char *dest, char *src, int n);
 t_bool	add_to_strlist(t_list **strlist, char *str);
 char	**argv_empty(void);
-char	**charlist_to_chartab(t_list *strlist);
+char	**strlist_to_strtab(t_list *strlist);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 15:52:14 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/07 03:30:06 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/07 04:15:24 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char	**argv_empty(void)
 	return (argv);
 }
 
-char	**charlist_to_chartab(t_list *strlist)
+char	**strlist_to_strtab(t_list *strlist)
 {
 	int		nbr_elem;
 	char	**strtab;
