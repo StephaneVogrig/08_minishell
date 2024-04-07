@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 15:22:47 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/07 04:15:24 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/07 14:30:23 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void	exec_cmd(t_cmd *cmd, char **envp)
 		close(fd_out);
 	}
 	argv = strlist_to_strtab(cmd->argv);
+	cmd->argv = NULL;
+	pipeline_free(&cmd);
 	if (!argv)
 		exit(EXIT_FAILURE);
 	path = cmd_path(argv, envp);
