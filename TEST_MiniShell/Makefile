@@ -20,7 +20,7 @@ ${NAME}: ${OBJS}
 
 signal:
 	@${MAKE} -C ./libft
-	@${CC} ${CFLAGS} test_readline_history_with_signal.c ./libft/libft.a -lreadline -o ${NAME}
+	@${CC} ${CFLAGS} test_readline_history_with_signal_V2.c ./libft/libft.a -lreadline -o ${NAME}
 
 clean: 
 	@${MAKE} -C ./libft fclean

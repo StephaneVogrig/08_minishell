@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec_input.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:36:43 by stephane          #+#    #+#             */
-/*   Updated: 2024/04/07 14:26:56 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/07 16:38:35 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipeline_wait.h"
-#include "exec_input.h"
 #include "debug.h"
+#include "exec_input.h"
+#include "pipeline_wait.h"
 #include "process.h"
 
 t_bool	is_not_valid(char *input)
@@ -22,9 +22,8 @@ t_bool	is_not_valid(char *input)
 		fd_printf(STDERR_FD, "bash: syntax error near \" | \"\n");
 		return (TRUE);
 	}
-	return (FALSE);	
+	return (FALSE);
 }
-
 
 int	exec_pipeline(t_cmd *cmds, t_list *heredocs, char **envp)
 {
@@ -40,32 +39,28 @@ int	exec_pipeline(t_cmd *cmds, t_list *heredocs, char **envp)
 	if (pipe(pipe_))
 		exit_pipex("minishell: process_outfile: fork", pids, NULL);
 	i = 0;
-	
-
-// print_cmd(*cmds);
+	// print_cmd(*cmds);
 	pids[0] = process_infile(cmds, pipe_, envp, pids);
 	current_cmd = cmds->next;
 	cmd_free(cmds);
 	cmds = current_cmd;
-
 	while (i < (nb_cmd - 2) && pids[i] > -1)
 	{
-// print_cmd(*current_cmd);
+		// print_cmd(*current_cmd);
 		pids[++i] = process_pipes(cmds, &pipe_[READ], envp, pids);
-	current_cmd = cmds->next;
-	cmd_free(cmds);
-	cmds = current_cmd;
+		current_cmd = cmds->next;
+		cmd_free(cmds);
+		cmds = current_cmd;
 	}
-// print_cmd(*current_cmd);
+	// print_cmd(*current_cmd);
 	pids[++i] = process_outfile(cmds, pipe_[READ], envp, pids);
 	cmd_free(cmds);
 	close(pipe_[READ]);
 	exit_code = wait_process(pids, i);
 	free(pids);
 	return (exit_code);
-	
 	ft_printf("start exec_pipeline\n");
-	if(!cmds || !envp || !heredocs)
+	if (!cmds || !envp || !heredocs)
 		return (0);
 	return (0);
 }
@@ -80,8 +75,9 @@ int	exec_cmd_alone(t_cmd *cmd, char **envp)
 		exec_cmd(cmd, envp);
 		exit(EXIT_FAILURE);
 	}
+	cmd_free(cmd); // modif leak 1 seule commande
 	if (*pid == -1)
-		exit (EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	return (wait_process(pid, 1));
 }
 
@@ -90,7 +86,7 @@ void	exec_input(char *input, char **envp)
 	t_cmd	*pipeline;
 	t_list	*heredocs;
 	int		exit_code;
-	
+
 	if (is_not_valid(input))
 		return ;
 	heredocs = NULL;
@@ -100,12 +96,12 @@ void	exec_input(char *input, char **envp)
 		free(input);
 		exit(EXIT_FAILURE);
 	}
-// print_pipeline(pipeline);
+	// print_pipeline(pipeline);
 	// heredoc_fill(heredocs);
 	if (!pipeline->next)
 		exit_code = exec_cmd_alone(pipeline, envp);
 	else
 		exit_code = exec_pipeline(pipeline, heredocs, envp);
 	// pipeline_free(&pipeline);
-	// ft_lstclear(&heredocs, ft_lstclear);	
+	// ft_lstclear(&heredocs, ft_lstclear);
 }
