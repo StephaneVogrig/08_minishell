@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:55:55 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/07 21:28:52 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/04/07 22:44:26 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,17 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc || argv)
 	{
-	};
+	}
 	signal(SIGINT, handler_ctrl_c);
 	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
 		input = readline(PROMPT_MINISHELL);
 		if (!input)
-		{
-			write(1, "exit\n", 5);
 			break ;
-		}
 		if (ft_strncmp("exit", input, 4) == 0)
 		{
 			free(input);
-			write(1, "exit\n", 5);
 			break ;
 		}
 		if (*input)
@@ -43,5 +39,6 @@ int	main(int argc, char **argv, char **envp)
 		}
 		free(input);
 	}
+	write(1, "exit\n", 5);
 	return (EXIT_SUCCESS);
 }
