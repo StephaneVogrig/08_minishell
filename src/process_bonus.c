@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:02:16 by stephane          #+#    #+#             */
-/*   Updated: 2024/04/07 02:50:09 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/07 13:42:58 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	process_infile(t_cmd *cmd, int *pipe_out, char **envp, int *pids)
 	int		fd;
 	int		pid;
 	
-	fd = 0; //initialisation
+	fd = 0;
 	pid = fork();
 	if (pid == 0)
 	{
@@ -25,7 +25,7 @@ int	process_infile(t_cmd *cmd, int *pipe_out, char **envp, int *pids)
 		free(pids);
 		dup2(pipe_out[WRITE], STDOUT_FD);
 		close(pipe_out[WRITE]);
-		exec_cmd(cmd, envp);//*cmd
+		exec_cmd(cmd, envp);
 	}
 	if (pid == -1)
 		exit_pipex("minishell: process_infile: pipe", pids, pipe_out);
@@ -53,7 +53,7 @@ int	process_pipes(t_cmd *cmd, int *fd_in, char **envp, int *pids)
 		close(*fd_in);
 		dup2(pipe_out[WRITE], STDOUT_FD);
 		close(pipe_out[WRITE]);
-		exec_cmd(cmd, envp);//*cmd
+		exec_cmd(cmd, envp);
 	}
 	if (pid == -1)
 		perror("minishell: process_pipes: fork");
@@ -68,14 +68,14 @@ int	process_outfile(t_cmd *cmd, int fd_in, char **envp, int *pids)
 	int		fd_out;
 	int		pid;
 
-	fd_out = 0; //initialisation
+	fd_out = 0;
 	pid = fork();
 	if (pid == 0)
 	{
 		free(pids);
 		dup2(fd_in, STDIN_FD);
 		close(fd_in);
-		exec_cmd(cmd, envp);//*cmd
+		exec_cmd(cmd, envp);
 	}
 	if (pid == -1)
 		perror("minishell: process_outfile: fork");
