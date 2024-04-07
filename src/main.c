@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:55:55 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/06 19:06:54 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/06 22:03:38 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	char	*input;
 
-	if (argc || argv || envp){};	
+	if (argc || argv){};	
 	signal(SIGINT, handler_ctrl_c);
 	signal(SIGQUIT, SIG_IGN);
 	while (1)
@@ -34,7 +34,7 @@ int	main(int argc, char **argv, char **envp)
 		if (*input)
 		{
 			add_history(input);
-			exec_input(input);	
+			exec_input(input, envp);	
 		}
 		free(input);
 	}		

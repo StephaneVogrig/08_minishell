@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 15:52:14 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/06 21:01:02 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/07 03:30:06 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_bool	add_to_strlist(t_list **strlist, char *str)
 	new_node = ft_lstnew(str);
 	if (!new_node)
 	{
-		perror("pipex: add_to_strlist");
+		perror("minishell: add_to_strlist");
 		ft_lstclear(strlist, &free);
 		return (FAILURE);
 	}
@@ -65,14 +65,42 @@ char	**argv_empty(void)
 	argv = NULL;
 	empty_str = ft_calloc(1, 1);
 	if (!empty_str)
-		exit_perror("pipex: argv_empty: calloc");
+		exit_perror("minishell: argv_empty: calloc");
 	argv = malloc(sizeof(char *) * 2);
 	if (!argv)
 	{
 		free(empty_str);
-		exit_perror("pipex: argv_empty: malloc");
+		exit_perror("minishell: argv_empty: malloc");
 	}
 	argv[0] = empty_str;
 	argv[1] = NULL;
+	return (argv);
+}
+
+char	**charlist_to_chartab(t_list *strlist)
+{
+	int		nbr_elem;
+	char	**strtab;
+	char	**argv;
+	t_list	*temp;
+
+	if (!strlist)
+		return (NULL);
+	nbr_elem = ft_lstsize(strlist);
+	argv = malloc(sizeof(argv) * (nbr_elem + 1));
+	if (!argv)
+	{
+		perror("minishell: charlist_to_chartab");
+		return (NULL);
+	}
+	strtab = argv;
+	while (nbr_elem--)
+	{
+		*strtab++ = strlist->content;
+		temp = strlist->next;
+		free(strlist);
+		strlist = temp;
+	}
+	*strtab = NULL;
 	return (argv);
 }

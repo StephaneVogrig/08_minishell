@@ -1,6 +1,8 @@
+Mandatory
+
 - [ ] one global variable max
-- [ ] prompt on waiting
-- [ ] working history
+- [x] prompt on waiting
+- [x] working history
 - [ ] execution commande
 	- [ ] search executable using relative path
 	- [ ] search executable using absolute path
@@ -20,9 +22,9 @@
 	- [ ] $?
 	- [ ] "$"
 - [ ] signaux
-	- [ ] ctrl-c displays a new prompt on a new line.
-	- [ ] ctrl-d exit the shell
-	- [ ] ctrl-\ does nothig
+	- [x] ctrl-c displays a new prompt on a new line.
+	- [x] ctrl-d exit the shell
+	- [x] ctrl-\ does nothig
 - [ ] builtins
 	- [ ] echo with no option
 	- [ ] echo -n
@@ -33,6 +35,9 @@
 	- [ ] unset with no option
 	- [ ] env with no option
 	- [ ] exit with no option
+
+Bonus :
+
 - [ ] operateur
 	- [ ] &&
 	- [ ] ||

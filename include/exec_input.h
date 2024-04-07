@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 20:37:35 by stephane          #+#    #+#             */
-/*   Updated: 2024/04/06 19:09:50 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/06 23:04:09 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 #include "command.h"
 #include "str.h"
 #include "input_to_pipeline.h"
+#include "pipex_bonus.h"
 
-void	exec_input(char *input);
+void	exec_input(char *input, char **envp);
 
 #endif
