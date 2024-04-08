@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:25:18 by stephane          #+#    #+#             */
-/*   Updated: 2024/04/07 21:02:50 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/08 02:20:17 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,12 @@ char	*next_token_to_redir(char *str, t_redir **redir, int type)
 		return (NULL);
 	if(!redirection_add(redir, token, type))
 		return (NULL);
-// ft_printf("%i, %s\n", redir->type, redir->file_name);
 	return (str);
 }
 
 char	*new_current_cmd(t_cmd **cmd, char *str)
 {
-	(*cmd)->next =  cmd_new();
+	(*cmd)->next = cmd_new();
 	if (!(*cmd)->next)
 		return (NULL);
 	*cmd = (*cmd)->next;
@@ -61,8 +60,6 @@ t_cmd	*input_to_pipeline(char *input)
 	while (*input)
 	{
 		input = parse(input, &current_cmd);
-		
-		// ft_printf("redir %p\n", current_cmd->redir);
 		if (!input)
 		{
 			pipeline_free(&pipeline);

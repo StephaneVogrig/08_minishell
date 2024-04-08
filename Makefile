@@ -6,7 +6,7 @@
 #    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/04/07 02:20:37 by svogrig          ###   ########.fr        #
+#    Updated: 2024/04/08 04:10:00 by svogrig          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ NAME_SANB		:=	$(NAME)_bonussanitize
 # sources ---------------------------------------------------------------------#
 
 DIR_SRC			:=	src
-#$(shell find src -name '*.c')
+#SRC				=	$(shell find ./src/ -name *.c)
 SRC				:=	main.c \
 					command.c \
 					cmd_path.c \
@@ -29,17 +29,17 @@ SRC				:=	main.c \
 					exec_cmd.c \
 					exit.c \
 					input_to_pipeline.c \
+					pipeline.c \
 					prompt.c \
 					heredoc_bonus.c \
-					pipex_bonus.c \
-					process_bonus.c \
+					pipe.c \
+					process.c \
 					redirection.c \
 					signal_handler.c \
 					str.c \
 					token.c \
 					debug.c \
 					wait.c 
-#					cmd_to_argv.c 
 
 SRC				:=	$(SRC:%=$(DIR_SRC)/%)
 

@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal_handler.c                                   :+:      :+:    :+:   */
+/*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/04 16:07:09 by stephane          #+#    #+#             */
-/*   Updated: 2024/04/08 01:25:28 by svogrig          ###   ########.fr       */
+/*   Created: 2024/04/08 03:27:53 by svogrig           #+#    #+#             */
+/*   Updated: 2024/04/08 03:40:59 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "signal_handler.h"
+#include "pipe.h"
 
-void	handler_ctrl_c(int signal)
+int	pipe_ms(int	fds[2])
 {
-	if (signal == SIGINT)
+	if (pipe(fds) == -1)
 	{
-		write(1, "\n", 1);
-		rl_on_new_line();
-		rl_replace_line("",0);
-		rl_redisplay();
+		perror("minishell: pipe");
+		return (-1);
 	}
+	return (0);
 }

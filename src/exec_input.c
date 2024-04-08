@@ -6,16 +6,14 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:36:43 by stephane          #+#    #+#             */
-/*   Updated: 2024/04/07 21:03:00 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/08 04:01:49 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "debug.h"
 #include "exec_input.h"
-#include "pipeline_wait.h"
-#include "process.h"
 
-t_bool	is_not_valid(char *input)
+t_bool	syntax_error(char *input)
 {
 	if (*input == '|' || *(input + ft_strlen(input) - 1) == '|')
 	{
@@ -25,83 +23,70 @@ t_bool	is_not_valid(char *input)
 	return (FALSE);
 }
 
-int	exec_pipeline(t_cmd *cmds, t_list *heredocs, char **envp)
+int	exec_pipeline(t_cmd *pipeline, pid_t *pids, char **envp)
 {
-	int		pipe_[2];
-	pid_t	*pids;
-	int		i;
-	int		exit_code;
-	int		nb_cmd;
-	t_cmd	*current_cmd;
+	int		fd;
+	pid_t	*pid;
 
-	nb_cmd = cmd_nbr(cmds);
-	pids = pipex_malloc(sizeof(int) * nb_cmd, "minishell: main: malloc");
-	if (pipe(pipe_))
-		exit_pipex("minishell: process_outfile: fork", pids, NULL);
-	i = 0;
-	// print_cmd(*cmds);
-	pids[0] = process_infile(cmds, pipe_, envp, pids);
-	current_cmd = cmds->next;
-	cmd_free(cmds);
-	cmds = current_cmd;
-	while (i < (nb_cmd - 2) && pids[i] > -1)
+	fd = 0;
+	pid = pids;
+	*pid = process_first(pipeline, &fd, envp, pids);
+	pipeline = pipeline_clear_first(pipeline);
+	while (pipeline->next && *pid > -1)
 	{
-		// print_cmd(*current_cmd);
-		pids[++i] = process_pipes(cmds, &pipe_[READ], envp, pids);
-		current_cmd = cmds->next;
-		cmd_free(cmds);
-		cmds = current_cmd;
+		*(++pid) = process_pipes(pipeline, &fd, envp, pids);
+		pipeline = pipeline_clear_first(pipeline);
 	}
-	// print_cmd(*current_cmd);
-	pids[++i] = process_outfile(cmds, pipe_[READ], envp, pids);
-	cmd_free(cmds);
-	close(pipe_[READ]);
-	exit_code = wait_process(pids, i);
-	free(pids);
-	return (exit_code);
-	ft_printf("start exec_pipeline\n");
-	if (!cmds || !envp || !heredocs)
-		return (0);
-	return (0);
+	if (*pid > -1)
+	{
+		*(++pid) = process_last(pipeline, fd, envp, pids);
+		cmd_free(pipeline);
+	}
+	if (*pid == -1)
+		return (ERROR);
+	return (SUCCESS);
 }
 
 int	exec_cmd_alone(t_cmd *cmd, char **envp)
 {
-	pid_t	pid[1];
+	pid_t	pid[2];
 
+	pid[1] = 0;
 	*pid = fork();
 	if (*pid == 0)
 	{
 		exec_cmd(cmd, envp);
 		exit(EXIT_FAILURE);
 	}
-	cmd_free(cmd); // modif leak 1 seule commande
+	cmd_free(cmd);
 	if (*pid == -1)
 		exit(EXIT_FAILURE);
-	return (wait_process(pid, 1));
+	return (wait_process(pid));
 }
 
-void	exec_input(char *input, char **envp)
+int	exec_input(t_char_m *input, char **envp)
 {
 	t_cmd	*pipeline;
-	t_list	*heredocs;
 	int		exit_code;
+	pid_t	*pids;
 
-	if (is_not_valid(input))
-		return ;
-	heredocs = NULL;
+	if (syntax_error(input))
+		return (SYNTAX_ERROR);
 	pipeline = input_to_pipeline(skip_blank(input));
+	free(input);
 	if (!pipeline)
+		exit(EXIT_FAILURE);
+	if (!pipeline->next)
+		return(exec_cmd_alone(pipeline, envp));
+	pids = ft_calloc(sizeof(int), cmd_nbr(pipeline) + 1);
+	if (!pids)
 	{
-		free(input);
+		perror("minishell: exec_input: ft_calloc");
+		pipeline_free(&pipeline);
 		exit(EXIT_FAILURE);
 	}
-	// print_pipeline(pipeline);
-	// heredoc_fill(heredocs);
-	if (!pipeline->next)
-		exit_code = exec_cmd_alone(pipeline, envp);
-	else
-		exit_code = exec_pipeline(pipeline, heredocs, envp);
-	// pipeline_free(&pipeline);
-	// ft_lstclear(&heredocs, ft_lstclear);
+	exec_pipeline(pipeline, pids, envp);
+	exit_code = wait_process(pids);
+	free(pids);
+	return (exit_code);
 }

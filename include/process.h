@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 22:21:43 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/07 02:39:23 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/08 04:21:59 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 
 # include <fcntl.h>
 # include "command.h"
-# include "pipex_const.h"
 # include "exec_cmd.h"
 # include "pipex_bonus.h"
+# include "pipe.h"
 
-int		process_infile(t_cmd *cmd, int *pipe_out, char **envp, int *pids);
+int		process_first(t_cmd *cmd, int *fd_out, char **envp, int *pids);
 int		process_pipes(t_cmd *cmd, int *fd_in, char **envp, int *pids);
-int		process_outfile(t_cmd *cmd, int fd_in, char **envp, int *pids);
+int		process_last(t_cmd *cmd, int fd_in, char **envp, int *pids);
 
 #endif

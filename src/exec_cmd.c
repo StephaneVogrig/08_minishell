@@ -6,12 +6,11 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 15:22:47 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/07 21:06:01 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/08 04:14:39 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec_cmd.h"
-#include "libft.h"
 
 t_bool	redir_cmd(t_redir *redirs)
 {

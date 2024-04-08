@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 20:00:10 by svogrig           #+#    #+#             */
-/*   Updated: 2024/03/28 22:46:40 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/08 04:21:10 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <string.h>
 # include <errno.h>
 # include "libft.h"
-# include "pipex_const.h"
 
 void	exit_on_is_directory(char *path, char *to_free, char **argv);
 void	exit_on_acces_denied(char *path, char *to_free, char **argv);

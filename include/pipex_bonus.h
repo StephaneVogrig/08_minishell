@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:21:26 by stephane          #+#    #+#             */
-/*   Updated: 2024/04/07 03:40:09 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/08 04:21:28 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 
 # include <sys/wait.h>
 # include <sys/types.h>
-# include "pipex_const.h"
-# include "token.h" //steph
+# include "token.h"
 # include "exit.h"
 # include "exec_cmd.h"
 

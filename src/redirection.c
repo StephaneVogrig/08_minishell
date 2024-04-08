@@ -6,25 +6,11 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 01:36:10 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/07 20:39:10 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/08 04:17:27 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "redirection.h"
-
-// void	redirection(int fd_in, int fd_out)
-// {
-// 	dup2(fd_in, STDIN_FD);
-// 	dup2(fd_out, STDOUT_FD);
-// 	close(fd_in);
-// 	close(fd_out);
-// }
-
-void	close_pipe(int	*pipe_fd)
-{
-	close(pipe_fd[READ]);
-	close(pipe_fd[WRITE]);
-}
 
 int	is_directory(char *path)
 {

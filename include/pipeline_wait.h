@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 23:18:16 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/06 23:25:26 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/08 01:59:49 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,6 @@
 # include <stdlib.h>
 # include <wait.h>
 
-int	wait_process(pid_t *pids, int n);
+int	wait_process(pid_t *pids);
 
 #endif

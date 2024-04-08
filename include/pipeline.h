@@ -1,35 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_bonus.c                                      :+:      :+:    :+:   */
+/*   pipeline.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/06 17:15:04 by svogrig           #+#    #+#             */
-/*   Updated: 2024/03/26 22:05:29 by svogrig          ###   ########.fr       */
+/*   Created: 2024/04/08 03:13:01 by svogrig           #+#    #+#             */
+/*   Updated: 2024/04/08 03:17:49 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex_bonus.h"
+#ifndef PIPELINE_H
+# define PIPELINE_H
 
-void	*pipex_malloc(int size, char *error_msg)
-{
-	void	*ptr;
+# include "command.h"
 
-	ptr = malloc(size);
-	if (!ptr)
-	{
-		perror(error_msg);
-		exit(EXIT_FAILURE);
-	}
-	return (ptr);
-}
 
-void	exit_pipex(char *msg, int *pids, int *pipe)
-{
-	perror(msg);
-	free(pids);
-	if (pipe)
-		close_pipe(pipe);
-	exit(EXIT_FAILURE);
-}
+void	pipeline_free(t_cmd **pipeline);
+t_cmd	*pipeline_add_newcmd(t_cmd **pipeline);
+t_cmd	*pipeline_clear_first(t_cmd *pipeline);
+
+#endif
