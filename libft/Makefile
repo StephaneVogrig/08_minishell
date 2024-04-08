@@ -6,7 +6,7 @@
 #    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 02:59:52 by svogrig           #+#    #+#              #
-#    Updated: 2024/03/21 06:32:38 by svogrig          ###   ########.fr        #
+#    Updated: 2024/04/08 21:09:36 by svogrig          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -129,6 +129,7 @@ RM			:=	rm -f
 MAKEFLAGS	+=	--no-print-directory
 DIR_DUP		=	mkdir -p $(@D)
 
+
 #------------------------------------------------------------------------------#
 # rules                                                                        #
 #------------------------------------------------------------------------------#
@@ -137,12 +138,12 @@ all : $(NAME)
 	
 $(NAME) : $(OBJS)
 	$(AR) $(ARFLAGS) $(NAME) $(OBJS)
-	$(info created: $@)
+	@printf "\033[2K\rcreated: %s\n" $@
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	$(DIR_DUP)
+	@printf "\033[2K\rcompiling: %s" $@
 	$(CC) $(CFLAGS) $(CPPFLAGS) -c -o $@ $<
-	$(info created: $@)
 
 -include $(DEPS)
 

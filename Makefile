@@ -6,7 +6,7 @@
 #    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/04/08 04:10:00 by svogrig          ###   ########.fr        #
+#    Updated: 2024/04/08 21:12:46 by svogrig          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,9 +45,9 @@ SRC				:=	$(SRC:%=$(DIR_SRC)/%)
 
 # sources bonus ---------------------------------------------------------------#
 
-SRC_BONUS		:=	main.c
+SRC_BONUS		:=	$(SRC)
 
-SRC_BONUS		:=	$(SRC_BONUS:%=$(DIR_SRC)/%)
+#SRC_BONUS		:=	$(SRC_BONUS:%=$(DIR_SRC)/%)
 
 # includes --------------------------------------------------------------------#
 
@@ -168,15 +168,45 @@ makedebug_b:	$(NAME_DEBUG_B)
 makesanitize:	$(NAME_SAN)
 makesanitize_b:	$(NAME_SANB)
 
+#------------------------------------------------------------------------------#
+# compilation                                                                  #
+#------------------------------------------------------------------------------#
+
+$(DIR_BUILD)/%.o: $(DIR_SRC)/%.c
+	@mkdir -p $(@D)
+	@printf "\033[2K\rcompiling: %s" $@
+	@$(CC) $(CC_FLAGS) $(I_FLAG) -c $< -o $@
+
+$(DIR_BUILD)/debug/%.o: $(DIR_SRC)/%.c
+	@mkdir -p $(@D)
+	@$(CC) $(CC_FLAGS) $(I_FLAG) $(DEBUG_FLAGS) -c $< -o $@
+	$(info created : $@)
+
+$(DIR_BUILD)/debugbonus/%.o: $(DIR_SRC)/%.c
+	@mkdir -p $(@D)
+	@$(CC) $(CC_FLAGS) $(I_FLAG) $(DEBUG_FLAGS) -c $< -o $@
+	$(info created : $@)
+
+$(DIR_BUILD)/sanitize/%.o: $(DIR_SRC)/%.c
+	@mkdir -p $(@D)
+	@$(CC) $(CC_FLAGS) $(I_FLAG) $(SAN_FLAGS) -c $< -o $@
+	$(info created : $@)
+
+-include $(DEPS)
+
+#------------------------------------------------------------------------------#
+# linkage                                                                      #
+#------------------------------------------------------------------------------#
+
 $(NAME): $(OBJ)
 	@$(MAKE) -j -C libft
 	@$(CC) $(CC_FLAGS) $(OBJ) $(L_FLAG) $(l_FLAG) -o $(NAME)
-	$(info created : $(NAME))
+	@printf "\033[2K\rcreated: %s\n" $@
 
 $(NAME_BONUS): $(OBJ_BONUS)
 	@$(MAKE) -j -C libft
 	@$(CC) $(CC_FLAGS) $(OBJ_BONUS) $(L_FLAG) $(l_FLAG) -o $(NAME_BONUS)
-	$(info created : $(NAME_BONUS))
+	@printf "\033[2K\rcreated: %s\n" $@
 
 $(NAME_DEBUG): $(OBJ_DEBUG)
 	@$(MAKE) -j -C libft
@@ -197,28 +227,6 @@ $(NAME_SANB): $(OBJ_SANB)
 	@$(MAKE) -j -C libft
 	@$(CC) $(OBJ_SANB) $(L_FLAG) $(l_FLAG) $(SAN_FLAGS) -o $(NAME_SANB)
 	$(info created : $(NAME_SANB))
-
-$(DIR_BUILD)/%.o: $(DIR_SRC)/%.c
-	@mkdir -p $(@D)
-	@$(CC) $(CC_FLAGS) $(I_FLAG) -c $< -o $@
-	$(info created : $@)
-
-$(DIR_BUILD)/debug/%.o: $(DIR_SRC)/%.c
-	@mkdir -p $(@D)
-	@$(CC) $(CC_FLAGS) $(I_FLAG) $(DEBUG_FLAGS) -c $< -o $@
-	$(info created : $@)
-
-$(DIR_BUILD)/debugbonus/%.o: $(DIR_SRC)/%.c
-	@mkdir -p $(@D)
-	@$(CC) $(CC_FLAGS) $(I_FLAG) $(DEBUG_FLAGS) -c $< -o $@
-	$(info created : $@)
-
-$(DIR_BUILD)/sanitize/%.o: $(DIR_SRC)/%.c
-	@mkdir -p $(@D)
-	@$(CC) $(CC_FLAGS) $(I_FLAG) $(SAN_FLAGS) -c $< -o $@
-	$(info created : $@)
-
--include $(DEPS)
 
 #------------------------------------------------------------------------------#
 # specifications                                                               #
