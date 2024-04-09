@@ -22,7 +22,7 @@ static unsigned int	ft_print_unsigned(unsigned long nbr, int base)
 	count = 0;
 	if (nbr < 10)
 		count = count + ft_print_char(nbr + 48);
-	else if (base == 16 && (nbr < 16 && nbr >= 0))
+	else if (base == 16 && nbr < 16 )
 		count = count + ft_print_char(nbr + 87);
 	else
 	{

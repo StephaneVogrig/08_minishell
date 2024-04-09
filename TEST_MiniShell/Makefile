@@ -1,6 +1,6 @@
 NAME = test
 
-SRCS = test_readline_history_with_signal.c
+SRCS = test_copy_env.c
 
 OBJS = ${SRCS:.c=.o}
 
