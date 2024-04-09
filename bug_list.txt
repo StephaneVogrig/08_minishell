@@ -1,0 +1,2 @@
+bug 001:
+	Lors de la saisie de "cat\n" on entre en edition. Si dans cet etat on fait ctrl-c deux prompt a la suite sont affiche.
