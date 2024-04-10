@@ -1,0 +1,27 @@
+pas de possibilite de faire:
+- export a=|
+- export a=>
+- export a=>>
+- export a=<
+- export a=<<
+
+dans le  cas ou le contenu de la variable contient un operateur,
+par exemple:
+	export a="<in"
+	export a="| echo a"
+	export a="echo >out"
+l'operateur est interprete apres expansion comme un caractere normal, non operateur.
+
+si on passe une variable lors de l'export d'une variable, elle est expanse immediatement.
+
+les commandes avec leurs arguments sont interpretes apres l'expansion de parametres.
+Ainsi une variable contenant des espace sera interprete comme une suite d'argument.
+
+pas d'expansion de variable apres un operateur heredoc
+	<<$a -> limiteur = '$a'
+
+dans le contenu d'un heredoc les variables sont expanse si
+le limiteur ne contenait pas de quotes simple ou double, independament du nombre de quotes
+
+les redirection renvoi une erreur si le contenu d'une variable expanse contient des espaces
+bash retourne l'erreur ambigous redirection avec code de retour 1
