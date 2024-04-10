@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:55:55 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/08 02:05:41 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/10 15:46:03 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	run_minishell(char **envp)
 
 	while (1)
 	{
-		input = readline(PROMPT_MINISHELL);
+		input = readline("minishell>");
 		if (!input)
 			break ;
 		if (ft_strncmp("exit", input, 4) == 0)
