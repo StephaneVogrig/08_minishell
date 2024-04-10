@@ -150,7 +150,7 @@ void	builtin_env(char **str)
 	while (str[i])
 	{
 		ft_putstr_fd(str[i], 1);
-		write(1, "=", 1);
+		write(1,  "=", 1);
 		i++;
 		ft_putstr_fd(str[i], 1);
 		write(1, "\n", 2);
@@ -193,7 +193,7 @@ int	tab_size(char **str)
 	i = 0;
 	while (str[i])
 		i++;
-	// printf("i = %d \n", i);
+	//printf("i = %d \n", i);
 	return (i);
 }
 
@@ -202,7 +202,7 @@ void	free_the_tab(char **str)
 	int	i;
 
 	i = 0;
-	while (i < tab_size(str)) // (str[i])//
+	while (i < tab_size(str)) // (str[i])// 
 	{
 		free(str[i]);
 		i++;
@@ -236,14 +236,16 @@ char	**add_to_tab(char **str, char *to_add)
 
 	i = 0;
 	lenght = tab_size(str);
-	temp = (char **)malloc(sizeof(char *) * ((lenght + 1)));
+	temp = (char **)malloc(sizeof(char *) * ((lenght + 2)));
 	while (str[i])
 	{
 		temp[i] = ft_strdup(str[i]);
 		i++;
 	}
-	temp[i] = ft_strndup(to_add, ft_len(to_add));
-	temp[i + 1] = NULL;
+	count = ft_strchr_i(to_add, '=');
+	temp[i] = ft_strndup(to_add, count);
+	temp[i + 1] = ft_strdup(ft_strchr_next(to_add, '='));
+	temp[i + 2] = NULL;
 	return (copy_tab(temp, str, lenght + 2));
 }
 
@@ -254,11 +256,10 @@ char	**builtin_export(char **str, char *to_add)
 		return (str);
 	// while(str[i])
 	{
-		//	printf("ft_strncmp = %d\n", ft_strncmp(str[i], to_add,
-		//			ft_strlen(str[i])));
+		//	printf("ft_strncmp = %d\n", ft_strncmp(str[i], to_add, ft_strlen(str[i])));
 		//	printf("str[i] = %s\n", str[i]);
 		// if(ft_strncmp(str[i], to_add, ft_strlen(str[i])) == 0)
-		// existe deja dans env
+			//existe deja dans env
 		// {
 		// 	printf("-------------------------existe deja\n");
 		// 		printf("str[i] = %s\n", str[i]);
@@ -272,8 +273,7 @@ char	**builtin_export(char **str, char *to_add)
 		// 		str[i + 1] = ft_strdup(&to_add[j]);
 		// 		return (str);
 		// 	}
-		// 	else if(to_add[j] == '+' && to_add[j + 1] == '='
-		//		&& to_add[j+ 2] != '\0' )
+		// 	else if(to_add[j] == '+' && to_add[j + 1] == '=' && to_add[j+ 2] != '\0' )
 		// 	{
 		// 	//	free(str[i + 1]);
 		// 		printf("+= to add \n");
@@ -303,6 +303,7 @@ int	main(int argc, char **argv, char **env)
 {
 	char	**env_cpy;
 	int		i;
+	int		j;
 	int		count;
 	int		len;
 	char	buff[100];
@@ -322,14 +323,18 @@ int	main(int argc, char **argv, char **env)
 	else
 	{
 		len = tab_size(env);
-		env_cpy = (char **)malloc(sizeof(char *) * ((len) + 1));
-		// attention c'est 1 tab de tab !
+		len = 2 * len;
+		env_cpy = (char **)malloc(sizeof(char *) * ((len) + 1));//attention c'est 1 tab de tab !
+		j = 0;
 		i = 0;
-		while (env[i])
+		while (env[j])
 		{
-			env_cpy[i] = ft_strndup(env[i], ft_strdup(env[i],
-						ft_strlen(env[i])));
+			count = ft_strchr_i(env[j], '=');
+			env_cpy[i] = ft_strndup(env[j], count);
 			i++;
+			env_cpy[i] = ft_strdup(getenv(env_cpy[i - 1]));
+			i++;
+			j++;
 		}
 		env_cpy[i] = NULL;
 	}
