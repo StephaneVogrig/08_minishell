@@ -1,0 +1,138 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/04/10 20:39:54 by smortemo          #+#    #+#              #
+#    Updated: 2024/04/10 20:39:55 by smortemo         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+
+#------------------------------------------------------------------------------#
+# variables                                                                    #
+#------------------------------------------------------------------------------#
+
+INCS		:=	include
+
+DIR_BUILD	:=	.build
+
+# variables libraries ---------------------------------------------------------#
+
+LIBS		:=	ft
+LIBFT_DIR	:=	../push_swap/libft
+LIBS_TARGET	:=	$(LIBFT_DIR)/libft.a
+
+LDFLAGS		:=	$(addprefix -L,$(dir $(LIBS_TARGET)))
+LDLIBS		:=	$(addprefix -l,$(LIBS))
+
+INCS		:=	$(INCS) $(LIBFT_DIR)/include
+
+# unit tests -------------------------------------------------------------------#
+
+NAME        :=  unit_tests
+
+DIR_SRC		:=	src
+
+SRCS		:=	main.c \
+				psut_data.c \
+				psut_list_utils.c \
+				tests/arg_to_stack_tests.c \
+				tests/ps_list_new_tests.c \
+				tests/number_to_stack_tests.c \
+				tests/si32_to_decstr_offset_tests.c \
+				tests/psut_list_to_str_tests.c \
+				tests/swap_head_tests.c \
+				tests/push_tests.c \
+				tests/reverse_rotate_tests.c \
+				tests/rotate_tests.c \
+				tests/is_sorted_tests.c \
+				tests/ps_index_tests.c
+				
+SRCS		:=	$(SRCS:%=$(DIR_SRC)/%)
+OBJS		:=	$(SRCS:%.c=$(DIR_BUILD)/%.o)
+
+DEPS		:=	$(OBJS:.o=.d)
+
+# push swap -------------------------------------------------------------------#
+
+DIR_PS		:=	../push_swap/src
+
+INCS		:=	$(INCS) ../push_swap/include
+
+SRCS_PS		:=	lis.c \
+				moves.c \
+				moves_build.c \
+				move_atob.c \
+				move_btoa.c \
+				operation_push.c \
+				operation_reverse_rotate.c \
+				operation_rotate.c \
+				operation_swap.c \
+				parsing.c \
+				position_in_list.c\
+				list.c \
+				stack.c \
+				index.c \
+				sort.c
+
+SRCS_PS		:=	$(SRCS_PS:%=$(DIR_PS)/%)
+
+OBJS_PS		:=	$(SRCS_PS:%.c=$(DIR_BUILD)/%.o)
+
+DEPS_PS		:=	$(OBJS_PS:.o=.d)
+
+# compilation -----------------------------------------------------------------#
+CC			:=	cc
+CFLAGS		:=	-Wall -Wextra -Werror
+CPPFLAGS	:=	$(addprefix -I,$(INCS)) -MMD -MP
+
+# other -----------------------------------------------------------------------#
+RM          :=	rm -f
+MAKEFLAGS   +=	--no-print-directory
+DIR_DUP		=	mkdir -p $(@D)
+
+#------------------------------------------------------------------------------#
+# rules                                                                        #
+#------------------------------------------------------------------------------#
+
+all: $(NAME)
+
+$(NAME): $(OBJS) $(OBJS_PS) $(LIBS_TARGET)
+	$(CC) $(LDFLAGS) -o $(NAME) $(OBJS) $(OBJS_PS) $(LDLIBS)
+	$(info created: $(NAME))
+
+$(LIBS_TARGET):
+	$(MAKE) -C $(@D)
+
+$(DIR_BUILD)/%.o: %.c
+	$(DIR_DUP)
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c -o $@ $< 
+	$(info created: $@)
+
+-include $(DEPS) $(DEPS_PS)
+
+clean:
+	$(MAKE) -C $(dir $(LIBS_TARGET)) clean
+	$(RM) $(OBJS) $(DEPS) 
+	$(RM) $(OBJS_PS) $(DEPS_PS)
+
+fclean: clean
+	$(MAKE) -C $(dir $(LIBS_TARGET)) fclean
+	$(RM) $(NAME) $(UT_NAME)
+
+re:
+	$(MAKE) fclean
+	$(MAKE) all
+
+run: all
+	-./$(NAME)
+
+#------------------------------------------------------------------------------#
+# specifications                                                               #
+#------------------------------------------------------------------------------#
+
+.PHONY: clean fclean re run
+.SILENT:

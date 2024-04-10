@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   strtab_free.c                                      :+:      :+:    :+:   */
+/*   environment.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/02 23:16:47 by stephane          #+#    #+#             */
-/*   Updated: 2024/04/10 21:15:47 by smortemo         ###   ########.fr       */
+/*   Created: 2024/04/10 18:00:39 by smortemo          #+#    #+#             */
+/*   Updated: 2024/04/10 23:44:50 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef ENVIRONMENT_H
+# define ENVIRONMENT_H
 
-void	strtab_free(char **strtab)
-{
-	char	**current;
+# include "libft.h"
+# include <stddef.h>
+# include <stdlib.h>
 
-	if (strtab == NULL)
-		return ;
-	current = strtab;
-	while (*current)
-		free(*current++);
-	free(strtab);
-}
+char	**env_dup(char **envp);
+char	*env_get(char **env, char *str);
+
+#endif

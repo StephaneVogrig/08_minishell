@@ -1,25 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   strtab_free.c                                      :+:      :+:    :+:   */
+/*   env_dup_test.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/02 23:16:47 by stephane          #+#    #+#             */
-/*   Updated: 2024/04/10 21:15:47 by smortemo         ###   ########.fr       */
+/*   Created: 2024/04/10 18:49:50 by smortemo          #+#    #+#             */
+/*   Updated: 2024/04/10 22:38:37 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "unitest.h"
 
-void	strtab_free(char **strtab)
+static void	test(char **strtab)
 {
-	char	**current;
+	char	**new;
 
-	if (strtab == NULL)
+	printf("\ntest  ----------------------------\n");
+	if (!strtab)
 		return ;
-	current = strtab;
-	while (*current)
-		free(*current++);
-	free(strtab);
+	new = env_dup(strtab);
+	if (!new)
+	{
+		perror("");
+		return ;
+	}
+	strtab_print(new);
+	strtab_free(new);
+	printf("----------------------------------\n");
+	return ;
+}
+
+void	env_dup_test(char **argv, char **envp)
+{
+	test(envp);
+	test(argv);
+	test(NULL);
 }
