@@ -1,21 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/10 19:07:07 by smortemo          #+#    #+#             */
-/*   Updated: 2024/04/11 17:02:23 by smortemo         ###   ########.fr       */
+/*   Created: 2024/04/11 15:37:55 by smortemo          #+#    #+#             */
+/*   Updated: 2024/04/11 22:35:37 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "unitest.h"
+#ifndef BUILTIN_H
+# define BUILTIN_H
 
-int	main(int argc, char **argv, char **envp)
-{
-	// env_dup_test(argv, envp);
-	// env_get_test();
-	builtin_unset_test();
-	return (0);
-}
+# include "environment.h"
+# include "libft.h"
+
+// # include "memory.h"
+// # include <stddef.h>
+// # include <stdlib.h>
+
+char	**builtin_unset(char **envp, char *str);
+
+#endif
