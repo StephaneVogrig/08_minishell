@@ -6,14 +6,14 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:55:55 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/10 15:46:03 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/11 10:37:59 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec_input.h"
 #include "minishell.h"
 
-void	run_minishell(char **envp)
+void	run_minishell(char **env)
 {
 	char	*input;
 	int		exit_code;
@@ -31,7 +31,7 @@ void	run_minishell(char **envp)
 		if (*input)
 		{
 			add_history(input);
-			exit_code = exec_input(input, envp);
+			exit_code = exec_input(input, env);
 			continue ;
 		}
 		free(input);
@@ -40,6 +40,8 @@ void	run_minishell(char **envp)
 
 int	main(int argc, char **argv, char **envp)
 {
+	char	**env;
+
 	if (!argv)
 		argc = argc + 0;	
 	if (argc > 1)
@@ -49,7 +51,11 @@ int	main(int argc, char **argv, char **envp)
 	}
 	signal(SIGINT, handler_ctrl_c);
 	signal(SIGQUIT, SIG_IGN);
-	run_minishell(envp);
+	env = env_dup(envp);
+	if (!env)
+		return (EXIT_FAILURE);
+	run_minishell(env);
+	strtab_free(env);
 	write(1, "exit\n", 5);
 	return (EXIT_SUCCESS);
 }

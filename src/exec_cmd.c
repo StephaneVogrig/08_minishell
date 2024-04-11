@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 15:22:47 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/08 04:14:39 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/11 10:46:09 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_bool	redir_cmd(t_redir *redirs)
 	return (SUCCESS);
 }
 
-void	exec_cmd(t_cmd *cmd, char **envp)
+void	exec_cmd(t_cmd *cmd, char **env)
 {
 	char	*path;
 	char	**argv;
@@ -56,13 +56,13 @@ void	exec_cmd(t_cmd *cmd, char **envp)
 	pipeline_free(&cmd);
 	if (!argv)
 		exit(EXIT_FAILURE);
-	path = cmd_path(argv, envp);
+	path = cmd_path(argv, env);
 	if (!path)
 	{
 		strtab_free(argv);
 		exit(EXIT_FAILURE);
 	}
-	execve(path, argv, envp);
+	execve(path, argv, env);
 	perror("pipex");
 	strtab_free(argv);
 	free(path);

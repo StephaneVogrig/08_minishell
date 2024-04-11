@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   environment.h                                      :+:      :+:    :+:   */
+/*   memory.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/10 18:00:39 by smortemo          #+#    #+#             */
-/*   Updated: 2024/04/11 10:23:25 by svogrig          ###   ########.fr       */
+/*   Created: 2024/04/11 10:17:10 by svogrig           #+#    #+#             */
+/*   Updated: 2024/04/11 10:21:05 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENVIRONMENT_H
-# define ENVIRONMENT_H
+#include "memory.h"
 
-# include "libft.h"
-# include <stddef.h>
-# include <stdlib.h>
-# include "memory.h"
+void	*mem_calloc(size_t nb_mem_block, size_t size)
+{
+	void	*new;
 
-char	**env_dup(char **envp);
-char	*env_get(char **env, char *str);
-
-#endif
+	new = ft_calloc(nb_mem_block, size);
+	if (!new)
+	{
+		perror("minishell: ms_calloc");
+		return (NULL);
+	}
+	return (new);
+}

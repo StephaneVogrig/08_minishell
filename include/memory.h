@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   environment.h                                      :+:      :+:    :+:   */
+/*   memory.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/10 18:00:39 by smortemo          #+#    #+#             */
-/*   Updated: 2024/04/11 10:23:25 by svogrig          ###   ########.fr       */
+/*   Created: 2024/04/11 10:18:18 by svogrig           #+#    #+#             */
+/*   Updated: 2024/04/11 10:20:22 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENVIRONMENT_H
-# define ENVIRONMENT_H
+#ifndef MEMORY_H
+# define MEMORY_H
 
 # include "libft.h"
-# include <stddef.h>
-# include <stdlib.h>
-# include "memory.h"
 
-char	**env_dup(char **envp);
-char	*env_get(char **env, char *str);
+void	*mem_calloc(size_t nb_mem_block, size_t size);
+
 
 #endif

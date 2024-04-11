@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 17:59:17 by smortemo          #+#    #+#             */
-/*   Updated: 2024/04/10 23:44:42 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/04/11 10:32:42 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	**env_dup(char **envp)
 	if (!envp)
 		return (NULL);
 	size = strtab_size(envp) + 1;
-	new = ft_calloc(sizeof(char *), (size));
+	new = mem_calloc(size, sizeof(char *));
 	if (!new)
 		return (NULL);
 	current = new;
@@ -53,7 +53,6 @@ char	**env_dup(char **envp)
 char	*env_get(char **env, char *str)
 {
 	int	size;
-	int	ok;
 
 	if (!env || !str)
 		return (NULL);

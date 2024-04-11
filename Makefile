@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+         #
+#    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/04/10 19:42:07 by smortemo         ###   ########.fr        #
+#    Updated: 2024/04/11 10:21:57 by svogrig          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRC				:=	main.c \
 					exec_cmd.c \
 					exit.c \
 					input_to_pipeline.c \
+					memory.c \
 					pipeline.c \
 					heredoc_bonus.c \
 					pipe.c \
