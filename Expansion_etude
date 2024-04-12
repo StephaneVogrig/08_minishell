@@ -1,0 +1,17 @@
+in herdeoc limiter:
+    no expand
+    if ' or " no expand in herdoc
+
+in herdoc
+    expand if no ' or " in limiter
+    no expand if ' or " in limiter
+    
+ in redir
+    expand if no quote or whitin "
+    no expand if whitin '
+    after expanse: space outside " or ' = error
+ 
+ in cmd and arg
+    expand if no quote or whitin "
+    no expand if whitin '
+    after expanse: space outside " or ' = split
