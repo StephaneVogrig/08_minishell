@@ -1,29 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command.h                                          :+:      :+:    :+:   */
+/*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/04 21:33:09 by stephane          #+#    #+#             */
-/*   Updated: 2024/04/11 22:43:50 by svogrig          ###   ########.fr       */
+/*   Created: 2024/04/12 14:11:28 by svogrig           #+#    #+#             */
+/*   Updated: 2024/04/12 14:13:29 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COMMAND_H
-# define COMMAND_H
+#ifndef ERROR_H
+# define ERROR_H
 
-#include "libft.h"
-#include "redirection.h"
-
-typedef struct s_cmd{
-	t_redir			*redir;
-	t_list			*argv;
-	struct s_cmd	*next;
-}	t_cmd;
-
-t_cmd	*cmd_new(void);
-void	cmd_free(t_cmd *cmd);
-int		cmd_nbr(t_cmd *pipeline);
+# define SYNTAX_ERROR 2
+# define SYNTAX_ERROR_MSG "minishell: syntax error near unexpected token `"
 
 #endif

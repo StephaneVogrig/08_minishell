@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 15:22:47 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/11 10:46:09 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/12 04:29:27 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@ t_bool	redir_cmd(t_redir *redirs)
 	while (redirs)
 	{
 		fd_dup = STDOUT_FD;
-		if (redirs->type == REDIR_IN || redirs->type == HEREDOC)
+		if (redirs->type == REDIR_OUT_APD)
+			fd = open(redirs->file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		else if (redirs->type == REDIR_OUT_TRC)
+			fd = open(redirs->file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		else
 		{
 			fd_dup = STDIN_FD;
 			fd = open(redirs->file_name, O_RDONLY);
 		}
-		else if (redirs->type == REDIR_OUT_APD)
-			fd = open(redirs->file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
-		else if (redirs->type == REDIR_OUT_TRC)
-			fd = open(redirs->file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (fd == -1)
 		{
 			fd_printf(STDERR_FD, "minishell: %s: %s\n", redirs->file_name, strerror(errno));

@@ -6,42 +6,41 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:55:55 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/11 10:37:59 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/12 17:04:11 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec_input.h"
 #include "minishell.h"
 
-void	run_minishell(char **env)
+void	run_minishell(t_char_m **env, int *exit_status)
 {
-	char	*input;
-	int		exit_code;
+	t_char_m	*input;
 
 	while (1)
 	{
 		input = readline("minishell>");
 		if (!input)
-			break ;
-		if (ft_strncmp("exit", input, 4) == 0)
+			return ;
+		if (!*input)
 		{
 			free(input);
-			return ; ;
-		}
-		if (*input)
-		{
-			add_history(input);
-			exit_code = exec_input(input, env);
 			continue ;
 		}
-		free(input);
+		add_history(input);
+		if (ft_strncmp("exit", input, 4) == 0)
+			break;
+		exec_input(input, env, exit_status);
 	}
+	free(input);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	**env;
+	t_char_m	**env;
+	int			exit_status;
 
+	exit_status = 0;
 	if (!argv)
 		argc = argc + 0;	
 	if (argc > 1)
@@ -54,8 +53,8 @@ int	main(int argc, char **argv, char **envp)
 	env = env_dup(envp);
 	if (!env)
 		return (EXIT_FAILURE);
-	run_minishell(env);
+	run_minishell(env, &exit_status);
 	strtab_free(env);
 	write(1, "exit\n", 5);
-	return (EXIT_SUCCESS);
+	return (exit_status);
 }
