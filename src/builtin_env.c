@@ -12,41 +12,6 @@
 
 #include "builtin.h"
 
-int	export_check_str(char **envp, char *str)
-{
-	int		ret;
-	char	*lst;
-
-	lst = "!#$%%?$*-.,/}{}[]@~:";
-	ret = ft_strchr_i(str, '=');
-	if (!ret) //+ error = 0
-		return (-1);
-	while (ret >= 0)
-	{
-		if (ft_strchr(lst, str[ret])) //+ error = 1
-		{
-			export_error(str);
-			return (1);
-		}
-		if (str[ret] >= '+' && str[ret - 1] == '+') //+ error = 1
-		{
-			export_error(str);
-			return (1);
-		}
-		ret--;
-	}
-	return (-1);
-}
-
-int	ft_strcmp_export(const char *s1, const char *s2)
-{
-	while ((*s1 || *s2) && *s1 == *s2)
-	{
-		s1++;
-		s2++;
-	}
-	return (*s1 - *s2);
-}
 
 void	builtin_env(char **envp)
 {
@@ -63,6 +28,5 @@ void	builtin_env(char **envp)
 			write(STDOUT_FD, "\n", 1);
 		}
 		envp++;
-		return ;
 	}
 }

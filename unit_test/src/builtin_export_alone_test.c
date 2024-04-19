@@ -20,11 +20,11 @@ void	test(char **envp)
 	export_alone(envp);
 }
 
-void	builtin_export_alone_test(char **strtab)
+void	builtin_export_alone_test(void)
 {
-	// char *strtab[] = {"IIIIIIIIIIIIII", "zzzz=!!!", "ZZZZ=un", "cccc=export",
-	// 	"bbbb=de", "AAAA=ceci", "LLLL=est", "aaaa=test", "ffff=seul",
-	// 	"_=do not display", NULL};
+	char *strtab[] = {"z=!!!", "ZZZ=un", "cccc=export",
+		"b=de", "tout", "AA=ceci", "LLLL=est", "_w=vrai", "aaaa=test", "uuuu=seul",
+		"_=do not display", NULL};
 
 	char **tab_malloc;
 	tab_malloc = env_dup(strtab);

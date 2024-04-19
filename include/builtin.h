@@ -24,5 +24,6 @@ int	ft_strtab_size(char **strtab); // ajouter dans libft ?
 char	**builtin_unset(char **envp, char *str);
 char	**builtin_export(char **envp, char *str);
 void	export_alone(char **envp);
+void	builtin_env(char **envp);
 
 #endif

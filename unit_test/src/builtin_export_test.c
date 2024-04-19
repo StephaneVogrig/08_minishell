@@ -35,7 +35,7 @@ void	builtin_export_test(void)
 	strtab_print(tab_malloc);
 	tab_malloc = test(tab_malloc, "KEY3=test");
 	// tab_malloc = test(tab_malloc, "");
-	// tab_malloc = test(tab_malloc, NULL); // segmentation fault (core dumped)
+	tab_malloc = test(tab_malloc, NULL); // segmentation fault (core dumped)
 	tab_malloc = test(tab_malloc, "KEY4=****");
 	tab_malloc = test(tab_malloc, "KEY4=de");
 	tab_malloc = test(tab_malloc, "KEY5=export");

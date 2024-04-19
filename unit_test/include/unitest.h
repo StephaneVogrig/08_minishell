@@ -23,6 +23,9 @@ void	env_dup_test(char **argv, char **envp);
 void	env_get_test(void);
 void	builtin_unset_test(void);
 void	builtin_export_test(void);
-void	builtin_export_alone_test(char **strtab);
+// void	builtin_export_alone_test(char **strtab);//pour test avec envp
+void	builtin_export_alone_test();
+void	builtin_env_test(void);
+
 
 #endif

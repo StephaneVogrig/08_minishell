@@ -75,7 +75,7 @@ int	export_check_str(char **envp, char *str)
 			export_error(str);
 			return (1);
 		}
-		if (str[ret] >= '+' && str[ret - 1] == '+') //+ error = 1
+		if (str[ret] == '+' && str[ret - 1] == '+') //+ error = 1
 		{
 			export_error(str);
 			return (1);
@@ -101,13 +101,13 @@ int	export_check_exist(char **envp, char *str)
 			envp[i] = ft_strdup(str);
 			return (1);
 		}
-		if (ft_strncmp(envp[i], str, index - 1) == 0 && str[index - 1] == '+')
+		else if (ft_strncmp(envp[i], str, index - 1) == 0 && str[index - 1] == '+')
 			// ex: TEST+=newvalue
 		{
 			envp[i] = ft_strjoin_free_s1(envp[i], &(*str) + 4 + 2);
 			return (1);
 		}
-		if (ft_strncmp(envp[i], str, ft_strlen(envp[i])) == 0
+		else if (ft_strncmp(envp[i], str, ft_strlen(envp[i])) == 0
 				&& str[ft_strlen(envp[i])] == '=')
 			// ex : TEST=value (avec TEST qui existe deja)
 		{
@@ -146,6 +146,8 @@ void	display_tab_export(char **str)
 		printf("\n");
 		i++;
 	}
+	if(str[i] == NULL)
+		return ;
 	i = i + 2;
 	while (str[i])
 	{
@@ -194,10 +196,8 @@ void	modify_tab(char **sorted_tab)
 		count = ft_strchr_i(sorted_tab[j], '=');
 		if (count != 0)
 		{
-			// printf("to cpy -> %s \n", sorted_tab[j]);
 			tab_to_display[i] = ft_strndup_export(sorted_tab[j], count);
 			i++;
-			// printf("to cpy -> %s \n", &sorted_tab[j][count + 1]);
 			tab_to_display[i] = ft_strdup(&sorted_tab[j][count + 1]);
 		}
 		else
@@ -217,37 +217,30 @@ void	modify_tab(char **sorted_tab)
 void	export_alone(char **envp)
 {
 	int		i;
-	char	**tab_sorted;
 	char	*temp;
 	int		count;
 
 	count = 0;
 	temp = NULL;
-	// tab_sorted = mem_calloc(ft_strtab_size(envp) + 1, sizeof(char **));
-	tab_sorted = envp;
 	i = 1;
-	while (tab_sorted[i])
+	while (envp[i])
 	{
-		if (ft_strcmp_export(tab_sorted[i - 1], tab_sorted[i]) > 0)
+		if (ft_strcmp_export(envp[i - 1], envp[i]) > 0)
 		{
-			temp = tab_sorted[i];
-			tab_sorted[i] = tab_sorted[i - 1];
-			tab_sorted[i - 1] = temp;
+			temp = envp[i];
+			envp[i] = envp[i - 1];
+			envp[i - 1] = temp;
 			count++;
 		}
 		i++;
 	}
 	if (count == 0)
 	{
-		strtab_print(tab_sorted);
-		// printf("APRES MODIFY TAB----------------\n");
-		// modify_tab(tab_sorted);
-		// printf("////////////////\n");
-		// strtab_print(envp);
+		modify_tab(envp);
 		return ;
 	}
 	else
-		export_alone(tab_sorted);
+		export_alone(envp);
 }
 
 char	**builtin_export(char **envp, char *str)
@@ -258,8 +251,13 @@ char	**builtin_export(char **envp, char *str)
 
 	if (!envp)
 		return (NULL);
-	// if (!str)
-	// 	return (export_alone(envp)); //+code erreur = 0
+	if (!str)
+	{
+		tab_temp = env_dup(envp);
+		export_alone(tab_temp); //+code erreur = 0
+		strtab_free(tab_temp);
+		return(envp);
+	}
 	if (str[0] == '\0')
 	{
 		export_error(str);
