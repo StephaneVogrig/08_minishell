@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:13:40 by smortemo          #+#    #+#             */
-/*   Updated: 2024/04/19 00:32:55 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/04/19 18:21:17 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	export_check_str(char **envp, char *str)
 	lst = "!#$%%?$*-.,/}{}[]@~:";
 	ret = ft_strchr_i(str, '=');
 	if (!ret) //+ error = 0
-		return (0);
+		return (-1);
 	while (ret >= 0)
 	{
 		if (ft_strchr(lst, str[ret])) //+ error = 1
@@ -95,14 +95,24 @@ int	export_check_exist(char **envp, char *str)
 	while (envp[i])
 	{
 		if (ft_strncmp(envp[i], str, index) == 0 && envp[i][index] == '=')
+			// ex:  TEST=aaa
 		{
 			free(envp[i]);
 			envp[i] = ft_strdup(str);
 			return (1);
 		}
 		if (ft_strncmp(envp[i], str, index - 1) == 0 && str[index - 1] == '+')
+			// ex: TEST+=newvalue
 		{
 			envp[i] = ft_strjoin_free_s1(envp[i], &(*str) + 4 + 2);
+			return (1);
+		}
+		if (ft_strncmp(envp[i], str, ft_strlen(envp[i])) == 0
+				&& str[ft_strlen(envp[i])] == '=')
+			// ex : TEST=value (avec TEST qui existe deja)
+		{
+			free(envp[i]);
+			envp[i] = ft_strdup(str);
 			return (1);
 		}
 		i++;
