@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 19:08:22 by smortemo          #+#    #+#             */
-/*   Updated: 2024/04/12 15:26:14 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/04/19 00:11:52 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ void	env_dup_test(char **argv, char **envp);
 void	env_get_test(void);
 void	builtin_unset_test(void);
 void	builtin_export_test(void);
+void	builtin_export_alone_test(char **strtab);
 
 #endif

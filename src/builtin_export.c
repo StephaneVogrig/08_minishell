@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:13:40 by smortemo          #+#    #+#             */
-/*   Updated: 2024/04/12 21:44:56 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/04/19 00:32:55 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,17 +109,135 @@ int	export_check_exist(char **envp, char *str)
 	}
 	return (0);
 }
-char	**export_alone(char **envp)
+
+int	ft_strcmp_export(const char *s1, const char *s2)
+{
+	while ((*s1 || *s2) && *s1 == *s2)
+	{
+		s1++;
+		s2++;
+	}
+	return (*s1 - *s2);
+}
+
+void	display_tab_export(char **str)
 {
 	int	i;
 
 	i = 0;
-	while (envp[i])
+	while (str[i])
 	{
-		// is_smallest(envp, i);
+		if (str[i][0] == '_' && str[i][1] == '=')
+			break ;
+		printf("declare -x %s", str[i]);
+		i++;
+		if (str[i] != NULL)
+			printf("\"%s\"", str[i]);
+		printf("\n");
 		i++;
 	}
-	return (envp);
+	i = i + 2;
+	while (str[i])
+	{
+		printf("declare -x %s", str[i]);
+		i++;
+		if (str[i] != NULL)
+			printf("\"%s\"", str[i]);
+		printf("\n");
+		i++;
+	}
+}
+
+char	*ft_strndup_export(const char *s, int lenght)
+{
+	int		i;
+	char	*dup;
+
+	i = 0;
+	dup = (char *)malloc(sizeof(char) * (lenght + 1));
+	if (!dup)
+		return (NULL);
+	i = 0;
+	while (i <= lenght)
+	{
+		dup[i] = s[i];
+		i++;
+	}
+	dup[i] = '\0';
+	return (dup);
+}
+
+void	modify_tab(char **sorted_tab)
+{
+	char	**tab_to_display;
+	int		i;
+	int		j;
+	int		count;
+	int		len;
+
+	len = 2 * ft_strtab_size(sorted_tab);
+	tab_to_display = (char **)malloc(sizeof(char *) * ((len) + 1));
+	j = 0;
+	i = 0;
+	while (sorted_tab[j])
+	{
+		count = ft_strchr_i(sorted_tab[j], '=');
+		if (count != 0)
+		{
+			// printf("to cpy -> %s \n", sorted_tab[j]);
+			tab_to_display[i] = ft_strndup_export(sorted_tab[j], count);
+			i++;
+			// printf("to cpy -> %s \n", &sorted_tab[j][count + 1]);
+			tab_to_display[i] = ft_strdup(&sorted_tab[j][count + 1]);
+		}
+		else
+		{
+			tab_to_display[i] = ft_strdup(sorted_tab[j]);
+			i++;
+			tab_to_display[i] = NULL;
+		}
+		i++;
+		j++;
+	}
+	tab_to_display[i] = NULL;
+	display_tab_export(tab_to_display);
+	strtab_free(tab_to_display);
+}
+
+void	export_alone(char **envp)
+{
+	int		i;
+	char	**tab_sorted;
+	char	*temp;
+	int		count;
+
+	count = 0;
+	temp = NULL;
+	// tab_sorted = mem_calloc(ft_strtab_size(envp) + 1, sizeof(char **));
+	tab_sorted = envp;
+	i = 1;
+	while (tab_sorted[i])
+	{
+		if (ft_strcmp_export(tab_sorted[i - 1], tab_sorted[i]) > 0)
+		{
+			temp = tab_sorted[i];
+			tab_sorted[i] = tab_sorted[i - 1];
+			tab_sorted[i - 1] = temp;
+			count++;
+		}
+		i++;
+	}
+	if (count == 0)
+	{
+		strtab_print(tab_sorted);
+		// printf("APRES MODIFY TAB----------------\n");
+		// modify_tab(tab_sorted);
+		// printf("////////////////\n");
+		// strtab_print(envp);
+		return ;
+	}
+	else
+		export_alone(tab_sorted);
 }
 
 char	**builtin_export(char **envp, char *str)
@@ -130,8 +248,8 @@ char	**builtin_export(char **envp, char *str)
 
 	if (!envp)
 		return (NULL);
-	if (!str)
-		return (export_alone(envp)); //+code erreur = 0
+	// if (!str)
+	// 	return (export_alone(envp)); //+code erreur = 0
 	if (str[0] == '\0')
 	{
 		export_error(str);
