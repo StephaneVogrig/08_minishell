@@ -12,7 +12,7 @@
 
 #include "unitest.h"
 
-void	test(char **envp)
+void	test_export(char **envp)
 {
 	// printf("--------------------------------------------\n");
 	// printf("EXPORT ALONE \n");
@@ -33,7 +33,7 @@ void	builtin_export_alone_test(void)
 	// printf("SOURCE TAB  \n");
 	// printf("--------------------------------------------\n");
 	// strtab_print(tab_malloc);
-	test(tab_malloc);
+	test_export(tab_malloc);
 
 	strtab_free(tab_malloc);
 	// printf("____________________________________________\n");

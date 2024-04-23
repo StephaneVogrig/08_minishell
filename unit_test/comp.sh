@@ -2,6 +2,7 @@
 SRC="main.c 
 	../src/builtin_unset.c 
 	../src/builtin_export.c 
+	../src/builtin_export_alone.c 
 	../src/builtin_env.c 
 	../src/memory.c 
 	../src/environment.c 

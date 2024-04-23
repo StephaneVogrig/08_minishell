@@ -47,5 +47,6 @@ char	**builtin_unset(char **envp, char *str)
 		j++;
 	}
 	strtab_free(envp);
-	return (tab_temp);
+	envp = tab_temp;
+	return (envp);
 }

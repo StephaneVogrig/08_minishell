@@ -13,13 +13,13 @@
 #include "builtin.h"
 
 
-void	builtin_env(char **envp)
+int	builtin_env(char **envp)
 {
 	// env sans arg return=0
 	// env avec arg doit etre chemin acces
 	// si existe pas->127,si acces refuse->126
 	if (envp == NULL)
-		return ;
+		return (127);
 	while (*envp)
 	{
 		if (ft_strchr(*envp, '='))
@@ -29,4 +29,5 @@ void	builtin_env(char **envp)
 		}
 		envp++;
 	}
+	return(0);
 }

@@ -29,23 +29,23 @@ void	builtin_unset_test(void)
 	char *strtab[] = {"KEY=ceci", "KEY1=est", "KEY2=un", "KEY3=test", "KEY=de",
 		"KEY4=unset", "KEY5=", NULL};
 
-	char **strdup;
-	strdup = env_dup(strtab);
+	char **tab_malloc;
+	tab_malloc = env_dup(strtab);
 
 	printf("\nSOURCE TAB ----------------------------------\n");
-	strtab_print(strdup);
-	test(strdup, NULL);
-	strdup = test(strdup, "NOEXIST");
-	strdup = test(strdup, "");
-	strdup = test(strdup, NULL);
-	strdup = test(strdup, "KEY1");
-	strdup = test(strdup, "KEY3");
-	strdup = test(strdup, "KEY");
-	strdup = test(strdup, "NOEXIST2");
-	strdup = test(strdup, "KEY5");
-	strdup = test(strdup, "KEY2");
-	strdup = test(strdup, "KEY4");
-	strtab_free(strdup);
+	strtab_print(tab_malloc);
+	test(tab_malloc, NULL);
+	tab_malloc = test(tab_malloc, "NOEXIST");
+	tab_malloc = test(tab_malloc, "");
+	tab_malloc = test(tab_malloc, NULL);
+	tab_malloc = test(tab_malloc, "KEY1");
+	tab_malloc = test(tab_malloc, "KEY3");
+	tab_malloc = test(tab_malloc, "KEY");
+	tab_malloc = test(tab_malloc, "NOEXIST2");
+	tab_malloc = test(tab_malloc, "KEY5");
+	tab_malloc = test(tab_malloc, "KEY2");
+	tab_malloc = test(tab_malloc, "KEY4");
+	strtab_free(tab_malloc);
 	test(NULL, NULL);
 	printf("____________________________________________\n");
 	printf("____________________________________________\n");
