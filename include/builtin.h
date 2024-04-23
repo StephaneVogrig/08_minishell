@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/31 19:41:41 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/11 23:35:20 by smortemo         ###   ########.fr       */
+/*   Created: 2024/04/11 15:37:55 by smortemo          #+#    #+#             */
+/*   Updated: 2024/04/18 22:03:25 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef BUILTIN_H
+# define BUILTIN_H
 
-size_t	ft_strlen(const char *s)
-{
-	int	i;
+# include "environment.h"
+# include "libft.h"
 
-	if (!s)
-		return (0);
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
+int	    ft_strtab_size(char **strtab); // ajouter dans libft ?
+char	**builtin_unset(char **envp, char *str);
+char	**builtin_export(char **envp, char *str);
+void	export_alone(char **envp);
+int 	builtin_env(char **envp);
+
+#endif
