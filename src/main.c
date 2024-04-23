@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:55:55 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/11 10:37:59 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/23 14:31:28 by stephane         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "exec_input.h"
 #include "minishell.h"
@@ -16,7 +16,6 @@
 void	run_minishell(char **env)
 {
 	char	*input;
-	int		exit_code;
 
 	while (1)
 	{
@@ -31,7 +30,7 @@ void	run_minishell(char **env)
 		if (*input)
 		{
 			add_history(input);
-			exit_code = exec_input(input, env);
+			exec_input(input, env);
 			continue ;
 		}
 		free(input);
