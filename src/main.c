@@ -1,17 +1,53 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:55:55 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/12 17:04:11 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/22 21:15:09 by stephane         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "exec_input.h"
 #include "minishell.h"
+
+/* sybtax error if :
+| start command line
+| follow |, > or <
+> follow < or >
+< follow < or >
+\n follow |, < or >
+*/
+t_bool	syntax_error(char *str)
+{
+	char	*current;
+	
+	str = next_token(str);
+	if (*str = '\0')
+		return (TRUE);
+	if (*str = '|')
+	{
+		fd_printf(STDERR_FD, "%s|\'\n", SYNTAX_ERROR_MSG);
+		return (TRUE);
+	}
+	while (*str)
+	{
+		current = *str;
+		str = next_token;
+		if (is_operator(*current) && is_operator(*str))
+		{
+			fd_printf(STDERR_FD, "%s%c\'\n", SYNTAX_ERROR_MSG, *str);
+			return (TRUE);
+		}
+	}
+	if (!is_operator(*current))
+		return (FALSE);
+	fd_printf(STDERR_FD, "%snewline\'\n", SYNTAX_ERROR_MSG);
+	return (TRUE);
+}
+
 
 void	run_minishell(t_char_m **env, int *exit_status)
 {
@@ -22,15 +58,18 @@ void	run_minishell(t_char_m **env, int *exit_status)
 		input = readline("minishell>");
 		if (!input)
 			return ;
-		if (!*input)
+		if (*input)
 		{
-			free(input);
-			continue ;
+			add_history(input);
+			while (is_blank(*input))
+				input++;
+			if (ft_strncmp("exit", input, 4) == 0)
+				break;
+			
+			if (!syntax_error(input))
+				exec_input(input, env, exit_status);
 		}
-		add_history(input);
-		if (ft_strncmp("exit", input, 4) == 0)
-			break;
-		exec_input(input, env, exit_status);
+		free(input);
 	}
 	free(input);
 }
