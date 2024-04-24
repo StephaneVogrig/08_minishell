@@ -6,14 +6,14 @@
 /*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:55:55 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/23 14:31:28 by stephane         ###   ########.fr       */
+/*   Updated: 2024/04/24 13:11:39 by stephane         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #include "exec_input.h"
 #include "minishell.h"
 
-void	run_minishell(char **env)
+void	run_minishell(char **env, int *exit_status)
 {
 	char	*input;
 
@@ -25,12 +25,12 @@ void	run_minishell(char **env)
 		if (ft_strncmp("exit", input, 4) == 0)
 		{
 			free(input);
-			return ; ;
+			break ;
 		}
 		if (*input)
 		{
 			add_history(input);
-			exec_input(input, env);
+			exec_input(input, env, exit_status);
 			continue ;
 		}
 		free(input);
@@ -40,7 +40,9 @@ void	run_minishell(char **env)
 int	main(int argc, char **argv, char **envp)
 {
 	char	**env;
+	int		exit_status;
 
+	exit_status = 0;
 	if (!argv)
 		argc = argc + 0;	
 	if (argc > 1)
@@ -53,8 +55,8 @@ int	main(int argc, char **argv, char **envp)
 	env = env_dup(envp);
 	if (!env)
 		return (EXIT_FAILURE);
-	run_minishell(env);
+	run_minishell(env, &exit_status);
 	strtab_free(env);
 	write(1, "exit\n", 5);
-	return (EXIT_SUCCESS);
+	return (exit_status);
 }

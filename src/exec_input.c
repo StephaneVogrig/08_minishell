@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   exec_input.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:36:43 by stephane          #+#    #+#             */
-/*   Updated: 2024/04/11 10:43:30 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/24 13:10:18 by stephane         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "debug.h"
 #include "exec_input.h"
@@ -47,7 +47,7 @@ int	exec_pipeline(t_cmd *pipeline, pid_t *pids, char **env)
 	return (SUCCESS);
 }
 
-int	exec_cmd_alone(t_cmd *cmd, char **env)
+void	exec_cmd_alone(t_cmd_m *cmd, t_char_m **env, int *exit_status)
 {
 	pid_t	pid[2];
 
@@ -64,23 +64,13 @@ int	exec_cmd_alone(t_cmd *cmd, char **env)
 		strtab_free(env);
 		exit(EXIT_FAILURE);
 	}
-	return (wait_process(pid));
+	*exit_status = wait_process(pid);
 }
 
-int	exec_input(t_char_m *input, char **env)
+void exec_cmd_pipe(t_cmd_m *pipeline, t_char_m **env, int *exit_status)
 {
-	t_cmd	*pipeline;
-	int		exit_code;
 	pid_t	*pids;
 
-	if (syntax_error(input))
-		return (SYNTAX_ERROR);
-	pipeline = input_to_pipeline(skip_blank(input));
-	free(input);
-	if (!pipeline)
-		exit(EXIT_FAILURE);
-	if (!pipeline->next)
-		return(exec_cmd_alone(pipeline, env));
 	pids = ft_calloc(sizeof(int), cmd_nbr(pipeline) + 1);
 	if (!pids)
 	{
@@ -90,7 +80,29 @@ int	exec_input(t_char_m *input, char **env)
 		exit(EXIT_FAILURE);
 	}
 	exec_pipeline(pipeline, pids, env);
-	exit_code = wait_process(pids);
+	*exit_status = wait_process(pids);
 	free(pids);
-	return (exit_code);
+}
+
+void	exec_input(t_char_m *input, t_char_m **env, int *exit_status)
+{
+	t_cmd_m	*pipeline;
+
+	if (syntax_error(input))
+	{
+		free(input);
+		*exit_status = SYNTAX_ERROR;
+		return ;
+	}
+	pipeline = input_to_pipeline(skip_blank(input));
+	free(input);
+	if (!pipeline)
+	{
+		strtab_free(env);
+		exit(EXIT_FAILURE);
+	}
+	if (!pipeline->next)
+		exec_cmd_alone(pipeline, env, exit_status);
+	else
+		exec_cmd_pipe(pipeline, env, exit_status);
 }
