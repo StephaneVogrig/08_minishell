@@ -1,28 +1,57 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   input_to_pipeline.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:25:18 by stephane          #+#    #+#             */
-/*   Updated: 2024/04/08 02:20:17 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/25 20:26:07 by stephane         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "input_to_pipeline.h"
 
-char	*next_token_to_redir(char *str, t_redir **redir, int type)
+t_bool	is_meta(char c)
 {
-	char	*token;
+
+	if (ft_strchr("|<> \t", c))
+		return (TRUE);
+	return (FALSE);
+	
+}
+
+int	token_len(char *str)
+{
+	char	*temp;
+	char	quote;
+
+	temp = str;
+	while (!is_meta(*str))
+	{
+		if (*str == '\'' || *str == '\"')
+		{
+			quote = *str++;
+			while (*str != quote)
+				str++;
+		}
+		str++;
+	}
+	return (str - temp);
+}
+
+t_char_m	*next_token_to_redir(char *str, t_redir **redir, int type)
+{
+	t_char_m	*token;
+	int			len;
 
 	str = skip_blank(str);
-	str = next_token(str, &token);
-	if	(!str)
+	len = token_len(str);
+	token = ft_strndup(str, len);
+	if	(!token && !redirection_add(redir, token, type))
 		return (NULL);
-	if(!redirection_add(redir, token, type))
-		return (NULL);
-	return (str);
+ft_printf("len:%i, tok:\"%s\"\n", len, token);
+	return (str + len);
 }
 
 char	*new_current_cmd(t_cmd **cmd, char *str)
@@ -53,6 +82,7 @@ t_cmd	*input_to_pipeline(char *input)
 {
 	t_cmd	*pipeline;
 	t_cmd	*current_cmd;
+	
 	current_cmd = cmd_new();
 	if (!current_cmd)
 		return (NULL);
