@@ -6,12 +6,21 @@
 /*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:55:55 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/24 13:11:39 by stephane         ###   ########.fr       */
+/*   Updated: 2024/04/25 18:06:26 by stephane         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #include "exec_input.h"
 #include "minishell.h"
+
+t_bool	is_empty(char *str)
+{
+	while (is_blank(*str))
+		str++;
+	if (*str == '\0')
+		return (TRUE);	
+	return (FALSE);
+}
 
 void	run_minishell(char **env, int *exit_status)
 {
@@ -27,13 +36,13 @@ void	run_minishell(char **env, int *exit_status)
 			free(input);
 			break ;
 		}
-		if (*input)
+		if (is_empty(input))
 		{
-			add_history(input);
-			exec_input(input, env, exit_status);
+			free(input);
 			continue ;
 		}
-		free(input);
+		add_history(input);
+		exec_input(input, env, exit_status);
 	}
 }
 
