@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 17:59:17 by smortemo          #+#    #+#             */
-/*   Updated: 2024/04/11 10:32:42 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/26 22:58:01 by stephane         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "environment.h"
 
@@ -62,6 +62,20 @@ char	*env_get(char **env, char *str)
 		if (!ft_strncmp(*env, str, size))
 			if (*(*env + size) == '=')
 				return (*env + size + 1);
+		env++;
+	}
+	return (NULL);
+}
+
+char	*env_get_n(char **env, char *str, int n)
+{
+	if (!env || !str || n < 1)
+		return (NULL);
+	while (*env)
+	{
+		if (!ft_strncmp(*env, str, n))
+			if (*(*env + n) == '=')
+				return (*env + n + 1);
 		env++;
 	}
 	return (NULL);

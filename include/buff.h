@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   buff.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 01:13:55 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/12 03:56:23 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/27 10:12:00 by stephane         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #ifndef BUFFER_H
 # define BUFFER_H
@@ -25,9 +25,11 @@ typedef struct s_buff{
 
 void		buff_init(t_buff *buffer);
 void		buff_clear(t_buff *buffer);
-t_bool		buff_add_char(t_buff *buffer, char c);
-t_bool		buff_add_str(t_buff *buffer, char *str);
 int			buff_len(t_buff *buffer);
 t_char_m	*buff_to_str(t_buff *buffer);
+
+t_bool		buff_add_char(t_buff *buffer, char c);
+t_bool		buff_add_str(t_buff *buffer, char *str);
+t_bool		buff_add_str_n(t_buff *buffer, char *str, int n);
 
 #endif

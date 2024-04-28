@@ -1,58 +1,38 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   buff.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 01:10:34 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/12 04:18:53 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/27 20:25:29 by stephane         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "buff.h"
 
-t_bool	buff_create_save(t_buff *buffer)
+void	buff_init(t_buff *buffer)
 {
-	buffer->save_head = buffsave_new();
-	if (!buffer->save_head)
-		return (FAILURE);
-	buffer->save_last = buffer->save_head;
-	return (SUCCESS);
+	buffer->offset = 0;
+	buffer->save_head = NULL;
+	buffer->save_last = NULL;
 }
 
-t_bool	buff_add_char(t_buff *buffer, char c)
+void	buff_clear(t_buff *buffer)
 {
-	if (buffer->offset < BUFFER_SIZE)
+	t_buffsave	*temp;
+	
+	while (buffer->save_head)
 	{
-		buffer->data[buffer->offset++] = c;
-		return (SUCCESS);
+		temp = buffer->save_head->next;
+		free(buffer->save_head);
+		buffer->save_head = temp;
 	}
-	if (!buffer->save_last)
-		if (!buff_create_save(buffer))
-			return (FAILURE);
-	if (buffer->save_last->offset == BUFFER_SIZE)
-		if (!buffsave_add_new(buffer->save_last))
-			return (FAILURE);
-	buffer->save_last->data[buffer->save_last->offset++] = c;
-	return (SUCCESS);
+	buff_init(buffer);
 }
 
-t_bool	buff_add_str(t_buff *buffer, char *str)
-{
-	if (!str)
-		return (FAILURE);
-	while (*str && buffer->offset < BUFFER_SIZE)
-		buffer->data[buffer->offset++] = *str++;
-	if (!*str)
-		return (SUCCESS);
-	if (!buffer->save_last)
-		if (!buff_create_save(buffer))
-			return (FAILURE);
-	return (buffsave_add_str(&(buffer->save_last), str));
-}
-
-int			buff_len(t_buff *buffer)
+int	buff_len(t_buff *buffer)
 {
 	int			len;
 	t_buffsave	*temp;

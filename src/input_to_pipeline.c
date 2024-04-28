@@ -1,28 +1,60 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   input_to_pipeline.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:25:18 by stephane          #+#    #+#             */
-/*   Updated: 2024/04/08 02:20:17 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/27 16:31:24 by stephane         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "input_to_pipeline.h"
 
-char	*next_token_to_redir(char *str, t_redir **redir, int type)
+t_bool	is_meta(char c)
 {
-	char	*token;
+
+	if (ft_strchr("|<> \t", c))
+		return (TRUE);
+	return (FALSE);
+	
+}
+
+int	token_len(char *str)
+{
+	char	*temp;
+	char	quote;
+
+	temp = str;
+	while (!is_meta(*str))
+	{
+		if (*str == '\'' || *str == '\"')
+		{
+			quote = *str++;
+			while (*str != quote)
+				str++;
+		}
+		str++;
+	}
+	return (str - temp);
+}
+
+t_char_m	*next_token_to_redir(char *str, t_redir **redir, int type)
+{
+	t_char_m	*token;
+	int			len;
 
 	str = skip_blank(str);
-	str = next_token(str, &token);
-	if	(!str)
+	len = token_len(str);
+	token = ft_strndup(str, len);
+	if	(!token)
 		return (NULL);
-	if(!redirection_add(redir, token, type))
+	if (!redirection_add(redir, token, type))
 		return (NULL);
-	return (str);
+// print_redir(*redir);
+// ft_printf("len:%i, tok:\"%s\"\n", len, token);
+	return (str + len);
 }
 
 char	*new_current_cmd(t_cmd **cmd, char *str)
@@ -34,7 +66,7 @@ char	*new_current_cmd(t_cmd **cmd, char *str)
 	return (++str);
 }
 
-char	*parse(char *input, t_cmd **cmd)
+char	*parse(char *input, t_cmd **cmd, char **env, int *exit_status)
 {
 	if (*input == '|')
 		return (new_current_cmd(cmd, input));
@@ -46,20 +78,21 @@ char	*parse(char *input, t_cmd **cmd)
 		return (next_token_to_redir(input + 2, &(*cmd)->redir, REDIR_OUT_APD));
 	if (*input == '>')
 		return (next_token_to_redir(input + 1, &(*cmd)->redir, REDIR_OUT_TRC));
-	return (add_next_token(input, &((*cmd)->argv)));
+	return (add_next_token(input, &((*cmd)->argv), env, exit_status));
 }
 
-t_cmd	*input_to_pipeline(char *input)
+t_cmd	*input_to_pipeline(char *input, char **env, int *exit_status)
 {
 	t_cmd	*pipeline;
 	t_cmd	*current_cmd;
+	
 	current_cmd = cmd_new();
 	if (!current_cmd)
 		return (NULL);
 	pipeline = current_cmd;
 	while (*input)
 	{
-		input = parse(input, &current_cmd);
+		input = parse(input, &current_cmd, env, exit_status);
 		if (!input)
 		{
 			pipeline_free(&pipeline);

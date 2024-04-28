@@ -1,17 +1,23 @@
 /******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_to_pipeline.h                                :+:      :+:    :+:   */
+/*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/04 21:26:45 by stephane          #+#    #+#             */
-/*   Updated: 2024/04/27 12:09:19 by stephane         ###   ########.fr       */
+/*   Created: 2024/04/27 16:22:35 by stephane          #+#    #+#             */
+/*   Updated: 2024/04/27 16:25:40 by stephane         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
-#include "token.h"
-#include "pipeline.h"
-#include "redirection.h"
+#ifndef PARSE_H
+# define PARSE_H
 
-t_cmd	*input_to_pipeline(char *input, char **env, int *exit_status);
+#include "buff.h"
+#include "expanse.h"
+
+char	*parse_spl_quoted(t_buff *buffer, char *str);
+char	*parse_dbl_quoted(t_buff *buffer, char *str, char **env, int *exit_status);
+char	*parse_unquoted(t_buff *buffer, char *str, t_list **argv, char **env);
+
+#endif
