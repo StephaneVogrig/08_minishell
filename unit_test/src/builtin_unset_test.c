@@ -19,14 +19,14 @@ static char	**test(char **env, char *str)
 	printf("--------------------------------------------\n");
 	printf("TEST-> unset %s \n", str);
 	printf("--------------------------------------------\n");
-	env = builtin_unset(env, str);
+	builtin_unset(env, str);
 	strtab_print(env);
 	return (env);
 }
 
 void	builtin_unset_test(void)
 {
-	char *strtab[] = {"KEY=ceci", "KEY1=est", "KEY2=un", "KEY3=test", "KEY=de",
+	char *strtab[] = {"KEY0=ceci", "KEY1=est", "KEY2=un", "KEY3=test", "KEY=de",
 		"KEY4=unset", "KEY5=", NULL};
 
 	char **strdup;
@@ -35,16 +35,17 @@ void	builtin_unset_test(void)
 	printf("\nSOURCE TAB ----------------------------------\n");
 	strtab_print(strdup);
 	test(strdup, NULL);
-	strdup = test(strdup, "NOEXIST");
-	strdup = test(strdup, "");
-	strdup = test(strdup, NULL);
-	strdup = test(strdup, "KEY1");
-	strdup = test(strdup, "KEY3");
-	strdup = test(strdup, "KEY");
-	strdup = test(strdup, "NOEXIST2");
-	strdup = test(strdup, "KEY5");
-	strdup = test(strdup, "KEY2");
-	strdup = test(strdup, "KEY4");
+	test(strdup, "NOEXIST");
+	test(strdup, "");
+	test(strdup, NULL);
+	test(strdup, "KEY1");
+	test(strdup, "KEY3");
+	test(strdup, "KEY");
+	test(strdup, "NOEXIST2 xxxx");
+	test(strdup, "KEY5");
+	test(strdup, "KEY2");
+	test(strdup, "KEY4 xxxx");
+	test(strdup, "KEY0");
 	strtab_free(strdup);
 	test(NULL, NULL);
 	printf("____________________________________________\n");
