@@ -6,7 +6,7 @@
 /*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 15:22:47 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/25 21:26:22 by stephane         ###   ########.fr       */
+/*   Updated: 2024/04/27 16:41:35 by stephane         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -16,10 +16,9 @@ t_bool	redir_cmd(t_redir *redirs)
 {
 	int		fd;
 	int		fd_dup;
-// ft_printf("%p\n", redirs);
+
 	while (redirs)
 	{
-ft_printf("redir cmd\n");
 		fd_dup = STDOUT_FD;
 		if (redirs->type == REDIR_IN || redirs->type == HEREDOC)
 		{

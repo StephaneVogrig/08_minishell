@@ -6,7 +6,7 @@
 /*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 20:16:08 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/25 21:25:53 by stephane         ###   ########.fr       */
+/*   Updated: 2024/04/26 16:39:11 by stephane         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -21,7 +21,7 @@ void	print_redir(t_redir *redir)
 	while (redir)
 	{
 		// ft_printf("redir\n");
-		ft_printf("%s, %s\n", type[redir->type], redir->file_name);
+		ft_printf("redir type:%s, name:%s\n", type[redir->type], redir->file_name);
 		redir = redir->next;
 	}
 
@@ -35,6 +35,14 @@ void	print_cmd(t_cmd cmd)
 	ft_printf("------------------\n");
 }
 
+void	strlink_print(t_strlink *strlink)
+{
+	while (strlink)
+	{
+		ft_printf("str:%s, len:%i\n", strlink->str, strlink->len);
+		strlink = strlink->next;
+	}	
+}
 
 
 void	print_pipeline(t_cmd *pipeline)

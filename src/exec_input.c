@@ -6,7 +6,7 @@
 /*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:36:43 by stephane          #+#    #+#             */
-/*   Updated: 2024/04/25 21:23:50 by stephane         ###   ########.fr       */
+/*   Updated: 2024/04/27 12:10:18 by stephane         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -94,8 +94,8 @@ void	exec_input(t_char_m *input, t_char_m **env, int *exit_status)
 		*exit_status = SYNTAX_ERROR;
 		return ;
 	}
-	pipeline = input_to_pipeline(skip_blank(input));
-print_pipeline(pipeline);
+	pipeline = input_to_pipeline(skip_blank(input), env, exit_status);
+// print_pipeline(pipeline);
 	free(input);
 	if (!pipeline)
 	{

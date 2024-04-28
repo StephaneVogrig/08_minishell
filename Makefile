@@ -1,14 +1,14 @@
-# **************************************************************************** #
+#******************************************************************************#
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
+#    By: stephane <stephane@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/04/11 10:21:57 by svogrig          ###   ########.fr        #
+#    Updated: 2024/04/27 16:24:14 by stephane         ###   ########.fr        #
 #                                                                              #
-# **************************************************************************** #
+#******************************************************************************#
 
 
 NAME			:=	minishell
@@ -23,21 +23,27 @@ NAME_SANB		:=	$(NAME)_bonussanitize
 DIR_SRC			:=	src
 #SRC				=	$(shell find ./src/ -name *.c)
 SRC				:=	main.c \
+					buff.c \
+					buffadd.c \
+					buffsave.c \
 					command.c \
 					cmd_path.c \
 					environment.c \
 					exec_input.c \
 					exec_cmd.c \
 					exit.c \
+					expanse.c \
 					input_to_pipeline.c \
 					memory.c \
 					pipeline.c \
 					heredoc_bonus.c \
+					parse.c \
 					pipe.c \
 					process.c \
 					redirection.c \
 					signal_handler.c \
 					str.c \
+					strlink.c \
 					token.c \
 					debug.c \
 					wait.c 

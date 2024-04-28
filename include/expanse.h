@@ -1,17 +1,26 @@
 /******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_to_pipeline.h                                :+:      :+:    :+:   */
+/*   expanse.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/04 21:26:45 by stephane          #+#    #+#             */
-/*   Updated: 2024/04/27 12:09:19 by stephane         ###   ########.fr       */
+/*   Created: 2024/04/27 16:05:15 by stephane          #+#    #+#             */
+/*   Updated: 2024/04/27 19:45:55 by stephane         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
-#include "token.h"
-#include "pipeline.h"
-#include "redirection.h"
+#ifndef EXPANSE_H
+# define EXPANSE_H
 
-t_cmd	*input_to_pipeline(char *input, char **env, int *exit_status);
+# include "libft.h"
+# include "str.h"
+# include "buff.h"
+# include "token.h"
+# include "environment.h"
+
+char	*expanse_exit_status(t_buff *buffer, char *str, int *exit_status);
+char	*expanse_quoted(t_buff *buffer, char *str, char **env, int *exit_status);
+char	*expanse_unquoted(t_buff *buffer, char *str, t_list **argv, char **env);
+
+#endif

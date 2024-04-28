@@ -6,7 +6,7 @@
 /*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:25:18 by stephane          #+#    #+#             */
-/*   Updated: 2024/04/25 20:26:07 by stephane         ###   ########.fr       */
+/*   Updated: 2024/04/27 16:31:24 by stephane         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -48,9 +48,12 @@ t_char_m	*next_token_to_redir(char *str, t_redir **redir, int type)
 	str = skip_blank(str);
 	len = token_len(str);
 	token = ft_strndup(str, len);
-	if	(!token && !redirection_add(redir, token, type))
+	if	(!token)
 		return (NULL);
-ft_printf("len:%i, tok:\"%s\"\n", len, token);
+	if (!redirection_add(redir, token, type))
+		return (NULL);
+// print_redir(*redir);
+// ft_printf("len:%i, tok:\"%s\"\n", len, token);
 	return (str + len);
 }
 
@@ -63,7 +66,7 @@ char	*new_current_cmd(t_cmd **cmd, char *str)
 	return (++str);
 }
 
-char	*parse(char *input, t_cmd **cmd)
+char	*parse(char *input, t_cmd **cmd, char **env, int *exit_status)
 {
 	if (*input == '|')
 		return (new_current_cmd(cmd, input));
@@ -75,10 +78,10 @@ char	*parse(char *input, t_cmd **cmd)
 		return (next_token_to_redir(input + 2, &(*cmd)->redir, REDIR_OUT_APD));
 	if (*input == '>')
 		return (next_token_to_redir(input + 1, &(*cmd)->redir, REDIR_OUT_TRC));
-	return (add_next_token(input, &((*cmd)->argv)));
+	return (add_next_token(input, &((*cmd)->argv), env, exit_status));
 }
 
-t_cmd	*input_to_pipeline(char *input)
+t_cmd	*input_to_pipeline(char *input, char **env, int *exit_status)
 {
 	t_cmd	*pipeline;
 	t_cmd	*current_cmd;
@@ -89,7 +92,7 @@ t_cmd	*input_to_pipeline(char *input)
 	pipeline = current_cmd;
 	while (*input)
 	{
-		input = parse(input, &current_cmd);
+		input = parse(input, &current_cmd, env, exit_status);
 		if (!input)
 		{
 			pipeline_free(&pipeline);
