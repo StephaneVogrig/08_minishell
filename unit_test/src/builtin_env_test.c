@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_env.c                                      :+:      :+:    :+:   */
+/*   builtin_env_test.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 22:21:17 by smortemo          #+#    #+#             */
-/*   Updated: 2024/04/10 23:47:44 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/04/28 22:04:30 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	builtin_env_test(void)
 	char *strtab[] = {"KEY=ceci", "KEY1=est", "Do_not_display", "KEY2=un", "KEY3=test", "KEY=de",
 		"KEY4=env", "KEY5=", NULL};
 
-	char **strdup;
+	t_env *strdup;
 	strdup = env_dup(strtab);
 
 	printf("\nSOURCE TAB ----------------------------------\n");

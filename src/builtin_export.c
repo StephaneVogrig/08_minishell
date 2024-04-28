@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:13:40 by smortemo          #+#    #+#             */
-/*   Updated: 2024/04/28 21:02:06 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/04/28 21:59:21 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,13 @@ char	**builtin_export(char **envp, char *str)
 
 	if (!envp)
 		return (NULL);
-	if (!str)
-	{
-		tab_temp = env_dup(envp);
-		export_alone(tab_temp); //+code erreur = 0
-		strtab_free(tab_temp);
-		return (envp);
-	}
+	// if (!str)
+	// {
+	// 	tab_temp = env_dup(envp);
+	// 	export_alone(tab_temp); //+code erreur = 0
+	// 	strtab_free(tab_temp);
+	// 	return (envp);
+	// }
 	if (str[0] == '\0')
 	{
 		export_error(str);
@@ -113,29 +113,29 @@ char	**builtin_export(char **envp, char *str)
 	return (tab_temp); //+code erreur = 0
 }
 /////////////////
-int	display_envp(char **envp)
-{
-	char	**temp;
+// int	display_envp(char **envp)
+// {
+// 	char	**temp;
 
-	temp = env_dup(envp);
-	export_alone(temp);
-	strtab_free(temp);
-	return (0);
-}
+// 	temp = env_dup(envp);
+// 	export_alone(temp);
+// 	strtab_free(temp);
+// 	return (0);
+// }
 
-t_bool	is_valid_arg(char *str)
-{
-	if (!ft_islaplpha(str[0]))
-		return (0);
-}
+// t_bool	is_valid_arg(char *str)
+// {
+// 	if (!ft_islaplpha(str[0]))
+// 		return (0);
+// }
 
-int	builtin_export_(char ***envp, char *str)
-{
-	if (!envp)
-		return (0);
-	if (!str)
-		return (display_envp(*envp));
-	if (!is_valid_arg(str))
-		return (1);
-	return (export_run(envp, str));
-}
+// int	builtin_export_(char ***envp, char *str)
+// {
+// 	if (!envp)
+// 		return (0);
+// 	if (!str)
+// 		return (display_envp(*envp));
+// 	if (!is_valid_arg(str))
+// 		return (1);
+// 	return (export_run(envp, str));
+// }

@@ -1,55 +1,104 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 17:59:17 by smortemo          #+#    #+#             */
-/*   Updated: 2024/04/26 22:58:01 by stephane         ###   ########.fr       */
+/*   Updated: 2024/04/29 00:06:41 by smortemo         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "environment.h"
 
-int	strtab_size(char **strtab)
+void	env_free(t_env *env)
 {
-	int	i;
+	t_env	*current;
+	t_env	*temp;
 
-	if (!strtab)
-		return (0);
-	i = 0;
-	while (*strtab++)
-		i++;
-	return (i);
+	current = env;
+	while (current != NULL)
+	{
+		temp = current;
+		current = current->next;
+		free(temp->name);
+		free(temp->value);
+		free(temp);
+	}
+}
+void	display_the_list(t_env *env)
+{
+	while (env != NULL)
+	{
+		printf("%s = ", env->name);
+		printf("%s\n", env->value);
+		env = env->next;
+	}
 }
 
-char	**env_dup(char **envp)
+t_bool	env_init(t_env *node, char *str)
 {
-	char	**new;
-	char	**current;
-	int		size;
+	int	index;
+
+	// printf("str= %s \n", str);
+	index = ft_strchr_i(str, '=');
+	node->name = ft_strndup(str, index);
+	if (!node->name)
+		return (FAILURE);
+	node->value = ft_strdup(&str[index + 1]);
+	if (!node->value)
+		return (FAILURE);
+	node->type = EXPORTED;
+	node->next = NULL;
+	// printf("node->name= %s, value= %s\n", node->name, node->value);
+	return (SUCCESS);
+}
+
+void	env_add_back(t_env **env, t_env *node)
+{
+	t_env	*temp;
+
+	if (!*env)
+	{
+		*env = node;
+		return ;
+	}
+	temp = *env;
+	while (temp->next)
+		temp = temp->next;
+	temp->next = node;
+}
+
+t_env	*env_dup(char **envp)
+{
+	t_env	*env;
+	t_env	*node;
+	int		i;
 
 	if (!envp)
 		return (NULL);
-	size = strtab_size(envp) + 1;
-	new = mem_calloc(size, sizeof(char *));
-	if (!new)
-		return (NULL);
-	current = new;
-	while (*envp)
+	i = 0;
+	env = NULL;
+	while (envp[i])
 	{
-		*current = ft_strdup(*envp++);
-		if (!*current)
+		// printf("envp[i]= %s \n", envp[i]);
+		node = malloc(sizeof(*node));
+		if (!node)
 		{
-			strtab_free(new);
+			env_free(env);
 			return (NULL);
 		}
-		current++;
+		env_init(node, envp[i]);
+		// printf("node->name= %s, value= %s\n", node->name, node->value);
+		env_add_back(&env, node);
+		display_the_list(env);
+		printf("----------\n");
+		i++;
 	}
-	return (new);
+	return (env);
 }
-
+/////// A ADAPTER /////
 char	*env_get(char **env, char *str)
 {
 	int	size;
