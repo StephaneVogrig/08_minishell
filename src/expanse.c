@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   expanse.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 16:03:55 by stephane          #+#    #+#             */
-/*   Updated: 2024/04/27 20:18:39 by stephane         ###   ########.fr       */
+/*   Updated: 2024/04/29 06:22:24 by svogrig          ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "expanse.h"
 
@@ -35,7 +35,7 @@ char	*expanse_exit_status(t_buff *buffer, char *str, int *exit_status)
 	return (++str);		
 }
 
-char	*expanse_quoted(t_buff *buffer, char *str, char **env, int *exit_status)
+char	*expanse_quoted(t_buff *buffer, char *str, t_env *env, int *exit_status)
 {
 	char	*end;
 	
@@ -53,19 +53,19 @@ char	*expanse_quoted(t_buff *buffer, char *str, char **env, int *exit_status)
 			return (NULL);
 	return (end);		
 }
-// #include "debug.h"
+
 t_bool	split_word(char *str, t_buff *buffer, t_list **argv)
 {
-ft_printf("split_word:\"%s\"\n", str);
-strlist_print_fd(*argv, 1);
+// ft_printf("split_word:\"%s\"\n", str);
+// strlist_print_fd(*argv, 1);
 	while (*str)
 	{
 		if (is_blank(*str))
 		{
 			if (argv_add_buffer(argv, buffer) == FAILURE)
 				return (FAILURE);
-ft_printf("is blank:\"%s\"\n", str);
-strlist_print_fd(*argv, 1);
+// ft_printf("is blank:\"%s\"\n", str);
+// strlist_print_fd(*argv, 1);
 			while (is_blank(*str))
 				str++;
 		}
@@ -79,7 +79,7 @@ strlist_print_fd(*argv, 1);
 	return (SUCCESS);
 }
 
-char	*expanse_unquoted(t_buff *buffer, char *str, t_list **argv, char **env)
+char	*expanse_unquoted(t_buff *buffer, char *str, t_list **argv, t_env *env)
 {
 	(void)argv;
 	char	*end;

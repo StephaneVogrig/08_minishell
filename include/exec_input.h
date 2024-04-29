@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   exec_input.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 20:37:35 by stephane          #+#    #+#             */
-/*   Updated: 2024/04/24 12:16:43 by stephane         ###   ########.fr       */
+/*   Updated: 2024/04/29 02:13:52 by svogrig          ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #ifndef EXEC_INPUT_H
 # define EXEC_INPUT_H
@@ -23,6 +23,6 @@
 
 # define SYNTAX_ERROR 2
 
-void	exec_input(char *input, char **envp, int *exit_status);
+void	exec_input(char *input, t_env *envp, int *exit_status);
 
 #endif

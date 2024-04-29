@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 20:00:10 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/08 04:21:10 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/29 05:12:27 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@
 # include <string.h>
 # include <errno.h>
 # include "libft.h"
+# include "environment.h"
 
 void	exit_on_is_directory(char *path, char *to_free, char **argv);
 void	exit_on_acces_denied(char *path, char *to_free, char **argv);
 void	exit_on_cmd_not_found(char **argv);
 void	exit_on_open_error(char *file_path, int fd);
-void	exit_perror(char *msg);
+void	exit_on_failure(char *str, char **argv, t_env *env);
 
 #endif

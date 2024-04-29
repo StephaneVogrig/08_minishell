@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 02:38:28 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/08 03:23:08 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/29 02:16:48 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@
 # include "pipeline.h"
 # include "redirection.h"
 
-void	exec_cmd(t_cmd *cmd, char **envp);
+void	exec_cmd(t_cmd *cmd, t_env *env);
 
 #endif

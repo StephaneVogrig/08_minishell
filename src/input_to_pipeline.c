@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   input_to_pipeline.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:25:18 by stephane          #+#    #+#             */
-/*   Updated: 2024/04/27 16:31:24 by stephane         ###   ########.fr       */
+/*   Updated: 2024/04/29 01:55:54 by svogrig          ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "input_to_pipeline.h"
 
@@ -66,7 +66,7 @@ char	*new_current_cmd(t_cmd **cmd, char *str)
 	return (++str);
 }
 
-char	*parse(char *input, t_cmd **cmd, char **env, int *exit_status)
+char	*parse(char *input, t_cmd **cmd, t_env *env, int *exit_status)
 {
 	if (*input == '|')
 		return (new_current_cmd(cmd, input));
@@ -81,7 +81,7 @@ char	*parse(char *input, t_cmd **cmd, char **env, int *exit_status)
 	return (add_next_token(input, &((*cmd)->argv), env, exit_status));
 }
 
-t_cmd	*input_to_pipeline(char *input, char **env, int *exit_status)
+t_cmd	*input_to_pipeline(char *input, t_env *env, int *exit_status)
 {
 	t_cmd	*pipeline;
 	t_cmd	*current_cmd;

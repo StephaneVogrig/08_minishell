@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 00:11:51 by stephane          #+#    #+#             */
-/*   Updated: 2024/04/27 20:25:20 by stephane         ###   ########.fr       */
+/*   Updated: 2024/04/29 05:45:09 by svogrig          ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "token.h"
 
@@ -80,19 +80,8 @@ char	*next_token(char *str, char	**token)
 // 	return (str);
 // }
 
-t_bool	argv_add_buffer(t_list **argv, t_buff *buffer)
-{
-	t_char_m	*token;
-	if (!buff_len(buffer))
-		return (SUCCESS);
-	token = buff_to_str(buffer);
-	buff_clear(buffer);
-	if(!token)
-		return (FAILURE);
-	return (add_to_strlist(argv, token));
-}
 
-char	*add_next_token(char *str, t_list **argv, char **env, int *exit_status)
+char	*add_next_token(char *str, t_list **argv, t_env *env, int *exit_status)
 {
 	t_buff	buffer;
 	

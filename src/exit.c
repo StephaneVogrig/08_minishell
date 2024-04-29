@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 19:56:00 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/07 02:50:07 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/29 05:13:29 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,13 @@ void	exit_on_open_error(char *file_path, int fd)
 	exit(EXIT_FAILURE);
 }
 
-void	exit_perror(char *msg)
+void	exit_on_failure(char *str, char **argv, t_env *env)
 {
-	perror(msg);
+	if (str)
+		free(str);
+	if (argv)
+		strtab_free(argv);
+	if (env)
+		env_free(env);
 	exit(EXIT_FAILURE);
 }

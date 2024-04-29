@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 17:59:17 by smortemo          #+#    #+#             */
-/*   Updated: 2024/04/29 00:06:41 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/04/29 07:24:56 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ t_env	*env_dup(char **envp)
 	env = NULL;
 	while (envp[i])
 	{
-		// printf("envp[i]= %s \n", envp[i]);
 		node = malloc(sizeof(*node));
 		if (!node)
 		{
@@ -90,42 +89,98 @@ t_env	*env_dup(char **envp)
 			return (NULL);
 		}
 		env_init(node, envp[i]);
-		// printf("node->name= %s, value= %s\n", node->name, node->value);
 		env_add_back(&env, node);
-		display_the_list(env);
-		printf("----------\n");
 		i++;
 	}
 	return (env);
 }
-/////// A ADAPTER /////
-char	*env_get(char **env, char *str)
-{
-	int	size;
 
+char	*env_get(t_env *env, char *str)
+{
 	if (!env || !str)
 		return (NULL);
-	size = ft_strlen(str);
-	while (*env)
+	while (env)
 	{
-		if (!ft_strncmp(*env, str, size))
-			if (*(*env + size) == '=')
-				return (*env + size + 1);
-		env++;
+		if (!ft_strcmp(env->name, str))
+			return (env->value);
+		env = env->next;
 	}
 	return (NULL);
 }
 
-char	*env_get_n(char **env, char *str, int n)
+char	*env_get_n(t_env *env, char *str, int n)
 {
 	if (!env || !str || n < 1)
 		return (NULL);
-	while (*env)
+	while (env)
 	{
-		if (!ft_strncmp(*env, str, n))
-			if (*(*env + n) == '=')
-				return (*env + n + 1);
-		env++;
+		if (!ft_strncmp(env->name, str, n))
+			if (!*(str + n))
+				return (env->value);
+		env = env->next;
 	}
 	return (NULL);
+}
+
+int	env_size_envp(t_env *env)
+{
+	int	i;
+
+	i = 0;
+	while (env)
+	{
+		if (env->type == EXPORTED)
+			i++;
+		env = env->next;
+	}
+	return (i);
+}
+
+char	*env_join(char *name, char *value)
+{
+	int 	name_len;
+	char	*str;
+	char	*temp;
+
+	name_len = ft_strlen(name);
+	str = malloc(name_len + ft_strlen(value) + 2);
+	if (!str)
+		return (NULL);
+	temp = str;
+	if (name)
+		temp = strcpy_offset(str, name);
+	*temp++ = '=';
+	if (value)
+		temp = strcpy_offset(temp, value);
+	*temp = '\0';
+// ft_printf("%s=%s ->%s\n", name, value, str);
+	return (str);
+}
+
+char	**env_to_envp(t_env *env)
+{
+	char	**envp;
+	char	**temp;
+	char	*str;
+
+	envp =  calloc(env_size_envp(env) + 1, sizeof(*envp));
+	if (!envp)
+		return (NULL);
+	temp = envp;
+	while (env)
+	{
+		if (env->type == EXPORTED)
+		{
+			str = env_join(env->name, env->value);
+			if (!str)
+			{
+				strtab_free(temp);
+				return (NULL);
+			}
+			*temp++ = str;
+		}
+		env = env->next;
+	}
+// strtab_print(envp);
+	return (envp);
 }

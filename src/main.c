@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:55:55 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/25 18:06:26 by stephane         ###   ########.fr       */
+/*   Updated: 2024/04/29 01:53:29 by svogrig          ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "exec_input.h"
 #include "minishell.h"
@@ -22,7 +22,7 @@ t_bool	is_empty(char *str)
 	return (FALSE);
 }
 
-void	run_minishell(char **env, int *exit_status)
+void	run_minishell(t_env *env, int *exit_status)
 {
 	char	*input;
 
@@ -48,7 +48,7 @@ void	run_minishell(char **env, int *exit_status)
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	**env;
+	t_env	*env;
 	int		exit_status;
 
 	exit_status = 0;
@@ -65,7 +65,7 @@ int	main(int argc, char **argv, char **envp)
 	if (!env)
 		return (EXIT_FAILURE);
 	run_minishell(env, &exit_status);
-	strtab_free(env);
+	env_free(env);
 	write(1, "exit\n", 5);
 	return (exit_status);
 }

@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   exec_input.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:36:43 by stephane          #+#    #+#             */
-/*   Updated: 2024/04/27 12:10:18 by stephane         ###   ########.fr       */
+/*   Updated: 2024/04/29 04:43:31 by svogrig          ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "debug.h"
 #include "exec_input.h"
@@ -23,7 +23,7 @@ t_bool	syntax_error(char *input)
 	return (FALSE);
 }
 
-int	exec_pipeline(t_cmd *pipeline, pid_t *pids, char **env)
+int	exec_pipeline(t_cmd *pipeline, pid_t *pids, t_env *env)
 {
 	int		fd;
 	pid_t	*pid;
@@ -47,7 +47,7 @@ int	exec_pipeline(t_cmd *pipeline, pid_t *pids, char **env)
 	return (SUCCESS);
 }
 
-void	exec_cmd_alone(t_cmd_m *cmd, t_char_m **env, int *exit_status)
+void	exec_cmd_alone(t_cmd_m *cmd, t_env *env, int *exit_status)
 {
 	pid_t	pid[2];
 
@@ -61,13 +61,13 @@ void	exec_cmd_alone(t_cmd_m *cmd, t_char_m **env, int *exit_status)
 	cmd_free(cmd);
 	if (*pid == -1)
 	{
-		strtab_free(env);
+		env_free(env);
 		exit(EXIT_FAILURE);
 	}
 	*exit_status = wait_process(pid);
 }
 
-void exec_cmd_pipe(t_cmd_m *pipeline, t_char_m **env, int *exit_status)
+void exec_cmd_pipe(t_cmd_m *pipeline, t_env *env, int *exit_status)
 {
 	pid_t	*pids;
 
@@ -76,7 +76,7 @@ void exec_cmd_pipe(t_cmd_m *pipeline, t_char_m **env, int *exit_status)
 	{
 		perror("minishell: exec_input: ft_calloc");
 		pipeline_free(&pipeline);
-		strtab_free(env);
+		env_free(env);
 		exit(EXIT_FAILURE);
 	}
 	exec_pipeline(pipeline, pids, env);
@@ -84,7 +84,7 @@ void exec_cmd_pipe(t_cmd_m *pipeline, t_char_m **env, int *exit_status)
 	free(pids);
 }
 
-void	exec_input(t_char_m *input, t_char_m **env, int *exit_status)
+void	exec_input(t_char_m *input, t_env *env, int *exit_status)
 {
 	t_cmd_m	*pipeline;
 
@@ -99,7 +99,7 @@ void	exec_input(t_char_m *input, t_char_m **env, int *exit_status)
 	free(input);
 	if (!pipeline)
 	{
-		strtab_free(env);
+		env_free(env);
 		exit(EXIT_FAILURE);
 	}
 	if (!pipeline->next)

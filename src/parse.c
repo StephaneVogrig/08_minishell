@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 16:21:41 by stephane          #+#    #+#             */
-/*   Updated: 2024/04/27 17:13:54 by stephane         ###   ########.fr       */
+/*   Updated: 2024/04/29 02:03:23 by svogrig          ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "parse.h"
 
@@ -26,7 +26,7 @@ char	*parse_spl_quoted(t_buff *buffer, char *str)
 	return (temp);
 }
 
-char	*parse_dbl_quoted(t_buff *buffer, char *str, char **env, int *exit_status)
+char	*parse_dbl_quoted(t_buff *buffer, char *str, t_env *env, int *exit_status)
 {
 	str++;
 	while (*str != '\"')
@@ -44,7 +44,7 @@ char	*parse_dbl_quoted(t_buff *buffer, char *str, char **env, int *exit_status)
 	return (str);
 }
 
-char	*parse_unquoted(t_buff *buffer, char *str, t_list **argv, char **env)
+char	*parse_unquoted(t_buff *buffer, char *str, t_list **argv, t_env *env)
 {
 	(void)argv;
 	(void)env;

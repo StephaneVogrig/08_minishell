@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 15:52:14 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/11 10:19:38 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/29 05:10:16 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,16 @@ char	**argv_empty(void)
 	argv = NULL;
 	empty_str = ft_calloc(1, 1);
 	if (!empty_str)
-		exit_perror("minishell: argv_empty: calloc");
+	{
+		perror("minishell: argv_empty: calloc");
+		exit(EXIT_FAILURE);
+	}
 	argv = malloc(sizeof(char *) * 2);
 	if (!argv)
 	{
 		free(empty_str);
-		exit_perror("minishell: argv_empty: malloc");
+		perror("minishell: argv_empty: malloc");
+		exit(EXIT_FAILURE);
 	}
 	argv[0] = empty_str;
 	argv[1] = NULL;

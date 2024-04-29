@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 15:22:47 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/27 16:41:35 by stephane         ###   ########.fr       */
+/*   Updated: 2024/04/29 05:08:01 by svogrig          ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "exec_cmd.h"
 
@@ -41,10 +41,11 @@ t_bool	redir_cmd(t_redir *redirs)
 	return (SUCCESS);
 }
 
-void	exec_cmd(t_cmd *cmd, char **env)
+void	exec_cmd(t_cmd *cmd, t_env *env)
 {
 	char	*path;
 	char	**argv;
+	char	**envp;
 
 	if (!redir_cmd(cmd->redir))
 	{
@@ -58,13 +59,12 @@ void	exec_cmd(t_cmd *cmd, char **env)
 		exit(EXIT_FAILURE);
 	path = cmd_path(argv, env);
 	if (!path)
-	{
-		strtab_free(argv);
-		exit(EXIT_FAILURE);
-	}
-	execve(path, argv, env);
-	perror("pipex");
-	strtab_free(argv);
-	free(path);
-	exit(EXIT_FAILURE);
+		exit_on_failure(NULL, argv, env);
+	envp = env_to_envp(env);
+	if (!envp)
+		exit_on_failure(NULL, argv, env);
+	execve(path, argv, envp);
+	perror("minishell");
+	strtab_free(envp);
+	exit_on_failure(path, argv, NULL);
 }
