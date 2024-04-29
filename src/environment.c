@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 17:59:17 by smortemo          #+#    #+#             */
-/*   Updated: 2024/04/30 00:23:31 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/30 01:22:26 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	env_node_free(t_env *node)
 {
-		free(node->name);
-		free(node->value);
-		free(node);
+	free(node->name);
+	free(node->value);
+	free(node);
 }
 
 void	env_node_del(t_env **env, t_env *node)
@@ -33,7 +33,7 @@ void	env_node_del(t_env **env, t_env *node)
 	temp = *env;
 	while (temp->next && temp->next != node)
 		temp = temp->next;
-	if(temp->next)
+	if (temp->next)
 	{
 		to_del = temp->next;
 		temp->next = to_del->next;
@@ -51,7 +51,7 @@ void	env_free(t_env *env)
 	{
 		temp = current;
 		current = current->next;
-		env_node_free(current);
+		env_node_free(temp);
 	}
 }
 
@@ -164,9 +164,10 @@ int	env_size_envp(t_env *env)
 	return (i);
 }
 
+// cree un malloc qui contient "name=value"
 char	*env_join(char *name, char *value)
 {
-	int 	name_len;
+	int		name_len;
 	char	*str;
 	char	*temp;
 
@@ -181,17 +182,18 @@ char	*env_join(char *name, char *value)
 	if (value)
 		temp = strcpy_offset(temp, value);
 	*temp = '\0';
-// ft_printf("%s=%s ->%s\n", name, value, str);
+	// ft_printf("%s=%s ->%s\n", name, value, str);
 	return (str);
 }
 
+/// transforme la liste en tableau
 char	**env_to_envp(t_env *env)
 {
 	char	**envp;
 	char	**temp;
 	char	*str;
 
-	envp =  calloc(env_size_envp(env) + 1, sizeof(*envp));
+	envp = calloc(env_size_envp(env) + 1, sizeof(*envp));
 	if (!envp)
 		return (NULL);
 	temp = envp;
@@ -209,6 +211,6 @@ char	**env_to_envp(t_env *env)
 		}
 		env = env->next;
 	}
-// strtab_print(envp);
+	// strtab_print(envp);
 	return (envp);
 }

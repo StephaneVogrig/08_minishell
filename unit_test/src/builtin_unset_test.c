@@ -12,40 +12,52 @@
 
 #include "unitest.h"
 
-static char	**test(char **env, char *str)
-{
-	char	**tab;
+// void	free_list(t_env *env)
+// {
+// 	t_env	*current;
+// 	t_env	*temp;
 
+// 	current = env;
+// 	while (current != NULL)
+// 	{
+// 		temp = current;
+// 		current = current->next;
+// 		free(temp->name);
+// 		free(temp->value);
+// 		free(temp);
+// 	}
+// }
+void	test(t_env *env, char *str)
+{
 	printf("--------------------------------------------\n");
 	printf("TEST-> unset %s \n", str);
 	printf("--------------------------------------------\n");
-	env = builtin_unset(env, str);
-	strtab_print(env);
-	return (env);
+	builtin_unset(env, str);
+	display_the_list(env);
 }
 
 void	builtin_unset_test(void)
 {
-	char *strtab[] = {"KEY=ceci", "KEY1=est", "KEY2=un", "KEY3=test", "KEY=de",
+	char *strtab[] = {"KEY0=ceci", "KEY1=est", "KEY2=un", "KEY3=test", "KEY=de",
 		"KEY4=unset", "KEY5=", NULL};
 
-	char **tab_malloc;
-	tab_malloc = env_dup(strtab);
+	t_env *lst;
+	lst = env_dup(strtab);
 
 	printf("\nSOURCE TAB ----------------------------------\n");
-	strtab_print(tab_malloc);
-	test(tab_malloc, NULL);
-	tab_malloc = test(tab_malloc, "NOEXIST");
-	tab_malloc = test(tab_malloc, "");
-	tab_malloc = test(tab_malloc, NULL);
-	tab_malloc = test(tab_malloc, "KEY1");
-	tab_malloc = test(tab_malloc, "KEY3");
-	tab_malloc = test(tab_malloc, "KEY");
-	tab_malloc = test(tab_malloc, "NOEXIST2");
-	tab_malloc = test(tab_malloc, "KEY5");
-	tab_malloc = test(tab_malloc, "KEY2");
-	tab_malloc = test(tab_malloc, "KEY4");
-	strtab_free(tab_malloc);
+	display_the_list(lst);
+	test(lst, NULL);
+	test(lst, "NOEXIST");
+	test(lst, "");
+	test(lst, NULL);
+	test(lst, "KEY1");
+	test(lst, "KEY3");
+	test(lst, "KEY");
+	test(lst, "NOEXIST2");
+	test(lst, "KEY5");
+	test(lst, "KEY2");
+	test(lst, "KEY4");
+	env_free(lst);
 	test(NULL, NULL);
 	printf("____________________________________________\n");
 	printf("____________________________________________\n");

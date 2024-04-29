@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:49:50 by smortemo          #+#    #+#             */
-/*   Updated: 2024/04/28 23:54:42 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/04/30 01:11:07 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 // 	return ;
 // }
 
-void	free_list(t_env *env)
+void	free_link_list(t_env *env)
 {
 	t_env	*current;
 	t_env	*temp;
@@ -86,7 +86,7 @@ static void	test(char **strtab)
 		return ;
 	}
 	display_list(new);
-	free_list(new);
+	free_link_list(new);
 	printf("----------------------------------\n");
 	return ;
 }

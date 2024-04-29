@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:37:23 by smortemo          #+#    #+#             */
-/*   Updated: 2024/04/29 22:48:06 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/04/30 01:16:11 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,29 +51,27 @@
 // 	return (envp);
 // }
 
+t_env	*env_get_node(t_env *env, char *str)
+{
+	if (!env || !str)
+		return (NULL);
+	while (env)
+	{
+		if (!ft_strcmp(env->name, str))
+			return (env);
+		env = env->next;
+	}
+	return (NULL);
+}
+
 int	builtin_unset(t_env *env, char *str)
 {
-	t_env *temp;
+	t_env	*node;
 
 	if (!env || !str)
 		return (0);
-	while (env)
-	{
-		if (ft_strcmp(env->name, str))
-		{
-			free(env->name);
-			free(env->value);
-			temp = env;
-			while (temp)
-			{
-				temp = env->next;
-				env = temp;
-			}
-			free(temp);
-			env->next = NULL;
-			return (0);
-		}
-		env = env->next;
-	}
+	node = env_get_node(env, str);
+	if (node)
+		env_node_del(&env, node);
 	return (0);
 }

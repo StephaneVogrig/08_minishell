@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 22:21:17 by smortemo          #+#    #+#             */
-/*   Updated: 2024/04/10 23:47:44 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/04/30 01:04:54 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	test(char **env, char *str, char *expected)
 	strtab_print(env);
 	printf("++++++++++\n");
 	printf("key to search: %s\n", str);
-	printf("%s\n", env_get(env, str));
+	//	printf("%s\n", env_get(env, str));
 	printf("---------------------------\n");
 }
 
