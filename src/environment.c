@@ -6,11 +6,40 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 17:59:17 by smortemo          #+#    #+#             */
-/*   Updated: 2024/04/29 16:26:55 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/30 00:23:31 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "environment.h"
+
+void	env_node_free(t_env *node)
+{
+		free(node->name);
+		free(node->value);
+		free(node);
+}
+
+void	env_node_del(t_env **env, t_env *node)
+{
+	t_env	*temp;
+	t_env	*to_del;
+
+	if (node == *env)
+	{
+		*env = node->next;
+		env_node_free(node);
+		return ;
+	}
+	temp = *env;
+	while (temp->next && temp->next != node)
+		temp = temp->next;
+	if(temp->next)
+	{
+		to_del = temp->next;
+		temp->next = to_del->next;
+		env_node_free(to_del);
+	}
+}
 
 void	env_free(t_env *env)
 {
@@ -22,9 +51,7 @@ void	env_free(t_env *env)
 	{
 		temp = current;
 		current = current->next;
-		free(temp->name);
-		free(temp->value);
-		free(temp);
+		env_node_free(current);
 	}
 }
 
@@ -116,7 +143,7 @@ char	*env_get_n(t_env *env, char *str, int n)
 	while (env)
 	{
 		if (!ft_strncmp(env->name, str, n))
-			if (!*(str + n))
+			if (!*(env->name + n))
 				return (env->value);
 		env = env->next;
 	}
