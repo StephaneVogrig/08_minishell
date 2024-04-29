@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 16:03:55 by stephane          #+#    #+#             */
-/*   Updated: 2024/04/29 06:22:24 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/29 16:28:59 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ t_bool	split_word(char *str, t_buff *buffer, t_list **argv)
 
 char	*expanse_unquoted(t_buff *buffer, char *str, t_list **argv, t_env *env)
 {
-	(void)argv;
 	char	*end;
 	
 	end = end_name(str);

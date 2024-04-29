@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 17:59:17 by smortemo          #+#    #+#             */
-/*   Updated: 2024/04/29 07:24:56 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/29 16:26:55 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	env_free(t_env *env)
 		free(temp);
 	}
 }
+
 void	display_the_list(t_env *env)
 {
 	while (env != NULL)

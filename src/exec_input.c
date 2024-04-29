@@ -6,22 +6,98 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:36:43 by stephane          #+#    #+#             */
-/*   Updated: 2024/04/29 04:43:31 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/29 20:47:08 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "debug.h"
 #include "exec_input.h"
+
+t_bool	syntax_error_msg(char c)
+{
+	if (c == '\0')
+		fd_printf(STDERR_FD, "minishell: syntax error near unexpected token `newline'\n", c);
+	else
+		fd_printf(STDERR_FD, "minishell: syntax error near unexpected token `%c'\n", c);
+	return (TRUE);
+}
+
+char	*next_token_pipe(char *str)
+{
+	while (is_blank(*str))
+		str++;
+	if (*str == '\0')
+	{
+		syntax_error_msg('\0');
+		return (NULL);
+	}
+	return (str);
+}
+
+char	*next_token_redir(char *str)
+{
+	char	*ptr;
+
+	ptr = str;
+	str++;
+	if (*ptr == *str)
+		str++;
+	while (is_blank(*str))
+		str++;
+	ptr = ft_strchr("|<> \t", *str);
+	if (ptr)
+	{
+		syntax_error_msg(*ptr);
+		return (NULL);
+	}
+	return (str);
+}
+
+char	*end_quote(char *str)
+{
+	char	quote;
+ft_printf("quote = %c\n", *str);
+	quote = *str;
+	str++;
+	while (*str)
+	{
+ft_printf("str = %c\n", *str);
+		if (*str == quote)
+			return (str);
+		str++;
+	}
+ft_printf("quote 2 = %c\n", *str);
+	syntax_error_msg('\0');
+	return (NULL);
+}
 
 t_bool	syntax_error(char *input)
 {
-	if (*input == '|' || *(input + ft_strlen(input) - 1) == '|')
+	if (*input == '|')
+		return (syntax_error_msg('|'));
+	while (*input)
 	{
-		fd_printf(STDERR_FD, "bash: syntax error near \" | \"\n");
-		return (TRUE);
+		if (*input == '|')
+			input = next_token_pipe(input);
+		else if (*input == '<' || *input == '>')
+			input = next_token_redir(input);
+		else if (*input == '\"' || *input == '\'')
+			input = end_quote(input);
+		if (!input)
+			return (TRUE);
+		input++;			
 	}
 	return (FALSE);
 }
+
+// t_bool	syntax_error(char *input)
+// {
+// 	if (*input == '|' || *(input + ft_strlen(input) - 1) == '|')
+// 	{
+// 		fd_printf(STDERR_FD, "bash: syntax error near \" | \"\n");
+// 		return (TRUE);
+// 	}
+// 	return (FALSE);
+// }
 
 int	exec_pipeline(t_cmd *pipeline, pid_t *pids, t_env *env)
 {
