@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_input.h                                       :+:      :+:    :+:   */
+/*   syntax_error.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/05 20:37:35 by stephane          #+#    #+#             */
-/*   Updated: 2024/04/29 22:06:02 by svogrig          ###   ########.fr       */
+/*   Created: 2024/04/29 22:02:24 by svogrig           #+#    #+#             */
+/*   Updated: 2024/04/29 22:07:31 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXEC_INPUT_H
-# define EXEC_INPUT_H
+#ifndef SYNTAX_ERROR_H
+# define SYNTAX_ERROR_H
 
-# include "syntax_error.h"
-# include "pipeline.h"
+# include "libft.h"
 # include "str.h"
-# include "input_to_pipeline.h"
-# include "pipex_bonus.h"
-# include "pipeline_wait.h"
-# include "process.h"
 
-# define SYNTAX_ERROR 2
-
-void	exec_input(char *input, t_env *envp, int *exit_status);
+t_bool	syntax_error(char *input);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 19:56:00 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/29 05:13:29 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/29 22:40:31 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,9 @@ void	exit_on_acces_denied(char *path, char *to_free, char **argv)
 	exit(127);
 }
 
-void	exit_on_cmd_not_found(char **argv)
+void	exit_on_cmd_not_found(char **argv, t_env *env)
 {
+	env_free(env);
 	fd_printf(STDERR_FD, "%s: command not found\n", *argv);
 	strtab_free(argv);
 	exit(127);

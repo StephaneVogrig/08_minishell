@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 15:22:47 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/29 05:08:01 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/29 22:34:35 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	exec_cmd(t_cmd *cmd, t_env *env)
 	cmd->argv = NULL;
 	pipeline_free(&cmd);
 	if (!argv)
-		exit(EXIT_FAILURE);
+		exit_on_failure(NULL, NULL, env);
 	path = cmd_path(argv, env);
 	if (!path)
 		exit_on_failure(NULL, argv, env);

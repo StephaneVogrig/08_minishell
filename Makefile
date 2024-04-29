@@ -6,7 +6,7 @@
 #    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/04/29 05:49:34 by svogrig          ###   ########.fr        #
+#    Updated: 2024/04/29 22:06:32 by svogrig          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ SRC				:=	main.c \
 					signal_handler.c \
 					str.c \
 					strlink.c \
+					syntax_error.c \
 					token.c \
 					debug.c \
 					wait.c 

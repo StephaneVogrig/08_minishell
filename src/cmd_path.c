@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:36:25 by stephane          #+#    #+#             */
-/*   Updated: 2024/04/29 05:03:44 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/04/29 22:32:33 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	check_path(char *path, char **argv)
 		exit_on_acces_denied(temp, path, argv);
 }
 
-char	*path_find(char	*paths, char *buf, char **argv, int len)
+char	*path_find(char	*paths, t_char_m *buf, char **argv, int len)
 {
 	char	*temp;
 
@@ -58,7 +58,6 @@ char	*path_find(char	*paths, char *buf, char **argv, int len)
 			paths++;
 	}
 	free(buf);
-	exit_on_cmd_not_found(argv);
 	return (NULL);
 }
 
@@ -69,19 +68,24 @@ char	*cmd_path(char **argv, t_env *env)
 	int		len_cmd;
 
 	if (**argv == '\0')
-		exit_on_cmd_not_found(argv);
+		exit_on_cmd_not_found(argv, env);
 	len_cmd = ft_strlen(*argv);
 	paths = env_get(env, "PATH");
 	if (!paths || ft_strchr(*argv, '/'))
 	{
 		if (access(*argv, F_OK) != 0)
-			exit_on_cmd_not_found(argv);
+			exit_on_cmd_not_found(argv, env);
 		check_path(NULL, argv);
 		return (cmd_path_strndup(*argv, len_cmd));
 	}
 	cmd_path = malloc(ft_strlen(paths) + len_cmd + 2);
-	if (cmd_path)
-		return (path_find(paths, cmd_path, argv, len_cmd));
-	perror("minishell: cmd_path");
-	return (NULL);
+	if (!cmd_path)
+	{
+		perror("minishell: cmd_path");
+		return (NULL);
+	}
+	cmd_path = path_find(paths, cmd_path, argv, len_cmd);
+	if (!cmd_path)
+		exit_on_cmd_not_found(argv, env);
+	return (cmd_path);
 }
