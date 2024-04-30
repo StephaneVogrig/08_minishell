@@ -32,12 +32,16 @@ typedef struct s_env
 t_env				*env_dup(char **envp);
 void				env_free(t_env *env);
 void				display_the_list(t_env *env);
-
+void	env_add_back(t_env **env, t_env *node);
+t_env	*env_get_node(t_env *env, char *str);
 char				*env_get(t_env *env, char *str);
 char				*env_get_n(t_env *env, char *str, int n);
 
 char				**env_to_envp(t_env *env);
+int	env_size_envp(t_env *env);
+char	*env_join(char *name, char *value);
 
 void				env_node_del(t_env **env, t_env *node);
+int	display_envp_sorted(t_env *envp);
 
 #endif

@@ -23,3 +23,16 @@ void	strtab_free(char **strtab)
 		free(*current++);
 	free(strtab);
 }
+
+
+int	ft_strtab_size(char **strtab)
+{
+	int	i;
+
+	if (!strtab)
+		return (0);
+	i = 0;
+	while (*strtab++)
+		i++;
+	return (i);
+}
