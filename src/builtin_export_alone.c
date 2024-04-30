@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 22:22:07 by smortemo          #+#    #+#             */
-/*   Updated: 2024/04/18 22:22:31 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/04/30 23:49:24 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ void	display_tab_export(char **tab, int i)
 		printf("\n");
 		i++;
 	}
-		free(tab);
-		return ;
+	free(tab);
+	return ;
 }
 
 void	modify_tab(char **sorted_tab)
@@ -92,7 +92,6 @@ void	modify_tab(char **sorted_tab)
 	tab_to_display[i] = NULL;
 	display_tab_export(tab_to_display, 0);
 }
-
 
 void	export_alone(char **to_sort)
 {
@@ -137,21 +136,24 @@ char	**env_to_envp_export(t_env *env)
 {
 	char	**envp;
 	char	**temp;
-	int i = 0;
-	int size = env_size_envp_all(env) ;
+	int		i;
+	int		size;
 
-	envp = calloc( size + 1, sizeof(*envp));
+	i = 0;
+	size = env_size_envp_all(env);
+	envp = calloc(size + 1, sizeof(*envp));
 	if (!envp)
 		return (NULL);
-	while (i < size)
+	while (i < size - 1)
 	{
-			if (env->name[0] == '_' && env->name[1] == '\0')
-				i++;
-			if(env->value[0] != '\0')
+		if (env->name[0] == '_' && env->name[1] == '\0')
+			env = env->next;
+		else
+		{
+			if (env->value[0] != '\0')
 				envp[i] = env_join(env->name, env->value);
 			else
 				envp[i] = ft_strdup(env->name);
-			
 			if (!envp[i])
 			{
 				strtab_free(envp);
@@ -159,13 +161,17 @@ char	**env_to_envp_export(t_env *env)
 			}
 			i++;
 			env = env->next;
+		}
 	}
+	// printf("*****************\n");
+	// strtab_print(envp);
+	// printf("*****************\n");
 	return (envp);
 }
 
 int	display_envp_sorted(t_env *envp)
 {
-	char	**tab_to_sort;
+	char **tab_to_sort;
 
 	tab_to_sort = env_to_envp_export(envp);
 	export_alone(tab_to_sort);

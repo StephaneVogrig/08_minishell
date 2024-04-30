@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:13:40 by smortemo          #+#    #+#             */
-/*   Updated: 2024/04/28 21:59:21 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/04/30 23:49:37 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,25 +113,21 @@
 // 	free(envp);
 // 	return (tab_temp); //+code erreur = 0
 // }
-
 /////////////////
-
-
 
 t_bool	is_valid_arg(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	
-	if (!ft_isalpha(str[0]) && str[0] != '_')//si la premiere lettre n'est pas une lettre ou "_"
+	if (!ft_isalpha(str[0]) && str[0] != '_')
+		// si la premiere lettre n'est pas une lettre ou "_"
 		return (0);
-	while(str[i] && str[i] != '=')
+	while (str[i] && str[i] != '=')
 	{
-		
-		if(!ft_isalnum(str[i]) && str[i] != '_')
+		if (!ft_isalnum(str[i]) && str[i] != '_')
 		{
-			if(str[i] == '+' && str[i + 1] == '=')
+			if (str[i] == '+' && str[i + 1] == '=')
 				return (TRUE);
 			return (FALSE);
 		}
@@ -139,23 +135,21 @@ t_bool	is_valid_arg(char *str)
 	}
 	return (TRUE);
 }
-	
+
 t_bool	var_init(t_env *node, char *str, int n)
 {
-	printf("/////str[n]->%c_ \n", str[n]);
+	// printf("/////str[n]->%c_ \n", str[n]);
 	node->name = ft_strndup(str, n);
 	if (!node->name)
 		return (FAILURE);
-	if(str[n] != '\0')
+	if (str[n] != '\0')
 	{
 		node->value = ft_strdup(&str[n + 1]);
 		if (!node->value)
 			return (FAILURE);
 		node->type = EXPORTED;
-
-			printf("EXPORTED node->name %s\n", node->name);
-		printf("EXPORTED node->value %s\n", node->value);
-		
+		//		printf("EXPORTED node->name %s\n", node->name);
+		//	printf("EXPORTED node->value %s\n", node->value);
 	}
 	else
 	{
@@ -164,9 +158,8 @@ t_bool	var_init(t_env *node, char *str, int n)
 			return (FAILURE);
 		node->value[0] = '\0';
 		node->type = INTERNAL;
-		printf("INTERNAL node->name %s\n", node->name);
-		printf("INTERNAL node->value %s\n", node->value);
-
+		//	printf("INTERNAL node->name %s\n", node->name);
+		//	printf("INTERNAL node->value %s\n", node->value);
 	}
 	node->next = NULL;
 	return (SUCCESS);
@@ -174,7 +167,7 @@ t_bool	var_init(t_env *node, char *str, int n)
 
 int	end_var_name(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -190,9 +183,9 @@ int	end_var_name(char *str)
 
 int	export_new_node(t_env *env, char *str, int n)
 {
-	t_env *node;
+	t_env	*node;
 
- 	printf("str[n] = %s \n", &str[n]);
+	//	printf("str[n] = %s \n", &str[n]);
 	node = malloc(sizeof(*node));
 	if (!node)
 	{
@@ -202,26 +195,26 @@ int	export_new_node(t_env *env, char *str, int n)
 	if (!var_init(node, str, n))
 		return (0);
 	env_add_back(&env, node);
-	return(1);
+	return (1);
 }
 
 int	export_run(t_env *env, char *str)
 {
-	int n;
-	int len;
-	char *value;
-	
-	n = end_var_name(str); 
+	int		n;
+	int		len;
+	char	*value;
+
+	n = end_var_name(str);
 	value = env_get_n(env, str, n);
-	if(value && str[n] == '=') 
+	if (value && str[n] == '=')
 	{
 		free(value);
-		value = ft_strdup(&str[n + 1]);//remplace value
+		value = ft_strdup(&str[n + 1]); // remplace value
 	}
-	if(value && str[n] == '+') 
-		value = ft_strjoin_free_s1(value, &str[n + 1]);//append value
-	if(!value) 
-		export_new_node(env, str, n);// nouveau node
+	if (value && str[n] == '+')
+		value = ft_strjoin_free_s1(value, &str[n + 1]); // append value
+	if (!value)
+		export_new_node(env, str, n); // nouveau node
 	return (0);
 }
 
@@ -229,9 +222,9 @@ int	builtin_export(t_env *envp, char *str)
 {
 	if (!envp)
 		return (0);
-	if (!str)//export seul
+	if (!str) // export seul
 		return (display_envp_sorted(envp));
-	if (!is_valid_arg(str))//si str non valide
+	if (!is_valid_arg(str)) // si str non valide
 		return (1);
 	return (export_run(envp, str));
 }
