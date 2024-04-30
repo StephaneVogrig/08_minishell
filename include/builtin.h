@@ -16,12 +16,13 @@
 # include "environment.h"
 # include "libft.h"
 
-int	ft_strtab_size(char **strtab); // ajouter dans libft ?
-// char	**builtin_unset(char **envp, char *str);
-char	**builtin_export(char **envp, char *str);
+// int	ft_strtab_size(char **strtab); // ajouter dans libft ?
 void	export_alone(char **envp);
+int	    builtin_export(t_env *envp, char *str);
 int		builtin_env(char **envp);
-
 int	builtin_unset(t_env *env, char *str);
+
+// char	**builtin_unset(char **envp, char *str);
+//char	**builtin_export(char **envp, char *str);
 
 #endif

@@ -59,7 +59,7 @@ void	display_the_list(t_env *env)
 {
 	while (env != NULL)
 	{
-		printf("%s = ", env->name);
+		printf("%s=", env->name);
 		printf("%s\n", env->value);
 		env = env->next;
 	}
@@ -150,6 +150,20 @@ char	*env_get_n(t_env *env, char *str, int n)
 	return (NULL);
 }
 
+t_env	*env_get_node(t_env *env, char *str)
+{
+	if (!env || !str)
+		return (NULL);
+	while (env)
+	{
+		if (!ft_strcmp(env->name, str))
+			return (env);
+		env = env->next;
+	}
+	return (NULL);
+}
+
+
 int	env_size_envp(t_env *env)
 {
 	int	i;
@@ -202,6 +216,7 @@ char	**env_to_envp(t_env *env)
 		if (env->type == EXPORTED)
 		{
 			str = env_join(env->name, env->value);
+			//printf("strjoin-> %s\n", str);
 			if (!str)
 			{
 				strtab_free(temp);

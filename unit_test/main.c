@@ -16,8 +16,9 @@ int	main(int argc, char **argv, char **envp)
 {
 	// env_dup_test(argv, envp);
 	// env_get_test();
-	builtin_unset_test();
-	// builtin_export_test();
+	//builtin_unset_test();
+	builtin_export_test();
+	// builtin_export_alone_test(envp);//avec envp
 	// builtin_export_alone_test();
 	// builtin_env_test();
 	return (0);

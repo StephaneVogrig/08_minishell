@@ -12,22 +12,51 @@
 
 #include "builtin.h"
 
-void	display_tab_export(char **str, int i)
+// void	display_tab_export(char **tab, int i)
+// {
+// 	while (tab[i])
+// 	{
+// 		if (tab[i][0] == '_' && tab[i][1] == '=')
+// 			break ;
+// 		printf("declare -x %s", tab[i]);
+// 		free(tab[i]);
+// 		i++;
+// 		if (tab[i] != NULL)
+// 			printf("\"%s\"", tab[i]);
+// 		free(tab[i]);
+// 		printf("\n");
+// 		i++;
+// 	}
+// 	if(tab[i] == NULL)
+// 	{
+// 		//strtab_free(tab);
+
+// 		free(tab);
+// 		return ;
+// 	}
+// 	// else
+// 	// {
+// 	// 	free(tab[i]);
+// 	// 	free(tab[i++]);
+// 	// }
+// 	display_tab_export(tab, i + 2);
+// }
+
+void	display_tab_export(char **tab, int i)
 {
-	while (str[i])
+	while (tab[i])
 	{
-		if (str[i][0] == '_' && str[i][1] == '=')
-			break ;
-		printf("declare -x %s", str[i]);
+		printf("declare -x %s", tab[i]);
+		free(tab[i]);
 		i++;
-		if (str[i] != NULL)
-			printf("\"%s\"", str[i]);
+		if (tab[i] != NULL)
+			printf("\"%s\"", tab[i]);
+		free(tab[i]);
 		printf("\n");
 		i++;
 	}
-	if(str[i] == NULL)
+		free(tab);
 		return ;
-	display_tab_export(str, i + 2);
 }
 
 void	modify_tab(char **sorted_tab)
@@ -62,10 +91,10 @@ void	modify_tab(char **sorted_tab)
 	}
 	tab_to_display[i] = NULL;
 	display_tab_export(tab_to_display, 0);
-	strtab_free(tab_to_display);
 }
 
-void	export_alone(char **envp)
+
+void	export_alone(char **to_sort)
 {
 	int		i;
 	char	*temp;
@@ -74,22 +103,72 @@ void	export_alone(char **envp)
 	count = 0;
 	temp = NULL;
 	i = 1;
-	while (envp[i])
+	while (to_sort[i])
 	{
-		if (ft_strcmp(envp[i - 1], envp[i]) > 0)
+		if (ft_strcmp(to_sort[i - 1], to_sort[i]) > 0)
 		{
-			temp = envp[i];
-			envp[i] = envp[i - 1];
-			envp[i - 1] = temp;
+			temp = to_sort[i];
+			to_sort[i] = to_sort[i - 1];
+			to_sort[i - 1] = temp;
 			count++;
 		}
 		i++;
 	}
 	if (count == 0)
-	{
-		modify_tab(envp);
-		return ;
-	}
+		modify_tab(to_sort);
 	else
-		export_alone(envp);
+		export_alone(to_sort);
+}
+
+int	env_size_envp_all(t_env *env)
+{
+	int	i;
+
+	i = 0;
+	while (env)
+	{
+		i++;
+		env = env->next;
+	}
+	return (i);
+}
+
+char	**env_to_envp_export(t_env *env)
+{
+	char	**envp;
+	char	**temp;
+	int i = 0;
+	int size = env_size_envp_all(env) ;
+
+	envp = calloc( size + 1, sizeof(*envp));
+	if (!envp)
+		return (NULL);
+	while (i < size)
+	{
+			if (env->name[0] == '_' && env->name[1] == '\0')
+				i++;
+			if(env->value[0] != '\0')
+				envp[i] = env_join(env->name, env->value);
+			else
+				envp[i] = ft_strdup(env->name);
+			
+			if (!envp[i])
+			{
+				strtab_free(envp);
+				return (NULL);
+			}
+			i++;
+			env = env->next;
+	}
+	return (envp);
+}
+
+int	display_envp_sorted(t_env *envp)
+{
+	char	**tab_to_sort;
+
+	tab_to_sort = env_to_envp_export(envp);
+	export_alone(tab_to_sort);
+	strtab_free(tab_to_sort);
+	return (0);
 }

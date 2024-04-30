@@ -51,18 +51,6 @@
 // 	return (envp);
 // }
 
-t_env	*env_get_node(t_env *env, char *str)
-{
-	if (!env || !str)
-		return (NULL);
-	while (env)
-	{
-		if (!ft_strcmp(env->name, str))
-			return (env);
-		env = env->next;
-	}
-	return (NULL);
-}
 
 int	builtin_unset(t_env *env, char *str)
 {

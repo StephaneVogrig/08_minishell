@@ -107,6 +107,8 @@ void		strlist_print_fd(t_list *strlist, int fd);
 void		strtab_print(char **tabstr);
 void		strtab_print_fd(char **tabstr, int fd);
 void		strtab_free(char **strtab);
+int			ft_strtab_size(char **strtab);
+
 
 /* tabsi32 -------------------------------------------------------------------*/
 typedef struct s_tabsi32{

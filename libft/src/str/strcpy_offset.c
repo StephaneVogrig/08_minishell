@@ -15,6 +15,7 @@
 // return a pointer on the the next character in dest after copy 
 char	*strcpy_offset(char *dest, const char *src)
 {
+	
 	while (*src)
 		*dest++ = *src++;
 	*dest = '\0';
