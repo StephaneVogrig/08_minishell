@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:13:40 by smortemo          #+#    #+#             */
-/*   Updated: 2024/04/30 23:49:37 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/01 16:46:04 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,6 @@ t_bool	is_valid_arg(char *str)
 
 	i = 0;
 	if (!ft_isalpha(str[0]) && str[0] != '_')
-		// si la premiere lettre n'est pas une lettre ou "_"
 		return (0);
 	while (str[i] && str[i] != '=')
 	{
@@ -138,7 +137,6 @@ t_bool	is_valid_arg(char *str)
 
 t_bool	var_init(t_env *node, char *str, int n)
 {
-	// printf("/////str[n]->%c_ \n", str[n]);
 	node->name = ft_strndup(str, n);
 	if (!node->name)
 		return (FAILURE);
@@ -148,8 +146,6 @@ t_bool	var_init(t_env *node, char *str, int n)
 		if (!node->value)
 			return (FAILURE);
 		node->type = EXPORTED;
-		//		printf("EXPORTED node->name %s\n", node->name);
-		//	printf("EXPORTED node->value %s\n", node->value);
 	}
 	else
 	{
@@ -158,8 +154,6 @@ t_bool	var_init(t_env *node, char *str, int n)
 			return (FAILURE);
 		node->value[0] = '\0';
 		node->type = INTERNAL;
-		//	printf("INTERNAL node->name %s\n", node->name);
-		//	printf("INTERNAL node->value %s\n", node->value);
 	}
 	node->next = NULL;
 	return (SUCCESS);
@@ -185,7 +179,6 @@ int	export_new_node(t_env *env, char *str, int n)
 {
 	t_env	*node;
 
-	//	printf("str[n] = %s \n", &str[n]);
 	node = malloc(sizeof(*node));
 	if (!node)
 	{
@@ -202,19 +195,19 @@ int	export_run(t_env *env, char *str)
 {
 	int		n;
 	int		len;
-	char	*value;
+	t_env	*node;
 
 	n = end_var_name(str);
-	value = env_get_n(env, str, n);
-	if (value && str[n] == '=')
+	node = env_get_node_n(env, str, n);
+	if (node && str[n] == '=')
 	{
-		free(value);
-		value = ft_strdup(&str[n + 1]); // remplace value
+		free(node->value);
+		node->value = ft_strdup(&str[n + 1]);
 	}
-	if (value && str[n] == '+')
-		value = ft_strjoin_free_s1(value, &str[n + 1]); // append value
-	if (!value)
-		export_new_node(env, str, n); // nouveau node
+	if (node && str[n] == '+')
+		node->value = ft_strjoin_free_s1(node->value, &str[n + 2]);
+	if (!node)
+		export_new_node(env, str, n);
 	return (0);
 }
 
@@ -222,9 +215,9 @@ int	builtin_export(t_env *envp, char *str)
 {
 	if (!envp)
 		return (0);
-	if (!str) // export seul
+	if (!str)
 		return (display_envp_sorted(envp));
-	if (!is_valid_arg(str)) // si str non valide
+	if (!is_valid_arg(str))
 		return (1);
 	return (export_run(envp, str));
 }

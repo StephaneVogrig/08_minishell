@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 22:22:07 by smortemo          #+#    #+#             */
-/*   Updated: 2024/04/30 23:49:24 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/01 17:03:21 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,9 @@ void	modify_tab(char **sorted_tab)
 	int		i;
 	int		j;
 	int		count;
-	int		len;
 
-	len = 2 * ft_strtab_size(sorted_tab);
-	tab_to_display = (char **)malloc(sizeof(char *) * ((len) + 1));
+	tab_to_display = (char **)malloc(sizeof(char *) * (2
+				* ft_strtab_size(sorted_tab) + 1));
 	j = 0;
 	i = 0;
 	while (sorted_tab[j])
@@ -76,18 +75,14 @@ void	modify_tab(char **sorted_tab)
 		count = ft_strchr_i(sorted_tab[j], '=');
 		if (count != 0)
 		{
-			tab_to_display[i] = ft_strndup(sorted_tab[j], count + 1);
-			i++;
-			tab_to_display[i] = ft_strdup(&sorted_tab[j][count + 1]);
+			tab_to_display[i++] = ft_strndup(sorted_tab[j], count + 1);
+			tab_to_display[i++] = ft_strdup(&sorted_tab[j++][count + 1]);
 		}
 		else
 		{
-			tab_to_display[i] = ft_strdup(sorted_tab[j]);
-			i++;
-			tab_to_display[i] = NULL;
+			tab_to_display[i++] = ft_strdup(sorted_tab[j++]);
+			tab_to_display[i++] = NULL;
 		}
-		i++;
-		j++;
 	}
 	tab_to_display[i] = NULL;
 	display_tab_export(tab_to_display, 0);
@@ -135,13 +130,12 @@ int	env_size_envp_all(t_env *env)
 char	**env_to_envp_export(t_env *env)
 {
 	char	**envp;
-	char	**temp;
 	int		i;
 	int		size;
 
 	i = 0;
 	size = env_size_envp_all(env);
-	envp = calloc(size + 1, sizeof(*envp));
+	envp = calloc(size, sizeof(*envp));
 	if (!envp)
 		return (NULL);
 	while (i < size - 1)
@@ -163,9 +157,6 @@ char	**env_to_envp_export(t_env *env)
 			env = env->next;
 		}
 	}
-	// printf("*****************\n");
-	// strtab_print(envp);
-	// printf("*****************\n");
 	return (envp);
 }
 

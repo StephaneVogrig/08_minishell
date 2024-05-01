@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 17:59:17 by smortemo          #+#    #+#             */
-/*   Updated: 2024/04/30 01:22:26 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/01 16:50:17 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,19 @@ char	*env_get_n(t_env *env, char *str, int n)
 	return (NULL);
 }
 
+t_env	*env_get_node_n(t_env *env, char *str, int n)
+{
+	if (!env || !str)
+		return (NULL);
+	while (env)
+	{
+		if (!ft_strncmp(env->name, str, n))
+			return (env);
+		env = env->next;
+	}
+	return (NULL);
+}
+
 t_env	*env_get_node(t_env *env, char *str)
 {
 	if (!env || !str)
@@ -162,7 +175,6 @@ t_env	*env_get_node(t_env *env, char *str)
 	}
 	return (NULL);
 }
-
 
 int	env_size_envp(t_env *env)
 {
@@ -216,7 +228,7 @@ char	**env_to_envp(t_env *env)
 		if (env->type == EXPORTED)
 		{
 			str = env_join(env->name, env->value);
-			//printf("strjoin-> %s\n", str);
+			// printf("strjoin-> %s\n", str);
 			if (!str)
 			{
 				strtab_free(temp);

@@ -51,7 +51,8 @@
 // 	tab_malloc = test(tab_malloc, "KEY_=-------");
 // 	tab_malloc = test(tab_malloc, "KEYalone");
 // 	tab_malloc = test(tab_malloc, "KEYalone= c'est fini");
-// 	tab_malloc = test(tab_malloc, NULL); // dans ce cas export_alone se lance-> affiche liste par ordre alpha-ascii
+// 	tab_malloc = test(tab_malloc, NULL);
+// dans ce cas export_alone se lance-> affiche liste par ordre alpha-ascii
 // 	strtab_free(tab_malloc);
 // 	test(NULL, NULL);
 // 	printf("____________________________________________\n");
@@ -79,24 +80,24 @@ void	builtin_export_test(void)
 	test_export(lst, "KEY3=test");
 	test_export(lst, "");
 	test_export(lst, "KEY4=****");
-//	test_export(lst, "KEY4=de");
+	test_export(lst, "KEY4=de");
 	test_export(lst, "KEY5=export");
 	test_export(lst, "KEY6=");
-//	test_export(lst, "KEY6========");
-//	test_export(lst, "KEY6+=+++=+=+=+");
-//	test_export(lst, "KEY6=valide");
-//	test_export(lst, "KEY6+=???");
-//	test_export(lst, "KEY6+= oui !");
-	// test_export(lst, "KEY7++=");
-	// test_export(lst, "KEY@="); //ajouter message erreur !!
-	// test_export(lst, "KEY!=");
-	// test_export(lst, "KEY.=");
-	// test_export(lst, "=");
-//	test_export(lst, "_=-------");
+	test_export(lst, "KEY6========");
+	test_export(lst, "KEY6+=+++=+=+=+");
+	test_export(lst, "KEY6=va");
+	test_export(lst, "KEY6+=lide");
+	test_export(lst, "KEY6+=!!!!!");
+	test_export(lst, "KEY7++=");
+	test_export(lst, "KEY@="); // ajouter message erreur !!
+	test_export(lst, "KEY!=");
+	test_export(lst, "KEY.=");
+	test_export(lst, "=");
+	test_export(lst, "_=-------");
 	test_export(lst, "KEY0=______");
 	test_export(lst, "KEYalone");
-//	test_export(lst, "KEYalone= c'est fini");
-	test_export(lst, NULL); // dans ce cas export_alone se lance-> affiche liste par ordre alpha-ascii
+	test_export(lst, NULL);
+	// dans ce cas export_alone se lance-> affiche liste par ordre alpha-ascii
 	env_free(lst);
 	test_export(NULL, NULL);
 	printf("____________________________________________\n");
