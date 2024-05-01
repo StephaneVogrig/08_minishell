@@ -1,25 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/10 19:07:07 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/01 18:54:45 by smortemo         ###   ########.fr       */
+/*   Created: 2024/05/01 19:49:05 by smortemo          #+#    #+#             */
+/*   Updated: 2024/05/01 20:20:50 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "unitest.h"
+#include "builtin.h"
 
-int	main(int argc, char **argv, char **envp)
+int	echo(t_cmd *cmd, t_env *env)
 {
-	// env_dup_test(argv, envp);
-	// env_get_test();
-	// builtin_unset_test();
-	// builtin_export_test();
-	// builtin_export_alone_test(envp); // avec envp
-	builtin_export_alone_test();
-	// builtin_env_test();
+	ft_printf("minishell: echo: not yet implemented\n");
 	return (0);
 }

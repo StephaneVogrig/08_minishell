@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
+#    By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/04/29 22:06:32 by svogrig          ###   ########.fr        #
+#    Updated: 2024/05/01 21:19:10 by smortemo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,9 @@ SRC				:=	main.c \
 					buff.c \
 					buffadd.c \
 					buffsave.c \
+					builtin_export_alone.c \
+					builtin_export.c \
+					builtin.c \
 					command.c \
 					cmd_path.c \
 					environment.c \
@@ -35,6 +38,7 @@ SRC				:=	main.c \
 					exit.c \
 					expanse.c \
 					input_to_pipeline.c \
+					list_utils.c \
 					memory.c \
 					pipeline.c \
 					heredoc_bonus.c \

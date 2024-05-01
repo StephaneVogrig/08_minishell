@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 04:15:23 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/29 04:47:02 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/01 19:12:01 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	process_first(t_cmd *cmd, int *fd_out, t_env *env, int *pids)
 {
-	int		pid;
-	int		pipe_out[2];
+	int	pid;
+	int	pipe_out[2];
 
 	if (pipe_ms(pipe_out))
 		return (-1);
@@ -26,6 +26,7 @@ int	process_first(t_cmd *cmd, int *fd_out, t_env *env, int *pids)
 		close(pipe_out[READ]);
 		dup2(pipe_out[WRITE], STDOUT_FD);
 		close(pipe_out[WRITE]);
+		// verif si builtin
 		exec_cmd(cmd, env);
 	}
 	if (pid == -1)
@@ -40,8 +41,8 @@ int	process_first(t_cmd *cmd, int *fd_out, t_env *env, int *pids)
 
 int	process_pipes(t_cmd *cmd, int *fd_in, t_env *env, int *pids)
 {
-	int		pid;
-	int		pipe_out[2];
+	int	pid;
+	int	pipe_out[2];
 
 	if (pipe_ms(pipe_out))
 		return (-1);
@@ -54,6 +55,7 @@ int	process_pipes(t_cmd *cmd, int *fd_in, t_env *env, int *pids)
 		close(pipe_out[READ]);
 		dup2(pipe_out[WRITE], STDOUT_FD);
 		close(pipe_out[WRITE]);
+		// verif si builtin
 		exec_cmd(cmd, env);
 	}
 	if (pid == -1)
@@ -69,7 +71,7 @@ int	process_pipes(t_cmd *cmd, int *fd_in, t_env *env, int *pids)
 
 int	process_last(t_cmd *cmd, int fd_in, t_env *env, int *pids)
 {
-	int		pid;
+	int	pid;
 
 	pid = fork();
 	if (pid == 0)
@@ -77,6 +79,7 @@ int	process_last(t_cmd *cmd, int fd_in, t_env *env, int *pids)
 		free(pids);
 		dup2(fd_in, STDIN_FD);
 		close(fd_in);
+		// verif si builtin
 		exec_cmd(cmd, env);
 	}
 	if (pid == -1)

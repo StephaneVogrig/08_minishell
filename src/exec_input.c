@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_input.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:36:43 by stephane          #+#    #+#             */
-/*   Updated: 2024/04/29 22:10:35 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/01 21:29:50 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	exec_cmd_alone(t_cmd_m *cmd, t_env *env, int *exit_status)
 {
 	pid_t	pid[2];
 
+	if (builtin_is_executed(cmd, env))
+		return ;
 	pid[1] = 0;
 	*pid = fork();
 	if (*pid == 0)
@@ -56,7 +58,7 @@ void	exec_cmd_alone(t_cmd_m *cmd, t_env *env, int *exit_status)
 	*exit_status = wait_process(pid);
 }
 
-void exec_cmd_pipe(t_cmd_m *pipeline, t_env *env, int *exit_status)
+void	exec_cmd_pipe(t_cmd_m *pipeline, t_env *env, int *exit_status)
 {
 	pid_t	*pids;
 

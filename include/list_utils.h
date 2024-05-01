@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   list_utils.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/10 19:07:07 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/01 18:54:45 by smortemo         ###   ########.fr       */
+/*   Created: 2024/05/01 21:01:51 by smortemo          #+#    #+#             */
+/*   Updated: 2024/05/01 21:12:27 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "unitest.h"
+#ifndef LST_UTILS_H
+# define LST_UTILS_H
 
-int	main(int argc, char **argv, char **envp)
-{
-	// env_dup_test(argv, envp);
-	// env_get_test();
-	// builtin_unset_test();
-	// builtin_export_test();
-	// builtin_export_alone_test(envp); // avec envp
-	builtin_export_alone_test();
-	// builtin_env_test();
-	return (0);
-}
+# include "environment.h"
+
+// LIST_UTILS ----------------
+t_env	*env_get_node_n(t_env *env, char *str, int n);
+void	lst_node_del(t_env **env, t_env *node);
+int		env_lst_size(t_env *env, int type);
+void	display_the_list(t_env *env);
+void	lst_add_back(t_env **env, t_env *node);
+
+#endif
