@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:37:55 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/01 22:59:24 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/02 00:43:35 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@ int		display_envp_sorted(t_env *envp);
 t_bool	builtin_is_executed(t_cmd *cmd, t_env *env);
 
 // BUILTINS ------------------------------
-// int	builtin_echo(t_cmd *cmd, t_env *env);
-// int	builtin_cd(t_cmd *cmd, t_env *env);
-// int	builtin_pwd(t_cmd *cmd, t_env *env);
+
+int		builtin_pwd(t_cmd *cmd, t_env *env);
 int		builtin_env(t_cmd *cmd, t_env *env);
 int		builtin_export(t_cmd *cmd, t_env *env);
 int		builtin_unset(t_cmd *cmd, t_env *env);
 // int	builtin_exit(t_cmd *cmd, t_env *env);
+// int	builtin_echo(t_cmd *cmd, t_env *env);
+// int	builtin_cd(t_cmd *cmd, t_env *env);
 
-// //
 // int	builtin_export(t_env *envp, char *str);
 // int		builtin_env(char **envp);
 // int		builtin_unset(t_env *env, char *str);

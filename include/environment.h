@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:00:39 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/01 22:41:59 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/02 00:42:06 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 # define ENVIRONMENT_H
 
 # include "libft.h"
-// # include "lst_utils.h"
 # include "memory.h"
 # include <stddef.h>
 # include <stdlib.h>
 
 # define INTERNAL 0
-# define EXPORTED 1
-# define NO_VALUE 2
-# define ALL 3
+# define EXPORTED 1 // can be unset
+# define NO_VALUE 2 // can be unset
+# define ALL 3      // to get both EXPORTED and NO_VALUE variables
+# define PWD 4
 
 typedef struct s_env
 {
@@ -42,7 +42,7 @@ void				lst_add_back(t_env **env, t_env *node);
 // ENVIRONMENT ----------------
 void				env_node_free(t_env *node);
 void				env_free(t_env *env);
-t_bool				env_init(t_env *node, char *str);
+t_bool				node_init(t_env *node, char *str, int type);
 t_env				*env_dup(char **envp);
 char				*env_get(t_env *env, char *str);
 char				*env_get_n(t_env *env, char *str, int n);

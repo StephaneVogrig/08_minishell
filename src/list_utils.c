@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:47:12 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/01 22:33:04 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/02 00:09:45 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ int	env_lst_size(t_env *env, int type)
 	{
 		while (env)
 		{
-			i++;
+			if (env->type == EXPORTED || env->type == NO_VALUE)
+				i++;
 			env = env->next;
 		}
 	}
@@ -99,7 +100,7 @@ void	display_the_list(t_env *env, int type)
 
 void	lst_add_back(t_env **env, t_env *node)
 {
-	t_env *temp;
+	t_env	*temp;
 
 	if (!*env)
 	{
