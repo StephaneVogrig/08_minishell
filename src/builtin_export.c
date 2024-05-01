@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:13:40 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/01 16:46:04 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/01 17:58:37 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,7 @@ int	export_new_node(t_env *env, char *str, int n)
 	}
 	if (!var_init(node, str, n))
 		return (0);
-	env_add_back(&env, node);
+	lst_add_back(&env, node);
 	return (1);
 }
 

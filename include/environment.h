@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:00:39 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/01 16:18:34 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/01 18:36:09 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 
 # define INTERNAL 0
 # define EXPORTED 1
+# define ALL 2
 
 typedef struct s_env
 {
@@ -29,20 +30,21 @@ typedef struct s_env
 	struct s_env	*next;
 }					t_env;
 
-t_env				*env_dup(char **envp);
+// ENVIRONMENT ----------------
+void				env_node_free(t_env *node);
 void				env_free(t_env *env);
-void				display_the_list(t_env *env);
-void				env_add_back(t_env **env, t_env *node);
-t_env				*env_get_node_n(t_env *env, char *str, int n);
-t_env				*env_get_node(t_env *env, char *str);
+t_bool				env_init(t_env *node, char *str);
+t_env				*env_dup(char **envp);
 char				*env_get(t_env *env, char *str);
 char				*env_get_n(t_env *env, char *str, int n);
-
-char				**env_to_envp(t_env *env);
-int					env_size_envp(t_env *env);
 char				*env_join(char *name, char *value);
+char				**env_to_envp(t_env *env);
 
-void				env_node_del(t_env **env, t_env *node);
-int					display_envp_sorted(t_env *envp);
+// LIST_UTILS ----------------
+t_env				*env_get_node_n(t_env *env, char *str, int n);
+void				lst_node_del(t_env **env, t_env *node);
+int					env_lst_size(t_env *env, int type);
+void				display_the_list(t_env *env);
+void				lst_add_back(t_env **env, t_env *node);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 22:22:07 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/01 17:03:21 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/01 18:11:47 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	modify_tab(char **sorted_tab)
 	display_tab_export(tab_to_display, 0);
 }
 
-void	export_alone(char **to_sort)
+void	strtab_sort(char **to_sort)
 {
 	int		i;
 	char	*temp;
@@ -111,33 +111,19 @@ void	export_alone(char **to_sort)
 	if (count == 0)
 		modify_tab(to_sort);
 	else
-		export_alone(to_sort);
+		strtab_sort(to_sort);
 }
 
-int	env_size_envp_all(t_env *env)
-{
-	int	i;
-
-	i = 0;
-	while (env)
-	{
-		i++;
-		env = env->next;
-	}
-	return (i);
-}
-
-char	**env_to_envp_export(t_env *env)
+char	**env_to_envp_export(t_env *env, int size)
 {
 	char	**envp;
 	int		i;
-	int		size;
 
 	i = 0;
-	size = env_size_envp_all(env);
 	envp = calloc(size, sizeof(*envp));
 	if (!envp)
 		return (NULL);
+	size = size - 1;
 	while (i < size - 1)
 	{
 		if (env->name[0] == '_' && env->name[1] == '\0')
@@ -164,8 +150,8 @@ int	display_envp_sorted(t_env *envp)
 {
 	char **tab_to_sort;
 
-	tab_to_sort = env_to_envp_export(envp);
-	export_alone(tab_to_sort);
+	tab_to_sort = env_to_envp_export(envp, env_lst_size(envp, ALL));
+	strtab_sort(tab_to_sort);
 	strtab_free(tab_to_sort);
 	return (0);
 }
