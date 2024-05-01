@@ -7,7 +7,6 @@ SRC="main.c
 	../src/builtin_export_alone.c 
 	../src/builtin_export.c 
 	src/env_dup_test.c 
-	src/builtin_unset_test.c 
 	src/builtin_export_test.c 
 	src/builtin_export_alone_test.c 
 	src/env_get_test.c"

@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:47:12 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/01 18:39:44 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/01 22:33:04 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,28 @@ int	env_lst_size(t_env *env, int type)
 	return (i);
 }
 
-void	display_the_list(t_env *env)
+void	display_the_list(t_env *env, int type)
 {
-	while (env != NULL)
+	if (type == ALL)
 	{
-		printf("%s=", env->name);
-		printf("%s\n", env->value);
-		env = env->next;
+		while (env != NULL)
+		{
+			printf("%s=", env->name);
+			printf("%s\n", env->value);
+			env = env->next;
+		}
+	}
+	if (type == EXPORTED)
+	{
+		while (env != NULL)
+		{
+			if (env->type == EXPORTED)
+			{
+				printf("%s=", env->name);
+				printf("%s\n", env->value);
+			}
+			env = env->next;
+		}
 	}
 }
 

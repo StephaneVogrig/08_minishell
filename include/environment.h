@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:00:39 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/01 21:12:19 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/01 22:41:59 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct s_env
 t_env				*env_get_node_n(t_env *env, char *str, int n);
 void				lst_node_del(t_env **env, t_env *node);
 int					env_lst_size(t_env *env, int type);
-void				display_the_list(t_env *env);
+void				display_the_list(t_env *env, int type);
 void				lst_add_back(t_env **env, t_env *node);
 
 // ENVIRONMENT ----------------

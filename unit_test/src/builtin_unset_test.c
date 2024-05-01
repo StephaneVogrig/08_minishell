@@ -33,7 +33,7 @@ void	test(t_env *env, char *str)
 	printf("TEST-> unset %s \n", str);
 	printf("--------------------------------------------\n");
 	builtin_unset(env, str);
-	display_the_list(env);
+	display_the_list(env, ALL);
 }
 
 void	builtin_unset_test(void)
@@ -45,7 +45,7 @@ void	builtin_unset_test(void)
 	lst = env_dup(strtab);
 
 	printf("\nSOURCE TAB ----------------------------------\n");
-	display_the_list(lst);
+	display_the_list(lst, ALL);
 	test(lst, NULL);
 	test(lst, "NOEXIST");
 	test(lst, "");

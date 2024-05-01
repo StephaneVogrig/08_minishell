@@ -6,7 +6,7 @@
 #    By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/05/01 21:19:10 by smortemo         ###   ########.fr        #
+#    Updated: 2024/05/01 23:05:21 by smortemo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRC				:=	main.c \
 					buffsave.c \
 					builtin_export_alone.c \
 					builtin_export.c \
+					builtin_unset.c \
 					builtin.c \
 					command.c \
 					cmd_path.c \

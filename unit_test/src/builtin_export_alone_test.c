@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 22:04:37 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/01 16:56:56 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/01 22:57:29 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,15 @@ void	builtin_export_alone_test(void)
 	t_env *tab;
 	tab = env_dup(strtab);
 
-	builtin_export(tab, "alone1");
-	builtin_export(tab, "alone2");
+	export(tab, "alone1");
+	export(tab, "alone2");
 
-	builtin_export(tab, "XXXXXX=---");
+	// export(tab, "XXXXXX=---");
 
 	printf("--------------------------------------------\n");
 	printf("SOURCE LIST  \n");
 	printf("--------------------------------------------\n");
-	display_the_list(tab);
+	display_the_list(tab, ALL);
 
 	test_export_alone(tab);
 

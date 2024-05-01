@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 22:22:07 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/01 18:11:47 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/01 22:58:53 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,6 @@ char	**env_to_envp_export(t_env *env, int size)
 	envp = calloc(size, sizeof(*envp));
 	if (!envp)
 		return (NULL);
-	size = size - 1;
 	while (i < size - 1)
 	{
 		if (env->name[0] == '_' && env->name[1] == '\0')

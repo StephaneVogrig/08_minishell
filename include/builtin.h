@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:37:55 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/01 22:13:08 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/01 22:59:24 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		builtin_unset(t_cmd *cmd, t_env *env);
 
 // //
 // int	builtin_export(t_env *envp, char *str);
-int		builtin_env(char **envp);
+// int		builtin_env(char **envp);
 // int		builtin_unset(t_env *env, char *str);
 
 #endif
