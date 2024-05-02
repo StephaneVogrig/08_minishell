@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:00:39 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/02 00:42:06 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/02 12:46:38 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 # define EXPORTED 1 // can be unset
 # define NO_VALUE 2 // can be unset
 # define ALL 3      // to get both EXPORTED and NO_VALUE variables
-# define PWD 4
 
 typedef struct s_env
 {

@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 17:59:17 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/02 00:08:27 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/02 12:47:20 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,31 +37,16 @@ t_bool	node_init(t_env *node, char *str, int type)
 {
 	int	index;
 
-	if (type == PWD) // cree une copie de PWD en type INTERNAL
-	{
-		node->name = ft_strdup("PWD_cpy");
-		if (!node->name)
-			return (FAILURE);
-		node->value = ft_strdup(str);
-		if (!node->value)
-			return (FAILURE);
-		node->type = INTERNAL;
-		node->next = NULL;
-		return (SUCCESS);
-	}
-	else
-	{
-		index = ft_strchr_i(str, '=');
-		node->name = ft_strndup(str, index);
-		if (!node->name)
-			return (FAILURE);
-		node->value = ft_strdup(&str[index + 1]);
-		if (!node->value)
-			return (FAILURE);
-		node->type = type;
-		node->next = NULL;
-		return (SUCCESS);
-	}
+	index = ft_strchr_i(str, '=');
+	node->name = ft_strndup(str, index);
+	if (!node->name)
+		return (FAILURE);
+	node->value = ft_strdup(&str[index + 1]);
+	if (!node->value)
+		return (FAILURE);
+	node->type = type;
+	node->next = NULL;
+	return (SUCCESS);
 }
 
 t_env	*env_dup(char **envp)
@@ -86,9 +71,6 @@ t_env	*env_dup(char **envp)
 		lst_add_back(&env, node);
 		i++;
 	}
-	node = malloc(sizeof(*node));
-	node_init(node, getenv("PWD"), PWD);
-	lst_add_back(&env, node);
 	return (env);
 }
 

@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:13:40 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/01 22:59:58 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/02 14:32:56 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,10 +181,7 @@ int	export_new_node(t_env *env, char *str, int n)
 
 	node = malloc(sizeof(*node));
 	if (!node)
-	{
-		env_free(env);
 		return (ENOMEM);
-	}
 	if (!var_init(node, str, n))
 		return (ENOMEM);
 	lst_add_back(&env, node);
