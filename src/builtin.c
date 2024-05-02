@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 19:14:20 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/02 14:40:40 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/02 23:18:23 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int (*builtin_function(char *str))(t_cmd *, t_env *)
 		return (&builtin_cd);
 	// if (!ft_strcmp(str, "echo"))
 	// 	return (&builtin_echo);
-	// if (!ft_strcmp(str, "exit"))s
+	// if (!ft_strcmp(str, "exit"))
 	// 	return (&builtin_exit);
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:50:40 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/02 16:01:56 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/02 23:15:55 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,18 @@ void	print_path(void) // for test
 	str = getcwd(buffer, PATH_MAX);
 	printf("print path -> %s\n", str);
 }
+
+// int	cd_for_test(t_env *env, char *str)
+// {
+// 	if (!str) // cd seul -> on va dans la maison
+// 		return (go_home(env));
+// 	if (str[0] == '\0') // chaine vide
+// 		return (0);
+// 	if ((str[0] == '~' && str[1] == '\0'))
+// 		return (go_home(env));
+// 	else
+// 		return (change_dir(env, str));
+// }
 
 void	builtin_cd_test(char **env)
 {
