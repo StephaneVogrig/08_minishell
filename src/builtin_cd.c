@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 23:27:39 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/02 16:06:22 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/02 21:22:21 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,26 @@
 #include "environment.h"
 #include <limits.h>
 
-// void	print_path(void) // for test
+// int	cd_for_test(t_env *env, char *str)
 // {
-// 	char *str;
-// 	char buffer[PATH_MAX];
-
-// 	str = getcwd(buffer, PATH_MAX);
-// 	// printf("print path -> %s\n", str);
+// 	if (!str) // cd seul -> on va dans la maison
+// 		return (go_home(env));
+// 	if (str[0] == '\0') // chaine vide
+// 		return (0);
+// 	if ((str[0] == '~' && str[1] == '\0'))
+// 		return (go_home(env));
+// 	else
+// 		return (change_dir(env, str));
 // }
+
+void	print_path(void) // for test
+{
+	char *str;
+	char buffer[PATH_MAX];
+
+	str = getcwd(buffer, PATH_MAX);
+	// printf("print path -> %s\n", str);
+}
 
 int	uptdate_PWD_OLPWD(t_env *env)
 {
@@ -50,13 +62,24 @@ int	uptdate_PWD_OLPWD(t_env *env)
 	return (0);
 }
 
-int	go_home(t_env *env)
+int	go_home(t_env *env, char c)
 {
 	int		ret;
 	char	*str;
 
 	// printf("fonction go_home \n");
-	str = getenv("HOME");
+	// str = env_get(env, "HOME");
+	print_path();
+	if (c != '~')
+		str = getenv("HOME");
+	else
+		str = env_get(env, "HOME_cpy");
+	printf("-> str HOME: %s\n", str);
+	if (!str)
+	{
+		ft_printf("bash: cd: HOME not set\n");
+		return (1);
+	}
 	ret = chdir(str);
 	if (ret == -1)
 	{
@@ -81,32 +104,24 @@ int	change_dir(t_env *env, char *str)
 	// print_path();                    // for test
 	return (uptdate_PWD_OLPWD(env)); // modif valeurs PWD + OLDPWD dans env
 }
-// int	cd_for_test(t_env *env, char *str)
-// {
-// 	if (!str) // cd seul -> on va dans la maison
-// 		return (go_home(env));
-// 	if (str[0] == '\0') // chaine vide
-// 		return (0);
-// 	if ((str[0] == '~' && str[1] == '\0'))
-// 		return (go_home(env));
-// 	else
-// 		return (change_dir(env, str));
-// }
 
 static int	cd(t_env *env, t_cmd *cmd)
 {
 	t_list	*argv;
 	char	*str;
 
+	str = NULL;
 	argv = cmd->argv;
 	argv = argv->next;
-	str = argv->content;
-	if (!argv) // cd seul -> on va dans la maison
-		return (go_home(env));
-	if (str[0] == '\0') // chaine vide
+	if (argv)
+		str = argv->content;
+	printf("->str = %s \n", str);
+	if (!argv)
+		return (go_home(env, ' '));
+	if (str[0] == '\0') // en attente modif parsing
 		return (0);
 	if ((str[0] == '~' && str[1] == '\0'))
-		return (go_home(env));
+		return (go_home(env, '~'));
 	else
 		return (change_dir(env, str));
 }

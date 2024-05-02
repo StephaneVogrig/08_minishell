@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 17:59:17 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/02 12:47:20 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/02 21:24:16 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,9 @@ t_env	*env_dup(char **envp)
 	t_env	*node;
 	int		i;
 
+	// printf("ENV ********\n");
+	// strtab_print(envp);
+	// printf("************\n");
 	if (!envp)
 		return (NULL);
 	i = 0;
@@ -71,6 +74,7 @@ t_env	*env_dup(char **envp)
 		lst_add_back(&env, node);
 		i++;
 	}
+	
 	return (env);
 }
 
