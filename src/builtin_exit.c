@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 23:20:41 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/04 00:34:05 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/04 00:59:36 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ t_bool	is_num(char *str)
 
 int	exit_val_2(t_cmd *cmd, t_env *env, char *argv)
 {
-	cmd_free(cmd);
-	env_free(env);
 	ft_printf("exit\n");
 	ft_printf("minishel : exit : %s", argv);
 	ft_printf(" : numeric argument required\n");
+	cmd_free(cmd);
+	env_free(env);
 	exit(2);
 }
 
@@ -91,6 +91,5 @@ int	builtin_exit(t_cmd *cmd, t_env *env)
 	// if (lst)
 	// 	printf("EXIT ON START OR MIDDLE OF PIPE\n");
 	// else
-	exit_mini(cmd, env, argv);
-	return (0);
+	return (exit_mini(cmd, env, argv));
 }

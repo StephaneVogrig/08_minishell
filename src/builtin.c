@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 19:14:20 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/03 23:44:56 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/04 00:56:09 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ int (*builtin_function(char *str))(t_cmd *, t_env *)
 	return (NULL);
 }
 
-t_bool	builtin_is_executed(t_cmd *cmd, t_env *env)
+t_bool	builtin_is_executed(t_cmd *cmd, t_env *env, int *exit_status)
 {
 	int (*builtin)(t_cmd *, t_env *);
 
 	builtin = builtin_function(cmd->argv->content);
 	if (!builtin)
 		return (FALSE);
-	builtin(cmd, env);
+	*exit_status = builtin(cmd, env);
 	return (TRUE);
 }
