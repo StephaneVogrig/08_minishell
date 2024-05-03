@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:18:00 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/03 17:20:26 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/03 22:44:31 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,3 +20,4 @@ void	display_lst(t_list *lst)
 		lst = lst->next;
 	}
 }
+

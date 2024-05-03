@@ -6,7 +6,7 @@
 #    By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/05/03 17:13:44 by smortemo         ###   ########.fr        #
+#    Updated: 2024/05/03 21:01:21 by smortemo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRC				:=	main.c \
 					builtin_cd.c \
 					builtin_echo.c \
 					builtin_env.c \
+					builtin_exit.c \
 					builtin_export_alone.c \
 					builtin_export.c \
 					builtin_unset.c \

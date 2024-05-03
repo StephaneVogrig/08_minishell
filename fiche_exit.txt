@@ -1,0 +1,105 @@
+
+
+La fonction exit() termine normalement le processus
+la valeur status & 0377 est renvoyée au processus parent.
+
+-----------------------------------------------------------------------
+EXIT SEUL : quitter bash
+-----------------------------------------------------------------------
+-> exit
+ EXIT BASH +retour err = 0
+
+-> exit num
+ EXIT BASH +  retour err = num
+
+-> exit -0
+ EXIT BASH + retour err = 0
+
+-> exit -1
+ EXIT BASH + retour err = 255
+
+-> exit -256
+-> exit -1280
+ EXIT BASH + retour err = 0
+
+-> exit ""
+-> exit aaaa
+-> exit aaaa bbbbb
+bash: exit: aaaa: numeric argument required
++ EXIT BASH + retour err = 2
+
+-> exit ++1
+bash: exit: ++1: numeric argument required
++ EXIT BASH + retour err = 2
+
+exit 10 aaaa
+exit
+bash : exit : too many arguments
+/!\ DO NOT EXIST BASH +  err = 1
+
+-----------------------------------------------------------------------
+/ EXIT FIN DE PIPELINE -> retourne code erreur correspondant
+-----------------------------------------------------------------------
+ls | cat -e | exit 120
+code erreur 120
+
+echo "hello" > out | exit  120
+cree out avec "hello" + code erreur 120
+
+-----------------------------------------------------------------------
+EXIT MILIEU PIPELINE : retourne message erreur de exit
+-----------------------------------------------------------------------
++ cmds precedentes sont exe + err=code derniere cmd
+
+echo "hello" | exit 120 | echo "bla"
+affiche bla + err=120
+
+echo "hello" | exit aaaa  | echo "bla"
+bash : exit : aaaa : numeric argument required
+bla
+code erreur 0
+
+echo "hello" > out | exit  10 aaaa  | echo "bla"
+bash: exit: too many arguments
+bla
+cree out avec "hello" + code erreur 0
+
+echo "hello" | exit | echo "bla"
+bla
+code erreur 0
+
+
+
+
+// void	lst_free(t_list *lst)
+// {
+// 	t_list	*current;
+// 	t_list	*temp;
+
+// 	current = lst;
+// 	while (current != NULL)
+// 	{
+// 		temp = current;
+// 		current = current->next;
+// 		free(temp->content);
+// 	}
+// }
+
+
+int	exit_val_2(t_cmd *cmd, t_env *env, char *argv)
+{
+	(void)cmd; // free???
+	env_free(env);
+	ft_printf("exit\n");
+	ft_printf("minishel : exit : %s", argv);
+	ft_printf(" : numeric argument required\n");
+	exit(2);
+}
+
+int	exit_val_num(t_cmd *cmd, t_env *env, char *argv)
+{
+	(void)cmd; // free???
+	env_free(env);
+	ft_printf("exit\n");
+	exit(ft_atoi(argv));
+}

@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 23:20:41 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/03 18:27:42 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/03 18:29:58 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ t_bool	check_if_n(char *str)
 
 int	builtin_echo(t_cmd *cmd, t_env *env)
 {
-	t_list *argv;
+	t_list	*argv;
 
 	(void)env;
 	argv = cmd->argv;
