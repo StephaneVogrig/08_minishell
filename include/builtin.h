@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:37:55 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/02 14:41:39 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/03 17:21:52 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		builtin_env(t_cmd *cmd, t_env *env);
 int		builtin_export(t_cmd *cmd, t_env *env);
 int		builtin_unset(t_cmd *cmd, t_env *env);
 // int	builtin_exit(t_cmd *cmd, t_env *env);
-// int	builtin_echo(t_cmd *cmd, t_env *env);
+int		builtin_echo(t_cmd *cmd, t_env *env);
 int		builtin_cd(t_cmd *cmd, t_env *env);
 int		cd_for_test(t_env *env, char *str);
 

@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 23:27:39 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/02 23:22:27 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/03 16:26:54 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ static int	cd(t_env *env, t_cmd *cmd)
 		return (go_home(env, ' '));
 	if (str[0] == '\0') // en attente modif parsing
 		return (0);
-	if ((str[0] == '~' && str[1] == '\0'))
+	if ((str[0] == '~' && str[1] == '\0'))// ! pas demande dans le sujet
 		return (go_home(env, '~'));
 	else
 		return (change_dir(env, str));
