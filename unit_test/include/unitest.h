@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 19:08:22 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/02 15:01:30 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/04 18:06:58 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ void	builtin_export_test(void);
 void	builtin_export_alone_test(void);
 void	builtin_env_test(void);
 void	builtin_cd_test(char **env);
+void	env_shlvl_test(char **env);
 
 #endif
