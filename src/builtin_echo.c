@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 23:20:41 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/03 18:29:58 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/04 16:37:05 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	builtin_echo(t_cmd *cmd, t_env *env)
 	(void)env;
 	argv = cmd->argv;
 	argv = argv->next;
+	// printf("---> argv = %s \n", (char *)argv->content);
 	if (!argv)
 		return (0);
 	if (!check_if_n(argv->content))

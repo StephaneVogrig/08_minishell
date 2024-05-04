@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 23:20:41 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/04 00:59:36 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/04 17:06:05 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int	exit_val_num(t_cmd *cmd, t_env *env, char *argv)
 
 int	exit_mini(t_cmd *cmd, t_env *env, t_list *argv)
 {
-	// display_t_cmd(cmd);
 	if (!argv)
 	{
 		cmd_free(cmd);
@@ -61,20 +60,20 @@ int	exit_mini(t_cmd *cmd, t_env *env, t_list *argv)
 		ft_printf("exit\n");
 		exit(0);
 	}
-	else
+	else if (!argv->next)
 	{
-		if (!argv->next)
-		{
-			if (!is_num(argv->content))
-				exit_val_2(cmd, env, argv->content);
-			else
-				exit_val_num(cmd, env, argv->content);
-		}
-		if (argv->next)
+		if (!is_num(argv->content))
+			exit_val_2(cmd, env, argv->content);
+		exit_val_num(cmd, env, argv->content);
+	}
+	if (argv->next)
+	{
+		if (!is_num(argv->content))
+			exit_val_2(cmd, env, argv->content);
+		else
 		{
 			ft_printf("exit\n");
 			ft_printf("minishell : exit : too many arguments\n");
-			return (1);
 		}
 	}
 	return (1);

@@ -38,7 +38,7 @@ bash : exit : too many arguments
 /!\ DO NOT EXIST BASH +  err = 1
 
 -----------------------------------------------------------------------
-/ EXIT FIN DE PIPELINE -> retourne code erreur correspondant
+EXIT FIN DE PIPELINE -> retourne code erreur correspondant
 -----------------------------------------------------------------------
 ls | cat -e | exit 120
 /!\ DO NOT EXIST BASH + erreur 120
