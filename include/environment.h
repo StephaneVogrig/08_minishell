@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:00:39 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/04 16:54:17 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/04 18:17:51 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,6 @@ char				*env_get_n(t_env *env, char *str, int n);
 char				*env_join(char *name, char *value);
 char				**env_to_envp(t_env *env);
 
+// ENV_SHLVL -----------------
+void				init_shlvl(t_env *env);
 #endif

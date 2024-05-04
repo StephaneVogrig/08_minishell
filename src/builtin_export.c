@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:13:40 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/02 14:32:56 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/04 18:12:12 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,23 @@ t_bool	is_valid_arg(char *str)
 	return (TRUE);
 }
 
-t_bool	var_init(t_env *node, char *str, int n)
+int	end_var_name(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '+')
+			return (i);
+		if (str[i] == '=')
+			return (i);
+		i++;
+	}
+	return (i);
+}
+
+t_bool	var_init(t_env *node, char *str, int n) // mettre dans utils ?
 {
 	node->name = ft_strndup(str, n);
 	if (!node->name)
@@ -159,25 +175,9 @@ t_bool	var_init(t_env *node, char *str, int n)
 	return (SUCCESS);
 }
 
-int	end_var_name(char *str)
+int	export_new_node(t_env *env, char *str, int n) // mettre dans utils ?
 {
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '+')
-			return (i);
-		if (str[i] == '=')
-			return (i);
-		i++;
-	}
-	return (i);
-}
-
-int	export_new_node(t_env *env, char *str, int n)
-{
-	t_env	*node;
+	t_env *node;
 
 	node = malloc(sizeof(*node));
 	if (!node)
