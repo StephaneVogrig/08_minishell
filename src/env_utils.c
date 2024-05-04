@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 17:59:17 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/04 18:12:19 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/05 00:16:54 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ char	*create_HOME_path(t_env *env)
 	char	*home;
 
 	str = env_get(env, "PWD");
+	if (!str)
+		return(NULL);
 	index = ft_strstr(str, "/nfs/homes/");
 	while (str[index] != '/')
 		index++;
@@ -80,7 +82,10 @@ void	node_HOME_cpy(t_env *env)
 	else
 		node->value = ft_strdup_free(create_HOME_path(env));
 	if (!node->value)
+	{
+		node->value = ft_calloc( sizeof(char*), 0);
 		return ;
+	}
 	node->type = INTERNAL;
 	node->next = NULL;
 	lst_add_back(&env, node);

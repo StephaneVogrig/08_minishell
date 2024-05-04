@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 17:39:44 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/04 18:29:38 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/05 00:11:41 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,19 +58,21 @@ void	init_shlvl(t_env *env)
 	char *new;
 
 	node = env_get_node_n(env, "SHLVL", 5);
-	value = node->value;
-	if (!value) // ON CREE SHLVL = 1
+	if (!node) // ON CREE SHLVL = 1
 	{
-		shlvl_export_new_node(env, "SHLVL=1", 6);
+		shlvl_export_new_node(env, "SHLVL=1", 5);
 		return ;
-		// add_node_shlvl();
 	}
-	printf("atoi\n");
+	value = node->value;
+	// printf("atoi\n");
 	num = ft_atoi(value) + 1;
-	printf("itoa\n");
+	// printf("itoa\n");
 	new = ft_itoa(num);
-	free(value);
-	value = ft_strdup(new);
+	// printf("new-> %s\n", new);
+
+	free(node->value);
+	node->value = ft_strdup(new);
+	free(new);
 	if (!value)
 		return ;
 }
