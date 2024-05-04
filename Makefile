@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+         #
+#    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/05/02 14:48:51 by smortemo         ###   ########.fr        #
+#    Updated: 2024/05/04 17:28:44 by svogrig          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -196,12 +196,12 @@ $(DIR_BUILD)/%.o: $(DIR_SRC)/%.c
 
 $(DIR_BUILD)/debug/%.o: $(DIR_SRC)/%.c
 	@mkdir -p $(@D)
-	@$(CC) $(CC_FLAGS) $(I_FLAG) $(DEBUG_FLAGS) -c $< -o $@
+	@$(CC) $(CC_FLAGS) $(I_FLAG) $(DEBUG_FLAGS) -g -c $< -o $@
 	$(info created : $@)
 
 $(DIR_BUILD)/debugbonus/%.o: $(DIR_SRC)/%.c
 	@mkdir -p $(@D)
-	@$(CC) $(CC_FLAGS) $(I_FLAG) $(DEBUG_FLAGS) -c $< -o $@
+	@$(CC) $(CC_FLAGS) $(I_FLAG) $(DEBUG_FLAGS) -g -c $< -o $@
 	$(info created : $@)
 
 $(DIR_BUILD)/sanitize/%.o: $(DIR_SRC)/%.c

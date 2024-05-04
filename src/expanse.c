@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 16:03:55 by stephane          #+#    #+#             */
-/*   Updated: 2024/04/29 16:28:59 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/04 17:57:41 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*end_name(char *str)
 {
 	if (!ft_isalpha(*str) && *str != '_')
-		return (NULL);
+		return (str);
 	str++;
 	while (ft_isalnum(*str) || *str == '_')
 		str++;
