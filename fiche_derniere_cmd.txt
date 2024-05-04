@@ -1,0 +1,38 @@
+
+/!\ Juste apres lancement de bash
+echo $_   retourne-> ]       
+
+cmd: echo
+echo $_   renvoie-> echo
+
+cmd: echo $USER   
+echo $_  retourne-> nom_user
+
+cmd: export Test  
+echo $_  retourne-> Test
+
+cmd: unset Test  
+echo $_  retourne-> Test
+
+cmd: unset   
+echo $_  retourne-> unset
+
+cmd: echo aaaa
+echo $_  retourne-> aaaa
+
+cmd: echo $?
+echo $_  retourne-> 0
+
+cmd: echo
+echo $_  retourne-> echo
+
+cmd: echo AAAA BBBB
+echo $_  retourne-> BBBB
+
+cmd: cd no_exit
+echo $_  retourne-> no_exist
+
+cmd: cd ..
+echo $_  retourne-> ...
+
+/!\ Si on fai
