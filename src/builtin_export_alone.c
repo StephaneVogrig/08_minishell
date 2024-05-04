@@ -6,41 +6,11 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 22:22:07 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/01 22:58:53 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/04 21:11:08 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
-
-// void	display_tab_export(char **tab, int i)
-// {
-// 	while (tab[i])
-// 	{
-// 		if (tab[i][0] == '_' && tab[i][1] == '=')
-// 			break ;
-// 		printf("declare -x %s", tab[i]);
-// 		free(tab[i]);
-// 		i++;
-// 		if (tab[i] != NULL)
-// 			printf("\"%s\"", tab[i]);
-// 		free(tab[i]);
-// 		printf("\n");
-// 		i++;
-// 	}
-// 	if(tab[i] == NULL)
-// 	{
-// 		//strtab_free(tab);
-
-// 		free(tab);
-// 		return ;
-// 	}
-// 	// else
-// 	// {
-// 	// 	free(tab[i]);
-// 	// 	free(tab[i++]);
-// 	// }
-// 	display_tab_export(tab, i + 2);
-// }
 
 void	display_tab_export(char **tab, int i)
 {
@@ -50,7 +20,10 @@ void	display_tab_export(char **tab, int i)
 		free(tab[i]);
 		i++;
 		if (tab[i] != NULL)
+		{
 			printf("\"%s\"", tab[i]);
+		}
+			
 		free(tab[i]);
 		printf("\n");
 		i++;
@@ -114,25 +87,47 @@ void	strtab_sort(char **to_sort)
 		strtab_sort(to_sort);
 }
 
+// char	*env_join_export(char *name, char *value)
+// {
+// 	int		name_len;
+// 	char	*str;
+// 	char	*temp;
+
+// 	name_len = ft_strlen(name);
+// 	str = malloc(name_len + ft_strlen(value) + 2);
+// 	if (!str)
+// 		return (NULL);
+// 	temp = str;
+// 	if (name)
+// 		temp = strcpy_offset(str, name);
+// 	*temp++ = '=';
+// 	if (value)
+// 		temp = strcpy_offset(temp, value);
+// 	*temp = '\0';
+// 	return (str);
+// }
+
 char	**env_to_envp_export(t_env *env, int size)
 {
 	char	**envp;
 	int		i;
 
 	i = 0;
-	envp = calloc(size, sizeof(*envp));
+	envp = calloc(size + 1, sizeof(*envp));
 	if (!envp)
 		return (NULL);
-	while (i < size - 1)
+	while (i < size)
 	{
 		if (env->name[0] == '_' && env->name[1] == '\0')
 			env = env->next;
 		else
 		{
-			if (env->value[0] != '\0')
+			if (env->type == EXPORTED && env->value[0] != '\0')
 				envp[i] = env_join(env->name, env->value);
-			else
+			else if (env->type == NO_VALUE && env->value[0] == '\0')
 				envp[i] = ft_strdup(env->name);
+			else
+				envp[i] = ft_strjoin(env->name, "=");
 			if (!envp[i])
 			{
 				strtab_free(envp);
