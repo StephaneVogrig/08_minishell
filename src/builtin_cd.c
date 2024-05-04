@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 23:27:39 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/04 15:17:59 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/04 17:27:21 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,18 @@ int	go_home(t_env *env, char c)
 	int		ret;
 	char	*str;
 
+	str = NULL;
 	if (c == ' ')
-		str = getenv("HOME");
-	if (c == '~')
+		str = env_get(env, "HOME");
+	else if (c == '~')
 		str = env_get(env, "HOME_cpy");
 	if (!str)
 	{
 		ft_printf("minishell: cd: HOME not set\n");
 		return (1);
 	}
+	if (str[0] == '\0')
+		return (0);
 	ret = chdir(str);
 	if (ret == -1)
 	{
