@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:37:55 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/04 01:32:21 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/04 22:34:33 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "command.h"
 # include "environment.h"
+# include "exec_cmd.h"
 # include "libft.h"
 # include <errno.h>
 
@@ -31,11 +32,5 @@ int		builtin_unset(t_cmd *cmd, t_env *env);
 int		builtin_echo(t_cmd *cmd, t_env *env);
 int		builtin_cd(t_cmd *cmd, t_env *env);
 int		builtin_exit(t_cmd *cmd, t_env *env);
-
-// int		cd_for_test(t_env *env, char *str);
-
-// int	builtin_export(t_env *envp, char *str);
-// int		builtin_env(char **envp);
-// int		builtin_unset(t_env *env, char *str);
 
 #endif

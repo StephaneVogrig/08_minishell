@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 19:14:20 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/04 00:56:09 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/04 22:26:26 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,16 @@ int (*builtin_function(char *str))(t_cmd *, t_env *)
 
 t_bool	builtin_is_executed(t_cmd *cmd, t_env *env, int *exit_status)
 {
-	int (*builtin)(t_cmd *, t_env *);
+	int (*builtin_ptr)(t_cmd *, t_env *);
 
-	builtin = builtin_function(cmd->argv->content);
-	if (!builtin)
+	builtin_ptr = builtin_function(cmd->argv->content);
+	if (!builtin_ptr)
 		return (FALSE);
-	*exit_status = builtin(cmd, env);
+	if (!exec_redir(cmd->redir))
+	{
+		pipeline_free(&cmd);
+		exit(EXIT_FAILURE);
+	}
+	*exit_status = builtin_ptr(cmd, env);
 	return (TRUE);
 }
