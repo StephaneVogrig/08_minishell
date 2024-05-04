@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   display_lst.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/01 19:49:05 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/01 20:20:50 by smortemo         ###   ########.fr       */
+/*   Created: 2024/05/03 17:18:00 by smortemo          #+#    #+#             */
+/*   Updated: 2024/05/03 22:44:31 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin.h"
+#include "libft.h"
 
-int	echo(t_cmd *cmd, t_env *env)
+void	display_lst(t_list *lst)
 {
-	ft_printf("minishell: echo: not yet implemented\n");
-	return (0);
+	while (lst != NULL)
+	{
+		ft_printf("-> %s \n", lst->content);
+		lst = lst->next;
+	}
 }
+

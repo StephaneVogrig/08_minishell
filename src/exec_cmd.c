@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 15:22:47 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/29 22:34:35 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/03 23:08:01 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 t_bool	redir_cmd(t_redir *redirs)
 {
-	int		fd;
-	int		fd_dup;
+	int	fd;
+	int	fd_dup;
 
 	while (redirs)
 	{
@@ -31,7 +31,8 @@ t_bool	redir_cmd(t_redir *redirs)
 			fd = open(redirs->file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (fd == -1)
 		{
-			fd_printf(STDERR_FD, "minishell: %s: %s\n", redirs->file_name, strerror(errno));
+			fd_printf(STDERR_FD, "minishell: %s: %s\n", redirs->file_name,
+				strerror(errno));
 			return (FAILURE);
 		}
 		dup2(fd, fd_dup);
@@ -47,7 +48,7 @@ void	exec_cmd(t_cmd *cmd, t_env *env)
 	char	**argv;
 	char	**envp;
 
-	if (!redir_cmd(cmd->redir))
+	if (!redir_cmd(cmd->redir)) // enlever si redir faite avant
 	{
 		pipeline_free(&cmd);
 		exit(EXIT_FAILURE);

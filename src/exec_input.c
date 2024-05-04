@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:36:43 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/02 20:47:08 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/04 00:52:39 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	exec_cmd_alone(t_cmd_m *cmd, t_env *env, int *exit_status)
 {
 	pid_t	pid[2];
 
-	if (builtin_is_executed(cmd, env))
+	if (builtin_is_executed(cmd, env, exit_status))
 	{
 		cmd_free(cmd);
 		return ;

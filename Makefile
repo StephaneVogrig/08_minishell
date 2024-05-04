@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
+#    By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/05/04 17:28:44 by svogrig          ###   ########.fr        #
+#    Updated: 2024/05/04 18:47:43 by smortemo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,9 @@ SRC				:=	main.c \
 					buffadd.c \
 					buffsave.c \
 					builtin_cd.c \
+					builtin_echo.c \
 					builtin_env.c \
+					builtin_exit.c \
 					builtin_export_alone.c \
 					builtin_export.c \
 					builtin_unset.c \
@@ -36,6 +38,7 @@ SRC				:=	main.c \
 					builtin.c \
 					command.c \
 					cmd_path.c \
+					env_utils.c \
 					environment.c \
 					exec_input.c \
 					exec_cmd.c \
@@ -57,7 +60,7 @@ SRC				:=	main.c \
 					token.c \
 					debug.c \
 					wait.c 
-
+					
 SRC				:=	$(SRC:%=$(DIR_SRC)/%)
 
 # sources bonus ---------------------------------------------------------------#
@@ -268,3 +271,4 @@ $(NAME_SANB): $(OBJ_SANB)
 		makedebug_b \
 		makesanitize \
 		makesanitize_b
+		
