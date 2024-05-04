@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 23:20:41 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/04 17:06:05 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/04 17:37:20 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ t_bool	is_num(char *str)
 int	exit_val_2(t_cmd *cmd, t_env *env, char *argv)
 {
 	ft_printf("exit\n");
-	ft_printf("minishel : exit : %s", argv);
-	ft_printf(" : numeric argument required\n");
+	fd_printf(STDERR_FD, "minishel : exit : %s", argv);
+	fd_printf(STDERR_FD, " : numeric argument required\n");
 	cmd_free(cmd);
 	env_free(env);
 	exit(2);
@@ -73,7 +73,7 @@ int	exit_mini(t_cmd *cmd, t_env *env, t_list *argv)
 		else
 		{
 			ft_printf("exit\n");
-			ft_printf("minishell : exit : too many arguments\n");
+			fd_printf(STDERR_FD, "minishell : exit : too many arguments\n");
 		}
 	}
 	return (1);
