@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:00:39 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/04 18:17:51 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/05 14:11:33 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,16 @@ int					env_lst_size(t_env *env, int type);
 void				display_the_list(t_env *env, int type);
 void				lst_add_back(t_env **env, t_env *node);
 
-// ENV_UTILS----------------
+// ENV_UTILS ---------------
 void				env_node_free(t_env *node);
 void				env_free(t_env *env);
 t_bool				node_init(t_env *node, char *str, int type);
 char				*create_HOME_path(t_env *env);
 void				node_HOME_cpy(t_env *env);
+
+// NEW_NODE -----------------
+t_bool	var_init(t_env *node, char *str, int n);
+int	export_new_node(t_env *env, char *str, int n);
 
 // ENVIRONMENT ----------------
 t_env				*env_dup(char **envp);
