@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   environment.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:00:39 by smortemo          #+#    #+#             */
 /*   Updated: 2024/05/05 14:11:33 by smortemo         ###   ########.fr       */
@@ -19,9 +19,9 @@
 # include <stdlib.h>
 
 # define INTERNAL 0
-# define EXPORTED 1 // can be unset
-# define NO_VALUE 2 // can be unset
-# define ALL 3      // to get EXPORTED + NO_VALUE variables
+# define EXPORTED 1
+# define NO_VALUE 2
+# define ALL 3
 
 typedef struct s_env
 {
@@ -30,6 +30,8 @@ typedef struct s_env
 	char			*value;
 	struct s_env	*next;
 }					t_env;
+
+typedef t_env t_env_m;
 
 // LIST_UTILS ----------------
 t_env				*env_get_node_n(t_env *env, char *str, int n);

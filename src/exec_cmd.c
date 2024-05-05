@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 15:22:47 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/03 23:08:01 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/04 22:26:09 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec_cmd.h"
 
-t_bool	redir_cmd(t_redir *redirs)
+t_bool	exec_redir(t_redir *redirs)
 {
 	int	fd;
 	int	fd_dup;
@@ -42,15 +42,16 @@ t_bool	redir_cmd(t_redir *redirs)
 	return (SUCCESS);
 }
 
-void	exec_cmd(t_cmd *cmd, t_env *env)
+void	exec_cmd(t_cmd_m *cmd, t_env_m *env)
 {
 	char	*path;
 	char	**argv;
 	char	**envp;
 
-	if (!redir_cmd(cmd->redir)) // enlever si redir faite avant
+	if (!exec_redir(cmd->redir)) // enlever si redir faite avant
 	{
 		pipeline_free(&cmd);
+		env_free(env);
 		exit(EXIT_FAILURE);
 	}
 	argv = strlist_to_strtab(cmd->argv);
@@ -67,5 +68,5 @@ void	exec_cmd(t_cmd *cmd, t_env *env)
 	execve(path, argv, envp);
 	perror("minishell");
 	strtab_free(envp);
-	exit_on_failure(path, argv, NULL);
+	exit_on_failure(path, argv, env);
 }

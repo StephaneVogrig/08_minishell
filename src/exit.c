@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 19:56:00 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/01 20:35:54 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/04 22:30:51 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	exit_on_open_error(char *file_path, int fd)
 	exit(EXIT_FAILURE);
 }
 
-void	exit_on_failure(char *str, char **argv, t_env *env)
+void	exit_on_failure(t_char_m *str, t_char_m **argv, t_env_m *env)
 {
 	if (str)
 		free(str);
