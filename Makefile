@@ -6,7 +6,7 @@
 #    By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/05/04 18:47:43 by smortemo         ###   ########.fr        #
+#    Updated: 2024/05/05 14:13:49 by smortemo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ SRC				:=	main.c \
 					expanse.c \
 					input_to_pipeline.c \
 					list_utils.c \
+					manage_node.c \
 					memory.c \
 					pipeline.c \
 					heredoc_bonus.c \

@@ -7,6 +7,7 @@ SRC="main.c
 	../src/builtin_unset.c 
 	../src/command.c 
 	../src/redirection.c 
+	../src/manage_node.c 
 	../src/env_shlvl.c 
 	src/env_shlvl_test.c 
 	src/env_dup_test.c 

@@ -49,6 +49,7 @@ int	end_var_name(char *str)
 	return (i);
 }
 
+
 t_bool	var_init(t_env *node, char *str, int n) // mettre dans utils ?
 {
 	char *val = NULL;
@@ -84,17 +85,18 @@ t_bool	var_init(t_env *node, char *str, int n) // mettre dans utils ?
 	return (SUCCESS);
 }
 
+
 int	export_new_node(t_env *env, char *str, int n) // mettre dans utils ?
 {
 	t_env *node;
 
-	node = malloc(sizeof(*node));
-	if (!node)
-		return (ENOMEM);
-	if (!var_init(node, str, n))
-		return (ENOMEM);
-	lst_add_back(&env, node);
-	return (0);
+ 	node = malloc(sizeof(*node));
+ 	if (!node)
+ 		return (ENOMEM);
+ 	if (!var_init(node, str, n))
+ 		return (ENOMEM);
+ 	lst_add_back(&env, node);
+ 	return (0);
 }
 
 static int	export_run(t_env *env, char *str)
