@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:00:39 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/05 14:11:33 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/05 15:46:11 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_bool				node_init(t_env *node, char *str, int type);
 char				*create_HOME_path(t_env *env);
 void				node_HOME_cpy(t_env *env);
 
-// NEW_NODE -----------------
+// MANAGE_NODE -----------------
 t_bool	var_init(t_env *node, char *str, int n);
 int	export_new_node(t_env *env, char *str, int n);
 

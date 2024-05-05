@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:13:40 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/04 21:22:44 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/05 15:52:22 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,55 +49,9 @@ int	end_var_name(char *str)
 	return (i);
 }
 
-
-t_bool	var_init(t_env *node, char *str, int n) // mettre dans utils ?
-{
-	char *val = NULL;
-
-	node->name = ft_strndup(str, n);
-	val = node->name;
-	if (!node->name)
-		return (FAILURE);
-	if (str[n] == '=' && str[n + 1 ] != '\0')
-	{
-		node->value = ft_strdup(&str[n + 1]);
-		if (!node->value)
-			return (FAILURE);
-		node->type = EXPORTED;
-	}
-	else if (str[n] == '=' && str[n + 1 ] == '\0') 
-	{
-		node->value = malloc(1);
-		if (!node->value)
-			return (FAILURE);
-		node->value[0] = '\0';
-		node->type = EXPORTED;
-	}
-	else
-	{
-		node->value = malloc(1);
-		if (!node->value)
-			return (FAILURE);
-		node->value[0] = '\0';
-		node->type = NO_VALUE;
-	}
-	node->next = NULL;
-	return (SUCCESS);
-}
-
-
-int	export_new_node(t_env *env, char *str, int n) // mettre dans utils ?
-{
-	t_env *node;
-
- 	node = malloc(sizeof(*node));
- 	if (!node)
- 		return (ENOMEM);
- 	if (!var_init(node, str, n))
- 		return (ENOMEM);
- 	lst_add_back(&env, node);
- 	return (0);
-}
+// les 2 fct suivantes sont dans manage_node.c (+declaration environment.h)
+// t_bool	var_init(t_env *node, char *str, int n) 
+// int	export_new_node(t_env *env, char *str, int n)
 
 static int	export_run(t_env *env, char *str)
 {
@@ -121,12 +75,12 @@ static int	export_run(t_env *env, char *str)
 
 int	export(t_env *envp, char *str)
 {
-	// if (!envp)
-	// 	return (0);
-	// if (!str)
-	// 	return (display_envp_sorted(envp));
 	if (!is_valid_arg(str))
+	{
+		fd_printf(STDERR_FD, "minishel : export : '%s'", str);
+		fd_printf(STDERR_FD, " : not a valid identifier\n");
 		return (1);
+	}
 	return (export_run(envp, str));
 }
 

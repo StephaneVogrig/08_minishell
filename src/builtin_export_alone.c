@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 22:22:07 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/04 21:11:08 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/05 15:53:11 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,26 +86,6 @@ void	strtab_sort(char **to_sort)
 	else
 		strtab_sort(to_sort);
 }
-
-// char	*env_join_export(char *name, char *value)
-// {
-// 	int		name_len;
-// 	char	*str;
-// 	char	*temp;
-
-// 	name_len = ft_strlen(name);
-// 	str = malloc(name_len + ft_strlen(value) + 2);
-// 	if (!str)
-// 		return (NULL);
-// 	temp = str;
-// 	if (name)
-// 		temp = strcpy_offset(str, name);
-// 	*temp++ = '=';
-// 	if (value)
-// 		temp = strcpy_offset(temp, value);
-// 	*temp = '\0';
-// 	return (str);
-// }
 
 char	**env_to_envp_export(t_env *env, int size)
 {
