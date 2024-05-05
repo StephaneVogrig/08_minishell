@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:00:39 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/05 15:46:11 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/05 15:59:10 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ typedef struct s_env
 	char			*value;
 	struct s_env	*next;
 }					t_env;
-
 typedef t_env t_env_m;
 
 // LIST_UTILS ----------------
@@ -39,6 +38,9 @@ void				lst_node_del(t_env **env, t_env *node);
 int					env_lst_size(t_env *env, int type);
 void				display_the_list(t_env *env, int type);
 void				lst_add_back(t_env **env, t_env *node);
+
+// ENV_SHLVL -----------------
+void				init_shlvl(t_env *env);
 
 // ENV_UTILS ---------------
 void				env_node_free(t_env *node);
@@ -58,6 +60,4 @@ char				*env_get_n(t_env *env, char *str, int n);
 char				*env_join(char *name, char *value);
 char				**env_to_envp(t_env *env);
 
-// ENV_SHLVL -----------------
-void				init_shlvl(t_env *env);
 #endif

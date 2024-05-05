@@ -6,7 +6,7 @@
 #    By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/05/05 14:13:49 by smortemo         ###   ########.fr        #
+#    Updated: 2024/05/05 16:00:35 by smortemo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRC				:=	main.c \
 					builtin.c \
 					command.c \
 					cmd_path.c \
+					env_shlvl.c \
 					env_utils.c \
 					environment.c \
 					exec_input.c \
