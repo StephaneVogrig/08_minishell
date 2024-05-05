@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 15:22:47 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/04 22:26:09 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/05 07:44:02 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	exec_cmd(t_cmd_m *cmd, t_env_m *env)
 		exit_on_failure(NULL, argv, env);
 	envp = env_to_envp(env);
 	if (!envp)
-		exit_on_failure(NULL, argv, env);
+		exit_on_failure(path, argv, env);
 	execve(path, argv, envp);
 	perror("minishell");
 	strtab_free(envp);
