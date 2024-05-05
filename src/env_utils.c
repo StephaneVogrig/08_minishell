@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 17:59:17 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/04 18:12:19 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/05 16:39:31 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	node_HOME_cpy(t_env *env)
 	if (str)
 		node->value = ft_strdup(str);
 	else
-		node->value = ft_strdup_free(create_HOME_path(env));
+		node->value = create_HOME_path(env);
 	if (!node->value)
 		return ;
 	node->type = INTERNAL;
