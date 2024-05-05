@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:50:40 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/05 00:13:47 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/05 13:50:18 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	env_shlvl_test(char **env)
 	(void)env;
 	char *strtab[] = {"KEY3=value", "SHLVL=1", "HOME=path", NULL};
 
-	char *strtab_unset[] = {"KEY1=value", "KEY2=value", "HOddME=path", NULL};
+	char *strtab_unset[] = {"KEY1=value", "KEY2=value", "HOME=path", NULL};
 
 	t_env *strdup;
 	strdup = env_dup(strtab);
