@@ -1,6 +1,6 @@
 NAME = test
 
-SRCS = test_create_env_built_export_unset.c
+SRCS = test.c
 
 OBJS = ${SRCS:.c=.o}
 
@@ -17,6 +17,12 @@ all: ${NAME}
 ${NAME}: ${OBJS}
 	@${MAKE} -C ./libft
 	@${CC} ${CFLAGS} ${OBJS} ./libft/libft.a -lreadline -o ${NAME}
+
+
+
+rand:
+	@${MAKE} -C ./libft
+	@${CC} ${CFLAGS} linear_congrential.c ./libft/libft.a -lreadline -o ${NAME}
 
 signal:
 	@${MAKE} -C ./libft

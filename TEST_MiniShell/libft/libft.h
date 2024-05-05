@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 12:59:29 by smortemo          #+#    #+#             */
-/*   Updated: 2024/04/02 17:05:42 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/05 21:01:54 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,6 @@ int			ft_print_str(char *str);
 int			ft_printf(const char *format, ...);
 void		ft_free_the_tab(char **str);
 int			ft_str_isalpha(char *str);
+char		*ft_itoa(int n);
 
 #endif

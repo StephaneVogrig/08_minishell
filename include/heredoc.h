@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   heredoc.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/10 19:07:07 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/05 21:45:00 by smortemo         ###   ########.fr       */
+/*   Created: 2024/05/05 18:15:43 by smortemo          #+#    #+#             */
+/*   Updated: 2024/05/05 23:13:10 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "unitest.h"
+#ifndef HEREDOC_H
+# define HEREDOC_H
 
-int	main(int argc, char **argv, char **envp)
-{
-	// env_dup_test(argv, envp);
-	// env_get_test();
-	// builtin_unset_test();
-	// builtin_export_test();
-	// builtin_export_alone_test(envp); // avec envp
-	// builtin_export_alone_test();
-	// builtin_env_test();
-	// builtin_cd_test(envp);
-	// env_shlvl_test(envp);
-	heredoc_test();
-	
-	return (0);
-}
+# include <readline/readline.h>
+# include <readline/history.h>
+# include "libft.h"
+# include "environment.h"
+# include "command.h"
+
+
+char	*hd_temp_name();
+int		heredoc_fill(char *limiter);
+
+#endif
