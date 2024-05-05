@@ -6,11 +6,13 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:15:30 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/05 23:29:32 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/06 00:08:29 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include"heredoc.h"
+
+
 
 int	mini_rand(int num, int i)
 {
@@ -37,7 +39,11 @@ char	*hd_temp_name()
 	{
 		num = mini_rand(num, i);
 		hdt = ft_itoa(num);
+		if (!hdt)
+			exit(NULL);
 		hdt = ft_strjoin_free_s2("/tmp/", hdt);
+		if (!hdt)
+			exit(NULL);
 		if (access(hdt, F_OK) == -1)
 			return (hdt);
 		free(hdt);
@@ -80,17 +86,27 @@ int	heredoc_fill(char *limiter)
 	int fd_hdt;
 
 	hdt = hd_temp_name();
-
+	if (hdt == NULL)
+		return(ENOMEM);
 	fd_hdt = open(hdt, O_RDWR | O_CREAT, 0644);
 	free(hdt);// !! garder pour retrouver le nom du fichier temp
-	// Faire une fonction a la fin de la cmd ->unlink(hdt) 
+	// Faire une fonction a la fin de la cmd -> unlink(hdt) 
 	get_str(limiter, fd_hdt);
 	close(fd_hdt);
-	
 	return (0);
 }
 
-// int	heredoc(t_env *env, t_cmd *cmd)
-// {
-// 	return (0);
-// }
+int	heredoc(t_env *env, t_cmd *cmd)
+{
+	char *limiter;
+	int	error;
+	// recuperer la valeur du limiter
+	error = heredoc_fill(limiter);
+	if (error == ENOMEM)
+	{
+		cmd_free(cmd);//??
+		env_free(env);//??
+		exit(EXIT_FAILURE);//??
+	}
+	return (0);
+}
