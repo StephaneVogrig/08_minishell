@@ -6,41 +6,11 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 22:22:07 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/01 22:58:53 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/05 14:37:38 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
-
-// void	display_tab_export(char **tab, int i)
-// {
-// 	while (tab[i])
-// 	{
-// 		if (tab[i][0] == '_' && tab[i][1] == '=')
-// 			break ;
-// 		printf("declare -x %s", tab[i]);
-// 		free(tab[i]);
-// 		i++;
-// 		if (tab[i] != NULL)
-// 			printf("\"%s\"", tab[i]);
-// 		free(tab[i]);
-// 		printf("\n");
-// 		i++;
-// 	}
-// 	if(tab[i] == NULL)
-// 	{
-// 		//strtab_free(tab);
-
-// 		free(tab);
-// 		return ;
-// 	}
-// 	// else
-// 	// {
-// 	// 	free(tab[i]);
-// 	// 	free(tab[i++]);
-// 	// }
-// 	display_tab_export(tab, i + 2);
-// }
 
 void	display_tab_export(char **tab, int i)
 {
