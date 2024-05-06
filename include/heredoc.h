@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:15:43 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/06 00:09:09 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/06 20:26:06 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 
 # include "libft.h"
 # include "environment.h"
+# include "exit.h"
 # include "command.h"
+# include "pipeline.h"
 # include <limits.h>
 # include <errno.h>
-// # include <readline/readline.h>
-// # include <readline/history.h>
 
-char	*hd_temp_name();
-int		heredoc_fill(char *limiter);
+t_bool	heredoc_pipe(t_cmd_m *pipeline, t_env_m *env, int *exit_status);
+t_bool	heredoc_redir(t_redir *redir, t_env_m *env, int *exit_status);
 
 #endif

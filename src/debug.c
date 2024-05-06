@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 20:16:08 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/06 15:01:43 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/06 18:57:24 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	print_redir(t_redir *redir)
 		else
 			type = "OUT TRUNC";
 		ft_printf("%sredir type: %s%s%s\n", GOLD, DODGERBLUE, type, RESET);
-		ft_printf("%s      name: %s%s\n", GOLD, RESET, redir->file_name);
+		ft_printf("%s      name: %s%s\n", GOLD, RESET, redir->str);
 		redir = redir->next;
 	}
 }
@@ -108,7 +108,7 @@ void	display_redir_lst(t_redir *lst)
 	}
 	while (lst != NULL)
 	{
-		ft_printf("-> %s \n", lst->file_name);
+		ft_printf("-> %s \n", lst->str);
 		lst = lst->next;
 	}
 }

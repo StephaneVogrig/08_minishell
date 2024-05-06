@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 15:22:47 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/05 21:51:58 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/06 18:56:35 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@ t_bool	exec_redir(t_redir *redirs)
 		if (redirs->type & IN)
 		{
 			fd_dup = STDIN_FD;
-			fd = open(redirs->file_name, O_RDONLY);
+			fd = open(redirs->str, O_RDONLY);
 		}
 		else if (redirs->type & APPEND)
-			fd = open(redirs->file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
+			fd = open(redirs->str, O_WRONLY | O_CREAT | O_APPEND, 0644);
 		else
-			fd = open(redirs->file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			fd = open(redirs->str, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (fd == -1)
 		{
-			fd_printf(STDERR_FD, "minishell: %s: %s\n", redirs->file_name,
+			fd_printf(STDERR_FD, "minishell: %s: %s\n", redirs->str,
 				strerror(errno));
 			return (FAILURE);
 		}

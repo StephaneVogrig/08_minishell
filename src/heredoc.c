@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:15:30 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/06 16:30:11 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/06 21:08:21 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,23 @@ int	mini_rand(int num, int i)
 	return(num);
 }
 
-char	*hd_temp_name()
+char	*get_path_temp()
 {
 	int num;
 	int i;
 	char *hdt;
 
-	num = 2589; //peut etre la valeur de SYSTEMD_EXEC_PID (env)
+	num = 12345; //peut etre la valeur de SYSTEMD_EXEC_PID (env)
 	i = 0;
 	while(1)
 	{
 		num = mini_rand(num, i);
 		hdt = ft_itoa(num);
 		if (!hdt)
-			exit(0);
-		hdt = ft_strjoin_free_s2("/tmp/hdt_", hdt);
+			return (NULL);
+		hdt = ft_strjoin_free_s2("/tmp/minishell_temp_", hdt);
 		if (!hdt)
-			exit(0);
+			return (NULL);
 		if (access(hdt, F_OK) == -1)
 			return (hdt);
 		free(hdt);
@@ -50,61 +50,91 @@ char	*hd_temp_name()
 	return (NULL);
 }
 
-int	get_str(char *limiter, int fd_hdt)
+t_bool	heredoc_fill(char *limiter, int fd)
 {
 	char	*str;
-	
+	size_t	limiter_len;
+
+	limiter_len = ft_strlen(limiter);
 	while (1)
 	{
 		str = get_next_line(0); //str = readline(">");
 		if (!str)
-			return (0);
+		{
+			fd_printf(STDERR_FD, "minishell: warning: here-document delimited by end-of-file\n");
+			return (SUCCESS);
+		}
 		str[ft_strlen(str) - 1] = '\0';
-		if (ft_strncmp(str, limiter, ft_strlen(limiter)) == 0
-			&& ft_strlen(str) == ft_strlen(limiter))
+		if (ft_strncmp(str, limiter, limiter_len) == 0 
+			&& ft_strlen(str) == limiter_len)
 		{
 			free(str);
-			close(fd_hdt);
-			return (1);
+			return (SUCCESS);
 		}
 		else
 		{
-			write(fd_hdt, str, ft_strlen(str));
-			write(fd_hdt, "\n", 1);
+			write(fd, str, ft_strlen(str));
+			write(fd, "\n", 1);
 			free(str);
 		}
 	}
-	close(fd_hdt);
-	return (1);
+	return (FAILURE);
 }
 
-int	heredoc_fill(char *limiter)
+t_bool	heredoc(t_redir *redir, t_env *env, int *exit_status)
 {
-	char *hdt; 
-	int fd_hdt;
+	int	success;
+	char *path; 
+	int fd;
 
-	hdt = hd_temp_name();
-	if (hdt == NULL)
-		return(ENOMEM);
-	fd_hdt = open(hdt, O_RDWR | O_CREAT, 0644);
-	free(hdt);// !! garder pour retrouver le nom du fichier temp
-	// Faire une fonction a la fin de la cmd -> unlink(hdt) 
-	get_str(limiter, fd_hdt);
-	close(fd_hdt);
-	return (0);
-}
-
-int	heredoc(t_env *env, t_cmd *cmd)
-{
-	char *limiter;
-	int	error;
-	// recuperer la valeur du limiter
-	error = heredoc_fill(limiter);
-	if (error == ENOMEM)
+	(void)env;
+	(void)exit_status;
+	path = get_path_temp();
+	if (path == NULL)
+		return(FAILURE);
+	fd = open(path, O_RDWR | O_CREAT, 0644);
+	if (fd == -1)
 	{
-		cmd_free(cmd);//??
-		env_free(env);//??
-		exit(EXIT_FAILURE);//??
+		free(path);
+		return (FAILURE);
 	}
-	return (0);
+	success = heredoc_fill(redir->str, fd);
+	close(fd);
+	if (!success)
+	{
+		free(path);
+		return (FAILURE);
+	}
+	free(redir->str);
+	redir->str = path;
+	return (SUCCESS);
+}
+
+t_bool	heredoc_redir(t_redir *redir, t_env *env, int *exit_status)
+{
+	while (redir)
+	{
+		if (redir->type & HEREDOC)
+			if (heredoc(redir, env, exit_status) == FAILURE)
+				return (FAILURE);
+		redir = redir->next;
+	}
+	return (SUCCESS);
+}
+
+t_bool	heredoc_pipe(t_cmd_m *pipeline, t_env_m *env, int *exit_status)
+{
+	errno = 0;
+	while (pipeline)
+	{
+		if (heredoc_redir(pipeline->redir, env, exit_status) == FAILURE)
+		{
+			pipeline_free(&pipeline);
+			if (errno)
+				exit_on_failure(NULL, NULL, env);
+			return (FAILURE);
+		}
+		pipeline = pipeline->next;
+	}
+	return (SUCCESS);
 }

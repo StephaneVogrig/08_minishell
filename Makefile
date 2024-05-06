@@ -6,7 +6,7 @@
 #    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/05/05 18:59:42 by svogrig          ###   ########.fr        #
+#    Updated: 2024/05/06 20:21:16 by svogrig          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,7 @@ SRC				:=	main.c \
 					input_to_pipeline.c \
 					memory.c \
 					heredoc_bonus.c \
+					heredoc.c \
 					parse.c \
 					pipe.c \
 					process.c \

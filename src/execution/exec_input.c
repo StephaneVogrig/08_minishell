@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:36:43 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/06 06:30:26 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/06 18:49:43 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,25 @@ void	exec_cmd_pipe(t_cmd_m *pipeline, t_env *env, int *exit_status)
 	free(pids);
 }
 
+t_bool	is_empty(char *str)
+{
+	while (is_blank(*str))
+		str++;
+	if (*str == '\0')
+		return (TRUE);
+	return (FALSE);
+}
+
 void	exec_input(t_char_m *input, t_env *env, int *exit_status)
 {
 	t_cmd_m	*pipeline;
 
+	if (is_empty(input))
+	{
+		free(input);
+		*exit_status = SUCCESS;
+		return ;
+	}
 	if (syntax_error(input))
 	{
 		free(input);
@@ -97,6 +112,8 @@ void	exec_input(t_char_m *input, t_env *env, int *exit_status)
 		exit(EXIT_FAILURE);
 	}
 	if (!pipeline)
+		return ;
+	if (heredoc_pipe(pipeline, env, exit_status) == FAILURE)
 		return ;
 	if (!pipeline->next)
 		exec_cmd_alone(pipeline, env, exit_status);

@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 03:33:33 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/05 22:17:13 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/06 18:55:56 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # define APPEND 16
 
 typedef struct s_redir{
-	t_char_m		*file_name;
+	t_char_m		*str;
 	int				type;
 	struct s_redir	*next;
 }	t_redir;

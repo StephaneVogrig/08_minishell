@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:25:18 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/06 06:22:46 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/06 20:14:06 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_bool	add_to_redir(t_list *strlist, int type, t_redir **redir, char *str)
 		return (FAILURE);
 	if (strlist->next)
 	{
-		ft_printf("minishell: %s: ambiguous redirect\n", str);
+		fd_printf(STDERR_FD, "minishell: %s: ambiguous redirect\n", str);
 		ft_lstclear(&strlist, free);
 		return (FAILURE);
 	}

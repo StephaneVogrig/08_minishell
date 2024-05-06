@@ -6,21 +6,12 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:55:55 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/06 17:15:46 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/06 17:29:19 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec_input.h"
 #include "minishell.h"
-
-t_bool	is_empty(char *str)
-{
-	while (is_blank(*str))
-		str++;
-	if (*str == '\0')
-		return (TRUE);
-	return (FALSE);
-}
 
 void	run_minishell(t_env *env, int *exit_status)
 {
@@ -31,12 +22,7 @@ void	run_minishell(t_env *env, int *exit_status)
 		input = readline("minishell>");
 		if (!input)
 			break ;
-		// if (ft_strncmp("exit", input, 4) == 0)
-		// {
-		// 	free(input);
-		// 	break ;
-		// }
-		if (is_empty(input))
+		if (!*input)
 		{
 			free(input);
 			continue ;
