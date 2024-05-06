@@ -42,7 +42,7 @@ SRCS =	ft_atoi.c \
 	ft_print_nbr_base.c \
 	ft_printf.c \
 	ft_free_the_tab.c \
-	ft_str_isalpha.c
+	ft_str_isalpha.c 
 
 
 OBJS	= ${SRCS:.c=.o}
