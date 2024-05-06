@@ -6,13 +6,11 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:15:30 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/06 00:08:29 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/06 16:30:11 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include"heredoc.h"
-
-
 
 int	mini_rand(int num, int i)
 {
@@ -40,10 +38,10 @@ char	*hd_temp_name()
 		num = mini_rand(num, i);
 		hdt = ft_itoa(num);
 		if (!hdt)
-			exit(NULL);
-		hdt = ft_strjoin_free_s2("/tmp/", hdt);
+			exit(0);
+		hdt = ft_strjoin_free_s2("/tmp/hdt_", hdt);
 		if (!hdt)
-			exit(NULL);
+			exit(0);
 		if (access(hdt, F_OK) == -1)
 			return (hdt);
 		free(hdt);

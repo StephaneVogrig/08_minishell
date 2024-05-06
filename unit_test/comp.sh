@@ -4,20 +4,13 @@ SRC="main.c
 	../src/environnement/list_utils.c 
 	../src/environnement/env_utils.c 
 	../src/environnement/environment.c 
-<<<<<<< HEAD
-	../src/environnement/manage_node.c 
-	../src/environnement/env_shlvl.c 
-	../src/builtins/builtin_unset.c 
-	../src/data/command.c 
-	../src/data/redirection.c 
-=======
 	../src/builtins/builtin_unset.c 
 	../src/data/command.c 
 	../src/data/redirection.c 
 	../src/environnement/manage_node.c 
 	../src/environnement/env_shlvl.c
 	../src/heredoc.c 
->>>>>>> heredoc
+	../src/str.c 
 	src/env_shlvl_test.c 
 	src/env_dup_test.c 
 	src/env_get_test.c
