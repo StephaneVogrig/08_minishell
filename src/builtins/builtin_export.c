@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:13:40 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/05 15:52:22 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/06 15:10:40 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,8 @@ int	builtin_export(t_cmd *cmd, t_env *env)
 		error = export(env, argv->content);
 		if (error == ENOMEM)
 		{
-			cmd_free(cmd);
 			env_free(env);
+			pipeline_free(&cmd);
 			exit(EXIT_FAILURE);
 		}
 		if (error == 1)

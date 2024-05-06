@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:00:39 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/05 15:59:10 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/06 15:49:24 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "libft.h"
 # include "memory.h"
+# include "str.h"
 # include <stddef.h>
 # include <stdlib.h>
 

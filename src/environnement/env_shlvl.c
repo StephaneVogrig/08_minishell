@@ -6,11 +6,12 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 17:39:44 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/05 15:46:25 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/06 15:12:21 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "environment.h"
+# include <errno.h>
 
 void	init_shlvl(t_env *env)
 {
@@ -22,7 +23,11 @@ void	init_shlvl(t_env *env)
 	node = env_get_node_n(env, "SHLVL", 5);
 	if (!node)
 	{
-		export_new_node(env, "SHLVL=1", 5);
+		if(export_new_node(env, "SHLVL=1", 5) == ENOMEM)
+		{
+			env_free(env);
+			exit(EXIT_FAILURE);
+		}
 		return ;
 	}
 	value = node->value;

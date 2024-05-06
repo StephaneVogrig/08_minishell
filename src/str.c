@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 15:52:14 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/29 05:10:16 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/06 15:47:05 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,30 +57,6 @@ t_bool	add_to_strlist(t_list **strlist, char *str)
 	return (SUCCESS);
 }
 
-char	**argv_empty(void)
-{
-	char	**argv;
-	char	*empty_str;
-
-	argv = NULL;
-	empty_str = ft_calloc(1, 1);
-	if (!empty_str)
-	{
-		perror("minishell: argv_empty: calloc");
-		exit(EXIT_FAILURE);
-	}
-	argv = malloc(sizeof(char *) * 2);
-	if (!argv)
-	{
-		free(empty_str);
-		perror("minishell: argv_empty: malloc");
-		exit(EXIT_FAILURE);
-	}
-	argv[0] = empty_str;
-	argv[1] = NULL;
-	return (argv);
-}
-
 char	**strlist_to_strtab(t_list *strlist)
 {
 	int		nbr_elem;
@@ -107,4 +83,29 @@ char	**strlist_to_strtab(t_list *strlist)
 	}
 	*strtab = NULL;
 	return (argv);
+}
+t_char_m	*mini_strndup(char *str, int n)
+{
+	t_char_m	*new;
+
+	new = ft_strndup(str, n);
+	if (!new)
+	{
+		perror("minishell: mini_strndup");
+		return (NULL);
+	}
+	return (new);
+}
+
+t_char_m	*mini_strdup(char *str)
+{
+	t_char_m	*new;
+
+	new = ft_strdup(str);
+	if (!new)
+	{
+		perror("minishell: mini_strdup");
+		return (NULL);
+	}
+	return (new);
 }

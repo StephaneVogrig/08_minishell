@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:49:50 by smortemo          #+#    #+#             */
-/*   Updated: 2024/04/30 01:11:07 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/06 14:51:09 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,24 +57,10 @@ void	display_list(t_env *env)
 	}
 }
 
-// void	display_list(t_env *env)
-// {
-// 	t_env	*current;
-
-// 	current = env;
-// 	while (current != NULL)
-// 	{
-// 		printf("%s = ", env->name);
-// 		printf("%s\n", env->value);
-// 		current = current->next;
-// 	}
-// }
-
 static void	test(char **strtab)
 {
 	t_env	*new;
 
-	printf("\ntest  ----------------------------\n");
 	if (!strtab)
 		return ;
 	strtab_print(strtab);
@@ -85,6 +71,8 @@ static void	test(char **strtab)
 		perror("");
 		return ;
 	}
+	init_shlvl(new); //initialise valeur SHLVL
+	node_HOME_cpy(new); // pour ~
 	display_list(new);
 	free_link_list(new);
 	printf("----------------------------------\n");
@@ -93,7 +81,16 @@ static void	test(char **strtab)
 
 void	env_dup_test(char **argv, char **envp)
 {
-	test(envp);
-	// test(argv);
+	(void)argv;
+	(void)envp;
+	char *strtab[] = {"KEY3=value", "SHLVL=1", "HOME=path", "SHLVL=1", NULL};
+	char *strtab_unset[] = {"KEY1=value", "KEY2=value", NULL};
+	printf("\n TEST ENV ----------------------------------\n");
+	test(strtab);
+	printf("\n TEST ENV unset HOME & SHLVL ---------------\n");
+	test(strtab_unset);
+	printf("\n TEST ENV == NULL---------------------------\n");
+	test(NULL);
+	
 	// test(NULL);
 }

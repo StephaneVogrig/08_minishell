@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 20:16:08 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/06 04:19:15 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/06 15:01:43 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	print_cmd(t_cmd *cmd)
 	current = cmd->argv;
 	if (!current)
 	{
-		ft_putstr_fd("(empty list)\n", STDOUT_FD);
+		ft_putstr_fd("(empty)\n", STDOUT_FD);
 		return ;
 	}
 

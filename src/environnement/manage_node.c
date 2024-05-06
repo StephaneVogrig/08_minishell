@@ -6,29 +6,28 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 14:09:56 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/05 14:14:33 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/06 15:40:02 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "environment.h"
 # include <errno.h>
 
-
 t_bool	var_init(t_env *node, char *str, int n)
 {
-	node->name = ft_strndup(str, n);
+	node->name = mini_strndup(str, n);
 	if (!node->name)
 		return (FAILURE);
 	if (str[n] != '\0')
 	{
-		node->value = ft_strdup(&str[n + 1]);
+		node->value = mini_strdup(&str[n + 1]);
 		if (!node->value)
 			return (FAILURE);
 		node->type = EXPORTED;
 	}
 	else
 	{
-		node->value = malloc(1);
+		node->value = mem_malloc(1);
 		if (!node->value)
 			return (FAILURE);
 		node->value[0] = '\0';
@@ -42,7 +41,7 @@ int	export_new_node(t_env *env, char *str, int n)
 {
 	t_env *node;
 
-	node = malloc(sizeof(*node));
+	node = mem_malloc(sizeof(*node));
 	if (!node)
 		return (ENOMEM);
 	if (!var_init(node, str, n))

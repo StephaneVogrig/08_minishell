@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_to_pipeline_test.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 22:24:13 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/06 04:44:30 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/06 14:58:34 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ int main(int argc, char **argv, char **envp)
 	test("s\"  a  \"fd sf'  a  'd  sds''fd  sfds\"\"dff \"\" '' ", env);
 	test("$A$B$C$D", env);
 	test("<< <<$A$B$C<<''$D", env);
+	test("<< \"$VAR\" > out", env);
+	test("<< \"$VAR\" | < in ls -l | cat -e >> out | cat -e > out", env);
+	
 	env_free(env);
 	return (0);
 }

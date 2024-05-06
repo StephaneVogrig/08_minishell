@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 17:59:17 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/05 23:32:38 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/06 14:48:46 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	*create_HOME_path(t_env *env)
 	char	*home;
 
 	str = env_get(env, "PWD");
+	if (!str)
+		return(NULL);
 	index = ft_strstr(str, "/nfs/homes/");
 	while (str[index] != '/')
 		index++;
@@ -42,8 +44,6 @@ void	node_HOME_cpy(t_env *env)
 		node->value = ft_strdup(str);
 	else
 		node->value = create_HOME_path(env);
-	if (!node->value)
-		return ;
 	node->type = INTERNAL;
 	node->next = NULL;
 	lst_add_back(&env, node);
