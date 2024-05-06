@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:25:18 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/06 20:14:06 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/07 00:34:05 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,10 +133,14 @@ t_char_m	*next_token_to_heredoc(char *str, t_redir **redir)
 
 char	*new_current_cmd(t_cmd **cmd, char *str)
 {
-	(*cmd)->next = cmd_new();
-	if (!(*cmd)->next)
+	t_cmd	*new;	
+
+	new = cmd_new();
+	if (!new)
 		return (NULL);
-	*cmd = (*cmd)->next;
+	new->previous = *cmd;
+	(*cmd)->next = new;
+	*cmd = new;
 	return (++str);
 }
 

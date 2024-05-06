@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:33:09 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/05 17:02:32 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/07 00:01:42 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef struct s_cmd{
 	t_redir			*redir;
 	t_list			*argv;
 	struct s_cmd	*next;
+	struct s_cmd	*previous;
 }	t_cmd;
 
 typedef t_cmd t_cmd_m;

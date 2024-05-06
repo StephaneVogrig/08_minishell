@@ -11,11 +11,20 @@ typedef	struct s_buff_save{
 
 typedef struct s_cmd
 {
-	t_list			*heredoc;
 	t_redir			*redir;
 	t_list			*argv;
 	struct s_cmd	*next;
+	struct s_cmd	*previous;
 }	t_cmd;
+
+typedef struct s_pipeline
+{
+	t_cmd				*cmd;
+	int					terminateur;
+	struct s_pipeline	*next;
+}	t_pipeline;
+
+
 
 
 
