@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:47:12 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/02 00:09:45 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/05 23:45:58 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,19 +96,4 @@ void	display_the_list(t_env *env, int type)
 			env = env->next;
 		}
 	}
-}
-
-void	lst_add_back(t_env **env, t_env *node)
-{
-	t_env	*temp;
-
-	if (!*env)
-	{
-		*env = node;
-		return ;
-	}
-	temp = *env;
-	while (temp->next)
-		temp = temp->next;
-	temp->next = node;
 }

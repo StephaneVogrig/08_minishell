@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 15:22:47 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/05 07:44:02 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/05 21:51:58 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ t_bool	exec_redir(t_redir *redirs)
 	while (redirs)
 	{
 		fd_dup = STDOUT_FD;
-		if (redirs->type == REDIR_IN || redirs->type == HEREDOC)
+		if (redirs->type & IN)
 		{
 			fd_dup = STDIN_FD;
 			fd = open(redirs->file_name, O_RDONLY);
 		}
-		else if (redirs->type == REDIR_OUT_APD)
+		else if (redirs->type & APPEND)
 			fd = open(redirs->file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
-		else if (redirs->type == REDIR_OUT_TRC)
+		else
 			fd = open(redirs->file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (fd == -1)
 		{
@@ -53,6 +53,12 @@ void	exec_cmd(t_cmd_m *cmd, t_env_m *env)
 		pipeline_free(&cmd);
 		env_free(env);
 		exit(EXIT_FAILURE);
+	}
+	if (!cmd->argv)
+	{
+		pipeline_free(&cmd);
+		env_free(env);
+		exit(EXIT_SUCCESS);
 	}
 	argv = strlist_to_strtab(cmd->argv);
 	cmd->argv = NULL;

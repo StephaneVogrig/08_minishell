@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 00:11:51 by stephane          #+#    #+#             */
-/*   Updated: 2024/04/29 05:45:09 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/06 05:12:56 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ char	*add_next_token(char *str, t_list **argv, t_env *env, int *exit_status)
 	t_buff	buffer;
 	
 	buff_init(&buffer);
-	while (str && *str && ft_strchr("|<> \t", *str) == NULL)
+	while (str && ft_strchr("|<> \t", *str) == NULL)
 	{
 		if (*str == '\'')
 			str = parse_spl_quoted(&buffer, str);

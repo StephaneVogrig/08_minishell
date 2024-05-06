@@ -3,51 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 17:59:17 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/05 16:39:31 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/05 23:32:38 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "environment.h"
-
-void	env_node_free(t_env *node)
-{
-	free(node->name);
-	free(node->value);
-	free(node);
-}
-
-void	env_free(t_env *env)
-{
-	t_env	*current;
-	t_env	*temp;
-
-	current = env;
-	while (current != NULL)
-	{
-		temp = current;
-		current = current->next;
-		env_node_free(temp);
-	}
-}
-
-t_bool	node_init(t_env *node, char *str, int type)
-{
-	int	index;
-
-	index = ft_strchr_i(str, '=');
-	node->name = ft_strndup(str, index);
-	if (!node->name)
-		return (FAILURE);
-	node->value = ft_strdup(&str[index + 1]);
-	if (!node->value)
-		return (FAILURE);
-	node->type = type;
-	node->next = NULL;
-	return (SUCCESS);
-}
 
 char	*create_HOME_path(t_env *env)
 {
@@ -85,4 +48,53 @@ void	node_HOME_cpy(t_env *env)
 	node->next = NULL;
 	lst_add_back(&env, node);
 	return ;
+}
+
+/// transforme la liste en tableau
+char	**env_to_envp(t_env *env)
+{
+	char	**envp;
+	char	**temp;
+	char	*str;
+
+	envp = calloc(env_lst_size(env, EXPORTED) + 1, sizeof(*envp));
+	if (!envp)
+		return (NULL);
+	temp = envp;
+	while (env)
+	{
+		if (env->type == EXPORTED)
+		{
+			str = env_join(env->name, env->value);
+			if (!str)
+			{
+				strtab_free(temp);
+				return (NULL);
+			}
+			*temp++ = str;
+		}
+		env = env->next;
+	}
+	return (envp);
+}
+
+// cree un malloc qui contient "name=value"
+char	*env_join(char *name, char *value)
+{
+	int		name_len;
+	char	*str;
+	char	*temp;
+
+	name_len = ft_strlen(name);
+	str = malloc(name_len + ft_strlen(value) + 2);
+	if (!str)
+		return (NULL);
+	temp = str;
+	if (name)
+		temp = strcpy_offset(str, name);
+	*temp++ = '=';
+	if (value)
+		temp = strcpy_offset(temp, value);
+	*temp = '\0';
+	return (str);
 }

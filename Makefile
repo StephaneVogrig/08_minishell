@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+         #
+#    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/05/05 16:00:35 by smortemo         ###   ########.fr        #
+#    Updated: 2024/05/05 18:59:42 by svogrig          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,38 +23,38 @@ NAME_SANB		:=	$(NAME)_bonussanitize
 DIR_SRC			:=	src
 #SRC				=	$(shell find ./src/ -name *.c)
 SRC				:=	main.c \
+					buffer/buff.c \
+					buffer/buffadd.c \
+					buffer/buffsave.c \
+					builtins/builtin_cd.c \
+					builtins/builtin_echo.c \
+					builtins/builtin_env.c \
+					builtins/builtin_exit.c \
+					builtins/builtin_export_alone.c \
+					builtins/builtin_export.c \
+					builtins/builtin_unset.c \
+					builtins/builtin_pwd.c \
+					data/command.c \
+					data/pipeline.c \
+					data/redirection.c \
+					environnement/env_shlvl.c \
+					environnement/env_utils.c \
+					environnement/environment.c \
+					environnement/list_utils.c \
+					environnement/manage_node.c \
+					execution/exec_builtin.c \
+					execution/exec_cmd.c \
+					execution/exec_input.c \
 					argv.c \
-					buff.c \
-					buffadd.c \
-					buffsave.c \
-					builtin_cd.c \
-					builtin_echo.c \
-					builtin_env.c \
-					builtin_exit.c \
-					builtin_export_alone.c \
-					builtin_export.c \
-					builtin_unset.c \
-					builtin_pwd.c \
-					builtin.c \
-					command.c \
 					cmd_path.c \
-					env_shlvl.c \
-					env_utils.c \
-					environment.c \
-					exec_input.c \
-					exec_cmd.c \
 					exit.c \
 					expanse.c \
 					input_to_pipeline.c \
-					list_utils.c \
-					manage_node.c \
 					memory.c \
-					pipeline.c \
 					heredoc_bonus.c \
 					parse.c \
 					pipe.c \
 					process.c \
-					redirection.c \
 					signal_handler.c \
 					str.c \
 					strlink.c \
@@ -86,11 +86,6 @@ L_FLAG			:=	$(addprefix -L,$(L_FLAG))
 
 l_FLAG			:=	ft readline
 l_FLAG			:=	$(addprefix -l,$(l_FLAG))
-
-# objects ---------------------------------------------------------------------#
-
-DIR_BUILD		:=	.build
-OBJ				:=	$(SRC:$(DIR_SRC)/%.c=$(DIR_BUILD)/%.o)
 
 # objects ---------------------------------------------------------------------#
 

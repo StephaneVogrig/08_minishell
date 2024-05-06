@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_input.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:36:43 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/04 00:52:39 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/06 06:30:26 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,16 @@ void	exec_input(t_char_m *input, t_env *env, int *exit_status)
 		*exit_status = SYNTAX_ERROR;
 		return ;
 	}
+	errno = 0;
 	pipeline = input_to_pipeline(skip_blank(input), env, exit_status);
 	free(input);
-	if (!pipeline)
+	if (errno != 0)
 	{
 		env_free(env);
 		exit(EXIT_FAILURE);
 	}
+	if (!pipeline)
+		return ;
 	if (!pipeline->next)
 		exec_cmd_alone(pipeline, env, exit_status);
 	else

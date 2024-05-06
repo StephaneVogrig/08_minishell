@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 03:33:33 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/03 23:50:00 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/05 22:17:13 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,11 @@
 # include <fcntl.h>
 # include "libft.h"
 
-enum e_redir_type {REDIR_IN, REDIR_OUT_APD, REDIR_OUT_TRC, HEREDOC};
+# define IN 1
+# define OUT 2
+# define HEREDOC 4
+# define EXPANSE 8
+# define APPEND 16
 
 typedef struct s_redir{
 	t_char_m		*file_name;
@@ -27,6 +31,5 @@ typedef struct s_redir{
 int		is_directory(char *path);
 t_bool	redirection_add(t_redir **redirs, t_char_m *file_name, int type);
 void	redirection_free(t_redir **redirs);
-
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:55:55 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/03 23:44:45 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/05 23:02:48 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int	main(int argc, char **argv, char **envp)
 	signal(SIGINT, handler_ctrl_c);
 	signal(SIGQUIT, SIG_IGN);
 	env = env_dup(envp);
+	init_shlvl(env); //initialise valeur SHLVL
+	node_HOME_cpy(env); // pour le ~
 	if (!env)
 		return (EXIT_FAILURE);
 	run_minishell(env, &exit_status);
