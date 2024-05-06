@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 17:59:17 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/06 14:48:46 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/06 17:21:21 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "environment.h"
 
-char	*create_HOME_path(t_env *env)
+char	*create_home_path(t_env *env)
 {
 	char	*str;
 	int		index;
@@ -28,7 +28,7 @@ char	*create_HOME_path(t_env *env)
 	return (home);
 }
 
-void	node_HOME_cpy(t_env *env)
+void	node_home_cpy(t_env *env)
 {
 	t_env	*node;
 	char	*str;
@@ -43,7 +43,7 @@ void	node_HOME_cpy(t_env *env)
 	if (str)
 		node->value = ft_strdup(str);
 	else
-		node->value = create_HOME_path(env);
+		node->value = create_home_path(env);
 	node->type = INTERNAL;
 	node->next = NULL;
 	lst_add_back(&env, node);
