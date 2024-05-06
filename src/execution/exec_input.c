@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:36:43 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/06 18:49:43 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/07 01:06:39 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	exec_pipeline(t_cmd *pipeline, pid_t *pids, t_env *env)
 	if (*pid > -1)
 	{
 		*(++pid) = process_last(pipeline, fd, env, pids);
-		cmd_free(pipeline);
+		// cmd_free(pipeline);
 	}
 	if (*pid == -1)
 		return (ERROR);
@@ -52,13 +52,13 @@ void	exec_cmd_alone(t_cmd_m *cmd, t_env *env, int *exit_status)
 		exec_cmd(cmd, env);
 		exit(EXIT_FAILURE);
 	}
-	cmd_free(cmd);
 	if (*pid == -1)
 	{
 		env_free(env);
 		exit(EXIT_FAILURE);
 	}
 	*exit_status = wait_process(pid);
+	cmd_free(cmd);
 }
 
 void	exec_cmd_pipe(t_cmd_m *pipeline, t_env *env, int *exit_status)
@@ -75,6 +75,7 @@ void	exec_cmd_pipe(t_cmd_m *pipeline, t_env *env, int *exit_status)
 	}
 	exec_pipeline(pipeline, pids, env);
 	*exit_status = wait_process(pids);
+	pipeline_free(&pipeline);
 	free(pids);
 }
 
