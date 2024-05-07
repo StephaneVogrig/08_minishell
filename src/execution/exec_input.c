@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:36:43 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/07 01:06:39 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/07 05:35:02 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,14 @@ int	exec_pipeline(t_cmd *pipeline, pid_t *pids, t_env *env)
 	fd = 0;
 	pid = pids;
 	*pid = process_first(pipeline, &fd, env, pids);
-	pipeline = pipeline_clear_first(pipeline);
+	pipeline = pipeline->next;
 	while (pipeline->next && *pid > -1)
 	{
 		*(++pid) = process_pipes(pipeline, &fd, env, pids);
-		pipeline = pipeline_clear_first(pipeline);
+		pipeline = pipeline->next;
 	}
 	if (*pid > -1)
-	{
 		*(++pid) = process_last(pipeline, fd, env, pids);
-		// cmd_free(pipeline);
-	}
 	if (*pid == -1)
 		return (ERROR);
 	return (SUCCESS);
@@ -108,13 +105,8 @@ void	exec_input(t_char_m *input, t_env *env, int *exit_status)
 	pipeline = input_to_pipeline(skip_blank(input), env, exit_status);
 	free(input);
 	if (errno != 0)
-	{
-		env_free(env);
-		exit(EXIT_FAILURE);
-	}
-	if (!pipeline)
-		return ;
-	if (heredoc_pipe(pipeline, env, exit_status) == FAILURE)
+		exit_on_failure(NULL, NULL, NULL, env);
+	if (!pipeline || heredoc_pipe(pipeline, env, exit_status) == FAILURE)
 		return ;
 	if (!pipeline->next)
 		exec_cmd_alone(pipeline, env, exit_status);

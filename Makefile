@@ -6,7 +6,7 @@
 #    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/05/07 04:42:45 by svogrig          ###   ########.fr        #
+#    Updated: 2024/05/07 07:09:51 by svogrig          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRC				:=	main.c \
 					builtins/builtin_export.c \
 					builtins/builtin_unset.c \
 					builtins/builtin_pwd.c \
+					char.c \
 					data/command.c \
 					data/pipeline.c \
 					data/redirection.c \
@@ -51,6 +52,7 @@ SRC				:=	main.c \
 					expanse.c \
 					input_to_pipeline.c \
 					memory.c \
+					next_token_dequoted.c \
 					heredoc.c \
 					parse.c \
 					pipe.c \

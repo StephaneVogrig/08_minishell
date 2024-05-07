@@ -6,14 +6,13 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 16:05:15 by stephane          #+#    #+#             */
-/*   Updated: 2024/04/29 05:50:40 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/07 06:25:34 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXPANSE_H
 # define EXPANSE_H
 
-# include "libft.h"
 # include "str.h"
 # include "argv.h"
 # include "environment.h"

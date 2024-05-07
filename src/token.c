@@ -6,87 +6,67 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 00:11:51 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/07 04:07:47 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/07 07:38:27 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "token.h"
 
-char	*str_to_token(char *str, char *token)
+char	*next_token_to_heredoc(char *input, t_redir **redir)
 {
-	char	quote;
+	char	*token;
+	int		type;
+	t_bool	dequoted;
 
-	while (*str && !is_blank(*str) && !is_operator(*str))
-	{
-		if (*str == '\'' || *str == '\"')
-		{
-			quote = *str++;
-			while (*str && *str != quote)
-				*token++ = *str++;
-			if (*str)
-				str++;
-			continue ;
-		}
-		*token++ = *str++;
-	}
-	*token = '\0';
-	return (str);
-}
-
-int	len_next_token(char *str)
-{
-	int		size;
-	char	quote;
-
-	size = 0;
-	while (*str && !is_blank(*str) && !is_operator(*str))
-	{
-		if (*str == '\'' || *str == '\"')
-		{
-			quote = *str++;
-			while (*str && *str++ != quote)
-				size++;
-			if (*str)
-				str++;
-			continue ;
-		}
-		str++;
-		size++;
-	}
-	return (size);
-}
-
-char	*next_token(char *str, char	**token)
-{
-	*token = malloc(len_next_token(str) + 1);
-	if (!*token)
-	{
-		perror("minishell: next_token");
+	input = skip_blank(input);
+	input = next_token_dequoted(input, &token, &dequoted);
+	if (!token)
 		return (NULL);
-	}
-	str = str_to_token(str, *token);
+	if (dequoted)
+		type = IN | HEREDOC;
+	else
+		type = IN | HEREDOC | EXPANSE;
+	if (!redir_add_str(redir, token, type))
+		return (NULL);
+	return (input);
+}
+
+int	redir_type(char *str)
+{
+	if (*str == '<')
+		return (IN);
+	if (*(str + 1) == '>')
+		return (OUT | APPEND);
+	return (OUT);
+}
+
+char	*next_token_to_redir(char *input, t_redir **redir, \
+											t_env *env, int *exit_status)
+{
+	t_list	*strlist;
+	int		type;
+	char	*str;
+
+	str = input;
+	strlist = NULL;
+	type = redir_type(str++);
+	if (*str == '>')
+		str++;
+	str = skip_blank(str);
+	str = next_token_to_srtlist(str, &strlist, env, exit_status);
+	if (redir_add_strlist(strlist, type, redir, input) == FAILURE)
+		return (NULL);
+	free(strlist);
 	return (str);
 }
 
-// char	*add_next_token(char *str, t_list **tokenlist)
-// {
-// 	char	*token;
-
-// 	str = next_token(str, &token);
-// 	if(!str)
-// 		return (NULL);
-// 	if (!strlist_add_str(tokenlist, token))
-// 		return (NULL);
-// 	return (str);
-// }
-
-
-char	*add_next_token(char *str, t_list **argv, t_env *env, int *exit_status)
+char	*next_token_to_srtlist(char *str, t_list **argv, \
+										t_env *env, int *exit_status)
 {
 	t_buff	buffer;
 	
 	buff_init(&buffer);
-	while (str && ft_strchr("|<> \t", *str) == NULL)
+	while (str && !is_meta(*str))
 	{
 		if (*str == '\'')
 			str = parse_spl_quoted(&buffer, str);

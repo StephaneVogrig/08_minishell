@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 03:33:33 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/06 18:55:56 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/07 06:12:42 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ typedef struct s_redir{
 }	t_redir;
 
 int		is_directory(char *path);
-t_bool	redirection_add(t_redir **redirs, t_char_m *file_name, int type);
+t_bool	redir_add_str(t_redir **redirs, t_char_m *file_name, int type);
 void	redirection_free(t_redir **redirs);
+t_bool	redir_add_strlist(t_list *strlist, int type, t_redir **redir, char *str);
 
 #endif

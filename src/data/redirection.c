@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 01:36:10 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/06 18:58:05 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/07 06:12:42 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	is_directory(char *path)
 	return (fd >= 0);
 }
 
-t_bool	redirection_add(t_redir **redirs, t_char_m *str, int type)
+t_bool	redir_add_str(t_redir **redirs, t_char_m *str, int type)
 {
 	t_redir	*new_redir;
 	t_redir	*temp;
@@ -45,6 +45,24 @@ t_bool	redirection_add(t_redir **redirs, t_char_m *str, int type)
 	while (temp->next)
 		temp = temp->next;
 	temp->next =  new_redir;
+	return (SUCCESS);
+}
+
+t_bool	redir_add_strlist(t_list *strlist, int type, t_redir **redir, char *str)
+{
+	if (!strlist)
+		return (FAILURE);
+	if (strlist->next)
+	{
+		fd_printf(STDERR_FD, "minishell: %s: ambiguous redirect\n", str);
+		ft_lstclear(&strlist, free);
+		return (FAILURE);
+	}
+	if (!redir_add_str(redir, strlist->content, type))
+	{
+		ft_lstclear(&strlist, free);
+		return (FAILURE);
+	}
 	return (SUCCESS);
 }
 

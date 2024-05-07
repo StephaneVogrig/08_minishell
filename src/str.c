@@ -6,25 +6,11 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 15:52:14 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/07 04:11:36 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/07 06:19:15 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "str.h"
-
-t_bool	is_blank(char c)
-{
-	if (c == ' ' || c == '\t')
-		return (TRUE);
-	return (FALSE);
-}
-
-t_bool	is_operator(char c)
-{
-	if (c == '<' || c == '>' || c == '|')
-		return (TRUE);
-	return (FALSE);
-}
 
 char	*skip_blank(char *str)
 {

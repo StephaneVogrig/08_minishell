@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 16:03:55 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/04 17:57:41 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/07 05:40:31 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,12 @@ char	*expanse_quoted(t_buff *buffer, char *str, t_env *env, int *exit_status)
 
 t_bool	split_word(char *str, t_buff *buffer, t_list **argv)
 {
-// ft_printf("split_word:\"%s\"\n", str);
-// strlist_print_fd(*argv, 1);
 	while (*str)
 	{
 		if (is_blank(*str))
 		{
 			if (argv_add_buffer(argv, buffer) == FAILURE)
 				return (FAILURE);
-// ft_printf("is blank:\"%s\"\n", str);
-// strlist_print_fd(*argv, 1);
 			while (is_blank(*str))
 				str++;
 		}

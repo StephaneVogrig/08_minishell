@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 02:50:36 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/07 04:07:47 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/07 06:25:28 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,8 @@
 
 # include <stdio.h>
 # include "libft.h"
+# include "char.h"
 
-t_bool		is_blank(char c);
-t_bool		is_operator(char c);
 char		*skip_blank(char *str);
 void		pipex_strncpy(char *dest, char *src, int n);
 t_bool		strlist_add_str(t_list **strlist, char *str);

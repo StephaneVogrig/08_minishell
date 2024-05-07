@@ -6,20 +6,11 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 03:11:28 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/07 03:25:09 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/07 05:32:09 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipeline.h"
-
-t_cmd	*pipeline_clear_first(t_cmd *pipeline)
-{
-	t_cmd	*temp;
-
-	temp = pipeline->next;
-	// cmd_free(pipeline);
-	return (temp);
-}
 
 void	pipeline_free_from_head(t_cmd **pipeline)
 {
