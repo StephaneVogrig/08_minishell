@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 00:11:51 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/06 05:12:56 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/07 04:07:47 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char	*next_token(char *str, char	**token)
 // 	str = next_token(str, &token);
 // 	if(!str)
 // 		return (NULL);
-// 	if (!add_to_strlist(tokenlist, token))
+// 	if (!strlist_add_str(tokenlist, token))
 // 		return (NULL);
 // 	return (str);
 // }

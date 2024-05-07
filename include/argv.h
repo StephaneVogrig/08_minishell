@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   argv.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 05:46:02 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/06 15:48:48 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/07 04:39:05 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,9 @@
 
 # include "libft.h"
 # include "buff.h"
-# include "str.h"
-// # include "exit.h"
 
+t_bool	strlist_add_str(t_list **strlist, char *str);
 t_bool	argv_add_buffer(t_list **argv, t_buff *buffer);
-// char	**argv_empty(void);
+char	**argvlist_to_argvtab(t_list **argvlist);
 
 #endif

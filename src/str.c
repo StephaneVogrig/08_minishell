@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 15:52:14 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/06 15:47:05 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/07 04:11:36 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,48 +42,6 @@ void	pipex_strncpy(char *dest, char *src, int n)
 	*dest = '\0';
 }
 
-t_bool	add_to_strlist(t_list **strlist, char *str)
-{
-	t_list	*new_node;
-
-	new_node = ft_lstnew(str);
-	if (!new_node)
-	{
-		perror("minishell: add_to_strlist");
-		ft_lstclear(strlist, &free);
-		return (FAILURE);
-	}
-	ft_lstadd_back(strlist, new_node);
-	return (SUCCESS);
-}
-
-char	**strlist_to_strtab(t_list *strlist)
-{
-	int		nbr_elem;
-	char	**strtab;
-	char	**argv;
-	t_list	*temp;
-
-	if (!strlist)
-		return (NULL);
-	nbr_elem = ft_lstsize(strlist);
-	argv = malloc(sizeof(argv) * (nbr_elem + 1));
-	if (!argv)
-	{
-		perror("minishell: charlist_to_chartab");
-		return (NULL);
-	}
-	strtab = argv;
-	while (nbr_elem--)
-	{
-		*strtab++ = strlist->content;
-		temp = strlist->next;
-		free(strlist);
-		strlist = temp;
-	}
-	*strtab = NULL;
-	return (argv);
-}
 t_char_m	*mini_strndup(char *str, int n)
 {
 	t_char_m	*new;

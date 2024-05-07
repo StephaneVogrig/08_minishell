@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 03:13:01 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/08 03:17:49 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/07 03:54:52 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 # include "command.h"
 
-
+void	redirlist_unlink_heredoc(t_redir *redir);
+void	cmdlist_unlink_heredoc(t_cmd *cmd);
 void	pipeline_free(t_cmd **pipeline);
 t_cmd	*pipeline_add_newcmd(t_cmd **pipeline);
 t_cmd	*pipeline_clear_first(t_cmd *pipeline);

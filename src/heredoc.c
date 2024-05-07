@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:15:30 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/06 21:08:21 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/07 05:02:06 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ t_bool	heredoc_pipe(t_cmd_m *pipeline, t_env_m *env, int *exit_status)
 		{
 			pipeline_free(&pipeline);
 			if (errno)
-				exit_on_failure(NULL, NULL, env);
+				exit_on_failure(NULL, NULL, NULL, env);
 			return (FAILURE);
 		}
 		pipeline = pipeline->next;

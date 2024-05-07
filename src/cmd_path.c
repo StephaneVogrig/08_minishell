@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:36:25 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/05 07:50:04 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/07 05:03:18 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ void	check_path(char *path, t_char_m **argv, t_env_m *env)
 	if (is_directory(temp))
 	{
 		fd_printf(STDERR_FD, "minishell: %s: is a directory\n", temp);
-		minishell_free(path, argv, env);
+		minishell_free(NULL, path, argv, env);
 		exit(126);
 	}
 	if (access(temp, X_OK) == -1)
 	{
 		fd_printf(STDERR_FD, "minishell: %s: %s\n", temp, strerror(errno));
-		minishell_free(path, argv, env);
+		minishell_free(NULL, path, argv, env);
 		exit(127);
 	}
 }

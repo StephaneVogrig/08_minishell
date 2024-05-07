@@ -3,14 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   argv.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 05:44:26 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/06 15:48:33 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/07 04:37:41 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "argv.h"
+
+t_bool	strlist_add_str(t_list **strlist, char *str)
+{
+	t_list	*new_node;
+
+	new_node = ft_lstnew(str);
+	if (!new_node)
+	{
+		perror("minishell: strlist_add_str");
+		ft_lstclear(strlist, &free);
+		return (FAILURE);
+	}
+	ft_lstadd_back(strlist, new_node);
+	return (SUCCESS);
+}
 
 t_bool	argv_add_buffer(t_list **argv, t_buff *buffer)
 {
@@ -20,29 +35,42 @@ t_bool	argv_add_buffer(t_list **argv, t_buff *buffer)
 	buff_clear(buffer);
 	if(!token)
 		return (FAILURE);
-	return (add_to_strlist(argv, token));
+	return (strlist_add_str(argv, token));
 }
 
-// char	**argv_empty(void)
-// {
-// 	char	**argv;
-// 	char	*empty_str;
+char	**strlist_to_strtab(t_list *strlist)
+{
+	int		nbr_elem;
+	char	**temptab;
+	char	**strtab;
+	t_list	*templist;
 
-// 	argv = NULL;
-// 	empty_str = ft_calloc(1, 1);
-// 	if (!empty_str)
-// 	{
-// 		perror("minishell: argv_empty: calloc");
-// 		exit(EXIT_FAILURE);
-// 	}
-// 	argv = malloc(sizeof(char *) * 2);
-// 	if (!argv)
-// 	{
-// 		free(empty_str);
-// 		perror("minishell: argv_empty: malloc");
-// 		exit(EXIT_FAILURE);
-// 	}
-// 	argv[0] = empty_str;
-// 	argv[1] = NULL;
-// 	return (argv);
-// }
+	if (!strlist)
+		return (NULL);
+	nbr_elem = ft_lstsize(strlist);
+	strtab = malloc(sizeof(strtab) * (nbr_elem + 1));
+	if (!strtab)
+	{
+		perror("minishell: strlist_to_strtab");
+		return (NULL);
+	}
+	temptab = strtab;
+	while (nbr_elem--)
+	{
+		*temptab++ = strlist->content;
+		templist = strlist->next;
+		free(strlist);
+		strlist = templist;
+	}
+	*temptab = NULL;
+	return (strtab);
+}
+
+char	**argvlist_to_argvtab(t_list **argvlist)
+{
+	char	**argvtab;
+
+	argvtab = strlist_to_strtab(*argvlist);
+	*argvlist = NULL;
+	return (argvtab);
+}
