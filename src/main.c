@@ -6,23 +6,24 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:55:55 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/06 17:29:19 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/07 18:48:27 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec_input.h"
 #include "minishell.h"
 
-void	run_minishell(t_env *env, int *exit_status)
+int g_global;
+
+void	minishell_scan(t_env *env, int *exit_status)
 {
 	char	*input;
 
 	while (1)
 	{
 		input = readline("minishell>");
-		if (!input)
+		if (!input) //ctrl-d
 			break ;
-		if (!*input)
+		if (!*input) //ctrl-c
 		{
 			free(input);
 			continue ;
@@ -52,7 +53,7 @@ int	main(int argc, char **argv, char **envp)
 	node_home_cpy(env); // pour le ~
 	if (!env)
 		return (EXIT_FAILURE);
-	run_minishell(env, &exit_status);
+	minishell_scan(env, &exit_status);
 	env_free(env);
 	write(1, "exit\n", 5);
 	return (exit_status);

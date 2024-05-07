@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:36:43 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/07 05:35:02 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/07 17:29:56 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	exec_input(t_char_m *input, t_env *env, int *exit_status)
 	free(input);
 	if (errno != 0)
 		exit_on_failure(NULL, NULL, NULL, env);
-	if (!pipeline || heredoc_pipe(pipeline, env, exit_status) == FAILURE)
+	if (!pipeline || heredoc(pipeline, env, exit_status) == FAILURE)
 		return ;
 	if (!pipeline->next)
 		exec_cmd_alone(pipeline, env, exit_status);

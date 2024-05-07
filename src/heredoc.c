@@ -6,11 +6,11 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:15:30 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/07 05:02:06 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/07 19:04:09 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include"heredoc.h"
+# include "heredoc.h"
 
 int	mini_rand(int num, int i)
 {
@@ -50,38 +50,72 @@ char	*get_path_temp()
 	return (NULL);
 }
 
-t_bool	heredoc_fill(char *limiter, int fd)
-{
-	char	*str;
-	size_t	limiter_len;
+// t_bool	heredoc_scan(char *limiter, int fd)
+// {
+// 	char	*str;
+// 	size_t	limiter_len;
 
-	limiter_len = ft_strlen(limiter);
+// 	limiter_len = ft_strlen(limiter);
+// 	while (1)
+// 	{
+// 		str = get_next_line(0); //str = readline(">");
+// 		if (!str)
+// 		{
+// 			fd_printf(STDERR_FD, "minishell: warning: here-document delimited by end-of-file\n");
+// 			return (SUCCESS);
+// 		}
+// 		str[ft_strlen(str) - 1] = '\0';
+// 		if (ft_strncmp(str, limiter, limiter_len) == 0 
+// 			&& ft_strlen(str) == limiter_len)
+// 		{
+// 			free(str);
+// 			return (SUCCESS);
+// 		}
+// 		else
+// 		{
+// 			write(fd, str, ft_strlen(str));
+// 			write(fd, "\n", 1);
+// 			free(str);
+// 		}
+// 	}
+// 	return (FAILURE);
+// }
+
+int	heredoc_scan(char *limiter, int fd)
+{
+	char	*input;
+	extern int	g_global;
+
+	(void)limiter;
+	(void)fd;
 	while (1)
 	{
-		str = get_next_line(0); //str = readline(">");
-		if (!str)
+			ft_printf("new input\n");
+		input = readline(">");
+		if (g_global == SIGINT)
+		{
+			g_global = 0;
+			free(input);
+			// return (INTERRUPT);
+		}
+		if (!input) //ctrl-d
 		{
 			fd_printf(STDERR_FD, "minishell: warning: here-document delimited by end-of-file\n");
-			return (SUCCESS);
+			break ;
 		}
-		str[ft_strlen(str) - 1] = '\0';
-		if (ft_strncmp(str, limiter, limiter_len) == 0 
-			&& ft_strlen(str) == limiter_len)
-		{
-			free(str);
-			return (SUCCESS);
-		}
-		else
-		{
-			write(fd, str, ft_strlen(str));
-			write(fd, "\n", 1);
-			free(str);
-		}
+		// if (!*input) //ctrl-c
+		// {
+		// 	free(input);
+		// 	return (INTERRUPT) ;
+		// }
+		//enregistrer input dans fichier
+		free(input);		
 	}
-	return (FAILURE);
+	return (SUCCESS);
 }
 
-t_bool	heredoc(t_redir *redir, t_env *env, int *exit_status)
+
+t_bool	heredoc_redir(t_redir *redir, t_env *env, int *exit_status)
 {
 	int	success;
 	char *path; 
@@ -98,7 +132,7 @@ t_bool	heredoc(t_redir *redir, t_env *env, int *exit_status)
 		free(path);
 		return (FAILURE);
 	}
-	success = heredoc_fill(redir->str, fd);
+	success = heredoc_scan(redir->str, fd);
 	close(fd);
 	if (!success)
 	{
@@ -110,31 +144,37 @@ t_bool	heredoc(t_redir *redir, t_env *env, int *exit_status)
 	return (SUCCESS);
 }
 
-t_bool	heredoc_redir(t_redir *redir, t_env *env, int *exit_status)
+t_bool	heredoc_redir_loop(t_redir *redir, t_env *env, int *exit_status)
 {
 	while (redir)
 	{
 		if (redir->type & HEREDOC)
-			if (heredoc(redir, env, exit_status) == FAILURE)
+			if (heredoc_redir(redir, env, exit_status) == FAILURE)
 				return (FAILURE);
 		redir = redir->next;
 	}
 	return (SUCCESS);
 }
 
-t_bool	heredoc_pipe(t_cmd_m *pipeline, t_env_m *env, int *exit_status)
+t_bool	heredoc(t_cmd_m *pipeline, t_env_m *env, int *exit_status)
 {
+	t_bool exit_code;
+
+	exit_code = SUCCESS;
+	signal(SIGINT, SIG_DFL);
 	errno = 0;
 	while (pipeline)
 	{
-		if (heredoc_redir(pipeline->redir, env, exit_status) == FAILURE)
+		if (heredoc_redir_loop(pipeline->redir, env, exit_status) == FAILURE)
 		{
 			pipeline_free(&pipeline);
 			if (errno)
 				exit_on_failure(NULL, NULL, NULL, env);
-			return (FAILURE);
+			exit_code = FAILURE;
+			break;
 		}
 		pipeline = pipeline->next;
 	}
-	return (SUCCESS);
+	signal(SIGINT, handler_ctrl_c);
+	return (exit_code);
 }
