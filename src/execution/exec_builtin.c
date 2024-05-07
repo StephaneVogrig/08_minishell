@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 19:14:20 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/05 21:06:43 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/07 10:18:32 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,35 @@ int (*builtin_function(char *str))(t_cmd *, t_env *)
 t_bool	builtin_is_executed(t_cmd *cmd, t_env *env, int *exit_status)
 {
 	int (*builtin_ptr)(t_cmd *, t_env *);
+	int	fd[2];
+
+	if (!cmd->argv)
+		return (FALSE);
+	builtin_ptr = builtin_function(cmd->argv->content);
+	if (!builtin_ptr)
+		return (FALSE);
+	fd[0] = dup(0);
+	fd[1] = dup(1);
+	if (!exec_redir(cmd->redir))
+	{
+		dup2(fd[0], 0);
+		dup2(fd[1], 1);
+		close(fd[0]);
+		close(fd[1]);
+		pipeline_free(&cmd);
+		return (TRUE);
+	}
+	*exit_status = builtin_ptr(cmd, env);
+	dup2(fd[0], 0);
+	dup2(fd[1], 1);
+	close(fd[0]);
+	close(fd[1]);
+	return (TRUE);
+}
+
+t_bool	builtin_is_executed_pipe(t_cmd *cmd, t_env *env, int *exit_status)
+{
+	int (*builtin_ptr)(t_cmd *, t_env *);
 
 	if (!cmd->argv)
 		return (FALSE);
@@ -43,7 +72,7 @@ t_bool	builtin_is_executed(t_cmd *cmd, t_env *env, int *exit_status)
 	if (!exec_redir(cmd->redir))
 	{
 		pipeline_free(&cmd);
-		exit(EXIT_FAILURE);
+		return (TRUE);
 	}
 	*exit_status = builtin_ptr(cmd, env);
 	return (TRUE);

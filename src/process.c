@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 04:15:23 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/05 06:45:39 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/07 09:51:08 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	process_exec_cmd(t_cmd *cmd, t_env *env)
 	int	exit_status;
 
 	exit_status = 0;
-	if (builtin_is_executed(cmd, env, &exit_status))
+	if (builtin_is_executed_pipe(cmd, env, &exit_status))
 	{
 		pipeline_free(&cmd);
 		env_free(env);

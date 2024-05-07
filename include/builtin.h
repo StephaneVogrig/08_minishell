@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:37:55 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/05 14:09:13 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/07 09:53:34 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 // UTILS ---------------------------------
 int		display_envp_sorted(t_env *envp);
 t_bool	builtin_is_executed(t_cmd *cmd, t_env *env, int *exit_status);
+t_bool	builtin_is_executed_pipe(t_cmd *cmd, t_env *env, int *exit_status);
 
 // BUILTINS ------------------------------
 
