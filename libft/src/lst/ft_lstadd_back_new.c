@@ -1,39 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal_handler.c                                   :+:      :+:    :+:   */
+/*   ft_lstadd_back_new.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/04 16:07:09 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/08 04:38:25 by svogrig          ###   ########.fr       */
+/*   Created: 2024/05/08 00:53:31 by svogrig           #+#    #+#             */
+/*   Updated: 2024/05/08 00:59:15 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "signal_handler.h"
+#include "libft.h"
 
-void	handler_ctrl_c(int signal)
+t_bool	ft_lstadd_back_new(t_list **list, t_char_m *str)
 {
-	if (signal == SIGINT)
-	{
-		write(1, "\n", 1);
-		rl_on_new_line();
-		rl_replace_line("",0);
-		rl_redisplay();
-	}
-}
+	t_list *new;
 
-void	handler_ctrl_c_heredoc(int signal)
-{
-	extern int	g_global;
+	new = ft_lstnew(str);
+	if (!new)
+		return (FAILURE);
+	ft_lstadd_back(list, new);
 
-	if (signal == SIGINT)
-	{
-		g_global = SIGINT;
-		close(0);
-		// write(1, "\n", 1);
-		// rl_on_new_line();
-		// rl_replace_line("",0);
-		// rl_redisplay();
-	}
+	return (SUCCESS);
 }

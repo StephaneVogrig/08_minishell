@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+         #
+#    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 02:59:52 by svogrig           #+#    #+#              #
-#    Updated: 2024/05/03 17:22:51 by smortemo         ###   ########.fr        #
+#    Updated: 2024/05/08 01:23:21 by svogrig          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ SRCS 		:=	char/ft_isalnum.c \
 				int/si32_to_decstr_offset.c \
 				lst/display_lst.c \
 				lst/ft_lstadd_back.c \
+				lst/ft_lstadd_back_new.c \
 				lst/ft_lstadd_front.c \
 				lst/ft_lstclear.c \
 				lst/ft_lstdelone.c \

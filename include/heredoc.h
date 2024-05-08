@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:15:43 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/07 18:11:31 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/08 01:20:53 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,11 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "signal_handler.h"
+# include <wait.h>
 
 # define INTERRUPT 10
 
 t_bool	heredoc(t_cmd_m *pipeline, t_env_m *env, int *exit_status);
-t_bool	heredoc_redir_loop(t_redir *redir, t_env_m *env, int *exit_status);
+t_bool	heredoc_redir_loop(t_list **limlist, t_redir *redir, t_env *env, int *exit_status);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:15:30 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/07 19:04:09 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/08 04:44:49 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,47 +50,16 @@ char	*get_path_temp()
 	return (NULL);
 }
 
-// t_bool	heredoc_scan(char *limiter, int fd)
-// {
-// 	char	*str;
-// 	size_t	limiter_len;
-
-// 	limiter_len = ft_strlen(limiter);
-// 	while (1)
-// 	{
-// 		str = get_next_line(0); //str = readline(">");
-// 		if (!str)
-// 		{
-// 			fd_printf(STDERR_FD, "minishell: warning: here-document delimited by end-of-file\n");
-// 			return (SUCCESS);
-// 		}
-// 		str[ft_strlen(str) - 1] = '\0';
-// 		if (ft_strncmp(str, limiter, limiter_len) == 0 
-// 			&& ft_strlen(str) == limiter_len)
-// 		{
-// 			free(str);
-// 			return (SUCCESS);
-// 		}
-// 		else
-// 		{
-// 			write(fd, str, ft_strlen(str));
-// 			write(fd, "\n", 1);
-// 			free(str);
-// 		}
-// 	}
-// 	return (FAILURE);
-// }
-
-int	heredoc_scan(char *limiter, int fd)
+int	heredoc_scan(char *limiter, int fd, t_env *env, int *exit_status)
 {
 	char	*input;
 	extern int	g_global;
 
-	(void)limiter;
-	(void)fd;
+	(void)env;
+	(void)exit_status;
 	while (1)
 	{
-			ft_printf("new input\n");
+			// ft_printf("new input\n");
 		input = readline(">");
 		if (g_global == SIGINT)
 		{
@@ -103,78 +72,152 @@ int	heredoc_scan(char *limiter, int fd)
 			fd_printf(STDERR_FD, "minishell: warning: here-document delimited by end-of-file\n");
 			break ;
 		}
-		// if (!*input) //ctrl-c
-		// {
-		// 	free(input);
-		// 	return (INTERRUPT) ;
-		// }
-		//enregistrer input dans fichier
+		if (ft_strcmp(input, limiter) == 0)
+		{
+			free(input);
+			break;
+		}
+		fd_printf(fd, "%s\n", input);
 		free(input);		
 	}
 	return (SUCCESS);
 }
 
 
-t_bool	heredoc_redir(t_redir *redir, t_env *env, int *exit_status)
+t_bool	heredoc_redir(t_list **limlist, t_redir *redir, t_env *env, int *exit_status)
 {
 	int	success;
-	char *path; 
 	int fd;
 
-	(void)env;
-	(void)exit_status;
-	path = get_path_temp();
-	if (path == NULL)
-		return(FAILURE);
-	fd = open(path, O_RDWR | O_CREAT, 0644);
+	fd = open(redir->str, O_RDWR | O_TRUNC, 0644);
 	if (fd == -1)
-	{
-		free(path);
 		return (FAILURE);
-	}
-	success = heredoc_scan(redir->str, fd);
+	success = heredoc_scan((*limlist)->content, fd, env, exit_status);
 	close(fd);
-	if (!success)
-	{
-		free(path);
-		return (FAILURE);
-	}
-	free(redir->str);
-	redir->str = path;
-	return (SUCCESS);
+	*limlist = (*limlist)->content;
+	return (success);
 }
 
-t_bool	heredoc_redir_loop(t_redir *redir, t_env *env, int *exit_status)
+t_bool	heredoc_redir_loop(t_list **limlist, t_redir *redir, t_env *env, int *exit_status)
 {
 	while (redir)
 	{
 		if (redir->type & HEREDOC)
-			if (heredoc_redir(redir, env, exit_status) == FAILURE)
+			if (heredoc_redir(limlist, redir, env, exit_status) == FAILURE)
 				return (FAILURE);
 		redir = redir->next;
 	}
 	return (SUCCESS);
 }
 
-t_bool	heredoc(t_cmd_m *pipeline, t_env_m *env, int *exit_status)
+t_bool	heredoc_child(t_list *limlist, t_cmd_m *cmdlist, t_env_m *env, int *exit_status)
 {
 	t_bool exit_code;
+	t_cmd	*cmd;
+	t_list	*currentlim;
 
+	cmd = cmdlist;
+	currentlim = limlist;
 	exit_code = SUCCESS;
-	signal(SIGINT, SIG_DFL);
+	signal(SIGINT, handler_ctrl_c_heredoc);
 	errno = 0;
-	while (pipeline)
+	while (cmd)
 	{
-		if (heredoc_redir_loop(pipeline->redir, env, exit_status) == FAILURE)
+		if (heredoc_redir_loop(&currentlim, cmd->redir, env, exit_status) == FAILURE)
 		{
-			pipeline_free(&pipeline);
+			pipeline_free(&cmdlist);
 			if (errno)
 				exit_on_failure(NULL, NULL, NULL, env);
 			exit_code = FAILURE;
 			break;
 		}
-		pipeline = pipeline->next;
+		cmd = cmd->next;
 	}
+	ft_lstclear(&limlist, free);
+	pipeline_free(&cmdlist);
+	env_free(env);
+	exit (exit_code);
+}
+
+t_char_m	*new_tempfile(void)
+{
+	char	*path;
+	int 	fd;
+
+	path = get_path_temp();
+	if (path == NULL)
+		return(NULL);
+	fd = open(path, O_RDWR | O_CREAT, 0644);
+	if (fd == -1)
+	{
+		free(path);
+		return (NULL);
+	}
+	close(fd);
+	return (path);
+}
+
+t_list *create_temp_file(t_cmd *cmdlist)
+{
+	t_redir	*redir;
+	t_list	*limlist;
+
+	limlist = NULL;
+	while (cmdlist)
+	{
+		redir =cmdlist->redir;
+		while (redir)
+		{
+			if (redir->type & HEREDOC)
+			{
+				if(ft_lstadd_back_new(&limlist, redir->str) == FAILURE)
+				{
+					ft_lstclear(&limlist, free);
+					return (NULL);
+				}
+				redir->str = new_tempfile();
+				if (!redir->str)
+				{
+					ft_lstclear(&limlist, free);
+					return (NULL);
+				}
+			}
+			redir = redir->next;
+		}
+		cmdlist = cmdlist->next;
+	}
+	return (limlist);
+}
+
+t_bool heredoc(t_cmd_m *cmdlist, t_env_m *env, int *exit_status)
+{
+	int		pid;
+	int		wstatus;
+	int		exit_code;
+	t_list	*limlist;
+
+	errno = 0;
+	limlist = create_temp_file(cmdlist);
+	if (!limlist)
+	{
+		if (errno)
+			exit_on_failure(cmdlist, NULL, NULL, env);
+		else
+			return (SUCCESS);
+	}
+	signal(SIGINT, SIG_IGN);
+	pid = fork();
+	if (pid == 0)
+		heredoc_child(limlist, cmdlist, env, exit_status);
+	if (pid == -1)
+	{
+		perror("minishell: heredoc: fork");
+		return (FAILURE);
+	}
+	ft_lstclear(&limlist, free);
+	waitpid(pid, &wstatus, 0);
+	if (WIFEXITED(wstatus))
+		exit_code = WEXITSTATUS(wstatus);
 	signal(SIGINT, handler_ctrl_c);
-	return (exit_code);
+	return (SUCCESS);
 }
