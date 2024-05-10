@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:15:30 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/08 04:44:49 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/10 16:56:07 by stephane         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 # include "heredoc.h"
 
@@ -50,7 +50,58 @@ char	*get_path_temp()
 	return (NULL);
 }
 
-int	heredoc_scan(char *limiter, int fd, t_env *env, int *exit_status)
+char	*heredoc_expanse(int fd, char *str,t_env *env, int *exit_status)
+{
+	char	*end;
+	char	*expand;
+	int		i;
+
+	if (*str == '?')
+	{
+		expand = ft_itoa(*exit_status);
+		if (!expand)
+			return (NULL);
+		ft_putstr_fd(expand, fd);
+		free (expand);
+		return (str + 1);
+	}
+	end = end_name(str);
+	i = end - str;
+	if (i == 0)
+	{
+		write(fd, "$", 1);
+		return (str);
+	}
+	str = env_get_n(env, str, i);
+	ft_putstr_fd (str, fd);
+	return (end);
+}
+
+void	heredoc_save_expanse(int fd, char *input, t_env *env, int *exit_status)
+{
+	int	i;
+
+	i = 0;;
+	while (1)
+	{
+		if (!input[i])
+		{
+			write(fd, input, i);
+			write(fd, "\n", 1);
+			break ;
+		}
+		if (input[i] == '$')
+		{
+			write(fd, input, i);
+			input = heredoc_expanse(fd, &input[i + 1], env, exit_status);
+			i = 0;
+			continue ;
+		}
+		i++;
+	}
+}
+
+int	heredoc_scan(int type, char *limiter, int fd, t_env *env, int *exit_status)
 {
 	char	*input;
 	extern int	g_global;
@@ -65,7 +116,7 @@ int	heredoc_scan(char *limiter, int fd, t_env *env, int *exit_status)
 		{
 			g_global = 0;
 			free(input);
-			// return (INTERRUPT);
+			return (FAILURE);
 		}
 		if (!input) //ctrl-d
 		{
@@ -77,7 +128,10 @@ int	heredoc_scan(char *limiter, int fd, t_env *env, int *exit_status)
 			free(input);
 			break;
 		}
-		fd_printf(fd, "%s\n", input);
+		if (type & EXPANSE)
+			heredoc_save_expanse(fd, input, env, exit_status);
+		else
+			fd_printf(fd, "%s\n", input);
 		free(input);		
 	}
 	return (SUCCESS);
@@ -92,7 +146,7 @@ t_bool	heredoc_redir(t_list **limlist, t_redir *redir, t_env *env, int *exit_sta
 	fd = open(redir->str, O_RDWR | O_TRUNC, 0644);
 	if (fd == -1)
 		return (FAILURE);
-	success = heredoc_scan((*limlist)->content, fd, env, exit_status);
+	success = heredoc_scan(redir->type, (*limlist)->content, fd, env, exit_status);
 	close(fd);
 	*limlist = (*limlist)->content;
 	return (success);
@@ -128,6 +182,7 @@ t_bool	heredoc_child(t_list *limlist, t_cmd_m *cmdlist, t_env_m *env, int *exit_
 			pipeline_free(&cmdlist);
 			if (errno)
 				exit_on_failure(NULL, NULL, NULL, env);
+			*exit_status = 130;
 			exit_code = FAILURE;
 			break;
 		}
@@ -197,6 +252,7 @@ t_bool heredoc(t_cmd_m *cmdlist, t_env_m *env, int *exit_status)
 	t_list	*limlist;
 
 	errno = 0;
+	exit_code = SUCCESS;
 	limlist = create_temp_file(cmdlist);
 	if (!limlist)
 	{
@@ -219,5 +275,5 @@ t_bool heredoc(t_cmd_m *cmdlist, t_env_m *env, int *exit_status)
 	if (WIFEXITED(wstatus))
 		exit_code = WEXITSTATUS(wstatus);
 	signal(SIGINT, handler_ctrl_c);
-	return (SUCCESS);
+	return (exit_code);
 }

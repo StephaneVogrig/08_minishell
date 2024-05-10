@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   input_to_pipeline.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:25:18 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/07 06:31:04 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/09 22:31:49 by stephane         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "input_to_pipeline.h"
 
@@ -31,7 +31,7 @@ char	*parse(char *input, t_cmd **cmd, t_env *env, int *exit_status)
 		return (new_current_cmd(cmd, input));
 	if (*input == '<' && *(input + 1) == '<')
 		return (next_token_to_heredoc(input + 2, &(*cmd)->redir));
-	if (*input == '>' | *input == '<')
+	if (*input == '>' || *input == '<')
 		return (next_token_to_redir(input, &(*cmd)->redir, env, exit_status));
 	return (next_token_to_srtlist(input, &((*cmd)->argv), env, exit_status));
 }
