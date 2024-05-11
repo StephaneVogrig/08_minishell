@@ -6,24 +6,21 @@
 /*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:15:43 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/10 16:44:44 by stephane         ###   ########.fr       */
+/*   Updated: 2024/05/11 15:20:56 by stephane         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #ifndef HEREDOC_H
 # define HEREDOC_H
 
-# include "libft.h"
 # include "expanse.h"
 # include "exit.h"
-# include "command.h"
 # include "pipeline.h"
-# include <limits.h>
+# include "signal_handler.h"
 # include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include "signal_handler.h"
-# include <wait.h>
+# include <sys/wait.h>
 
 # define INTERRUPT 10
 

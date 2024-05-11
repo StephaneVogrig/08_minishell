@@ -1,14 +1,14 @@
-# **************************************************************************** #
+#******************************************************************************#
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
+#    By: stephane <stephane@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/05/07 07:09:51 by svogrig          ###   ########.fr        #
+#    Updated: 2024/05/11 15:39:37 by stephane         ###   ########.fr        #
 #                                                                              #
-# **************************************************************************** #
+#******************************************************************************#
 
 
 NAME			:=	minishell
@@ -34,7 +34,7 @@ SRC				:=	main.c \
 					builtins/builtin_export.c \
 					builtins/builtin_unset.c \
 					builtins/builtin_pwd.c \
-					char.c \
+					data/argv.c \
 					data/command.c \
 					data/pipeline.c \
 					data/redirection.c \
@@ -43,28 +43,26 @@ SRC				:=	main.c \
 					environnement/environment.c \
 					environnement/list_utils.c \
 					environnement/manage_node.c \
+					execution/cmd_path.c \
 					execution/exec_builtin.c \
 					execution/exec_cmd.c \
 					execution/exec_input.c \
-					argv.c \
-					cmd_path.c \
-					exit.c \
-					expanse.c \
-					input_to_pipeline.c \
-					memory.c \
-					next_token_dequoted.c \
-					heredoc.c \
-					parse.c \
-					pipe.c \
-					process.c \
-					signal_handler.c \
-					str.c \
-					strlink.c \
-					syntax_error.c \
-					token.c \
-					debug.c \
-					wait.c 
-					
+					execution/heredoc.c \
+					execution/process.c \
+					execution/pipeline_wait.c \
+					parsing/char.c \
+					parsing/expanse.c \
+					parsing/input_to_pipeline.c \
+					parsing/next_token_dequoted.c \
+					parsing/parse.c \
+					parsing/syntax_error.c \
+					parsing/token.c \
+					utils/exit.c \
+					utils/memory.c \
+					utils/pipe.c \
+					utils/signal_handler.c \
+					utils/str.c
+
 SRC				:=	$(SRC:%=$(DIR_SRC)/%)
 
 # sources bonus ---------------------------------------------------------------#
@@ -76,7 +74,15 @@ SRC_BONUS		:=	$(SRC)
 # includes --------------------------------------------------------------------#
 
 DIR_INC			:=	libft/include \
-				include
+					include \
+					include/buff \
+					include/builtins \
+					include/data \
+					include/environment \
+					include/execution \
+					include/parsing \
+					include/utils
+					
 I_FLAG			:=	$(addprefix -I,$(DIR_INC)) -MMD -MP
 				
 # library ---------------------------------------------------------------------#
