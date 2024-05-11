@@ -6,7 +6,7 @@
 #    By: stephane <stephane@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/05/11 15:39:37 by stephane         ###   ########.fr        #
+#    Updated: 2024/05/11 15:43:42 by stephane         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -38,11 +38,11 @@ SRC				:=	main.c \
 					data/command.c \
 					data/pipeline.c \
 					data/redirection.c \
-					environnement/env_shlvl.c \
-					environnement/env_utils.c \
-					environnement/environment.c \
-					environnement/list_utils.c \
-					environnement/manage_node.c \
+					environment/env_shlvl.c \
+					environment/env_utils.c \
+					environment/environment.c \
+					environment/list_utils.c \
+					environment/manage_node.c \
 					execution/cmd_path.c \
 					execution/exec_builtin.c \
 					execution/exec_cmd.c \
