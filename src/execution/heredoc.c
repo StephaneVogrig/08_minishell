@@ -6,7 +6,7 @@
 /*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:15:30 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/10 16:56:07 by stephane         ###   ########.fr       */
+/*   Updated: 2024/05/12 19:58:07 by stephane         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -106,8 +106,6 @@ int	heredoc_scan(int type, char *limiter, int fd, t_env *env, int *exit_status)
 	char	*input;
 	extern int	g_global;
 
-	(void)env;
-	(void)exit_status;
 	while (1)
 	{
 			// ft_printf("new input\n");
@@ -116,7 +114,7 @@ int	heredoc_scan(int type, char *limiter, int fd, t_env *env, int *exit_status)
 		{
 			g_global = 0;
 			free(input);
-			return (FAILURE);
+			return (130);
 		}
 		if (!input) //ctrl-d
 		{
@@ -154,17 +152,23 @@ t_bool	heredoc_redir(t_list **limlist, t_redir *redir, t_env *env, int *exit_sta
 
 t_bool	heredoc_redir_loop(t_list **limlist, t_redir *redir, t_env *env, int *exit_status)
 {
+	int	exit_code;
+
+	exit_code = SUCCESS;
 	while (redir)
 	{
 		if (redir->type & HEREDOC)
-			if (heredoc_redir(limlist, redir, env, exit_status) == FAILURE)
-				return (FAILURE);
+		{
+			exit_code = heredoc_redir(limlist, redir, env, exit_status);
+			if (exit_code != SUCCESS)
+				break ;
+		}
 		redir = redir->next;
 	}
-	return (SUCCESS);
+	return (exit_code);
 }
 
-t_bool	heredoc_child(t_list *limlist, t_cmd_m *cmdlist, t_env_m *env, int *exit_status)
+int	heredoc_child(t_list *limlist, t_cmd_m *cmdlist, t_env_m *env, int *exit_status)
 {
 	t_bool exit_code;
 	t_cmd	*cmd;
@@ -177,15 +181,9 @@ t_bool	heredoc_child(t_list *limlist, t_cmd_m *cmdlist, t_env_m *env, int *exit_
 	errno = 0;
 	while (cmd)
 	{
-		if (heredoc_redir_loop(&currentlim, cmd->redir, env, exit_status) == FAILURE)
-		{
-			pipeline_free(&cmdlist);
-			if (errno)
-				exit_on_failure(NULL, NULL, NULL, env);
-			*exit_status = 130;
-			exit_code = FAILURE;
-			break;
-		}
+		exit_code = heredoc_redir_loop(&currentlim, cmd->redir, env, exit_status);
+		if (exit_code != SUCCESS)
+			break ;
 		cmd = cmd->next;
 	}
 	ft_lstclear(&limlist, free);
@@ -274,6 +272,8 @@ t_bool heredoc(t_cmd_m *cmdlist, t_env_m *env, int *exit_status)
 	waitpid(pid, &wstatus, 0);
 	if (WIFEXITED(wstatus))
 		exit_code = WEXITSTATUS(wstatus);
+	if (exit_code != SUCCESS)
+		*exit_status = exit_code;
 	signal(SIGINT, handler_ctrl_c);
 	return (exit_code);
 }

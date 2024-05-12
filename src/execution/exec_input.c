@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   exec_input.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:36:43 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/07 17:29:56 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/12 19:58:18 by stephane         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "exec_input.h"
 
@@ -106,7 +106,7 @@ void	exec_input(t_char_m *input, t_env *env, int *exit_status)
 	free(input);
 	if (errno != 0)
 		exit_on_failure(NULL, NULL, NULL, env);
-	if (!pipeline || heredoc(pipeline, env, exit_status) == FAILURE)
+	if (!pipeline || heredoc(pipeline, env, exit_status) != SUCCESS)
 		return ;
 	if (!pipeline->next)
 		exec_cmd_alone(pipeline, env, exit_status);
