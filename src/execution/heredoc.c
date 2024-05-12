@@ -6,7 +6,7 @@
 /*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:15:30 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/12 19:58:07 by stephane         ###   ########.fr       */
+/*   Updated: 2024/05/12 20:15:46 by stephane         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -108,7 +108,6 @@ int	heredoc_scan(int type, char *limiter, int fd, t_env *env, int *exit_status)
 
 	while (1)
 	{
-			// ft_printf("new input\n");
 		input = readline(">");
 		if (g_global == SIGINT)
 		{
@@ -143,7 +142,10 @@ t_bool	heredoc_redir(t_list **limlist, t_redir *redir, t_env *env, int *exit_sta
 
 	fd = open(redir->str, O_RDWR | O_TRUNC, 0644);
 	if (fd == -1)
+	{
+		perror("minishell: heredoc_redir");
 		return (FAILURE);
+	}
 	success = heredoc_scan(redir->type, (*limlist)->content, fd, env, exit_status);
 	close(fd);
 	*limlist = (*limlist)->content;
