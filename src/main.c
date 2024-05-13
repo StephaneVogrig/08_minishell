@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:55:55 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/07 18:48:27 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/13 15:32:03 by stephane         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "minishell.h"
 
@@ -21,9 +21,9 @@ void	minishell_scan(t_env *env, int *exit_status)
 	while (1)
 	{
 		input = readline("minishell>");
-		if (!input) //ctrl-d
+		if (!input)
 			break ;
-		if (!*input) //ctrl-c
+		if (!*input)
 		{
 			free(input);
 			continue ;
@@ -49,12 +49,13 @@ int	main(int argc, char **argv, char **envp)
 	signal(SIGINT, handler_ctrl_c);
 	signal(SIGQUIT, SIG_IGN);
 	env = env_dup(envp);
-	init_shlvl(env); //initialise valeur SHLVL
-	node_home_cpy(env); // pour le ~
+	init_shlvl(env);
+	node_home_cpy(env);
 	if (!env)
 		return (EXIT_FAILURE);
 	minishell_scan(env, &exit_status);
 	env_free(env);
+	close(0);
 	write(1, "exit\n", 5);
 	return (exit_status);
 }

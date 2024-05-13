@@ -6,7 +6,7 @@
 #    By: stephane <stephane@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/05/11 15:43:42 by stephane         ###   ########.fr        #
+#    Updated: 2024/05/13 15:12:51 by stephane         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -47,6 +47,7 @@ SRC				:=	main.c \
 					execution/exec_builtin.c \
 					execution/exec_cmd.c \
 					execution/exec_input.c \
+					execution/heredoc_scan.c \
 					execution/heredoc.c \
 					execution/process.c \
 					execution/pipeline_wait.c \

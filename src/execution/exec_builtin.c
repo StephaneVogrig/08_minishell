@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 19:14:20 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/07 10:18:32 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/13 15:26:35 by stephane         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "builtin.h"
 
@@ -44,15 +44,9 @@ t_bool	builtin_is_executed(t_cmd *cmd, t_env *env, int *exit_status)
 	fd[0] = dup(0);
 	fd[1] = dup(1);
 	if (!exec_redir(cmd->redir))
-	{
-		dup2(fd[0], 0);
-		dup2(fd[1], 1);
-		close(fd[0]);
-		close(fd[1]);
 		pipeline_free(&cmd);
-		return (TRUE);
-	}
-	*exit_status = builtin_ptr(cmd, env);
+	else
+		*exit_status = builtin_ptr(cmd, env);
 	dup2(fd[0], 0);
 	dup2(fd[1], 1);
 	close(fd[0]);
