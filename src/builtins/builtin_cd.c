@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 23:27:39 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/06 00:07:16 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/13 14:43:36 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	change_dir(t_env *env, char *str)
 	ret = chdir(str);
 	if (ret == -1)
 	{
-		perror("");
+		perror(" ");
 		return (1);
 	}
 	return (uptdate_PWD_OLPWD(env));

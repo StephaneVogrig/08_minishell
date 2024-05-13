@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 19:04:55 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/08 01:21:54 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/13 15:26:26 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int					hexatoi_offset(char **str);
 char				*si32_to_decstr_offset(char *str, int n);
 t_si32				si32_min(t_si32 a, t_si32 b);
 t_si32				si32_max(t_si32 a, t_si32 b);
+long long	ft_atol(const char *str);
 
 /* lst -----------------------------------------------------------------------*/
 typedef struct s_list
