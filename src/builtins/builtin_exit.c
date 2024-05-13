@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 23:20:41 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/11 15:07:42 by stephane         ###   ########.fr       */
+/*   Updated: 2024/05/13 16:59:18 by smortemo         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "builtin.h"
 
@@ -18,6 +18,14 @@ t_bool	is_num(char *str)
 
 	i = 0;
 	if ((str[0] == '-' || str[0] == '+') && str[1] != '\0')
+	{
+		if (!ft_isdigit(str[1]))
+			return (FALSE);
+		i++;
+	}
+	while (str[i] == ' ')
+		i++;
+	if ((str[i] == '-' || str[i] == '+') && str[1] != '\0')
 		i++;
 	while (str[i])
 	{
@@ -40,25 +48,22 @@ int	exit_val_2(t_cmd *cmd, t_env *env, char *argv)
 
 int	exit_val_num(t_cmd *cmd, t_env *env, char *argv)
 {
-	int	error;
+	long long	error;
 
-	error = ft_atoi(argv);
+	error = ft_atol(argv);
+	if(error < 0 && !ft_strchr(argv, '-'))
+		exit_val_2(cmd, env, argv);
+	if(error > 0 && ft_strchr(argv, '-'))
+		exit_val_2(cmd, env, argv);
 	cmd_free(cmd);
 	env_free(env);
 	ft_printf("exit\n");
-	exit(error);
+	exit((int)error);
 }
 
 int	exit_mini(t_cmd *cmd, t_env *env, t_list *argv)
 {
-	if (!argv)
-	{
-		cmd_free(cmd);
-		env_free(env);
-		ft_printf("exit\n");
-		exit(0);
-	}
-	else if (!argv->next)
+	if (!argv->next)
 	{
 		if (!is_num(argv->content))
 			exit_val_2(cmd, env, argv->content);
@@ -70,6 +75,10 @@ int	exit_mini(t_cmd *cmd, t_env *env, t_list *argv)
 			exit_val_2(cmd, env, argv->content);
 		else
 		{
+			if(ft_atol(argv->content) < 0 && !ft_strchr(argv->content, '-'))
+				exit_val_2(cmd, env, argv->content);
+			if(ft_atol(argv->content) > 0 && ft_strchr(argv->content, '-'))
+				exit_val_2(cmd, env, argv->content);
 			ft_printf("exit\n");
 			fd_printf(STDERR_FD, "minishell : exit : too many arguments\n");
 		}
@@ -79,14 +88,15 @@ int	exit_mini(t_cmd *cmd, t_env *env, t_list *argv)
 int	builtin_exit(t_cmd *cmd, t_env *env)
 {
 	t_list *argv;
-	// t_cmd *lst;
 
 	argv = cmd->argv;
 	argv = argv->next;
-	// lst = cmd;
-	// lst = lst->next;
-	// if (lst)
-	// 	printf("EXIT ON START OR MIDDLE OF PIPE\n");
-	// else
+	if (!argv)
+	{
+		cmd_free(cmd);
+		env_free(env);
+		ft_printf("exit\n");
+		exit(0);
+	}
 	return (exit_mini(cmd, env, argv));
 }

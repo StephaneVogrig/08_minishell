@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
+#    By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 02:59:52 by svogrig           #+#    #+#              #
-#    Updated: 2024/05/08 01:23:21 by svogrig          ###   ########.fr        #
+#    Updated: 2024/05/13 15:27:12 by smortemo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRCS 		:=	char/ft_isalnum.c \
 				error/error_msg.c \
 				error/error_perror.c \
 				int/ft_atoi.c \
+				int/ft_atol.c \
 				int/ft_abs.c \
 				int/atoi_offset.c \
 				int/ft_itoa.c \
