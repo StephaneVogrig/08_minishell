@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:36:25 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/07 05:03:18 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/14 15:54:32 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	check_path(char *path, t_char_m **argv, t_env_m *env)
 		temp = *argv;
 	if (is_directory(temp))
 	{
-		fd_printf(STDERR_FD, "minishell: %s: is a directory\n", temp);
+		fd_printf(STDERR_FD, "minishell: %s: Is a directory\n", temp);
 		minishell_free(NULL, path, argv, env);
 		exit(126);
 	}
