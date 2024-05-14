@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   exec_input.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:36:43 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/12 19:58:18 by stephane         ###   ########.fr       */
+/*   Updated: 2024/05/14 19:42:02 by svogrig          ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "exec_input.h"
 
@@ -88,21 +88,23 @@ t_bool	is_empty(char *str)
 void	exec_input(t_char_m *input, t_env *env, int *exit_status)
 {
 	t_cmd_m	*pipeline;
+	char	*str;
 
-	if (is_empty(input))
+	str = skip_blank(input);
+	if (*str == '\0')
 	{
 		free(input);
 		*exit_status = SUCCESS;
 		return ;
 	}
-	if (syntax_error(input))
+	if (syntax_error(str))
 	{
 		free(input);
 		*exit_status = SYNTAX_ERROR;
 		return ;
 	}
 	errno = 0;
-	pipeline = input_to_pipeline(skip_blank(input), env, exit_status);
+	pipeline = input_to_pipeline(str, env, exit_status);
 	free(input);
 	if (errno != 0)
 		exit_on_failure(NULL, NULL, NULL, env);

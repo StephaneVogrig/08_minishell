@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 22:01:52 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/29 22:43:28 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/14 19:54:10 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ static char	*next_token_pipe(char *str)
 	str++;
 	while (is_blank(*str))
 		str++;
-	if (*str == '\0')
+	if (*str == '\0' || *str == '|')
 	{
-		syntax_error_msg('\0');
+		syntax_error_msg(*str);
 		return (NULL);
 	}
 	return (str);
@@ -44,7 +44,7 @@ static char	*next_token_redir(char *str)
 		str++;
 	while (is_blank(*str))
 		str++;
-	ptr = ft_strchr("|<> \t", *str);
+	ptr = ft_strchr("|<>", *str);
 	if (ptr)
 	{
 		syntax_error_msg(*ptr);
@@ -52,7 +52,6 @@ static char	*next_token_redir(char *str)
 	}
 	return (str);
 }
-
 
 static char	*end_quote(char *str)
 {
@@ -63,7 +62,7 @@ static char	*end_quote(char *str)
 	while (*str)
 	{
 		if (*str == quote)
-			return (str);
+			return (++str);
 		str++;
 	}
 	syntax_error_msg('\0');
@@ -82,9 +81,10 @@ t_bool	syntax_error(char *input)
 			input = next_token_redir(input);
 		else if (*input == '\"' || *input == '\'')
 			input = end_quote(input);
+		else
+			input++;
 		if (!input)
 			return (TRUE);
-		input++;			
 	}
 	return (FALSE);
 }
