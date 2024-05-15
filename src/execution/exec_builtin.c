@@ -1,73 +1,52 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 19:14:20 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/13 15:26:35 by stephane         ###   ########.fr       */
+/*   Updated: 2024/05/15 12:49:01 by svogrig          ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "builtin.h"
 
-int (*builtin_function(char *str))(t_cmd *, t_env *)
+int (*builtin_function(t_list *argv))(t_cmd *, t_env *)
 {
-	if (!ft_strcmp(str, "export"))
+	if (!argv)
+		return (NULL);
+	if (!ft_strcmp(argv->content, "export"))
 		return (&builtin_export);
-	if (!ft_strcmp(str, "unset"))
+	if (!ft_strcmp(argv->content, "unset"))
 		return (&builtin_unset);
-	if (!ft_strcmp(str, "env"))
+	if (!ft_strcmp(argv->content, "env"))
 		return (&builtin_env);
-	if (!ft_strcmp(str, "pwd"))
+	if (!ft_strcmp(argv->content, "pwd"))
 		return (&builtin_pwd);
-	if (!ft_strcmp(str, "cd"))
+	if (!ft_strcmp(argv->content, "cd"))
 		return (&builtin_cd);
-	if (!ft_strcmp(str, "echo"))
+	if (!ft_strcmp(argv->content, "echo"))
 		return (&builtin_echo);
-	if (!ft_strcmp(str, "exit"))
+	if (!ft_strcmp(argv->content, "exit"))
 		return (&builtin_exit);
 	return (NULL);
 }
 
-t_bool	builtin_is_executed(t_cmd *cmd, t_env *env, int *exit_status)
+int	exec_builtin_alone(t_builtin builtin, t_cmd *cmd, t_env *env)
 {
-	int (*builtin_ptr)(t_cmd *, t_env *);
 	int	fd[2];
+	int	exit_code;
 
-	if (!cmd->argv)
-		return (FALSE);
-	builtin_ptr = builtin_function(cmd->argv->content);
-	if (!builtin_ptr)
-		return (FALSE);
 	fd[0] = dup(0);
 	fd[1] = dup(1);
-	if (!exec_redir(cmd->redir))
-		pipeline_free(&cmd);
+	if (exec_redir(cmd->redir))
+		exit_code = builtin(cmd, env);
 	else
-		*exit_status = builtin_ptr(cmd, env);
+		exit_code = EXIT_FAILURE;
 	dup2(fd[0], 0);
 	dup2(fd[1], 1);
 	close(fd[0]);
 	close(fd[1]);
-	return (TRUE);
-}
-
-t_bool	builtin_is_executed_pipe(t_cmd *cmd, t_env *env, int *exit_status)
-{
-	int (*builtin_ptr)(t_cmd *, t_env *);
-
-	if (!cmd->argv)
-		return (FALSE);
-	builtin_ptr = builtin_function(cmd->argv->content);
-	if (!builtin_ptr)
-		return (FALSE);
-	if (!exec_redir(cmd->redir))
-	{
-		pipeline_free(&cmd);
-		return (TRUE);
-	}
-	*exit_status = builtin_ptr(cmd, env);
-	return (TRUE);
+	return (exit_code);
 }

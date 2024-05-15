@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:36:25 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/14 15:54:32 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/15 19:38:56 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	check_path(char *path, t_char_m **argv, t_env_m *env)
 	{
 		fd_printf(STDERR_FD, "minishell: %s: %s\n", temp, strerror(errno));
 		minishell_free(NULL, path, argv, env);
-		exit(127);
+		exit(126);
 	}
 }
 
@@ -66,21 +66,26 @@ char	*path_find(char	*paths, t_char_m *buff, t_char_m **argv, t_env_m *env)
 	return (NULL);
 }
 
+char	*path_checked(const char *exit_msg, t_char_m **argv, t_env_m *env)
+{
+		if (access(*argv, F_OK) != 0)
+			exit_on_file_error(exit_msg, argv, env);
+		check_path(NULL, argv, env);
+		return (cmd_path_strndup(*argv, ft_strlen(*argv)));
+}
+
 char	*cmd_path(t_char_m **argv, t_env_m *env)
 {
 	char	*buff;
 	char	*path;
 
 	if (**argv == '\0')
-		exit_on_cmd_not_found(argv, env);
+		exit_on_file_error("command not found", argv, env);
+	if (ft_strchr(*argv, '/'))
+		return (path_checked("No such file or directory", argv, env));
 	path = env_get(env, "PATH");
-	if (!path || ft_strchr(*argv, '/'))
-	{
-		if (access(*argv, F_OK) != 0)
-			exit_on_cmd_not_found(argv, env);
-		check_path(NULL, argv, env);
-		return (cmd_path_strndup(*argv, ft_strlen(*argv)));
-	}
+	if (!path)
+		return (path_checked("command not found", argv, env));
 	buff = malloc(ft_strlen(path) + ft_strlen(*argv) + 2);
 	if (!buff)
 	{
@@ -90,6 +95,6 @@ char	*cmd_path(t_char_m **argv, t_env_m *env)
 	path = path_find(path, buff, argv, env);
 	free(buff);
 	if (!path)
-		exit_on_cmd_not_found(argv, env);
+		exit_on_file_error("command not found", argv, env);
 	return (path);
 }

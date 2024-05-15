@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 20:00:10 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/07 05:00:39 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/15 19:40:47 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,11 @@
 # include "environment.h"
 # include "pipeline.h"
 
+# define NO_SUCH_FILE 0
+# define CMD_NOT_FOUND 1
+
 void	minishell_free(t_cmd *cmd, char *str, char **argv, t_env *env);
-void	exit_on_cmd_not_found(char **argv, t_env *env);
+void	exit_on_file_error(const char *msg, t_char_m **argv, t_env *env);
 void	exit_on_open_error(char *file_path, int fd);
 void	exit_on_failure(t_cmd *cmd, char *str, char **argv, t_env *env);
 

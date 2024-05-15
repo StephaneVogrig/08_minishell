@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:37:55 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/07 09:53:34 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/15 12:47:40 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,12 @@
 # include "libft.h"
 # include <errno.h>
 
+typedef int (*t_builtin)(t_cmd *, t_env *);
+
 // UTILS ---------------------------------
 int		display_envp_sorted(t_env *envp);
-t_bool	builtin_is_executed(t_cmd *cmd, t_env *env, int *exit_status);
+int 	(*builtin_function(t_list *argv))(t_cmd *, t_env *);
+int		exec_builtin_alone(t_builtin builtin, t_cmd *cmd, t_env *env);
 t_bool	builtin_is_executed_pipe(t_cmd *cmd, t_env *env, int *exit_status);
 
 // BUILTINS ------------------------------

@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 19:56:00 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/07 05:01:09 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/15 19:38:48 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ void	minishell_free(t_cmd *cmd, char *str, char **argv, t_env *env)
 		pipeline_free(&cmd);
 }
 
-void	exit_on_cmd_not_found(t_char_m **argv, t_env *env)
+void	exit_on_file_error(const char *msg, t_char_m **argv, t_env *env)
 {
-	fd_printf(STDERR_FD, "%s: command not found\n", *argv);
+	fd_printf(STDERR_FD, "%s: %s\n", *argv, msg);
 	minishell_free(NULL, NULL, argv, env);
 	exit(127);
 }

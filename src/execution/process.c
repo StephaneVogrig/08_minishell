@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 04:15:23 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/07 09:51:08 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/15 12:48:15 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,19 @@
 
 void	process_exec_cmd(t_cmd *cmd, t_env *env)
 {
-	int	exit_status;
+	int	exit_code;
+	t_builtin	builtin;
 
-	exit_status = 0;
-	if (builtin_is_executed_pipe(cmd, env, &exit_status))
-	{
-		pipeline_free(&cmd);
-		env_free(env);
-		exit(exit_status);
-	}
-	else
+	builtin = builtin_function(cmd->argv);
+	if (!builtin)
 		exec_cmd(cmd, env);
+	if (exec_redir(cmd->redir))
+		exit_code = builtin(cmd, env);
+	else
+		exit_code = EXIT_FAILURE;
+	pipeline_free(&cmd);
+	env_free(env);
+	exit(exit_code);
 }
 
 int	process_first(t_cmd *cmd, int *fd_out, t_env *env, int *pids)

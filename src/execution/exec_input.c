@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:36:43 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/14 19:42:02 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/15 12:48:02 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,22 +35,23 @@ int	exec_pipeline(t_cmd *pipeline, pid_t *pids, t_env *env)
 
 void	exec_cmd_alone(t_cmd_m *cmd, t_env *env, int *exit_status)
 {
-	pid_t	pid[2];
+	pid_t		pid[2];
+	t_builtin	builtin;
 
-	if (builtin_is_executed(cmd, env, exit_status))
+	builtin = builtin_function(cmd->argv);
+	if (builtin)
 	{
+		*exit_status = exec_builtin_alone(builtin, cmd, env);
 		cmd_free(cmd);
 		return ;
 	}
 	pid[1] = 0;
 	*pid = fork();
 	if (*pid == 0)
-	{
 		exec_cmd(cmd, env);
-		exit(EXIT_FAILURE);
-	}
 	if (*pid == -1)
 	{
+		cmd_free(cmd);
 		env_free(env);
 		exit(EXIT_FAILURE);
 	}
