@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 16:07:09 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/16 21:20:06 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/16 22:00:08 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	handler_ctrl_c(int sigint)
 		write(2, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("",0);
+	write(2, "\033[33mminishell>\033[0m", 20);
 	rl_redisplay();
 	signal(sigint, handler_ctrl_c);
 }

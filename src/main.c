@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:55:55 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/16 21:19:11 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/16 21:58:05 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	minishell_scan(t_env *env, int *exit_status)
 
 	while (1)
 	{
-		input = readline("minishell>");
+		write(2, "\033[33mminishell>\033[0m", 20);
+		input = readline("");
 		g_signal = 0;
 		if (!input)
 			break ;
