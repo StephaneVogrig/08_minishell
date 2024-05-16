@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   heredoc_scan.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:05:04 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/13 15:10:51 by stephane         ###   ########.fr       */
+/*   Updated: 2024/05/16 21:19:00 by svogrig          ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "heredoc.h"
 
@@ -81,12 +81,11 @@ t_bool	is_scan_end(char *input, char *limiter)
 int	heredoc_scan(int fd, t_redir *redir, t_env *env, int *exit_status)
 {
 	char	*input;
-	extern int	g_global;
 
 	while (1)
 	{
 		input = readline(">");
-		if (g_global == SIGINT)
+		if (g_signal == SIGINT)
 		{
 			free(input);
 			return (130);

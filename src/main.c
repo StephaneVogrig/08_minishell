@@ -6,23 +6,20 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:55:55 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/15 13:22:18 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/16 21:19:11 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int g_global;
-
 void	minishell_scan(t_env *env, int *exit_status)
 {
 	char	*input;
-	extern int g_global;
 
 	while (1)
 	{
 		input = readline("minishell>");
-		g_global = 0;
+		g_signal = 0;
 		if (!input)
 			break ;
 		if (!*input)

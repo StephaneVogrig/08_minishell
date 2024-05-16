@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:15:30 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/14 16:14:58 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/16 21:18:48 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,11 +100,9 @@ t_bool heredoc(t_cmd_m *cmdlist, t_env_m *env, int *exit_status)
 {
 	int		exit_code;
 	int		fd;
-	extern int	g_global;
 
 	fd = dup(0);
 	signal(SIGINT, handler_ctrl_c_heredoc);
-	// g_global = 0;
 	exit_code = heredoc_loop(cmdlist, env, exit_status);
 	dup2(fd, 0);
 	close(fd);
