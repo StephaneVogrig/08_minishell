@@ -1,14 +1,14 @@
-#******************************************************************************#
+# **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: stephane <stephane@student.42.fr>          +#+  +:+       +#+         #
+#    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/05/13 15:12:51 by stephane         ###   ########.fr        #
+#    Updated: 2024/05/16 14:52:53 by svogrig          ###   ########.fr        #
 #                                                                              #
-#******************************************************************************#
+# **************************************************************************** #
 
 
 NAME			:=	minishell
@@ -104,7 +104,7 @@ OBJ_BONUS		:=	$(SRC_BONUS:$(DIR_SRC)/%.c=$(DIR_BUILD)/%.o)
 OBJ_DEBUG		:=	$(SRC:$(DIR_SRC)/%.c=$(DIR_BUILD)/debug/%.o)
 OBJ_DEBUGB		:=	$(SRC_BONUS:$(DIR_SRC)/%.c=$(DIR_BUILD)/debugbonus/%.o)
 OBJ_SAN			:=	$(SRC:$(DIR_SRC)/%.c=$(DIR_BUILD)/sanitize/%.o)
-OBJ_SANB		:=	$(SRC_BONUS:$(DIR_SRC)/%.c=$(DIR_BUILD)/sanitize/%.o)
+OBJ_SANB		:=	$(SRC_BONUS:$(Dfd[1]IR_SRC)/%.c=$(DIR_BUILD)/sanitize/%.o)
 
 DEPS			:=	$(OBJ:.o=.d) $(OBJ_SAN:.o=.d) $(OBJ_BONUS:.o=.d)
 
@@ -277,4 +277,3 @@ $(NAME_SANB): $(OBJ_SANB)
 		makedebug_b \
 		makesanitize \
 		makesanitize_b
-		
