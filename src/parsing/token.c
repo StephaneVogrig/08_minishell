@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 00:11:51 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/07 07:38:27 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/16 00:17:53 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,18 +53,50 @@ char	*next_token_to_redir(char *input, t_redir **redir, \
 	if (*str == '>')
 		str++;
 	str = skip_blank(str);
-	str = next_token_to_srtlist(str, &strlist, env, exit_status);
-	if (redir_add_strlist(strlist, type, redir, input) == FAILURE)
+	str = next_token_to_strlist(str, &strlist, env, exit_status);
+	if (!str || redir_add_strlist(strlist, type, redir, input) == FAILURE)
 		return (NULL);
 	free(strlist);
 	return (str);
 }
 
-char	*next_token_to_srtlist(char *str, t_list **argv, \
+t_bool	is_token_empty(char *str, t_env *env)
+{
+	char	*end;
+
+	if (*str != '$')
+		return (FALSE);
+	while (*str && !is_meta(*str))
+	{
+		if (*str == '$')
+		{
+			end = end_name(++str);
+			if (end == str)
+				return (FALSE);
+			if (env_get_n(env, str, end - str))
+				return (FALSE);
+			str = end;
+		}
+		else
+			return (FALSE);
+	}
+	return (TRUE);
+}
+
+char	*end_token(char *str)
+{
+	while (*str && !is_meta(*str))
+		str++;
+	return (str);
+}
+
+char	*next_token_to_strlist(char *str, t_list **strlist, \
 										t_env *env, int *exit_status)
 {
 	t_buff	buffer;
 	
+	if (is_token_empty(str, env))
+		return (end_token(str));
 	buff_init(&buffer);
 	while (str && !is_meta(*str))
 	{
@@ -75,11 +107,11 @@ char	*next_token_to_srtlist(char *str, t_list **argv, \
 		else if (*str == '$' && *(str + 1) == '?')
 			str = expanse_exit_status(&buffer, ++str, exit_status);
 		else if (*str == '$')
-			str = expanse_unquoted(&buffer, ++str, argv, env);
+			str = expanse_unquoted(&buffer, ++str, strlist, env);
 		else if (buff_add_char(&buffer, *str++) == FAILURE)
 			str = NULL;
 	}
-	if (str && argv_add_buffer(argv, &buffer) == FAILURE)
+	if (!str || strlist_add_buffer(strlist, &buffer) == FAILURE)
 			str = NULL;
 	buff_clear(&buffer);
 	return (str);

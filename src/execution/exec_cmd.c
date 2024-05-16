@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 15:22:47 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/07 05:14:49 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/16 01:44:21 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	redir_open(char *str, int type)
 t_bool	exec_redir(t_redir *redirs)
 {
 	int	fd;
-	int	fd_dup;
 
 	while (redirs)
 	{
@@ -37,13 +36,13 @@ t_bool	exec_redir(t_redir *redirs)
 		{
 			fd_printf(STDERR_FD, "minishell: %s: %s\n", redirs->str,
 				strerror(errno));
+			redirlist_unlink_heredoc(redirs);
 			return (FAILURE);
 		}
 		if (redirs->type & IN)
-			fd_dup = STDIN_FD;
+			dup2(fd, STDIN_FD);
 		else
-			fd_dup = STDOUT_FD;
-		dup2(fd, fd_dup);
+			dup2(fd, STDOUT_FD);
 		close(fd);
 		if (redirs->type & HEREDOC)
 			unlink(redirs->str);
@@ -58,13 +57,11 @@ void	exec_cmd(t_cmd_m *cmd, t_env_m *env)
 	char	**argv;
 	char	**envp;
 
-	if (!exec_redir(cmd->redir))
-	{
-		redirlist_unlink_heredoc(cmd->redir);
-		exit_on_failure(cmd, NULL, NULL, env);		
-	}
 	if (!cmd->argv)
-		exit_on_failure(cmd, NULL, NULL, env);
+	{
+		minishell_free(cmd, NULL, NULL, env);
+		exit(EXIT_SUCCESS);
+	}
 	argv = argvlist_to_argvtab(&cmd->argv);
 	pipeline_free(&cmd);
 	if (!argv)

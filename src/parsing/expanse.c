@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 16:03:55 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/07 05:40:31 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/15 22:03:23 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_bool	split_word(char *str, t_buff *buffer, t_list **argv)
 	{
 		if (is_blank(*str))
 		{
-			if (argv_add_buffer(argv, buffer) == FAILURE)
+			if (strlist_add_buffer(argv, buffer) == FAILURE)
 				return (FAILURE);
 			while (is_blank(*str))
 				str++;

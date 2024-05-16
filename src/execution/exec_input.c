@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:36:43 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/15 12:48:02 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/16 01:35:05 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,14 @@ int	exec_pipeline(t_cmd *pipeline, pid_t *pids, t_env *env)
 	return (SUCCESS);
 }
 
-void	exec_cmd_alone(t_cmd_m *cmd, t_env *env, int *exit_status)
+void	process_exec_cmd(t_cmd_m *cmd, t_env *env)
+{
+	if (!exec_redir(cmd->redir))
+		exit_on_failure(cmd, NULL, NULL, env);
+	exec_cmd(cmd, env);
+}
+
+void	exec_alone(t_cmd_m *cmd, t_env *env, int *exit_status)
 {
 	pid_t		pid[2];
 	t_builtin	builtin;
@@ -48,7 +55,7 @@ void	exec_cmd_alone(t_cmd_m *cmd, t_env *env, int *exit_status)
 	pid[1] = 0;
 	*pid = fork();
 	if (*pid == 0)
-		exec_cmd(cmd, env);
+		process_exec_cmd(cmd, env);
 	if (*pid == -1)
 	{
 		cmd_free(cmd);
@@ -59,7 +66,7 @@ void	exec_cmd_alone(t_cmd_m *cmd, t_env *env, int *exit_status)
 	cmd_free(cmd);
 }
 
-void	exec_cmd_pipe(t_cmd_m *pipeline, t_env *env, int *exit_status)
+void	exec_pipe(t_cmd_m *pipeline, t_env *env, int *exit_status)
 {
 	pid_t	*pids;
 
@@ -112,7 +119,7 @@ void	exec_input(t_char_m *input, t_env *env, int *exit_status)
 	if (!pipeline || heredoc(pipeline, env, exit_status) != SUCCESS)
 		return ;
 	if (!pipeline->next)
-		exec_cmd_alone(pipeline, env, exit_status);
+		exec_alone(pipeline, env, exit_status);
 	else
-		exec_cmd_pipe(pipeline, env, exit_status);
+		exec_pipe(pipeline, env, exit_status);
 }

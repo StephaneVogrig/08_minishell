@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 05:44:26 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/07 04:37:41 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/16 00:22:11 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_bool	strlist_add_str(t_list **strlist, char *str)
 	return (SUCCESS);
 }
 
-t_bool	argv_add_buffer(t_list **argv, t_buff *buffer)
+t_bool	strlist_add_buffer(t_list **argv, t_buff *buffer)
 {
 	t_char_m	*token;
 
