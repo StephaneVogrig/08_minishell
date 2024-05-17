@@ -7,7 +7,7 @@
 #include <string.h>
 #include <unistd.h>
 
-void	handler_ctrl_c(int signal)
+void	handler_ctrl_c_interactive(int signal)
 {
 	if (signal == SIGINT)
 	{
@@ -25,7 +25,7 @@ int	main(void)
 
 	sigemptyset(&sa.sa_mask);
 	sigaddset(&sa.sa_mask, SIGQUIT);
-	signal(SIGINT, handler_ctrl_c);
+	signal(SIGINT, handler_ctrl_c_interactive);
 	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{

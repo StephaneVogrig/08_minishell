@@ -23,7 +23,7 @@ void	print_prompt(void)
 // 	}
 // }
 
-void	handler_ctrl_c(int signal)
+void	handler_ctrl_c_interactive(int signal)
 {
 	if (signal == SIGINT)
 	{
@@ -68,7 +68,7 @@ int	main(void)
 	// sa.sa_sigaction = handler_ctrl_c;
 	// sa.sa_flags = SA_SIGINFO;
 	// sigaction(SIGINT, &sa, NULL);
-	signal(SIGINT, handler_ctrl_c);
+	signal(SIGINT, handler_ctrl_c_interactive);
 	// signal(SIGQUIT, handler_ctrl_backslash);
 	signal(SIGQUIT, SIG_IGN);
 	while (1)

@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 19:14:20 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/16 14:19:59 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/17 21:44:48 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,13 @@ int	exec_builtin_alone(t_builtin builtin, t_cmd *cmd, t_env *env)
 
 	fd[0] = dup(0);
 	fd[1] = dup(1);
-ft_printf("exec builtin alone,after dup - fd[0]:%i, fd[1]:%i\n", fd[0], fd[1]);
 	if (exec_redir(cmd->redir))
 		exit_code = builtin(cmd, env);
 	else
 		exit_code = EXIT_FAILURE;
 	dup2(fd[0], 0);
 	dup2(fd[1], 1);
-	int success_close0 = close(fd[0]);
-	int success_close1 = close(fd[1]);
-ft_printf("exec builtin alone,success close - fd[0]:%i, fd[1]:%i\n", success_close0, success_close1);
-ft_printf("exec builtin alone, close - fd[0]:%i, fd[1]:%i\n", fd[0], fd[1]);
+	close(fd[0]);
+	close(fd[1]);
 	return (exit_code);
 }

@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 16:08:46 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/16 21:18:27 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/17 21:09:35 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@
 
 extern volatile sig_atomic_t	g_signal;
 
-void	handler_ctrl_c(int signal);
+void	handler_ctrl_c(int sigint);
+void	handler_ctrl_c_interactive(int signal);
 void	handler_ctrl_c_heredoc(int signal);
+void	handler_ctrl_c_file(int signal);
 
 #endif
