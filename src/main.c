@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:55:55 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/17 21:38:12 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/17 22:03:56 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	run_interactive_mode(t_env *env, int *exit_status)
 	while (1)
 	{
 		signal(SIGINT, handler_ctrl_c_interactive);
-		input = readline("minishell>");
+		prompt_print();
+		input = readline("");
 		g_signal = 0;
 		signal(SIGINT, SIG_IGN);
 		if (!input)

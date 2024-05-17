@@ -1,28 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal_handler.h                                   :+:      :+:    :+:   */
+/*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/04 16:08:46 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/17 22:09:41 by svogrig          ###   ########.fr       */
+/*   Created: 2024/05/17 21:25:12 by svogrig           #+#    #+#             */
+/*   Updated: 2024/05/17 21:30:19 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIGNAL_HANDLER_H
-# define SIGNAL_HANDLER_H
+#include "prompt.h"
 
-# include <unistd.h>
-# include <signal.h>
-# include <readline/readline.h>
-# include <prompt.h>
-
-extern volatile sig_atomic_t	g_signal;
-
-void	handler_ctrl_c(int sigint);
-void	handler_ctrl_c_interactive(int signal);
-void	handler_ctrl_c_heredoc(int signal);
-void	handler_ctrl_c_file(int signal);
-
-#endif
+void	prompt_print(void)
+{
+	write(2, "\033[33mminishell>\033[0m", 20);
+}

@@ -6,7 +6,7 @@
 #    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/05/16 14:52:53 by svogrig          ###   ########.fr        #
+#    Updated: 2024/05/17 22:06:10 by svogrig          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,6 +59,7 @@ SRC				:=	main.c \
 					parsing/syntax_error.c \
 					parsing/token.c \
 					utils/exit.c \
+					shell/prompt.c \
 					utils/memory.c \
 					utils/pipe.c \
 					utils/signal_handler.c \
@@ -82,7 +83,8 @@ DIR_INC			:=	libft/include \
 					include/environment \
 					include/execution \
 					include/parsing \
-					include/utils
+					include/utils \
+					include/shell
 					
 I_FLAG			:=	$(addprefix -I,$(DIR_INC)) -MMD -MP
 				
