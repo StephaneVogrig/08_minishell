@@ -1,6 +1,7 @@
 .vscode
 .build
 TEST_MiniShell/test
+42_minishell_tester/
 minishell
 minishell_*
 *libft.a

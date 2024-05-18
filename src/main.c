@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:55:55 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/18 01:03:50 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/18 05:36:19 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,25 +35,41 @@ void	run_interactive_mode(t_env *env, int *exit_status)
 	write(2, "exit\n", 5);
 }
 
-void	suppress_endl(char *str)
+char	*mini_readline(void)
 {
-	while (*str)
+	char	c;
+	t_buff	buff;
+	char	*str;
+	int		n;
+
+	buff_init(&buff);
+	while (TRUE)
 	{
-		if (*str == '\n')
-			*str = '\0';
-		else
-			str++;
+		n = read(STDIN_FD, &c, 1);
+		if (n < 1)
+			return (NULL);
+		if (c == '\n')
+			break;
+		if (buff_add_char(&buff, c) == FAILURE)
+		{
+			buff_clear(&buff);
+			return (NULL);
+		}
 	}
+	str = buff_to_str(&buff);
+	buff_clear(&buff);
+	return (str);
 }
 
 void	run_file_mode(t_env *env, int *exit_status)
 {
 	char	*input;
 
-	while (1)
+	rl_inhibit_completion = 1;
+	while (TRUE)
 	{
 		signal(SIGINT, handler_ctrl_c_file);
-		input = get_next_line(STDIN_FD);
+		input = mini_readline();
 		if (!input)
 			break ;
 		if (g_signal)
@@ -62,7 +78,6 @@ void	run_file_mode(t_env *env, int *exit_status)
 			env_free(env);
 			exit(128 + SIGINT);
 		}
-		suppress_endl(input);
 		exec_input(input, env, exit_status);
 	}
 }
