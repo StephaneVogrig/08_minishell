@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
+#    By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/05/17 22:06:10 by svogrig          ###   ########.fr        #
+#    Updated: 2024/05/18 18:38:55 by smortemo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,11 +38,13 @@ SRC				:=	main.c \
 					data/command.c \
 					data/pipeline.c \
 					data/redirection.c \
+					environment/env_get.c \
+					environment/env_node.c \
 					environment/env_shlvl.c \
 					environment/env_utils.c \
 					environment/environment.c \
-					environment/list_utils.c \
-					environment/manage_node.c \
+					environment/envp.c \
+					environment/tilde.c \
 					execution/cmd_path.c \
 					execution/exec_builtin.c \
 					execution/exec_cmd.c \

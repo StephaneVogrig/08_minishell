@@ -6,12 +6,11 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:13:40 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/06 15:10:40 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/18 18:07:41 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
-#include "environment.h"
 
 t_bool	is_valid_arg(char *str)
 {

@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 22:22:07 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/05 15:53:11 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/18 18:33:15 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ int	display_envp_sorted(t_env *envp)
 {
 	char **tab_to_sort;
 
-	tab_to_sort = env_to_envp_export(envp, env_lst_size(envp, ALL));
+	tab_to_sort = env_to_envp_export(envp, env_size(envp, ALL));
 	strtab_sort(tab_to_sort);
 	strtab_free(tab_to_sort);
 	return (0);

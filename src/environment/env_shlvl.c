@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   env_shlvl.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 17:39:44 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/11 14:54:07 by stephane         ###   ########.fr       */
+/*   Updated: 2024/05/18 18:29:05 by smortemo         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "environment.h"
 
@@ -22,6 +22,9 @@ void	init_shlvl(t_env *env)
 	node = env_get_node_n(env, "SHLVL", 5);
 	if (!node)
 	{
+		// node = mem_env_node(node, env);//protection
+		// node_init(node, "SHLVL=1", EXPORTED);
+		// env_add_back(&env, node);
 		if(export_new_node(env, "SHLVL=1", 5) == ENOMEM)
 		{
 			env_free(env);
