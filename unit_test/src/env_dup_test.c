@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_dup_test.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:49:50 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/06 17:15:46 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/18 19:31:04 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void	test(char **strtab)
 		perror("");
 		return ;
 	}
-	init_shlvl(new); //initialise valeur SHLVL
+	env_shlvl_init(new); //initialise valeur SHLVL
 	node_home_cpy(new); // pour ~
 	display_list(new);
 	free_link_list(new);

@@ -6,7 +6,7 @@
 #    By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/05/18 18:38:55 by smortemo         ###   ########.fr        #
+#    Updated: 2024/05/18 19:19:58 by smortemo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ SRC				:=	main.c \
 					data/redirection.c \
 					environment/env_get.c \
 					environment/env_node.c \
+					environment/env_pwd.c \
 					environment/env_shlvl.c \
 					environment/env_utils.c \
 					environment/environment.c \
@@ -61,7 +62,9 @@ SRC				:=	main.c \
 					parsing/syntax_error.c \
 					parsing/token.c \
 					utils/exit.c \
+					shell/exit_status.c \
 					shell/prompt.c \
+					shell/shell_mode.c \
 					utils/memory.c \
 					utils/pipe.c \
 					utils/signal_handler.c \

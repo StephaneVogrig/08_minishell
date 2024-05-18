@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:55:55 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/18 17:22:06 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/18 20:16:29 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	run_interactive_mode(t_env *env, int *exit_status)
 {
 	char	*input;
 
+	if (shell_mode_init_interactive(env) == FAILURE)
+		return ;
 	while (1)
 	{
 		signal(SIGINT, handler_ctrl_c_interactive);
@@ -65,6 +67,8 @@ void	run_file_mode(t_env *env, int *exit_status)
 {
 	char	*input;
 
+	if (shell_mode_init_file(env) == FAILURE)
+		return ;
 	rl_inhibit_completion = 1;
 	while (TRUE)
 	{
@@ -96,6 +100,8 @@ int	main(int argc __attribute__((unused)), \
 	}
 	signal(SIGQUIT, SIG_IGN);
 	env = env_init(envp);
+	if (!env)
+		return (EXIT_FAILURE);
 	if (isatty(STDIN_FD))
 		run_interactive_mode(env, &exit_status);
 	else

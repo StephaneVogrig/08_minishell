@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:50:40 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/18 15:34:21 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/18 19:31:04 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	test(t_env *env)
 	printf("--------------------------------------------\n");
 	printf("TEST\n");
 	printf("--------------------------------------------\n");
-	init_shlvl(env);
+	env_shlvl_init(env);
 	printf("****** NEW ENV ***************\n");
 	env_display(env, ALL);
 }

@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 17:54:58 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/18 18:33:15 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/18 20:48:21 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,12 @@ t_env	*envp_to_env(char **envp)
 	env = NULL;
 	while (envp[i])
 	{
-		node = mem_env_node(node, env);
+		node = malloc(sizeof(*node));
+		if (!node)
+		{
+			env_free(env);
+			return (NULL);
+		}
 		node_init(node, envp[i], EXPORTED);
 		env_add_back(&env, node);
 		i++;

@@ -1,37 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell_mode.c                                       :+:      :+:    :+:   */
+/*   env_pwd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/18 15:32:09 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/18 21:00:41 by smortemo         ###   ########.fr       */
+/*   Created: 2024/05/18 19:02:40 by smortemo          #+#    #+#             */
+/*   Updated: 2024/05/18 20:16:05 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "environment.h"
 
-t_bool	shell_mode_init_interactive(t_env *env)
+t_bool	env_pwd_init(t_env **env)
 {
-		(void)env;
-	// if (!env_new("-", "i", 0, env))
-	// 	return (FAILURE);
-	return (SUCCESS);
-}
-
-t_bool	shell_mode_init_file(t_env *env)
-{
-		(void)env;
-	// if (!env_new("-", NULL, 0, env))
-	// 	return (FAILURE);
-	return (SUCCESS);
-}
-
-t_bool	shell_is_interactive(t_env *env)
-{
-	char	*mode;
-
-	mode = env_get(env, "-");
-	return (mode != NULL);
+	t_env	*node;
+	char	*str;
+	char buffer[PATH_MAX];
+	
+	node = NULL;
+	if(!env_get(*env, "PWD"))
+	{
+		node = malloc(sizeof(*node));
+		if (!node)
+			return (FAILURE);
+		str = ft_strjoin("PWD=", getcwd(buffer, PATH_MAX));
+		if (!str)
+			return (FAILURE);
+		node_init(node, str, EXPORTED);
+		env_add_back(env, node);
+	}	
+	return (SUCCESS);	
 }

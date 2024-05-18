@@ -6,24 +6,12 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 17:59:17 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/18 18:29:00 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/18 21:00:03 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "environment.h"
 
-void	*mem_env_node(t_env *node, t_env *env)
-{
-
-	node = malloc(sizeof(*node));
-	if (!node)
-	{
-		env_free(env);
-		return (NULL);//exit ??
-	}
-	return (node);
-
-}
 void	env_add_back(t_env **env, t_env *node)
 {
 	t_env	*temp;
@@ -38,9 +26,6 @@ void	env_add_back(t_env **env, t_env *node)
 		temp = temp->next;
 	temp->next = node;
 }
-
-
-
 
 void	env_free(t_env *env)
 {
@@ -60,31 +45,65 @@ t_env	*env_init(char **envp)
 {
 	t_env	*env;
 	t_env	*node;
-	char	*str;
-	char buffer[PATH_MAX];
 	
-	env = NULL;
 	node = NULL;
-	// + exist_status "?"
-	if (!envp[0])
-	{	
-		// init_shlvl(env);
-		node = mem_env_node(node, env);
-		node_init(node, "SHLVL=1", EXPORTED);//protection
-		env_add_back(&env, node);
-	}
-	else
+	env = NULL;
+	if (*envp)
 	{
 		env = envp_to_env(envp);
-		init_shlvl(env);
+		if (!env)
+			return (NULL);
 	}
-	if(!env_get_type(env, "PWD", EXPORTED))
+	if (env_shlvl_init(&env) == FAILURE || env_pwd_init(&env) == FAILURE)
 	{
-		node = mem_env_node(node, env);//protection
-		str = ft_strjoin("PWD=", getcwd(buffer, PATH_MAX));
-		node_init(node, str, EXPORTED);
-		env_add_back(&env, node);
-	}	
+		env_free(env);
+		return (NULL);
+	}
+	if (exit_status_init(&env) == FAILURE)
+	{
+		env_free(env);
+		return (NULL);
+	}
 	node_home_cpy(env);
 	return(env);
+}
+
+t_env	*env_node_new(char *name, char *value, int type)
+{
+	t_env	*new;
+
+	new = malloc(sizeof(*new));
+	if (!new)
+	{
+		perror("minishell: env_node_new0");
+		return (NULL);
+	}
+	new->name = ft_strdup(name);
+	if (!new->name)
+	{
+		perror("minishell: env_node_new");
+		free(new);
+		return (NULL);
+	}
+	new->value = ft_strdup(value);
+	if (!new->value)
+	{
+		perror("minishell: env_node_new");
+		free(new->name);
+		free(new);
+		return (NULL);
+	}
+	new->type = type;
+	return (new);
+}
+
+t_env	*env_add_new(char *name, char *value, int type, t_env **env)
+{
+	t_env	*new;
+	
+	new = env_node_new(name, value, type);
+	if(!new)
+		return (NULL);
+	env_add_back(env, new);
+	return (new);
 }
