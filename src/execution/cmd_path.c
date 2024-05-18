@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:36:25 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/15 19:38:56 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/18 15:19:48 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ char	*cmd_path(t_char_m **argv, t_env_m *env)
 		exit_on_file_error("command not found", argv, env);
 	if (ft_strchr(*argv, '/'))
 		return (path_checked("No such file or directory", argv, env));
-	path = env_get(env, "PATH");
+	path = env_get_type(env, "PATH", EXPORTED);
 	if (!path)
 		return (path_checked("command not found", argv, env));
 	buff = malloc(ft_strlen(path) + ft_strlen(*argv) + 2);

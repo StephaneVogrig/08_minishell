@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:50:40 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/05 14:04:52 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/18 15:34:21 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	test(t_env *env)
 	printf("--------------------------------------------\n");
 	init_shlvl(env);
 	printf("****** NEW ENV ***************\n");
-	display_the_list(env, ALL);
+	env_display(env, ALL);
 }
 
 void	env_shlvl_test(char **env)
@@ -36,7 +36,7 @@ void	env_shlvl_test(char **env)
 	strdup_unset = env_dup(strtab_unset);
 
 	printf("\nSOURCE TAB ----------------------------------\n");
-	display_the_list(strdup, ALL);
+	env_display(strdup, ALL);
 	test(strdup);
 	env_free(strdup);
 	
@@ -44,7 +44,7 @@ void	env_shlvl_test(char **env)
 	printf("\n TEST WITH ENV unset SHLVL  \n");
 	printf("____________________________________________\n");
 	printf("\nSOURCE TAB ----------------------------------\n");
-	display_the_list(strdup_unset, ALL);
+	env_display(strdup_unset, ALL);
 	test(strdup_unset);
 	env_free(strdup_unset);
 	printf("____________________________________________\n");

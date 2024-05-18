@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:55:55 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/18 05:36:19 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/18 17:22:06 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,11 +95,7 @@ int	main(int argc __attribute__((unused)), \
 		return (EXIT_SUCCESS);
 	}
 	signal(SIGQUIT, SIG_IGN);
-	env = env_dup(envp);
-	init_shlvl(env);
-	node_home_cpy(env);
-	if (!env)
-		return (EXIT_FAILURE);
+	env = env_init(envp);
 	if (isatty(STDIN_FD))
 		run_interactive_mode(env, &exit_status);
 	else

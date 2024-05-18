@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:50:40 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/02 23:15:55 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/18 15:34:29 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	test(t_env *env, char *str)
 	// path = getcwd(buffer, PATH_MAX);
 	printf("****** NEW ENV ***************\n");
 	// printf("current dir -> %s\n", path);
-	display_the_list(env, ALL);
+	env_display(env, ALL);
 }
 
 void	print_path(void) // for test
@@ -59,7 +59,7 @@ void	builtin_cd_test(char **env)
 	strdup = env_dup(strtab);
 
 	printf("\nSOURCE TAB ----------------------------------\n");
-	display_the_list(strdup, ALL);
+	env_display(strdup, ALL);
 
 	// test(strdup, "NO_EXIST");
 	// test(strdup, "../TEST_MiniShell");
@@ -75,7 +75,7 @@ void	builtin_cd_test(char **env)
 	printf("____________________________________________\n");
 	printf("\nSOURCE TAB ----------------------------------\n");
 	strdup = env_dup(strtab_unset);
-	display_the_list(strdup, ALL);
+	env_display(strdup, ALL);
 	print_path();
 	test(strdup, "..");
 	env_free(strdup);

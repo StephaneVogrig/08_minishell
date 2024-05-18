@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 18:23:08 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/05 14:22:47 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/18 15:33:26 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	env(t_env *env)
 {
 	if (env == NULL)
 		return (127);
-	display_the_list(env, EXPORTED);
+	env_display(env, EXPORTED);
 	return (0);
 }
 

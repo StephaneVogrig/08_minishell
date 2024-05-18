@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 23:27:39 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/13 14:43:36 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/18 15:19:14 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	uptdate_PWD_OLPWD(t_env *env)
 	char	*str;
 	char	buffer[PATH_MAX];
 
-	str = env_get(env, "PWD");
+	str = env_get_type(env, "PWD", EXPORTED);
 	node = env_get_node_n(env, "OLDPWD", 6);
 	if (!node)
 		return (1);
@@ -67,9 +67,9 @@ int	go_home(t_env *env, char c)
 
 	str = NULL;
 	if (c == ' ')
-		str = env_get(env, "HOME");
+		str = env_get_type(env, "HOME", EXPORTED);
 	else if (c == '~')
-		str = env_get(env, "HOME_cpy");
+		str = env_get_type(env, "HOME_cpy", INTERNAL);
 	if (!str)
 	{
 		fd_printf(STDERR_FD, "minishell: cd: HOME not set\n");

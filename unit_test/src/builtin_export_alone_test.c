@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 22:04:37 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/01 22:57:29 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/18 15:33:48 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	builtin_export_alone_test(void)
 	printf("--------------------------------------------\n");
 	printf("SOURCE LIST  \n");
 	printf("--------------------------------------------\n");
-	display_the_list(tab, ALL);
+	env_display(tab, ALL);
 
 	test_export_alone(tab);
 

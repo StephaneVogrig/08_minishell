@@ -65,7 +65,7 @@ void	test_export(t_env *env, char *str)
 	printf("TEST-> export %s \n", str);
 	printf("--------------------------------------------\n");
 	export(env, str);
-	display_the_list(env, ALL);
+	env_display(env, ALL);
 }
 
 void	builtin_export_test(void)
@@ -76,7 +76,7 @@ void	builtin_export_test(void)
 	lst = env_dup(strtab);
 
 	printf("\nSOURCE TAB ----------------------------------\n");
-	display_the_list(lst, ALL);
+	env_display(lst, ALL);
 	test_export(lst, "KEY3=test");
 	test_export(lst, "");
 	test_export(lst, "KEY4=****");
