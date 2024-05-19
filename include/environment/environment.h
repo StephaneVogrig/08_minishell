@@ -5,16 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/10 18:00:39 by smortemo          #+#    #+#             */
-<<<<<<< HEAD
-<<<<<<< HEAD
-/*   Updated: 2024/05/19 16:47:48 by svogrig          ###   ########.fr       */
-=======
-/*   Updated: 2024/05/19 17:59:29 by smortemo         ###   ########.fr       */
->>>>>>> 08bcac3 (node_home_cpy failure managed)
-=======
-/*   Updated: 2024/05/19 16:14:58 by smortemo         ###   ########.fr       */
->>>>>>> export_mod
+/*   Created: 2024/05/19 19:00:03 by smortemo          #+#    #+#             */
+/*   Updated: 2024/05/19 19:00:06 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
