@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 14:58:54 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/19 16:47:14 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/19 20:58:27 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,12 @@ void	exit_status_set(int n, t_env *env)
 inline char	*exit_status_get_str(t_env *env)
 {
 	return (env_get(env, "?"));
+}
+
+inline int	exit_status_get_int(t_env *env)
+{
+	char	*str;
+
+	str = env_get(env, "?");
+	return (ft_atoi(str));
 }

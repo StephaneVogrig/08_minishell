@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 23:20:41 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/15 13:22:08 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/19 21:04:55 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,18 +85,21 @@ int	exit_mini(t_cmd *cmd, t_env *env, t_list *argv)
 	}
 	return (1);
 }
+
 int	builtin_exit(t_cmd *cmd, t_env *env)
 {
 	t_list *argv;
+	int		exit_code;
 
 	argv = cmd->argv;
 	argv = argv->next;
 	if (!argv)
 	{
+		exit_code = exit_status_get_int(env);
 		cmd_free(cmd);
 		env_free(env);
 		write(1, "exit\n", 5);
-		exit(0);
+		exit(exit_code);
 	}
 	return (exit_mini(cmd, env, argv));
 }
