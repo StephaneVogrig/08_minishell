@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:55:55 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/19 17:34:47 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/19 17:59:23 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,9 @@ int	run_interactive_mode(t_env *env)
 int	run_file_mode(t_env *env)
 {
 	char	*input;
+	int		exit_code;
 
+	exit_code = 0;
 	if (shell_mode_init_file(env) == FAILURE)
 		return (EXIT_FAILURE);
 	rl_inhibit_completion = 1;
@@ -57,12 +59,12 @@ int	run_file_mode(t_env *env)
 		if (g_signal)
 		{
 			free(input);
-			env_free(env);
-			exit(128 + SIGINT);
+			exit_code = 128 + SIGINT;
+			break;
 		}
-		exec_input(input, env);
+		exit_code = exec_input(input, env);
 	}
-	return (EXIT_SUCCESS);
+	return (exit_code);
 }
 
 int	main(int argc __attribute__((unused)), \
