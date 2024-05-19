@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_node.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 14:09:56 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/18 20:02:03 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/19 11:32:41 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,12 @@ t_bool	node_init(t_env *node, char *str, int type)
 
 void	env_node_free(t_env *node)
 {
-	free(node->name);
-	free(node->value);
+	if (!node)
+		return ;
+	if (node->name)
+		free(node->name);
+	if (node->value)
+		free(node->value);
 	free(node);
 }
 

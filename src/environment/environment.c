@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 17:59:17 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/18 21:00:03 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/19 12:31:39 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,34 @@ t_env	*env_init(char **envp)
 	return(env);
 }
 
+t_bool	env_node_set_value(char *value, t_env *node)
+{
+	char	*str;
+
+	str = NULL;
+	if (value)
+	{
+		str = ft_strdup(value);
+		if (!str)
+		{
+			perror("minishell: env_node_set_value");
+			return (FAILURE);
+		}
+	}
+	if (node->value)
+		free(node->value);
+	node->value = str;
+	return (SUCCESS);
+}
+
 t_env	*env_node_new(char *name, char *value, int type)
 {
 	t_env	*new;
 
-	new = malloc(sizeof(*new));
+	new = ft_calloc(1, sizeof(*new));
 	if (!new)
 	{
-		perror("minishell: env_node_new0");
+		perror("minishell: env_node_new");
 		return (NULL);
 	}
 	new->name = ft_strdup(name);
@@ -85,12 +105,9 @@ t_env	*env_node_new(char *name, char *value, int type)
 		free(new);
 		return (NULL);
 	}
-	new->value = ft_strdup(value);
-	if (!new->value)
+	if (env_node_set_value(value, new) == FAILURE)
 	{
-		perror("minishell: env_node_new");
-		free(new->name);
-		free(new);
+		env_node_free(new);
 		return (NULL);
 	}
 	new->type = type;
