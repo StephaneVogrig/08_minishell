@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:00:39 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/18 21:01:26 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/19 14:43:44 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,14 @@
 # include <stdlib.h>
 # include <errno.h>
 
-# define INTERNAL 0
-# define EXPORTED 1
-# define NO_VALUE 2
-# define ALL 3
+/* type */
+# define INTERNAL 1
+# define EXPORTED 2
+# define NO_VALUE 3
+# define ALL 4
+
+/* errors */
+# define ENOEXIST 2
 
 typedef struct s_env
 {
@@ -62,6 +66,11 @@ void	env_node_del(t_env **env, t_env *node);
 t_bool	var_init(t_env *node, char *str, int n);
 int		export_new_node(t_env *env, char *str, int n);
 
+// ENV_NODE2 ------------------
+t_bool	env_node_set_value(char *value, t_env *node);
+t_env	*env_node_new(char *name, char *value, int type);
+t_env	*env_get_node(t_env *env, char *str);
+
 // ENVP ----------------------
 t_env	*envp_to_env(char **envp);
 char	**env_to_envp(t_env *env);
@@ -71,7 +80,7 @@ char	*env_join(char *name, char *value);
 void	env_add_back(t_env **env, t_env *node);
 void	env_free(t_env *env);
 t_env	*env_init(char **envp);
-t_env	*env_node_new(char *name, char *value, int type);
+int		env_set_value(char *name, char *value, t_env *env);
 t_env	*env_add_new(char *name, char *value, int type, t_env **env);
 
 // EXIT_STATUS -------------------

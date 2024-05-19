@@ -3,27 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:37:23 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/18 17:49:14 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/19 14:42:44 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
-
-t_env	*env_get_node(t_env *env, char *str)
-{
-	if (!env || !str)
-		return (NULL);
-	while (env)
-	{
-		if (!ft_strcmp(env->name, str))
-			return (env);
-		env = env->next;
-	}
-	return (NULL);
-}
 
 static int	unset(t_env *env, char *str)
 {

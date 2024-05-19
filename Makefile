@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+         #
+#    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/05/18 19:19:58 by smortemo         ###   ########.fr        #
+#    Updated: 2024/05/19 14:38:32 by svogrig          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ SRC				:=	main.c \
 					data/redirection.c \
 					environment/env_get.c \
 					environment/env_node.c \
+					environment/env_node2.c \
 					environment/env_pwd.c \
 					environment/env_shlvl.c \
 					environment/env_utils.c \

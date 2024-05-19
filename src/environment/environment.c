@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 17:59:17 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/19 12:31:39 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/19 14:45:58 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,19 @@ void	env_free(t_env *env)
 	}
 }
 
+t_bool env_init_shellvar(t_env **env)
+{
+	t_bool	success;
+
+	success = env_shlvl_init(env);
+	if (success)
+		success = env_pwd_init(env);
+	if (success)
+		success = exit_status_init(env);
+	node_home_cpy(*env);
+	return (success);
+}
+
 t_env	*env_init(char **envp)
 {
 	t_env	*env;
@@ -54,64 +67,22 @@ t_env	*env_init(char **envp)
 		if (!env)
 			return (NULL);
 	}
-	if (env_shlvl_init(&env) == FAILURE || env_pwd_init(&env) == FAILURE)
+	if (env_init_shellvar(&env) == FAILURE)
 	{
 		env_free(env);
 		return (NULL);
 	}
-	if (exit_status_init(&env) == FAILURE)
-	{
-		env_free(env);
-		return (NULL);
-	}
-	node_home_cpy(env);
 	return(env);
 }
 
-t_bool	env_node_set_value(char *value, t_env *node)
+int	env_set_value(char *name, char *value, t_env *env)
 {
-	char	*str;
+	t_env	*node;
 
-	str = NULL;
-	if (value)
-	{
-		str = ft_strdup(value);
-		if (!str)
-		{
-			perror("minishell: env_node_set_value");
-			return (FAILURE);
-		}
-	}
-	if (node->value)
-		free(node->value);
-	node->value = str;
-	return (SUCCESS);
-}
-
-t_env	*env_node_new(char *name, char *value, int type)
-{
-	t_env	*new;
-
-	new = ft_calloc(1, sizeof(*new));
-	if (!new)
-	{
-		perror("minishell: env_node_new");
-		return (NULL);
-	}
-	new->name = ft_strdup(name);
-	if (!new->name)
-	{
-		perror("minishell: env_node_new");
-		free(new);
-		return (NULL);
-	}
-	if (env_node_set_value(value, new) == FAILURE)
-	{
-		env_node_free(new);
-		return (NULL);
-	}
-	new->type = type;
-	return (new);
+	node = env_get_node(env, name);
+	if (!node)
+		return (ENOEXIST);
+	return (env_node_set_value(value, node));
 }
 
 t_env	*env_add_new(char *name, char *value, int type, t_env **env)
