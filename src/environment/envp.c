@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 17:54:58 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/18 20:48:21 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/19 16:13:45 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_env	*envp_to_env(char **envp)
 			env_free(env);
 			return (NULL);
 		}
-		node_init(node, envp[i], EXPORTED);
+		node_init(node, envp[i]);
 		env_add_back(&env, node);
 		i++;
 	}

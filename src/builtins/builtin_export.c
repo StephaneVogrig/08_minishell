@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:13:40 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/19 14:32:19 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/19 16:34:33 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,16 +95,16 @@ int	builtin_export(t_cmd *cmd, t_env *env)
 	argv = cmd->argv;
 	argv = argv->next;
 	if (!argv)
-		return (display_envp_sorted(env));
+	{
+		ret = display_envp_sorted(env);
+		if (ret == ENOMEM)
+			exit_on_failure(cmd, NULL, NULL, env);
+	}	
 	while (argv)
 	{
 		error = export(env, argv->content);
 		if (error == ENOMEM)
-		{
-			env_free(env);
-			pipeline_free(&cmd);
-			exit(EXIT_FAILURE);
-		}
+			exit_on_failure(cmd, NULL, NULL, env);
 		if (error == 1)
 			ret = 1;
 		argv = argv->next;

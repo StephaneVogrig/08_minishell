@@ -6,24 +6,51 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 14:09:56 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/18 20:02:03 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/19 16:13:16 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "environment.h"
 
-t_bool	node_init(t_env *node, char *str, int type)
+// t_bool	node_init(t_env *node, char *str, int type)
+// {
+// 	int	index;
+
+// 	index = ft_strchr_i(str, '=');
+// 	node->name = ft_strndup(str, index);
+// 	if (!node->name)
+// 		return (FAILURE);//exit ??
+// 	node->value = ft_strdup(&str[index + 1]);
+// 	if (!node->value)
+// 		return (FAILURE);//exit ??
+// 	node->type = type;
+// 	node->next = NULL;
+// 	return (SUCCESS);
+// }
+
+t_bool	node_init(t_env *node, char *str)
 {
 	int	index;
 
-	index = ft_strchr_i(str, '=');
+	if (ft_strchr(str, '='))
+	{
+		index = ft_strchr_i(str, '=');
+		node->value = ft_strdup(&str[index + 1]);
+		if (!node->value)
+			return (FAILURE);
+		node->type = EXPORTED;
+	}
+	else
+	{
+		index = ft_strlen(str);
+		node->value = malloc(1);
+		if (!node->value)
+			return (FAILURE);
+		node->type = INTERNAL;
+	}
 	node->name = ft_strndup(str, index);
 	if (!node->name)
-		return (FAILURE);//exit ??
-	node->value = ft_strdup(&str[index + 1]);
-	if (!node->value)
-		return (FAILURE);//exit ??
-	node->type = type;
+		return (FAILURE);
 	node->next = NULL;
 	return (SUCCESS);
 }
