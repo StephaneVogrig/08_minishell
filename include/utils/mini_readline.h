@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_input.h                                       :+:      :+:    :+:   */
+/*   mini_readline.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/05 20:37:35 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/19 17:35:41 by svogrig          ###   ########.fr       */
+/*   Created: 2024/05/19 16:51:42 by svogrig           #+#    #+#             */
+/*   Updated: 2024/05/19 16:53:13 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXEC_INPUT_H
-# define EXEC_INPUT_H
+#ifndef MINI_READLINE_H
+# define MINI_READLINE_H
 
-# include "builtin.h"
-# include "heredoc.h"
-# include "input_to_pipeline.h"
-# include "pipeline_wait.h"
-# include "process.h"
-# include "str.h"
-# include "syntax_error.h"
+#include "buff.h"
 
-# define SYNTAX_ERROR 2
-
-int	exec_input(char *input, t_env *envp);
+char	*mini_readline(void);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:25:18 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/16 00:28:45 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/19 17:22:01 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,18 @@ char	*new_current_cmd(t_cmd **cmd, char *str)
 	return (++str);
 }
 
-char	*parse(char *input, t_cmd **cmd, t_env *env, int *exit_status)
+char	*parse(char *input, t_cmd **cmd, t_env *env)
 {
 	if (*input == '|')
 		return (new_current_cmd(cmd, input));
 	if (*input == '<' && *(input + 1) == '<')
 		return (next_token_to_heredoc(input + 2, &(*cmd)->redir));
 	if (*input == '>' || *input == '<')
-		return (next_token_to_redir(input, &(*cmd)->redir, env, exit_status));
-	return (next_token_to_strlist(input, &((*cmd)->argv), env, exit_status));
+		return (next_token_to_redir(input, &(*cmd)->redir, env));
+	return (next_token_to_strlist(input, &((*cmd)->argv), env));
 }
 
-t_cmd	*input_to_pipeline(char *input, t_env *env, int *exit_status)
+t_cmd	*input_to_pipeline(char *input, t_env *env)
 {
 	t_cmd	*pipeline;
 	t_cmd	*cmd;
@@ -47,7 +47,7 @@ t_cmd	*input_to_pipeline(char *input, t_env *env, int *exit_status)
 	pipeline = cmd;
 	while (*input)
 	{
-		input = parse(input, &cmd, env, exit_status);
+		input = parse(input, &cmd, env);
 		if (!input)
 		{
 			pipeline_free(&pipeline);

@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 16:21:41 by stephane          #+#    #+#             */
-/*   Updated: 2024/04/29 02:03:23 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/19 17:20:13 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ char	*parse_spl_quoted(t_buff *buffer, char *str)
 	return (temp);
 }
 
-char	*parse_dbl_quoted(t_buff *buffer, char *str, t_env *env, int *exit_status)
+char	*parse_dbl_quoted(t_buff *buffer, char *str, t_env *env)
 {
 	str++;
 	while (*str != '\"')
 	{
 		if (*str == '$')
 		{
-			str = expanse_quoted(buffer, ++str, env, exit_status);
+			str = expanse_quoted(buffer, ++str, env);
 			if (!str)
 				return (NULL);
 		}	

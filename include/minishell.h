@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:59:23 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/18 20:58:50 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/19 16:54:54 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,6 @@
 # include "exec_input.h"
 # include "environment.h"
 # include "buff.h"
+# include "mini_readline.h"
 
 #endif

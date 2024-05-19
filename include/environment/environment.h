@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:00:39 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/19 14:43:44 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/19 16:47:48 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ t_env	*env_add_new(char *name, char *value, int type, t_env **env);
 
 // EXIT_STATUS -------------------
 t_bool	exit_status_init(t_env **env);
-t_bool	exit_status_set(int value, t_env *env);
-inline char	*exit_status_get_str(t_env *env);
+void	exit_status_set(int value, t_env *env);
+char	*exit_status_get_str(t_env *env);
 
 // SHELL_MODE --------------------
 t_bool	shell_mode_init_interactive(t_env *env);

@@ -3,21 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:55:55 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/18 20:16:29 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/19 17:34:47 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	run_interactive_mode(t_env *env, int *exit_status)
+int	run_interactive_mode(t_env *env)
 {
 	char	*input;
+	int		exit_code;
 
+	exit_code = 0;
 	if (shell_mode_init_interactive(env) == FAILURE)
-		return ;
+		return (EXIT_FAILURE);
 	while (1)
 	{
 		signal(SIGINT, handler_ctrl_c_interactive);
@@ -32,43 +34,19 @@ void	run_interactive_mode(t_env *env, int *exit_status)
 			continue ;
 		}
 		add_history(input);
-		exec_input(input, env, exit_status);
+		exit_code = exec_input(input, env);
+		exit_status_set(exit_code, env);
 	}
 	write(2, "exit\n", 5);
+	return (exit_code);
 }
 
-char	*mini_readline(void)
-{
-	char	c;
-	t_buff	buff;
-	char	*str;
-	int		n;
-
-	buff_init(&buff);
-	while (TRUE)
-	{
-		n = read(STDIN_FD, &c, 1);
-		if (n < 1)
-			return (NULL);
-		if (c == '\n')
-			break;
-		if (buff_add_char(&buff, c) == FAILURE)
-		{
-			buff_clear(&buff);
-			return (NULL);
-		}
-	}
-	str = buff_to_str(&buff);
-	buff_clear(&buff);
-	return (str);
-}
-
-void	run_file_mode(t_env *env, int *exit_status)
+int	run_file_mode(t_env *env)
 {
 	char	*input;
 
 	if (shell_mode_init_file(env) == FAILURE)
-		return ;
+		return (EXIT_FAILURE);
 	rl_inhibit_completion = 1;
 	while (TRUE)
 	{
@@ -82,17 +60,18 @@ void	run_file_mode(t_env *env, int *exit_status)
 			env_free(env);
 			exit(128 + SIGINT);
 		}
-		exec_input(input, env, exit_status);
+		exec_input(input, env);
 	}
+	return (EXIT_SUCCESS);
 }
 
 int	main(int argc __attribute__((unused)), \
 		char **argv __attribute__((unused)), char **envp)
 {
 	t_env	*env;
-	int		exit_status;
+	int		exit_code;
 
-	exit_status = 0;
+	exit_code = 0;
 	if (argc > 1)
 	{
 		write(STDOUT_FD, "usage: ./minishell\n", 20);
@@ -103,9 +82,9 @@ int	main(int argc __attribute__((unused)), \
 	if (!env)
 		return (EXIT_FAILURE);
 	if (isatty(STDIN_FD))
-		run_interactive_mode(env, &exit_status);
+		exit_code = run_interactive_mode(env);
 	else
-		run_file_mode(env, &exit_status);
+		exit_code = run_file_mode(env);
 	env_free(env);
-	return (exit_status);
+	return (exit_code);
 }

@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:36:43 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/17 21:09:04 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/19 17:26:08 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	exec_pipeline(t_cmd *pipeline, pid_t *pids, t_env *env)
 	if (*pid > -1)
 		*(++pid) = process_last(pipeline, fd, env, pids);
 	if (*pid == -1)
-		return (ERROR);
+		return (FAILURE);
 	return (SUCCESS);
 }
 
@@ -40,17 +40,19 @@ void	process_exec_cmd(t_cmd_m *cmd, t_env *env)
 	exec_cmd(cmd, env);
 }
 
-void	exec_alone(t_cmd_m *cmd, t_env *env, int *exit_status)
+int	exec_alone(t_cmd_m *cmd, t_env *env)
 {
 	pid_t		pid[2];
 	t_builtin	builtin;
+	int			exit_code;
 
+	exit_code = 0;
 	builtin = builtin_function(cmd->argv);
 	if (builtin)
 	{
-		*exit_status = exec_builtin_alone(builtin, cmd, env);
+		exit_code = exec_builtin_alone(builtin, cmd, env);
 		cmd_free(cmd);
-		return ;
+		return (exit_code);
 	}
 	pid[1] = 0;
 	*pid = fork();
@@ -62,13 +64,14 @@ void	exec_alone(t_cmd_m *cmd, t_env *env, int *exit_status)
 		env_free(env);
 		exit(EXIT_FAILURE);
 	}
-	*exit_status = wait_process(pid);
 	cmd_free(cmd);
+	return (wait_process(pid));
 }
 
-void	exec_pipe(t_cmd_m *pipeline, t_env *env, int *exit_status)
+int	exec_pipe(t_cmd_m *pipeline, t_env *env)
 {
 	pid_t	*pids;
+	int		exit_code;
 
 	pids = ft_calloc(sizeof(int), cmd_nbr(pipeline) + 1);
 	if (!pids)
@@ -79,9 +82,10 @@ void	exec_pipe(t_cmd_m *pipeline, t_env *env, int *exit_status)
 		exit(EXIT_FAILURE);
 	}
 	exec_pipeline(pipeline, pids, env);
-	*exit_status = wait_process(pids);
 	pipeline_free(&pipeline);
+	exit_code = wait_process(pids);
 	free(pids);
+	return (exit_code);
 }
 
 t_bool	is_empty(char *str)
@@ -93,7 +97,7 @@ t_bool	is_empty(char *str)
 	return (FALSE);
 }
 
-void	exec_input(t_char_m *input, t_env *env, int *exit_status)
+int	exec_input(t_char_m *input, t_env *env)
 {
 	t_cmd_m	*pipeline;
 	char	*str;
@@ -102,25 +106,23 @@ void	exec_input(t_char_m *input, t_env *env, int *exit_status)
 	if (*str == '\0')
 	{
 		free(input);
-		*exit_status = SUCCESS;
-		return ;
+		return (EXIT_SUCCESS);
 	}
 	if (syntax_error(str))
 	{
 		free(input);
-		*exit_status = SYNTAX_ERROR;
-		return ;
+		return (SYNTAX_ERROR);
 	}
 	errno = 0;
-	pipeline = input_to_pipeline(str, env, exit_status);
+	pipeline = input_to_pipeline(str, env);
 	free(input);
 	if (errno != 0)
 		exit_on_failure(NULL, NULL, NULL, env);
-	if (!pipeline || heredoc(pipeline, env, exit_status) != SUCCESS)
-		return ;
+	if (!pipeline || heredoc(pipeline, env) != SUCCESS)
+		return (EXIT_SUCCESS);
 	signal(SIGINT, handler_ctrl_c);
 	if (!pipeline->next)
-		exec_alone(pipeline, env, exit_status);
+		return (exec_alone(pipeline, env));
 	else
-		exec_pipe(pipeline, env, exit_status);
+		return (exec_pipe(pipeline, env));
 }

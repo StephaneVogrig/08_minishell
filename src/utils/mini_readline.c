@@ -1,28 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_input.h                                       :+:      :+:    :+:   */
+/*   mini_readline.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/05 20:37:35 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/19 17:35:41 by svogrig          ###   ########.fr       */
+/*   Created: 2024/05/19 16:50:30 by svogrig           #+#    #+#             */
+/*   Updated: 2024/05/19 16:51:07 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXEC_INPUT_H
-# define EXEC_INPUT_H
+#include "mini_readline.h"
 
-# include "builtin.h"
-# include "heredoc.h"
-# include "input_to_pipeline.h"
-# include "pipeline_wait.h"
-# include "process.h"
-# include "str.h"
-# include "syntax_error.h"
+char	*mini_readline(void)
+{
+	char	c;
+	t_buff	buff;
+	char	*str;
+	int		n;
 
-# define SYNTAX_ERROR 2
-
-int	exec_input(char *input, t_env *envp);
-
-#endif
+	buff_init(&buff);
+	while (TRUE)
+	{
+		n = read(STDIN_FD, &c, 1);
+		if (n < 1)
+			return (NULL);
+		if (c == '\n')
+			break;
+		if (buff_add_char(&buff, c) == FAILURE)
+		{
+			buff_clear(&buff);
+			return (NULL);
+		}
+	}
+	str = buff_to_str(&buff);
+	buff_clear(&buff);
+	return (str);
+}

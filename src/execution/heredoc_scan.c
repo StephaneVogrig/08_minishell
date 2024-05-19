@@ -6,13 +6,13 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:05:04 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/16 21:19:00 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/19 17:32:17 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "heredoc.h"
 
-char	*heredoc_expanse(int fd, char *str,t_env *env, int *exit_status)
+char	*heredoc_expanse(int fd, char *str,t_env *env)
 {
 	char	*end;
 	char	*expand;
@@ -20,11 +20,8 @@ char	*heredoc_expanse(int fd, char *str,t_env *env, int *exit_status)
 
 	if (*str == '?')
 	{
-		expand = ft_itoa(*exit_status);
-		if (!expand)
-			return (NULL);
+		expand = env_get(env, "?");
 		ft_putstr_fd(expand, fd);
-		free (expand);
 		return (str + 1);
 	}
 	end = end_name(str);
@@ -39,7 +36,7 @@ char	*heredoc_expanse(int fd, char *str,t_env *env, int *exit_status)
 	return (end);
 }
 
-void	heredoc_save_expanse(int fd, char *input, t_env *env, int *exit_status)
+void	heredoc_save_expanse(int fd, char *input, t_env *env)
 {
 	int	i;
 
@@ -55,7 +52,7 @@ void	heredoc_save_expanse(int fd, char *input, t_env *env, int *exit_status)
 		if (input[i] == '$')
 		{
 			write(fd, input, i);
-			input = heredoc_expanse(fd, &input[i + 1], env, exit_status);
+			input = heredoc_expanse(fd, &input[i + 1], env);
 			i = 0;
 			continue ;
 		}
@@ -78,7 +75,7 @@ t_bool	is_scan_end(char *input, char *limiter)
 	return (FALSE);
 }
 
-int	heredoc_scan(int fd, t_redir *redir, t_env *env, int *exit_status)
+int	heredoc_scan(int fd, t_redir *redir, t_env *env)
 {
 	char	*input;
 
@@ -93,7 +90,7 @@ int	heredoc_scan(int fd, t_redir *redir, t_env *env, int *exit_status)
 		if (is_scan_end(input, redir->str))
 			break ;
 		if (redir->type & EXPANSE)
-			heredoc_save_expanse(fd, input, env, exit_status);
+			heredoc_save_expanse(fd, input, env);
 		else
 			fd_printf(fd, "%s\n", input);
 		free(input);		

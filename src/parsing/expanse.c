@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 16:03:55 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/15 22:03:23 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/19 17:16:40 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,25 +22,19 @@ char	*end_name(char *str)
 	return (str);
 }
 
-char	*expanse_exit_status(t_buff *buffer, char *str, int *exit_status)
+char	*expanse_exit_status(t_buff *buffer, char *str, t_env *env)
 {
-	t_char_m	*nbrstr;
-	
-	nbrstr = ft_itoa(*exit_status);
-	if (!nbrstr)
-		return (NULL);
-	if (buff_add_str(buffer, nbrstr) == FAILURE)
-		return (NULL);
-	free(nbrstr);
+	if (buff_add_str(buffer, env_get(env, "?")) == FAILURE)
+			return (NULL);
 	return (++str);		
 }
 
-char	*expanse_quoted(t_buff *buffer, char *str, t_env *env, int *exit_status)
+char	*expanse_quoted(t_buff *buffer, char *str, t_env *env)
 {
 	char	*end;
 	
 	if (*str == '?')
-		return (expanse_exit_status(buffer, str, exit_status));
+		return (expanse_exit_status(buffer, str, env));
 	end = end_name(str);
 	if (end == str)
 	{
@@ -78,7 +72,9 @@ t_bool	split_word(char *str, t_buff *buffer, t_list **argv)
 char	*expanse_unquoted(t_buff *buffer, char *str, t_list **argv, t_env *env)
 {
 	char	*end;
-	
+
+	if (*str == '?')
+		return (expanse_exit_status(buffer, str, env));
 	end = end_name(str);
 	if (end == str)
 	{

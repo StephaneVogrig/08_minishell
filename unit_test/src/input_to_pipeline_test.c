@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_to_pipeline_test.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 22:24:13 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/06 14:58:34 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/19 17:30:01 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,9 @@
 
 void	test(char *str, t_env *env)
 {
-	int		exit_status;
 	t_cmd_m	*pipeline;
 
-	exit_status = 0;
-	pipeline = input_to_pipeline(str, env, &exit_status);
+	pipeline = input_to_pipeline(str, env);
 	ft_printf(PURPLE);
 	ft_printf("%s\n", str);
 	ft_printf(RESET);
