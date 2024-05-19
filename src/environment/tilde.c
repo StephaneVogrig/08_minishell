@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 17:59:17 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/18 19:47:46 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/19 17:59:20 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,24 +30,26 @@ char	*create_home_path(t_env *env)
 	return (home);
 }
 
-void	node_home_cpy(t_env *env)
+int	node_home_cpy(t_env *env)
 {
 	t_env	*node;
 	char	*str;
 
 	node = malloc(sizeof(*node));
 	if (!node)
-		return ;
+		return (ENOMEM);
 	node->name = ft_strdup("HOME_cpy");
 	if (!node->name)
-		return ;
+		return (ENOMEM);
 	str = env_get_type(env, "HOME", EXPORTED);
 	if (str)
 		node->value = ft_strdup(str);
 	else
 	node->value = create_home_path(env);
+	if(!node->value)
+		return (ENOMEM);
 	node->type = INTERNAL;
 	node->next = NULL;
 	env_add_back(&env, node);
-	return ;
+	return (0);
 }

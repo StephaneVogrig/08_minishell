@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   environment.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:00:39 by smortemo          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/05/19 16:47:48 by svogrig          ###   ########.fr       */
+=======
+/*   Updated: 2024/05/19 17:59:29 by smortemo         ###   ########.fr       */
+>>>>>>> 08bcac3 (node_home_cpy failure managed)
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +55,7 @@ t_bool	env_shlvl_init(t_env **env);
 
 // TILDE ---------------
 char	*create_home_path(t_env *env);
-void	node_home_cpy(t_env *env);
+int		node_home_cpy(t_env *env);
 
 // ENV_GET --------------------
 t_env	*env_get_node_n(t_env *env, char *str, int n);

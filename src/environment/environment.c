@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 17:59:17 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/19 14:45:58 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/19 18:00:42 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ t_bool env_init_shellvar(t_env **env)
 		success = env_pwd_init(env);
 	if (success)
 		success = exit_status_init(env);
-	node_home_cpy(*env);
+	if(node_home_cpy(*env) == ENOMEM)
+		return(FAILURE);
 	return (success);
 }
 
