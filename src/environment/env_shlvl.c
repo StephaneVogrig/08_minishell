@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 17:39:44 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/18 20:21:00 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/19 16:13:42 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_bool	env_shlvl_init(t_env **env)
 	if (!node)
 	{
 		node = malloc(sizeof(*node));
-		node_init(node, "SHLVL=1", EXPORTED);
+		node_init(node, "SHLVL=1");
 		env_add_back(env, node);
 		return (SUCCESS);
 	}

@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:13:40 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/18 18:07:41 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/19 16:34:33 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,6 @@ int	end_var_name(char *str)
 	return (i);
 }
 
-// les 2 fct suivantes sont dans manage_node.c (+declaration environment.h)
-// t_bool	var_init(t_env *node, char *str, int n) 
-// int	export_new_node(t_env *env, char *str, int n)
-
 static int	export_run(t_env *env, char *str)
 {
 	int		n;
@@ -66,7 +62,11 @@ static int	export_run(t_env *env, char *str)
 		node->value = ft_strdup(&str[n + 1]);
 	}
 	if (node && str[n] == '+')
+	{
 		node->value = ft_strjoin_free_s1(node->value, &str[n + 2]);
+		if (!node->value)
+			return (ENOMEM);
+	}
 	if (!node)
 		return (export_new_node(env, str, n));
 	return (0);
@@ -95,16 +95,16 @@ int	builtin_export(t_cmd *cmd, t_env *env)
 	argv = cmd->argv;
 	argv = argv->next;
 	if (!argv)
-		return (display_envp_sorted(env));
+	{
+		ret = display_envp_sorted(env);
+		if (ret == ENOMEM)
+			exit_on_failure(cmd, NULL, NULL, env);
+	}	
 	while (argv)
 	{
 		error = export(env, argv->content);
 		if (error == ENOMEM)
-		{
-			env_free(env);
-			pipeline_free(&cmd);
-			exit(EXIT_FAILURE);
-		}
+			exit_on_failure(cmd, NULL, NULL, env);
 		if (error == 1)
 			ret = 1;
 		argv = argv->next;

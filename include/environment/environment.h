@@ -7,10 +7,14 @@
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:00:39 by smortemo          #+#    #+#             */
 <<<<<<< HEAD
+<<<<<<< HEAD
 /*   Updated: 2024/05/19 16:47:48 by svogrig          ###   ########.fr       */
 =======
 /*   Updated: 2024/05/19 17:59:29 by smortemo         ###   ########.fr       */
 >>>>>>> 08bcac3 (node_home_cpy failure managed)
+=======
+/*   Updated: 2024/05/19 16:14:58 by smortemo         ###   ########.fr       */
+>>>>>>> export_mod
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +68,7 @@ char	*env_get(t_env *env, char *str);
 char	*env_get_n(t_env *env, char *str, int n);
 
 // ENV_NODE --------------------
-t_bool	node_init(t_env *node, char *str, int type);
+t_bool	node_init(t_env *node, char *str);
 void	env_node_free(t_env *node);
 void	env_node_del(t_env **env, t_env *node);
 t_bool	var_init(t_env *node, char *str, int n);
