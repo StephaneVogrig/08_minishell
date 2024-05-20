@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 16:03:55 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/19 17:16:40 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/20 00:39:13 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ char	*expanse_unquoted(t_buff *buffer, char *str, t_list **argv, t_env *env)
 
 	if (*str == '?')
 		return (expanse_exit_status(buffer, str, env));
+	if (*str == '\'' || *str == '\"')
+		return (str);
 	end = end_name(str);
 	if (end == str)
 	{
