@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 22:22:07 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/19 16:26:08 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/19 21:46:04 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,10 @@ void	env_sorted_display(t_env *env)
 	while (env != NULL)
 	{
 		if(env->type == EXPORTED)
-			printf("declare -x %s=\"%s\"\n", env->name, env->value);
+		{
+			if (env->name[0] != '_' && env->name[1] != '\0')
+				printf("declare -x %s=\"%s\"\n", env->name, env->value);
+		}
 		else
 			printf("declare -x %s\n", env->name);
 		env = env->next;
@@ -91,36 +94,56 @@ int	strtab_sort(char **to_sort)
 	return (0);
 }
 
+void	strtab_print(char **tabstr)////////
+{
+	if (tabstr == NULL)
+		return ;
+	while (*tabstr)
+	{
+		ft_putstr_fd(*tabstr, STDOUT_FD);
+		write(STDOUT_FD, "\n", 1);
+		tabstr++;
+	}
+}
+
 char	**env_to_envp_export(t_env *env, int size)
 {
 	char	**envp;
 	int		i;
-
+	int j;
+	j = 1;
 	i = 0;
-	envp = calloc(size + 2, sizeof(*envp));
+	// printf("size=%d\n", size);
+	envp = calloc(size + 1, sizeof(*envp));
 	if (!envp)
 		return (NULL);
-	while (i <= size)
+	while (env)//(i < size )//
 	{
-		if (env->name[0] == '_' && env->name[1] == '\0')
+		// if (env->name[0] == '_' && env->name[1] == '\0')
+		// 	env = env->next;
+		if (env->type == INTERNAL)
 			env = env->next;
 		else
 		{
 			if (env->type == EXPORTED && env->value[0] != '\0')
 				envp[i] = env_join(env->name, env->value);
-			else if (env->type == NO_VALUE && env->value[0] == '\0')
-				envp[i] = ft_strdup(env->name);
-			else
+			else if (env->type == EXPORTED && env->value[0] == '\0')
 				envp[i] = ft_strjoin(env->name, "=");
+			else if (env->type == NO_VALUE)
+				envp[i] = ft_strdup(env->name);
 			if (!envp[i])
 			{
 				strtab_free(envp);
 				return (NULL);
 			}
-			i++;
+			// printf("i=%d\n", i);
 			env = env->next;
+			i++;
 		}
 	}
+	// printf("////////// TAB /////////////\n");
+	// strtab_print(envp);
+	// printf("////////////////////////////\n");
 	return (envp);
 }
 
