@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:05:04 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/19 17:32:17 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/20 04:19:38 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,9 @@ int	heredoc_scan(int fd, t_redir *redir, t_env *env)
 		input = readline(">");
 		if (g_signal == SIGINT)
 		{
+			g_signal = 0;
 			free(input);
-			return (130);
+			return (128 + SIGINT);
 		}
 		if (is_scan_end(input, redir->str))
 			break ;

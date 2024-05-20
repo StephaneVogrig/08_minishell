@@ -6,25 +6,30 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:55:55 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/20 00:22:40 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/20 04:43:35 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int event(void)
+{
+	return (0);
+}
 
 int	run_interactive_mode(t_env *env)
 {
 	char	*input;
 	int		exit_code;
 
-	exit_code = 0;
 	if (shell_mode_init_interactive(env) == FAILURE)
 		return (EXIT_FAILURE);
+	exit_code = 0;
+	rl_event_hook = event;
 	while (1)
 	{
 		signal(SIGINT, handler_ctrl_c_interactive);
 		input = readline("\001\033[33m\002minishell>\001\033[0m\002");
-		g_signal = 0;
 		signal(SIGINT, SIG_IGN);
 		if (!input)
 			break ;
@@ -66,8 +71,7 @@ int	run_file_mode(t_env *env)
 	return (exit_code);
 }
 
-int	main(int argc __attribute__((unused)), \
-		char **argv __attribute__((unused)), char **envp)
+int	main(int argc , char **argv __attribute__((unused)), char **envp)
 {
 	t_env	*env;
 	int		exit_code;
