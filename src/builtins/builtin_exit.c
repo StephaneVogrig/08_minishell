@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 23:20:41 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/20 16:53:23 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/21 14:58:24 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,8 @@ t_bool	is_num(char *str)
 	return (TRUE);
 }
 
-int	exit_val_2(t_cmd *cmd, t_env *env, char *argv, int last)
+int	exit_val_2(t_cmd *cmd, t_env *env, char *argv)
 {
-	if(last == 1)
-		write(STDERR_FD, "exit\n", 5);
 	fd_printf(STDERR_FD, "minishel : exit : %s", argv);
 	fd_printf(STDERR_FD, " : numeric argument required\n");
 	cmd_free(cmd);
@@ -47,74 +45,36 @@ int	exit_val_2(t_cmd *cmd, t_env *env, char *argv, int last)
 	exit(2);
 }
 
-int	exit_val_num(t_cmd *cmd, t_env *env, char *argv, int last)
+int	exit_val_num(t_cmd *cmd, t_env *env, char *argv)
 {
 	long long	exit_val;
 
 	exit_val = ft_atol(argv);
 	if(exit_val < 0 && !ft_strchr(argv, '-'))
-		exit_val_2(cmd, env, argv, last);
+		exit_val_2(cmd, env, argv);
 	if(exit_val > 0 && ft_strchr(argv, '-'))
-		exit_val_2(cmd, env, argv, last);
+		exit_val_2(cmd, env, argv);
 	cmd_free(cmd);
 	env_free(env);
-	if(last == 1)
-		write(STDERR_FD, "exit\n", 5);
 	exit((int)exit_val);
 }
 
-int	exit_mini(t_cmd *cmd, t_env *env, t_list *argv, int last)
-{
-	
-	if (!argv->next)
-	{
-		if (!is_num(argv->content))
-			exit_val_2(cmd, env, argv->content, last);
-		exit_val_num(cmd, env, argv->content, last);
-	}
-	if (argv->next)
-	{
-		if (!is_num(argv->content))
-			exit_val_2(cmd, env, argv->content, last);
-		else
-		{
-			if(ft_atol(argv->content) < 0 && !ft_strchr(argv->content, '-'))
-				exit_val_2(cmd, env, argv->content, last);
-			if(ft_atol(argv->content) > 0 && ft_strchr(argv->content, '-'))
-				exit_val_2(cmd, env, argv->content, last);
-			if(last == 1)
-				write(STDERR_FD, "exit\n", 5);
-			fd_printf(STDERR_FD, "minishell : exit : too many arguments\n");
-		}
-	}
-	return (1);
-}
-
-
 int	builtin_exit(t_cmd *cmd, t_env *env)
 {
-	t_list *argv;
-	int		exit_code;
-	t_cmd 	*lst;
-	int 	last;
-	t_redir *redir;
-
-	last = 1;
-	redir = cmd->redir;
-	argv = cmd->argv->next;
-	lst = cmd->next;
-	if (lst)
-		last = 0;
-	if (!argv && last == 1)
+	if (!cmd->argv->next)
 	{
-		exit_code = exit_status_get_int(env);
-		cmd_free(cmd);
-		env_free(env);
-		if(!redir)
-			write(3, "exit\n", 5);
-		if(redir)
-			write(STDERR_FD, "exit\n", 5);
-		exit(exit_code);
+		if (cmd->next || cmd->previous)
+			exit(exit_status_get_int(env));
+		write(1, "exit\n", 5);
+		return (-1);
 	}
-	return (exit_mini(cmd, env, argv, last));
+	if (!is_num(cmd->argv->next->content))
+		exit_val_2(cmd, env, cmd->argv->next->content);
+	if (ft_lstsize(cmd->argv) > 2)
+	{
+		fd_printf(STDERR_FD, "minishell : exit : too many arguments\n");
+		return (EXIT_FAILURE);
+	}
+	exit_val_num(cmd, env, cmd->argv->next->content);
+	return (0);
 }
