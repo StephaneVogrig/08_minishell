@@ -6,11 +6,20 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:36:25 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/21 02:53:22 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/21 16:43:22 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cmd_path.h"
+
+t_bool is_an_existing_file(char *path)
+{
+	struct stat buf;
+
+	if (stat(path, &buf) == 0 && (S_ISREG(buf.st_mode)))
+		return (TRUE);
+	return (FALSE);
+}
 
 char	*path_find_loop(char *paths, t_char_m *buff, t_cmd_m *cmd, t_env_m *env)
 {
@@ -25,7 +34,7 @@ char	*path_find_loop(char *paths, t_char_m *buff, t_cmd_m *cmd, t_env_m *env)
 			*temp++ = *paths++;
 		*temp++ = '/';
 		temp = strcpy_offset(temp, path);
-		if (access(buff, F_OK) == 0)
+		if (is_an_existing_file(buff))
 		{
 			path = ft_strdup(buff);
 			if (!path)
