@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 23:20:41 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/21 18:03:31 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/21 18:24:54 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,11 @@ int	builtin_exit(t_cmd *cmd, t_env *env)
 	{
 		if (cmd->next || cmd->previous)
 			exit(exit_status_get_int(env));
-		write(1, "exit\n", 5);
+		if(cmd->redir)
+			write(STDERR_FD, "exit\n", 5);
+		else
+			write(1, "exit\n", 5);
+		// write(1, "exit\n", 5);
 		return (-1);
 	}
 	if (!is_num(cmd->argv->next->content))
