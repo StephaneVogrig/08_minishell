@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 00:11:51 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/19 17:17:58 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/21 19:36:48 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*next_token_to_heredoc(char *input, t_redir **redir)
 	t_bool	dequoted;
 
 	input = skip_blank(input);
-	input = next_token_dequoted(input, &token, &dequoted);
+	input = next_token_to_limiter(input, &token, &dequoted);
 	if (!token)
 		return (NULL);
 	if (dequoted)

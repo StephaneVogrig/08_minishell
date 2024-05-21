@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   next_token_dequoted.c                              :+:      :+:    :+:   */
+/*   next_token_limiter.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/07 06:42:35 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/21 20:38:34 by svogrig          ###   ########.fr       */
+/*   Created: 2024/05/21 17:07:39 by svogrig           #+#    #+#             */
+/*   Updated: 2024/05/21 20:45:17 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "next_token_dequoted.h"
+#include "next_token_limiter.h"
 
-char	*strfill_dequoted(char *input, char **token, t_bool *dequoted)
+
+char	*strfill_limiter(char *input, char **token, t_bool *dequoted)
 {
 	char	quote;
 	char	*dest;
@@ -21,6 +22,8 @@ char	*strfill_dequoted(char *input, char **token, t_bool *dequoted)
 	dest = *token;
 	while (!is_meta(*input))
 	{
+		if (*input == '$' && (*(input + 1) == '\'' ||  *(input + 1) == '\"'))
+			input++;
 		if (*input == '\'' || *input == '\"')
 		{
 			quote = *input++;
@@ -37,7 +40,7 @@ char	*strfill_dequoted(char *input, char **token, t_bool *dequoted)
 	return (input);
 }
 
-int	strlen_dequoted(char *str)
+int	strlen_limiteur(char *str)
 {
 	int		len;
 	char	quote;
@@ -45,6 +48,8 @@ int	strlen_dequoted(char *str)
 	len = 0;
 	while (!is_meta(*str))
 	{
+		if (*str == '$' && (*(str + 1) == '\'' ||  *(str + 1) == '\"'))
+			str++;
 		if (*str == '\'' || *str == '\"')
 		{
 			quote = *str++;
@@ -63,17 +68,18 @@ int	strlen_dequoted(char *str)
 	return (len);
 }
 
-char *next_token_dequoted(char *input, char **token, t_bool *dequoted)
+char	*next_token_to_limiter(char *input, char **token, t_bool *dequoted)
 {
 	int len;
 
-	len = strlen_dequoted(input);
+	len = strlen_limiteur(input);
 	*token = malloc(len + 1);
 	if	(!*token)
 	{
-		perror("minishell: next_token_unquoted");
+		perror("minishell: next_token_to_limiter");
 		return (NULL);
 	}
-	input = strfill_dequoted(input, token, dequoted);
+	input = strfill_limiter(input, token, dequoted);
 	return (input);
+	
 }

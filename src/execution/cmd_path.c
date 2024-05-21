@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:36:25 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/21 16:43:22 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/21 19:22:58 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ char	*path_find_loop(char *paths, t_char_m *buff, t_cmd_m *cmd, t_env_m *env)
 
 char	*path_find(t_cmd_m *cmd, t_env_m *env)
 {
-	char	*buff;
-	char	*path;
-	char	*paths;
+	t_char_m	*buff;
+	char		*path;
+	char		*paths;
 
 	path = cmd->argv->content;
 	paths = env_get(env, "PATH");

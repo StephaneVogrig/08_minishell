@@ -6,7 +6,7 @@
 #    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/05/19 16:54:06 by svogrig          ###   ########.fr        #
+#    Updated: 2024/05/21 19:25:09 by svogrig          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,6 +59,7 @@ SRC				:=	main.c \
 					parsing/expanse.c \
 					parsing/input_to_pipeline.c \
 					parsing/next_token_dequoted.c \
+					parsing/next_token_limiter.c \
 					parsing/parse.c \
 					parsing/syntax_error.c \
 					parsing/token.c \
