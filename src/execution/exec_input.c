@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:36:43 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/19 17:26:08 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/21 05:18:02 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	exec_pipeline(t_cmd *pipeline, pid_t *pids, t_env *env)
 	return (SUCCESS);
 }
 
-void	process_exec_cmd(t_cmd_m *cmd, t_env *env)
+void	exec_cmd_alone(t_cmd_m *cmd, t_env *env)
 {
 	if (!exec_redir(cmd->redir))
 		exit_on_failure(cmd, NULL, NULL, env);
@@ -57,7 +57,7 @@ int	exec_alone(t_cmd_m *cmd, t_env *env)
 	pid[1] = 0;
 	*pid = fork();
 	if (*pid == 0)
-		process_exec_cmd(cmd, env);
+		exec_cmd_alone(cmd, env);
 	if (*pid == -1)
 	{
 		cmd_free(cmd);

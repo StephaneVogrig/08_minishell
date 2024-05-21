@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 23:20:41 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/21 14:58:24 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/21 15:11:38 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ t_bool	is_num(char *str)
 			return (FALSE);
 		i++;
 	}
-	while (str[i] == ' ')
-		i++;
-	if ((str[i] == '-' || str[i] == '+') && str[1] != '\0')
-		i++;
+	// while (str[i] == ' ')
+	// 	i++;
+	// if ((str[i] == '-' || str[i] == '+') && str[1] != '\0')
+	// 	i++;
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))

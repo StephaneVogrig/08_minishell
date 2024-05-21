@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 05:44:26 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/16 00:22:11 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/21 01:47:00 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,22 +40,18 @@ t_bool	strlist_add_buffer(t_list **argv, t_buff *buffer)
 
 char	**strlist_to_strtab(t_list *strlist)
 {
-	int		nbr_elem;
-	char	**temptab;
 	char	**strtab;
+	char	**temptab;
 	t_list	*templist;
 
-	if (!strlist)
-		return (NULL);
-	nbr_elem = ft_lstsize(strlist);
-	strtab = malloc(sizeof(strtab) * (nbr_elem + 1));
+	strtab = malloc(sizeof(strtab) * (ft_lstsize(strlist) + 1));
 	if (!strtab)
 	{
 		perror("minishell: strlist_to_strtab");
 		return (NULL);
 	}
 	temptab = strtab;
-	while (nbr_elem--)
+	while (strlist)
 	{
 		*temptab++ = strlist->content;
 		templist = strlist->next;
@@ -71,6 +67,8 @@ char	**argvlist_to_argvtab(t_list **argvlist)
 	char	**argvtab;
 
 	argvtab = strlist_to_strtab(*argvlist);
+	if (!argvtab)
+		return (NULL);
 	*argvlist = NULL;
 	return (argvtab);
 }
