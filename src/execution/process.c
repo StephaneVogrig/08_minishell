@@ -6,13 +6,13 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 04:15:23 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/16 01:17:41 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/21 05:20:08 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "process.h"
 
-void	process_exec(t_cmd *cmd, t_env *env)
+void	exec_cmd_pipe(t_cmd *cmd, t_env *env)
 {
 	int	exit_code;
 	t_builtin	builtin;
@@ -42,7 +42,7 @@ int	process_first(t_cmd *cmd, int *fd_out, t_env *env, int *pids)
 		close(pipe_out[READ]);
 		dup2(pipe_out[WRITE], STDOUT_FD);
 		close(pipe_out[WRITE]);
-		process_exec(cmd, env);
+		exec_cmd_pipe(cmd, env);
 	}
 	if (pid == -1)
 	{
@@ -70,7 +70,7 @@ int	process_pipes(t_cmd *cmd, int *fd_in, t_env *env, int *pids)
 		close(pipe_out[READ]);
 		dup2(pipe_out[WRITE], STDOUT_FD);
 		close(pipe_out[WRITE]);
-		process_exec(cmd, env);
+		exec_cmd_pipe(cmd, env);
 	}
 	if (pid == -1)
 	{
@@ -93,7 +93,7 @@ int	process_last(t_cmd *cmd, int fd_in, t_env *env, int *pids)
 		free(pids);
 		dup2(fd_in, STDIN_FD);
 		close(fd_in);
-		process_exec(cmd, env);
+		exec_cmd_pipe(cmd, env);
 	}
 	if (pid == -1)
 		perror("minishell: process_last: fork");
