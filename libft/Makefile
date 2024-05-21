@@ -6,7 +6,7 @@
 #    By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 02:59:52 by svogrig           #+#    #+#              #
-#    Updated: 2024/05/13 15:27:12 by smortemo         ###   ########.fr        #
+#    Updated: 2024/05/21 18:03:08 by smortemo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRCS 		:=	char/ft_isalnum.c \
 				int/atoi_offset.c \
 				int/ft_itoa.c \
 				int/hexatoi_offset.c \
+				int/len_num.c \
 				int/si32_min.c \
 				int/si32_max.c \
 				int/si32_to_decstr_offset.c \

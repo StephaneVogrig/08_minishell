@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 23:20:41 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/21 15:33:51 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/21 18:03:31 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,28 @@ int	exit_val_num(t_cmd *cmd, t_env *env, char *argv)
 	long long	exit_val;
 
 	exit_val = ft_atol(argv);
-	if(exit_val < 0 && !ft_strchr(argv, '-'))
-		exit_val_2(cmd, env, argv);
-	if(exit_val > 0 && ft_strchr(argv, '-'))
+	
+	if(len_num(exit_val) != len_str_num(argv))
 		exit_val_2(cmd, env, argv);
 	cmd_free(cmd);
 	env_free(env);
 	exit((int)exit_val);
+}
+
+int	exit_too_many(t_cmd *cmd, t_env *env, char *argv)
+{
+	long long	exit_val;
+
+	if (is_num(cmd->argv->next->content))
+	{
+		exit_val = ft_atol(argv);
+		if(exit_val < 0 && !ft_strchr(argv, '-'))
+			return(exit_val_2(cmd, env, argv));
+		if(exit_val > 0 && ft_strchr(argv, '-'))
+			return(exit_val_2(cmd, env, argv));
+	}
+	fd_printf(STDERR_FD, "minishell : exit : too many arguments\n");
+	return (EXIT_FAILURE);
 }
 
 int	builtin_exit(t_cmd *cmd, t_env *env)
@@ -71,10 +86,7 @@ int	builtin_exit(t_cmd *cmd, t_env *env)
 	if (!is_num(cmd->argv->next->content))
 		exit_val_2(cmd, env, cmd->argv->next->content);
 	if (ft_lstsize(cmd->argv) > 2)
-	{
-		fd_printf(STDERR_FD, "minishell : exit : too many arguments\n");
-		return (EXIT_FAILURE);
-	}
+			return(exit_too_many(cmd, env, cmd->argv->next->content));
 	exit_val_num(cmd, env, cmd->argv->next->content);
 	return (0);
 }
