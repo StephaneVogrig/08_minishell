@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_scan.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:05:04 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/20 04:19:38 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/21 17:07:01 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	heredoc_save_expanse(int fd, char *input, t_env *env)
 {
 	int	i;
 
-	i = 0;;
+	i = 0;
 	while (1)
 	{
 		if (!input[i])
