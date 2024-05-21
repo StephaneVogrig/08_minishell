@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 23:20:41 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/20 16:53:23 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/21 14:52:21 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ t_bool	is_num(char *str)
 			return (FALSE);
 		i++;
 	}
-	while (str[i] == ' ')
+	while (str[i] == ' ' || str[i] == '\t')//mod
 		i++;
 	if ((str[i] == '-' || str[i] == '+') && str[1] != '\0')
 		i++;
 	while (str[i])
 	{
-		if (!ft_isdigit(str[i]))
+		if (!ft_isdigit(str[i]) && str[i] != '\t' && str[i] != ' ')//mod
 			return (FALSE);
 		i++;
 	}
