@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 23:20:41 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/21 15:11:38 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/21 15:33:51 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ t_bool	is_num(char *str)
 			return (FALSE);
 		i++;
 	}
-	// while (str[i] == ' ')
-	// 	i++;
-	// if ((str[i] == '-' || str[i] == '+') && str[1] != '\0')
-	// 	i++;
+	while (str[i] == ' ' || str[i] == '\t')//mod
+		i++;
+	if ((str[i] == '-' || str[i] == '+') && str[1] != '\0')
+		i++;
 	while (str[i])
 	{
-		if (!ft_isdigit(str[i]))
+		if (!ft_isdigit(str[i]) && str[i] != '\t' && str[i] != ' ')//mod
 			return (FALSE);
 		i++;
 	}
