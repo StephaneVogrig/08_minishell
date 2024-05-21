@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 15:22:47 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/17 21:44:32 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/21 02:45:56 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,29 @@ t_bool	exec_redir(t_redir *redirs)
 	return (SUCCESS);
 }
 
+void	exit_after_execve(int error, char *path, char **argv)
+{
+	struct stat buf;
+
+	if (error == EACCES)
+	{
+		if (stat(*argv, &buf) == 0 && (S_ISDIR(buf.st_mode)))
+			fd_printf(STDERR_FD, "minishell: %s: Is a directory\n", *argv);
+		else
+			fd_printf(STDERR_FD, "minishell: %s: Permission denied\n", *argv);
+		minishell_free(NULL, path, argv, NULL);
+		exit(126);
+	}
+	if (error == ENOENT)
+	{
+		fd_printf(STDERR_FD, "minishell: %s: No such file or directory\n", path);
+		minishell_free(NULL, path, argv, NULL);
+		exit(127);
+	}
+	minishell_free(NULL, path, argv, NULL);
+	exit(error);
+}
+
 void	exec_cmd(t_cmd_m *cmd, t_env_m *env)
 {
 	char	*path;
@@ -62,19 +85,18 @@ void	exec_cmd(t_cmd_m *cmd, t_env_m *env)
 		minishell_free(cmd, NULL, NULL, env);
 		exit(EXIT_SUCCESS);
 	}
+	path = cmd_path(cmd, env);
+	if (!path)
+		exit_on_file_error("command not found", cmd, env);
 	argv = argvlist_to_argvtab(&cmd->argv);
 	pipeline_free(&cmd);
 	if (!argv)
-		exit_on_failure(NULL, NULL, NULL, env);
-	path = cmd_path(argv, env);
-	if (!path)
-		exit_on_failure(NULL, NULL, argv, env);
+		exit_on_failure(NULL, path, NULL, env);
 	envp = env_to_envp(env);
 	if (!envp)
 		exit_on_failure(NULL, path, argv, env);
 	signal(SIGINT, SIG_DFL);
 	execve(path, argv, envp);
-	perror("minishell: exec_cmd");
 	strtab_free(envp);
-	exit_on_failure(NULL, path, argv, env);
+	exit_after_execve(errno, path, argv);
 }

@@ -3,62 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:36:25 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/18 15:19:48 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/21 02:53:22 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cmd_path.h"
 
-char	*cmd_path_strndup(char *str, int n)
-{
-	char	*dup;
-
-	dup = ft_strndup(str, n);
-	if (!dup)
-		perror("minishell: cmd_path_strndup");
-	return (dup);
-}
-
-void	check_path(char *path, t_char_m **argv, t_env_m *env)
+char	*path_find_loop(char *paths, t_char_m *buff, t_cmd_m *cmd, t_env_m *env)
 {
 	char	*temp;
+	char	*path;
 
-	if (path)
-		temp = path;
-	else
-		temp = *argv;
-	if (is_directory(temp))
-	{
-		fd_printf(STDERR_FD, "minishell: %s: Is a directory\n", temp);
-		minishell_free(NULL, path, argv, env);
-		exit(126);
-	}
-	if (access(temp, X_OK) == -1)
-	{
-		fd_printf(STDERR_FD, "minishell: %s: %s\n", temp, strerror(errno));
-		minishell_free(NULL, path, argv, env);
-		exit(126);
-	}
-}
-
-char	*path_find(char	*paths, t_char_m *buff, t_char_m **argv, t_env_m *env)
-{
-	char	*temp;
-
+	path = cmd->argv->content;
 	while (*paths)
 	{
 		temp = buff;
 		while (*paths && *paths != ':')
 			*temp++ = *paths++;
 		*temp++ = '/';
-		strcpy_offset(temp, *argv);
+		temp = strcpy_offset(temp, path);
 		if (access(buff, F_OK) == 0)
 		{
-			check_path(buff, argv, env);
-			return (cmd_path_strndup(buff, ft_strlen(buff)));
+			path = ft_strdup(buff);
+			if (!path)
+			{
+				perror("minishell: path_find_loop: ft_strdup");
+				exit_on_failure(cmd, buff, NULL, env);
+			}
+			return (path);
 		}
 		if (*paths == ':')
 			paths++;
@@ -66,35 +41,58 @@ char	*path_find(char	*paths, t_char_m *buff, t_char_m **argv, t_env_m *env)
 	return (NULL);
 }
 
-char	*path_checked(const char *exit_msg, t_char_m **argv, t_env_m *env)
-{
-		if (access(*argv, F_OK) != 0)
-			exit_on_file_error(exit_msg, argv, env);
-		check_path(NULL, argv, env);
-		return (cmd_path_strndup(*argv, ft_strlen(*argv)));
-}
-
-char	*cmd_path(t_char_m **argv, t_env_m *env)
+char	*path_find(t_cmd_m *cmd, t_env_m *env)
 {
 	char	*buff;
 	char	*path;
+	char	*paths;
 
-	if (**argv == '\0')
-		exit_on_file_error("command not found", argv, env);
-	if (ft_strchr(*argv, '/'))
-		return (path_checked("No such file or directory", argv, env));
-	path = env_get_type(env, "PATH", EXPORTED);
-	if (!path)
-		return (path_checked("command not found", argv, env));
-	buff = malloc(ft_strlen(path) + ft_strlen(*argv) + 2);
+	path = cmd->argv->content;
+	paths = env_get(env, "PATH");
+	if (!paths || *paths == '\0')
+	{
+		path = ft_strdup(path);
+		if (!path)
+		{
+			perror("minishell: path_find: ft_strdup");
+			exit_on_failure(cmd, NULL, NULL, env);
+		}
+		return (path);
+	}
+	buff = malloc(ft_strlen(paths) + ft_strlen(path) + 2);
 	if (!buff)
 	{
 		perror("minishell: cmd_path");
-		return (NULL);
+		exit_on_failure(cmd, NULL, NULL, env);
 	}
-	path = path_find(path, buff, argv, env);
+	path = path_find_loop(paths, buff, cmd, env);
 	free(buff);
-	if (!path)
-		exit_on_file_error("command not found", argv, env);
 	return (path);
+}
+
+char	*cmd_path(t_cmd_m *cmd, t_env_m *env)
+{
+	char	*path;
+
+	path = cmd->argv->content;
+	if (!path || *path == '\0')
+		return (NULL);
+	if (*path == '.' && *(path + 1) == '\0')
+	{
+		fd_printf(STDERR_FD, "%s: %s\n", path, "filename argument required");
+		fd_printf(STDERR_FD, ".: usage: . filename [arguments]");
+		minishell_free(cmd, NULL, NULL, env);
+		exit(2);
+	}
+	if (ft_strchr(path, '/'))
+	{
+		path = ft_strdup(path);
+		if (!path)
+		{
+			perror("minishell: cmd_path: strndup");
+			exit_on_failure(cmd, NULL, NULL, env);
+		}
+		return (path);
+	}
+	return (path_find(cmd, env));
 }
