@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:36:43 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/21 05:18:02 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/21 15:21:27 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,7 @@ int	exec_alone(t_cmd_m *cmd, t_env *env)
 	if (*pid == 0)
 		exec_cmd_alone(cmd, env);
 	if (*pid == -1)
-	{
-		cmd_free(cmd);
-		env_free(env);
-		exit(EXIT_FAILURE);
-	}
+		exit_on_failure(cmd, NULL, NULL, env);
 	cmd_free(cmd);
 	return (wait_process(pid));
 }

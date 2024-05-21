@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 19:56:00 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/21 02:17:58 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/21 15:22:02 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,9 @@ void	minishell_free(t_cmd *cmd, char *str, char **argv, t_env *env)
 {
 	if (str)
 		free(str);
-	if (argv)
-		strtab_free(argv);
-	if (env)
-		env_free(env);
-	if (cmd)
-		pipeline_free(&cmd);
+	strtab_free(argv);
+	env_free(env);
+	pipeline_free(&cmd);
 }
 
 void	exit_on_file_error(const char *msg, t_cmd *cmd, t_env *env)
