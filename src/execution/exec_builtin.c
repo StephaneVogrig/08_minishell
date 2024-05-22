@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 19:14:20 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/21 15:04:22 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/22 01:41:18 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int	exec_builtin_alone(t_builtin builtin, t_cmd *cmd, t_env *env)
 	{
 		exit_code = exit_status_get_int(env);
 		minishell_free(cmd, NULL, NULL, env);
+		// write(STDERR_FD, "exit\n", 5);
+		// write(1, "exit\n", 5);
 		exit(exit_code);
 	}
 	return (exit_code);

@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:36:25 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/21 19:22:58 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/22 02:02:11 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,8 @@ char	*cmd_path(t_cmd_m *cmd, t_env_m *env)
 		return (NULL);
 	if (*path == '.' && *(path + 1) == '\0')
 	{
-		fd_printf(STDERR_FD, "%s: %s\n", path, "filename argument required");
-		fd_printf(STDERR_FD, ".: usage: . filename [arguments]");
+		fd_printf(STDERR_FD, "minishell: %s: filename argument required\n", path);
+		fd_printf(STDERR_FD, ".: usage: . filename [arguments]\n");
 		minishell_free(cmd, NULL, NULL, env);
 		exit(2);
 	}
