@@ -6,26 +6,20 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:55:55 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/20 04:43:35 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/22 16:19:30 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int event(void)
-{
-	return (0);
-}
-
-int	run_interactive_mode(t_env *env)
+int	run_interactive_mode(t_env **env)
 {
 	char	*input;
 	int		exit_code;
 
 	if (shell_mode_init_interactive(env) == FAILURE)
 		return (EXIT_FAILURE);
-	exit_code = 0;
-	rl_event_hook = event;
+	exit_code = EXIT_SUCCESS;
 	while (1)
 	{
 		signal(SIGINT, handler_ctrl_c_interactive);
@@ -39,14 +33,14 @@ int	run_interactive_mode(t_env *env)
 			continue ;
 		}
 		add_history(input);
-		exit_code = exec_input(input, env);
-		exit_status_set(exit_code, env);
+		exit_code = exec_input(input, *env);
+		exit_status_set(exit_code, *env);
 	}
 	write(2, "exit\n", 5);
 	return (exit_code);
 }
 
-int	run_file_mode(t_env *env)
+int	run_file_mode(t_env **env)
 {
 	char	*input;
 	int		exit_code;
@@ -66,7 +60,7 @@ int	run_file_mode(t_env *env)
 			exit_code = 128 + SIGINT;
 			break;
 		}
-		exit_code = exec_input(input, env);
+		exit_code = exec_input(input, *env);
 	}
 	return (exit_code);
 }
@@ -87,9 +81,9 @@ int	main(int argc , char **argv __attribute__((unused)), char **envp)
 	if (!env)
 		return (EXIT_FAILURE);
 	if (isatty(STDIN_FD))
-		exit_code = run_interactive_mode(env);
+		exit_code = run_interactive_mode(&env);
 	else
-		exit_code = run_file_mode(env);
+		exit_code = run_file_mode(&env);
 	env_free(env);
 	return (exit_code);
 }

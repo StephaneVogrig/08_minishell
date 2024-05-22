@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envp.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 17:54:58 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/19 16:13:45 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/22 15:52:23 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ t_env	*envp_to_env(char **envp)
 	t_env	*node;
 	int		i;
 
-	if (!envp)
-		return (NULL);
 	i = 0;
 	node = NULL;
 	env = NULL;
@@ -28,6 +26,7 @@ t_env	*envp_to_env(char **envp)
 		node = malloc(sizeof(*node));
 		if (!node)
 		{
+			perror("minishell: envp_to_env: malloc");
 			env_free(env);
 			return (NULL);
 		}

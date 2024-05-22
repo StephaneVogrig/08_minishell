@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_get.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 18:02:34 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/18 18:04:05 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/22 17:21:12 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ char	*env_get_n(t_env *env, char *str, int n)
 		return (NULL);
 	while (env)
 	{
-		if (!ft_strncmp(env->name, str, n))
-			if (!*(env->name + n))
+		if (ft_strncmp(env->name, str, n) == 0)
+			if (*(env->name + n) == '\0')
 				return (env->value);
 		env = env->next;
 	}

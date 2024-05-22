@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:00:03 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/19 20:53:51 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/22 15:37:27 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,5 @@ t_bool	exit_status_init(t_env **env);
 void	exit_status_set(int value, t_env *env);
 char	*exit_status_get_str(t_env *env);
 int		exit_status_get_int(t_env *env);
-
-// SHELL_MODE --------------------
-t_bool	shell_mode_init_interactive(t_env *env);
-t_bool	shell_mode_init_file(t_env *env);
-t_bool	shell_is_interactive(t_env *env);
 
 #endif

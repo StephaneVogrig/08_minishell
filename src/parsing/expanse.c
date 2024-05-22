@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 16:03:55 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/21 03:00:35 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/22 17:10:38 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ char	*end_name(char *str)
 	return (str);
 }
 
-char	*expanse_exit_status(t_buff *buffer, char *str, t_env *env)
+char	*expanse_special_parameter(t_buff *buffer, char *str, t_env *env)
 {
-	if (buff_add_str(buffer, env_get(env, "?")) == FAILURE)
+	if (buff_add_str(buffer, env_get(env, str)) == FAILURE)
 			return (NULL);
 	return (++str);		
 }
@@ -33,8 +33,8 @@ char	*expanse_quoted(t_buff *buffer, char *str, t_env *env)
 {
 	char	*end;
 	
-	if (*str == '?')
-		return (expanse_exit_status(buffer, str, env));
+	if (is_special_parameter(*str))
+		return (expanse_special_parameter(buffer, str, env));
 	end = end_name(str);
 	if (end == str)
 	{
@@ -74,10 +74,10 @@ char	*expanse_unquoted(t_buff *buffer, char *str, t_list **argv, t_env *env)
 {
 	char	*end;
 
-	if (*str == '?')
-		return (expanse_exit_status(buffer, str, env));
 	if (*str == '\'' || *str == '\"')
 		return (str);
+	if (is_special_parameter(*str))
+		return (expanse_special_parameter(buffer, str, env));
 	end = end_name(str);
 	if (end == str)
 	{
