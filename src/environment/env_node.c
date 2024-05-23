@@ -119,7 +119,7 @@ int	export_new_node(t_env *env, char *str, int n)
 {
 	t_env *node;
 
-	// printf("---> fonction export new node\n");
+	printf("---> fonction export new node\n");
 	// printf("create new node with str=%s\n", str);
 	node = mem_malloc(sizeof(*node));
 	if (!node)

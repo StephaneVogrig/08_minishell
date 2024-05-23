@@ -19,9 +19,13 @@ t_bool	env_shlvl_init(t_env **env)
 	int num;
 	char *new;
 
+	//printf("env_get_node_n\n");
 	node = env_get_node_n(*env, "SHLVL", 5);
 	if (!node)
+	{
+	//	printf("node_init\n");
 		return (node_init(node, "SHLVL=1"));
+	}
 	value = node->value;
 	num = ft_atoi(value) + 1;
 	if (num < 0)
