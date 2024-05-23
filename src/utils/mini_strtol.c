@@ -6,18 +6,11 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 12:58:09 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/23 13:20:46 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/23 18:07:23 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "str.h"
-
-t_bool	mini_is_space(int c)
-{
-	while ((9 <= c && c <= 13) || c == 32)
-		return (TRUE);
-	return (FALSE);
-}
 
 static inline long	overflow(char sign)
 {
@@ -33,14 +26,14 @@ long	mini_strtol(const char *nptr, char **endptr)
 
 	sign = '+';
 	value = 0;
-	while (mini_is_space(*nptr))
+	while (is_blank(*nptr))
 		nptr++;
 	if ((*nptr == '-' || *nptr == '+') && ft_isdigit(*(nptr + 1)))
-			sign = *nptr++;
+		sign = *nptr++;
 	while (ft_isdigit(*nptr))
 	{
 		if (value < 0)
-			break;
+			break ;
 		value = value * 10 + *nptr - '0';
 		if (value < 0 && (sign == '+' || value > LONG_MIN))
 			break ;

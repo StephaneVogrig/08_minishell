@@ -6,7 +6,7 @@
 #    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/05/23 14:12:41 by svogrig          ###   ########.fr        #
+#    Updated: 2024/05/23 17:37:52 by svogrig          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRC				:=	main.c \
 					builtins/builtin_echo.c \
 					builtins/builtin_env.c \
 					builtins/builtin_exit.c \
+					builtins/builtin_exit_utils.c \
 					builtins/builtin_export_alone.c \
 					builtins/builtin_export.c \
 					builtins/builtin_unset.c \
