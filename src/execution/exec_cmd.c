@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 15:22:47 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/21 02:45:56 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/23 19:56:48 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,12 @@ void	exit_after_execve(int error, char *path, char **argv)
 			fd_printf(STDERR_FD, "minishell: %s: Is a directory\n", *argv);
 		else
 			fd_printf(STDERR_FD, "minishell: %s: Permission denied\n", *argv);
-		minishell_free(NULL, path, argv, NULL);
-		exit(126);
+		error = 126;
 	}
-	if (error == ENOENT)
+	else if (error == ENOENT)
 	{
 		fd_printf(STDERR_FD, "minishell: %s: No such file or directory\n", path);
-		minishell_free(NULL, path, argv, NULL);
-		exit(127);
+		error = 127;
 	}
 	minishell_free(NULL, path, argv, NULL);
 	exit(error);
