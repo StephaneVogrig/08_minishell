@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 19:14:20 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/22 01:41:18 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/23 15:11:11 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,9 @@ int	exec_builtin_alone(t_builtin builtin, t_cmd *cmd, t_env *env)
 
 	fd[0] = dup(0);
 	fd[1] = dup(1);
-	if (exec_redir(cmd->redir))
-		exit_code = builtin(cmd, env);
-	else
+	if (exec_redir(cmd->redir) == FAILURE)
 		exit_code = EXIT_FAILURE;
+	exit_code = builtin(cmd, env);
 	dup2(fd[0], 0);
 	dup2(fd[1], 1);
 	close(fd[0]);
@@ -52,8 +51,6 @@ int	exec_builtin_alone(t_builtin builtin, t_cmd *cmd, t_env *env)
 	{
 		exit_code = exit_status_get_int(env);
 		minishell_free(cmd, NULL, NULL, env);
-		// write(STDERR_FD, "exit\n", 5);
-		// write(1, "exit\n", 5);
 		exit(exit_code);
 	}
 	return (exit_code);

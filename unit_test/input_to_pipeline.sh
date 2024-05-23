@@ -6,7 +6,7 @@
 #    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/05 22:23:47 by svogrig           #+#    #+#              #
-#    Updated: 2024/05/07 07:42:13 by svogrig          ###   ########.fr        #
+#    Updated: 2024/05/23 11:13:01 by svogrig          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ SRC="	src/input_to_pipeline_test.c
 		../src/debug.c
 	"
 
-I_FLAG="-I../include -I../libft/include -Iinclude -g"
+I_FLAG="-I../include -I../libft/include -Iinclude"
 
 L_FLAG="../libft"
 

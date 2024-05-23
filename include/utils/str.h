@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 02:50:36 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/07 06:25:28 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/23 11:14:19 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ t_bool		strlist_add_str(t_list **strlist, char *str);
 char		**strlist_to_strtab(t_list *strlist);
 t_char_m	*mini_strndup(char *str, int n);
 t_char_m	*mini_strdup(char *str);
+long		mini_strtol(const char *nptr, char **endptr);
 
 #endif

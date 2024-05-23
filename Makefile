@@ -6,7 +6,7 @@
 #    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/05/21 19:25:09 by svogrig          ###   ########.fr        #
+#    Updated: 2024/05/23 14:12:41 by svogrig          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,6 +69,7 @@ SRC				:=	main.c \
 					shell/shell_mode.c \
 					utils/memory.c \
 					utils/mini_readline.c \
+					utils/mini_strtol.c \
 					utils/pipe.c \
 					utils/signal_handler.c \
 					utils/str.c

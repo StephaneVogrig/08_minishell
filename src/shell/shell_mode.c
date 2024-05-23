@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 15:32:09 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/22 16:10:09 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/23 16:55:04 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_bool	shell_mode_init_interactive(t_env **env)
 
 t_bool	shell_mode_init_file(t_env **env)
 {
-	if (env_add_new("-", NULL, 0, env) == FAILURE)
+	if (env_add_new("-", "", 0, env) == FAILURE)
 		return (FAILURE);
 	return (SUCCESS);
 }
