@@ -46,12 +46,19 @@ void	env_sorted_display(t_env *env)
 	{
 		if(env->type == EXPORTED)
 		{
-			if (env->name[0] != '_' && env->name[1] != '\0')
+			if (env->name[0] == '_' && env->name[1] == '\0')
+				env = env->next;
+			else
+			{	
 				printf("declare -x %s=\"%s\"\n", env->name, env->value);
+				env = env->next;
+			}		
 		}
 		else
+		{
 			printf("declare -x %s\n", env->name);
-		env = env->next;
+			env = env->next;
+		}	
 	}
 }
 
@@ -65,6 +72,18 @@ int	tab_to_lst(char **sorted_tab)
 	env_sorted_display(sorted_env);
 	env_free(sorted_env);
 	return (0);
+}
+
+void	strtab_print(char **tabstr)//////// pour debug
+{
+	if (tabstr == NULL)
+		return ;
+	while (*tabstr)
+	{
+		ft_putstr_fd(*tabstr, STDOUT_FD);
+		write(STDOUT_FD, "\n", 1);
+		tabstr++;
+	}
 }
 
 int	strtab_sort(char **to_sort)
@@ -88,30 +107,23 @@ int	strtab_sort(char **to_sort)
 		i++;
 	}
 	if (count == 0)
+	{
+		// printf("////////// TAB SORTED //////////\n");
+		// strtab_print(to_sort);
+		// printf("////////////////////////////////\n");
 		return (tab_to_lst(to_sort));
+	}
 	else
 		strtab_sort(to_sort);
 	return (0);
 }
 
-void	strtab_print(char **tabstr)////////
-{
-	if (tabstr == NULL)
-		return ;
-	while (*tabstr)
-	{
-		ft_putstr_fd(*tabstr, STDOUT_FD);
-		write(STDOUT_FD, "\n", 1);
-		tabstr++;
-	}
-}
 
 char	**env_to_envp_export(t_env *env, int size)
 {
 	char	**envp;
 	int		i;
-	int j;
-	j = 1;
+
 	i = 0;
 	// printf("size=%d\n", size);
 	envp = calloc(size + 1, sizeof(*envp));

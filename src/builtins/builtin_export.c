@@ -37,6 +37,8 @@ int	end_var_name(char *str)
 	int	i;
 
 	i = 0;
+	if(ft_strchr(str, '=') == NULL)
+		return(ft_strlen(str));
 	while (str[i])
 	{
 		if (str[i] == '+')
@@ -53,22 +55,51 @@ static int	export_run(t_env *env, char *str)
 	int		n;
 	t_env	*node;
 
+	// printf("---->fonction export run\n");
 	n = end_var_name(str);
-	node = env_get_node_n(env, str, n);
+	// printf("end_var_name n=%d\n", n);
+	// printf("value = str[n]:%s\n", &str[n]);
+	if(str[n] != '\0')
+		node = env_get_node_n(env, str, n);
+	else
+		node = env_get_node(env, str);
+	// printf("recherche node: %p\n", node);
+	// if (node)
+	// 	printf("node->value: %s\n", node->value);
 	if (node && str[n] == '=')
 	{
+		// printf("cas 1\n");
 		free(node->value);
-		node->type = EXPORTED;
-		node->value = ft_strdup(&str[n + 1]);
+		if(str[n + 1])
+		{
+			// printf("cas 1.a\n");
+			// printf("node->type = EXPORTED\n");
+			node->value = ft_strdup(&str[n + 1]);
+			node->type = EXPORTED;
+		}
+			
+		else
+		{
+			// printf("cas 1.b\n");
+			// printf("node->type = EXPORTED_malloc 1 \n");
+			node->value = malloc(1);
+			node->value[0] = '\0';
+			node->type = EXPORTED;
+		}
 	}
 	if (node && str[n] == '+')
 	{
+		// printf("cas 2\n");
 		node->value = ft_strjoin_free_s1(node->value, &str[n + 2]);
 		if (!node->value)
 			return (ENOMEM);
 	}
 	if (!node)
+	{
+		// printf("cas 3\n");
 		return (export_new_node(env, str, n));
+	}
+	// printf("FIN\n");
 	return (0);
 }
 

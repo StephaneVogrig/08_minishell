@@ -45,8 +45,8 @@ t_bool env_init_shellvar(t_env **env)
 {
 	t_bool	success;
 
-	success = env_shlvl_init(env);
-	if (success)
+	//success = env_shlvl_init(env);
+//	if (success)
 		success = env_pwd_init(env);
 	if (success)
 		success = exit_status_init(env);
@@ -58,9 +58,9 @@ t_bool env_init_shellvar(t_env **env)
 t_env	*env_init(char **envp)
 {
 	t_env	*env;
-	t_env	*node;
+//	t_env	*node;
 	
-	node = NULL;
+//	node = NULL;
 	env = NULL;
 	if (*envp)
 	{

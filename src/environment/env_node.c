@@ -89,11 +89,14 @@ void	env_node_del(t_env **env, t_env *node)
 }
 t_bool	var_init(t_env *node, char *str, int n)
 {
+
+	// printf("--->fonction var init\n");
 	node->name = mini_strndup(str, n);
 	if (!node->name)
 		return (FAILURE);
 	if (str[n] != '\0')
 	{
+		// printf("EXPORTED\n");
 		node->value = mini_strdup(&str[n + 1]);
 		if (!node->value)
 			return (FAILURE);
@@ -101,6 +104,7 @@ t_bool	var_init(t_env *node, char *str, int n)
 	}
 	else
 	{
+		// printf("NO_VALUE\n");
 		node->value = mem_malloc(1);
 		if (!node->value)
 			return (FAILURE);
@@ -115,11 +119,14 @@ int	export_new_node(t_env *env, char *str, int n)
 {
 	t_env *node;
 
+	// printf("---> fonction export new node\n");
+	// printf("create new node with str=%s\n", str);
 	node = mem_malloc(sizeof(*node));
 	if (!node)
 		return (ENOMEM);
 	if (!var_init(node, str, n))
 		return (ENOMEM);
 	env_add_back(&env, node);
+	// printf("add back node \n");
 	return (0);
 }
