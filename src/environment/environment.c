@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 17:59:17 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/22 15:46:25 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/25 16:26:23 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ t_bool env_init_shellvar(t_env **env)
 {
 	t_bool	success;
 
-	success = env_shlvl_init(env);
-	if (success)
+	// success = env_shlvl_init(env);
+	// if (success)
 		success = env_pwd_init(env);
 	if (success)
 		success = exit_status_init(env);

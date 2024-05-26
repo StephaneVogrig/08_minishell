@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:13:40 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/19 16:34:33 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/25 17:54:26 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,28 @@ static int	export_run(t_env *env, char *str)
 	t_env	*node;
 
 	n = end_var_name(str);
+	// printf("n-> %d\n", n);
+	// printf("str[n]-> %c\n", str[n]);
+
 	node = env_get_node_n(env, str, n);
+	// printf("node found-> %p\n", node);
+
 	if (node && str[n] == '=')
 	{
+		// printf("node name-> %s, value:%s\n", node->name, node->value);
 		free(node->value);
-		node->type = EXPORTED;
-		node->value = ft_strdup(&str[n + 1]);
+		if(str[n + 1])
+		{		
+			node->type = EXPORTED;
+			node->value = ft_strdup(&str[n + 1]);
+		}
+		else
+		{
+			node->value = malloc(1);
+			node->value[0] = '\0';
+			node->type = EXPORTED;
+		}
+		
 	}
 	if (node && str[n] == '+')
 	{
@@ -69,6 +85,8 @@ static int	export_run(t_env *env, char *str)
 	}
 	if (!node)
 		return (export_new_node(env, str, n));
+
+
 	return (0);
 }
 
@@ -105,8 +123,8 @@ int	builtin_export(t_cmd *cmd, t_env *env)
 		error = export(env, argv->content);
 		if (error == ENOMEM)
 			exit_on_failure(cmd, NULL, NULL, env);
-		if (error == 1)
-			ret = 1;
+		if (error == EXIT_FAILURE)
+			ret = EXIT_FAILURE;
 		argv = argv->next;
 	}
 	return (ret);
