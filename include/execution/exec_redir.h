@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token.h                                            :+:      :+:    :+:   */
+/*   exec_redir.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/06 19:16:27 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/26 22:14:29 by svogrig          ###   ########.fr       */
+/*   Created: 2024/05/24 12:14:31 by svogrig           #+#    #+#             */
+/*   Updated: 2024/05/26 21:55:09 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TOKEN_H
-# define TOKEN_H
+#ifndef EXEC_REDIR_H
+# define EXEC_REDIR_H
 
-# include "next_token_dequoted.h"
-# include "next_token_limiter.h"
-# include "next_token_to_str.h"
-# include "parse.h"
 # include "redirection.h"
+# include "environment.h"
+# include "token.h"
+# include <unistd.h>
+# include <string.h>
+# include <errno.h>
+# include "pipeline.h"
+// # include "token.h"
 
-t_char_m	*next_token_to_heredoc(char *str, t_redir **redir);
-t_char_m	*next_token_to_redir(char *input, t_redir **redir);
-char		*next_token_to_strlist(char *str, t_list **tokenlist, t_env *env);
-t_bool		is_token_empty(char *str, t_env *env);
+t_bool	exec_redir(t_redir *redirs, t_env *env);
 
 #endif

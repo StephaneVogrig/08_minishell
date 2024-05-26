@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:25:18 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/19 17:22:01 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/26 22:14:42 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*parse(char *input, t_cmd **cmd, t_env *env)
 	if (*input == '<' && *(input + 1) == '<')
 		return (next_token_to_heredoc(input + 2, &(*cmd)->redir));
 	if (*input == '>' || *input == '<')
-		return (next_token_to_redir(input, &(*cmd)->redir, env));
+		return (next_token_to_redir(input, &(*cmd)->redir));
 	return (next_token_to_strlist(input, &((*cmd)->argv), env));
 }
 

@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:36:43 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/21 15:21:27 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/27 00:30:04 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	exec_pipeline(t_cmd *pipeline, pid_t *pids, t_env *env)
 
 void	exec_cmd_alone(t_cmd_m *cmd, t_env *env)
 {
-	if (!exec_redir(cmd->redir))
+	if (!exec_redir(cmd->redir, env))
 		exit_on_failure(cmd, NULL, NULL, env);
 	exec_cmd(cmd, env);
 }
@@ -97,18 +97,16 @@ int	exec_input(t_char_m *input, t_env *env)
 {
 	t_cmd_m	*pipeline;
 	char	*str;
+	int		exit_code;
 
+	exit_code = 0;
 	str = skip_blank(input);
 	if (*str == '\0')
-	{
-		free(input);
-		return (EXIT_SUCCESS);
-	}
+		exit_code = EXIT_SUCCESS;
 	if (syntax_error(str))
-	{
-		free(input);
-		return (SYNTAX_ERROR);
-	}
+		exit_code = SYNTAX_ERROR;
+	if (exit_code)
+		return (exit_code);
 	errno = 0;
 	pipeline = input_to_pipeline(str, env);
 	free(input);

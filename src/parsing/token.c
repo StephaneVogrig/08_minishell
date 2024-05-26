@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 00:11:51 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/21 19:36:48 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/26 22:14:32 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,23 +40,23 @@ int	redir_type(char *str)
 	return (OUT);
 }
 
-char	*next_token_to_redir(char *input, t_redir **redir, t_env *env)
+char	*next_token_to_redir(char *input, t_redir **redir)
 {
-	t_list	*strlist;
 	int		type;
 	char	*str;
 
-	str = input;
-	strlist = NULL;
-	type = redir_type(str++);
-	if (*str == '>')
-		str++;
-	str = skip_blank(str);
-	str = next_token_to_strlist(str, &strlist, env);
-	if (!str || redir_add_strlist(strlist, type, redir, input) == FAILURE)
+	type = redir_type(input++);
+	if (*input == '>')
+		input++;
+	str = next_token_to_str(&input);
+	if (!str)
 		return (NULL);
-	free(strlist);
-	return (str);
+	if (redir_add_str(redir, str, type) == FAILURE)
+	{
+		free(str);
+		return (NULL);
+	}
+	return (input);
 }
 
 t_bool	is_token_empty(char *str, t_env *env)

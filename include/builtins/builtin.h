@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:37:55 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/23 17:32:06 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/26 21:48:17 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "builtin_exit_utils.h"
 # include "exec_cmd.h"
+# include "exec_redir.h"
 # include "libft.h"
 # include <errno.h>
 

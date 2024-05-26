@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 02:38:28 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/21 02:46:08 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/26 21:44:28 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include "signal.h"
 # include <sys/stat.h>
 
-t_bool	exec_redir(t_redir *redirs);
+// t_bool	exec_redir(t_redir *redirs);
 void	exec_cmd(t_cmd *cmd, t_env *env);
 
 #endif

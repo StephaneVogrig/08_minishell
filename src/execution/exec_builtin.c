@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 19:14:20 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/26 19:01:13 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/26 21:52:28 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	exec_builtin_alone(t_builtin builtin, t_cmd *cmd, t_env *env)
 
 	fd[0] = dup(0);
 	fd[1] = dup(1);
-	if (exec_redir(cmd->redir) == FAILURE)
+	if (exec_redir(cmd->redir, env) == FAILURE)
 	{
 		close(fd[0]);
 		close(fd[1]);

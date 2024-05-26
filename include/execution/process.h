@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 22:21:43 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/07 04:42:11 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/26 21:45:16 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "command.h"
 # include "exec_cmd.h"
 # include "pipe.h"
+# include "exec_redir.h"
 
 int		process_first(t_cmd *cmd, int *fd_out, t_env *env, int *pids);
 int		process_pipes(t_cmd *cmd, int *fd_in, t_env *env, int *pids);

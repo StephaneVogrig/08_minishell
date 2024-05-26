@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 04:15:23 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/21 05:20:08 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/26 21:52:43 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	exec_cmd_pipe(t_cmd *cmd, t_env *env)
 	int	exit_code;
 	t_builtin	builtin;
 
-	if (!exec_redir(cmd->redir))
+	if (!exec_redir(cmd->redir, env))
 		exit_on_failure(cmd, NULL, NULL, env);
 	builtin = builtin_function(cmd->argv);
 	if (!builtin)
