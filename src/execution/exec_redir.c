@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:37:10 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/27 00:15:26 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/27 01:07:05 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ t_bool	redir_expand_and_dequote(t_redir *redir, t_env *env)
 t_bool	exec_redir(t_redir *redirs, t_env *env)
 {
 	int		fd;
-	
+
 	while (redirs)
 	{
 		if (redir_expand_and_dequote(redirs, env) == FAILURE)

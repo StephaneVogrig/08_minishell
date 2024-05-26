@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:36:43 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/27 00:30:04 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/27 01:19:30 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,6 @@ int	exec_pipeline(t_cmd *pipeline, pid_t *pids, t_env *env)
 	return (SUCCESS);
 }
 
-void	exec_cmd_alone(t_cmd_m *cmd, t_env *env)
-{
-	if (!exec_redir(cmd->redir, env))
-		exit_on_failure(cmd, NULL, NULL, env);
-	exec_cmd(cmd, env);
-}
-
 int	exec_alone(t_cmd_m *cmd, t_env *env)
 {
 	pid_t		pid[2];
@@ -57,7 +50,11 @@ int	exec_alone(t_cmd_m *cmd, t_env *env)
 	pid[1] = 0;
 	*pid = fork();
 	if (*pid == 0)
-		exec_cmd_alone(cmd, env);
+	{
+		if (!exec_redir(cmd->redir, env))
+			exit_on_failure(cmd, NULL, NULL, env);
+		exec_cmd(cmd, env);
+	}
 	if (*pid == -1)
 		exit_on_failure(cmd, NULL, NULL, env);
 	cmd_free(cmd);
@@ -82,15 +79,6 @@ int	exec_pipe(t_cmd_m *pipeline, t_env *env)
 	exit_code = wait_process(pids);
 	free(pids);
 	return (exit_code);
-}
-
-t_bool	is_empty(char *str)
-{
-	while (is_blank(*str))
-		str++;
-	if (*str == '\0')
-		return (TRUE);
-	return (FALSE);
 }
 
 int	exec_input(t_char_m *input, t_env *env)

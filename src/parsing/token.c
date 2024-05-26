@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 00:11:51 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/26 22:14:32 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/27 01:39:37 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,20 @@ char	*next_token_to_heredoc(char *input, t_redir **redir)
 	return (input);
 }
 
-int	redir_type(char *str)
+char	*redir_type(char *str, int *type)
 {
-	if (*str == '<')
-		return (IN);
-	if (*(str + 1) == '>')
-		return (OUT | APPEND);
-	return (OUT);
+	if (*str++ == '<')
+	{
+		*type = IN;
+		return (str);
+	}
+	if (*str == '>')
+	{
+		*type = OUT | APPEND;
+		return (++str);
+	}
+	*type = OUT;
+	return (str);
 }
 
 char	*next_token_to_redir(char *input, t_redir **redir)
@@ -45,9 +52,7 @@ char	*next_token_to_redir(char *input, t_redir **redir)
 	int		type;
 	char	*str;
 
-	type = redir_type(input++);
-	if (*input == '>')
-		input++;
+	input = redir_type(input, &type);
 	str = next_token_to_str(&input);
 	if (!str)
 		return (NULL);
@@ -82,19 +87,16 @@ t_bool	is_token_empty(char *str, t_env *env)
 	return (TRUE);
 }
 
-char	*end_token(char *str)
-{
-	while (*str && !is_meta(*str))
-		str++;
-	return (str);
-}
-
 char	*next_token_to_strlist(char *str, t_list **strlist, t_env *env)
 {
 	t_buff	buffer;
-	
+
 	if (is_token_empty(str, env))
-		return (end_token(str));
+	{
+		while (*str && !is_meta(*str))
+			str++;
+		return (str);
+	}
 	buff_init(&buffer);
 	while (str && !is_meta(*str))
 	{
@@ -108,7 +110,7 @@ char	*next_token_to_strlist(char *str, t_list **strlist, t_env *env)
 			str = NULL;
 	}
 	if (!str || strlist_add_buffer(strlist, &buffer) == FAILURE)
-			str = NULL;
+		str = NULL;
 	buff_clear(&buffer);
 	return (str);
 }

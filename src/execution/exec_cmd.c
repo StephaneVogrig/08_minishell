@@ -6,66 +6,29 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 15:22:47 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/26 21:50:34 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/27 00:55:31 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec_cmd.h"
 
-// int	redir_open(char *str, int type)
-// {
-// 	int	fd;
-
-// 	if (type & IN)
-// 		fd = open(str, O_RDONLY);
-// 	else if (type & APPEND)
-// 		fd = open(str, O_WRONLY | O_CREAT | O_APPEND, 0644);
-// 	else
-// 		fd = open(str, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-// 	return (fd);
-// }
-
-// t_bool	exec_redir(t_redir *redirs)
-// {
-// 	int	fd;
-
-// 	while (redirs)
-// 	{
-// 		fd = redir_open(redirs->str, redirs->type);
-// 		if (fd == -1)
-// 		{
-// 			fd_printf(STDERR_FD, "minishell: %s: %s\n", redirs->str,
-// 				strerror(errno));
-// 			redirlist_unlink_heredoc(redirs);
-// 			return (FAILURE);
-// 		}
-// 		if (redirs->type & IN)
-// 			dup2(fd, STDIN_FD);
-// 		else
-// 			dup2(fd, STDOUT_FD);
-// 		close(fd);
-// 		if (redirs->type & HEREDOC)
-// 			unlink(redirs->str);
-// 		redirs = redirs->next;
-// 	}
-// 	return (SUCCESS);
-// }
-
 void	exit_after_execve(int error, char *path, char **argv)
 {
-	struct stat buf;
+	struct stat	buf;
 
 	if (error == EACCES)
 	{
 		if (stat(*argv, &buf) == 0 && (S_ISDIR(buf.st_mode)))
-			fd_printf(STDERR_FD, "minishell: %s: Is a directory\n", *argv);
+			fd_printf(STDERR_FILENO, "minishell: %s: Is a directory\n", *argv);
 		else
-			fd_printf(STDERR_FD, "minishell: %s: Permission denied\n", *argv);
+			fd_printf(STDERR_FILENO, \
+						"minishell: %s: Permission denied\n", *argv);
 		error = 126;
 	}
 	else if (error == ENOENT)
 	{
-		fd_printf(STDERR_FD, "minishell: %s: No such file or directory\n", path);
+		fd_printf(STDERR_FILENO, \
+						"minishell: %s: No such file or directory\n", path);
 		error = 127;
 	}
 	minishell_free(NULL, path, argv, NULL);
