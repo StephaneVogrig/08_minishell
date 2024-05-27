@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 23:27:39 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/27 13:58:42 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/27 14:26:26 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,100 +14,18 @@
 #include "environment.h"
 #include <limits.h>
 
-// int	uptdate_PWD_OLPWD(t_env **env)
-// {
-// 	t_env	*node;
-// 	char	*str;
-// 	char	buffer[PATH_MAX];
-
-// 	str = env_get_type(*env, "PWD", EXPORTED);
-// 	node = env_get_node_n(*env, "OLDPWD", 6);
-// 	if (!node)
-// 	{
-//  		node = env_node_new("OLDPWD", "\0", EXPORTED);
-// 		env_add_back(env, node);
-// 	}
-// 	else
-// 	{
-// 		free(node->value);
-// 		node->value = ft_strdup(str);
-// 		if (!node->value)
-// 			return (ENOMEM);
-// 	}
-// 	str = getcwd(buffer, PATH_MAX);
-// 	node = env_get_node_n(*env, "PWD", 3);
-// 	if (!node)// creer OLDPWD
-// 	{
-//  		node = env_node_new("PWD", str, EXPORTED);
-// 		env_add_back(env, node);
-// 	}
-// 	else
-// 	{
-// 		free(node->value);
-// 		node->value = ft_strdup(str);
-// 		if (!node->value)
-// 			return (ENOMEM);
-// 	}
-// 	return (0);
-// }
-
-int	uptdate_OLPWD(t_env **env)
-{
-	t_env	*node;
-	char	*str;
-	char	buffer[PATH_MAX];
-
-	str = env_get_type(*env, "PWD", EXPORTED);
-	node = env_get_node_n(*env, "OLDPWD", 6);
-	if (!node)
-	{
- 		node = env_node_new("OLDPWD", "\0", EXPORTED);
-		env_add_back(env, node);
-	}
-	else
-	{
-		free(node->value);
-		node->value = ft_strdup(str);
-		if (!node->value)
-			return (ENOMEM);
-	}
-	return (0);
-}
-
-int	uptdate_PWD(t_env **env)
-{
-	t_env	*node;
-	char	*str;
-	char	buffer[PATH_MAX];
-
-	str = getcwd(buffer, PATH_MAX);
-	node = env_get_node_n(*env, "PWD", 3);
-	if (!node)
-	{
- 		node = env_node_new("PWD", str, EXPORTED);
-		env_add_back(env, node);
-	}
-	else
-	{
-		free(node->value);
-		node->value = ft_strdup(str);
-		if (!node->value)
-			return (ENOMEM);
-	}
-	return (0);
-}
-
 int	uptdate_PWD_OLPWD(t_env **env)
 {
 	t_env	*node;
-	char	*str;
+	char	*str = NULL;
 	char	buffer[PATH_MAX];
+
 
 	str = env_get_type(*env, "PWD", EXPORTED);
 	node = env_get_node_n(*env, "OLDPWD", 6);
 	if (!node)
 	{
- 		node = env_node_new("OLDPWD", "\0", EXPORTED);
+ 		node = env_node_new("OLDPWD", "\0", EXPORTED);//INTERNAL ??
 		env_add_back(env, node);
 	}
 	else
@@ -119,9 +37,9 @@ int	uptdate_PWD_OLPWD(t_env **env)
 	}
 	str = getcwd(buffer, PATH_MAX);
 	node = env_get_node_n(*env, "PWD", 3);
-	if (!node)// creer OLDPWD
+	if (!node)
 	{
- 		node = env_node_new("PWD", str, EXPORTED);
+ 		node = env_node_new("PWD", str, EXPORTED);//INTERNAL ??
 		env_add_back(env, node);
 	}
 	else
