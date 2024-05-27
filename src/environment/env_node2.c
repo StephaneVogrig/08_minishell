@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_node2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:31:06 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/19 14:43:26 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/27 14:36:37 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,17 +56,4 @@ t_env	*env_node_new(char *name, char *value, int type)
 	}
 	new->type = type;
 	return (new);
-}
-
-t_env	*env_get_node(t_env *env, char *str)
-{
-	if (!env || !str)
-		return (NULL);
-	while (env)
-	{
-		if (!ft_strcmp(env->name, str))
-			return (env);
-		env = env->next;
-	}
-	return (NULL);
 }

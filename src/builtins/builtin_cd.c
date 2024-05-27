@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 23:27:39 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/27 14:26:26 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/27 15:24:45 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,42 @@
 #include "environment.h"
 #include <limits.h>
 
+
+// int	uptdate_PWD_OLPWD(t_env **env)
+// {
+// 	t_env	*node;
+// 	char	*str = NULL;
+// 	char	buffer[PATH_MAX];
+// 	str = env_get_type(*env, "PWD", EXPORTED);
+// 	if(!str)
+// 		str = "\0";
+// 	if (env_set_value("OLDPWD", str, (*env)) == ENOEXIST)
+// 	{
+//  		node = env_node_new("OLDPWD", "\0", EXPORTED);//INTERNAL ??
+// 		env_add_back(env, node);
+// 	}
+// 	str = getcwd(buffer, PATH_MAX);
+// 	if (env_set_value("OLDPWD", str, (*env)) == ENOEXIST)
+// 	{
+//  		node = env_node_new("PWD", str, EXPORTED);//INTERNAL ??
+// 		env_add_back(env, node);
+// 	}
+// 	return (0);
+// }
+
 int	uptdate_PWD_OLPWD(t_env **env)
 {
 	t_env	*node;
-	char	*str = NULL;
+	char	*str;
 	char	buffer[PATH_MAX];
 
-
 	str = env_get_type(*env, "PWD", EXPORTED);
+	if(!str)
+		str = "\0";
 	node = env_get_node_n(*env, "OLDPWD", 6);
 	if (!node)
 	{
- 		node = env_node_new("OLDPWD", "\0", EXPORTED);//INTERNAL ??
+ 		node = env_node_new("OLDPWD", "\0", EXPORTED);//INTERNAL??
 		env_add_back(env, node);
 	}
 	else
@@ -39,7 +63,7 @@ int	uptdate_PWD_OLPWD(t_env **env)
 	node = env_get_node_n(*env, "PWD", 3);
 	if (!node)
 	{
- 		node = env_node_new("PWD", str, EXPORTED);//INTERNAL ??
+ 		node = env_node_new("PWD", str, EXPORTED);//INTERNAL??
 		env_add_back(env, node);
 	}
 	else
