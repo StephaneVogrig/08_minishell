@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:47:12 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/18 18:37:00 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/27 13:41:47 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,38 @@ void	env_display(t_env *env, int type)
 			env = env->next;
 		}
 	}
+}
+
+static t_bool	env_init_shellvar(t_env **env)
+{
+	t_bool	success;
+
+	success = env_shlvl_init(env);
+	if (success)
+		success = env_pwd_init(env);
+	if (success)
+		success = exit_status_init(env);
+	if (node_home_cpy(*env) == ENOMEM)
+		return (FAILURE);
+	return (success);
+}
+
+t_env	*env_init(char **envp)
+{
+	t_env	*env;
+	t_env	*node;
+
+	node = NULL;
+	env = NULL;
+	if (*envp)
+	{
+		if (envp_to_env(envp, &env) == FAILURE)
+			return (NULL);
+	}
+	if (env_init_shellvar(&env) == FAILURE)
+	{
+		env_free(env);
+		return (NULL);
+	}
+	return (env);
 }

@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:00:03 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/27 02:54:08 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/27 13:57:07 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct s_env
 	char			*value;
 	struct s_env	*next;
 }					t_env;
-typedef t_env t_env_m;
+typedef t_env	t_env_m;
 
 // ENV_UTILS ----------------
 int		env_size(t_env *env, int type);
@@ -72,7 +72,7 @@ t_env	*env_node_new(char *name, char *value, int type);
 t_env	*env_get_node(t_env *env, char *str);
 
 // ENVP ----------------------
-t_env	*envp_to_env(char **envp);
+t_bool	envp_to_env(char **envp, t_env **env);
 char	**env_to_envp(t_env *env);
 char	*env_join(char *name, char *value);
 

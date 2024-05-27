@@ -6,38 +6,36 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 17:54:58 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/22 15:52:23 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/27 13:32:45 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "environment.h"
 
-t_env	*envp_to_env(char **envp)
+t_bool	envp_to_env(char **envp, t_env **env)
 {
-	t_env	*env;
 	t_env	*node;
 	int		i;
 
 	i = 0;
 	node = NULL;
-	env = NULL;
 	while (envp[i])
 	{
 		node = malloc(sizeof(*node));
 		if (!node)
 		{
 			perror("minishell: envp_to_env: malloc");
-			env_free(env);
-			return (NULL);
+			env_free(*env);
+			return (FAILURE);
 		}
 		node_init(node, envp[i]);
-		env_add_back(&env, node);
+		env_add_back(env, node);
 		i++;
 	}
-	return (env);
+	return (SUCCESS);
 }
 
-// cree un malloc qui contient "name=value"
+// concatenates name and value in form "name=value"
 char	*env_join(char *name, char *value)
 {
 	int		name_len;
@@ -58,7 +56,7 @@ char	*env_join(char *name, char *value)
 	return (str);
 }
 
-/// transforme la liste en tableau
+// copy a list t_env in a tab of string
 char	**env_to_envp(t_env *env)
 {
 	char	**envp;

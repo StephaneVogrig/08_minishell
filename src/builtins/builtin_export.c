@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:13:40 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/27 02:47:25 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/27 13:47:08 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ static int	export_run(t_env **env, char *str)
 	if (node && str[n] == '=')
 	{
 		free(node->value);
-		if(str[n + 1])
-		{		
+		if (str[n + 1])
+		{
 			node->type = EXPORTED;
 			node->value = ft_strdup(&str[n + 1]);
 		}
@@ -68,7 +68,7 @@ static int	export_run(t_env **env, char *str)
 			node->value = malloc(1);
 			node->value[0] = '\0';
 			node->type = EXPORTED;
-		}	
+		}
 	}
 	if (node && str[n] == '+')
 	{
@@ -98,17 +98,16 @@ int	builtin_export(t_cmd *cmd, t_env **env)
 	int		error;
 	int		ret;
 
-	ret = 0;
+	ret = EXIT_SUCCESS;
 	if (!env)
 		return (0);
 	argv = cmd->argv;
 	argv = argv->next;
 	if (!argv)
 	{
-		ret = display_envp_sorted(*env);
-		if (ret == ENOMEM)
+		if (display_envp_sorted(*env) == FAILURE)
 			exit_on_failure(cmd, NULL, NULL, *env);
-	}	
+	}
 	while (argv)
 	{
 		error = export(env, argv->content);

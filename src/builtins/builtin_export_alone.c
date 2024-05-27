@@ -3,28 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export_alone.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 22:22:07 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/27 01:53:46 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/27 13:46:19 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 
-void	env_sorted_display(t_env *env)
+static void	env_sorted_display(t_env *env)
 {
 	while (env != NULL)
 	{
-		if(env->type == EXPORTED)
+		if (env->type == EXPORTED)
 		{
 			if (env->name[0] == '_' && env->name[1] == '\0')
 				env = env->next;
 			else
-			{	
+			{
 				printf("declare -x %s=\"%s\"\n", env->name, env->value);
 				env = env->next;
-			}	
+			}
 		}
 		else
 		{
@@ -34,19 +34,19 @@ void	env_sorted_display(t_env *env)
 	}
 }
 
-int	tab_to_lst(char **sorted_tab)
+static t_bool	tab_to_lst(char **sorted_tab)
 {
 	t_env	*sorted_env;
-	
-	sorted_env = envp_to_env(sorted_tab);
-	if (!sorted_env)
-		return (ENOMEM);
+
+	sorted_env = NULL;
+	if (envp_to_env(sorted_tab, &sorted_env) == FAILURE)
+		return (FAILURE);
 	env_sorted_display(sorted_env);
 	env_free(sorted_env);
-	return (0);
+	return (SUCCESS);
 }
 
-int	strtab_sort(char **to_sort)
+static t_bool	strtab_sort(char **to_sort)
 {
 	int		i;
 	char	*temp;
@@ -70,50 +70,52 @@ int	strtab_sort(char **to_sort)
 		return (tab_to_lst(to_sort));
 	else
 		strtab_sort(to_sort);
-	return (0);
+	return (SUCCESS);
 }
 
-char	**env_to_envp_export(t_env *env, char **envp)
+static t_bool	fill_tab_to_sort(t_env *env, char **tab_to_sort)
 {
 	int		i;
 
 	i = 0;
-	while(env)
+	while (env)
 	{
 		if ((env->type == EXPORTED || env->type == NO_VALUE))
 		{
 			if (env->type == EXPORTED && env->value[0] != '\0')
-				envp[i] = env_join(env->name, env->value);
+				tab_to_sort[i] = env_join(env->name, env->value);
 			else if (env->type == EXPORTED && env->value[0] == '\0')
-				envp[i] = ft_strjoin(env->name, "=");
+				tab_to_sort[i] = ft_strjoin(env->name, "=");
 			else if (env->type == NO_VALUE)
-				envp[i] = ft_strdup(env->name);
-			if (!envp[i])
+				tab_to_sort[i] = ft_strdup(env->name);
+			if (!tab_to_sort[i])
 			{
-				strtab_free(envp);
-				return (NULL);
+				perror("minishell: fill_tab_to_sort");
+				strtab_free(tab_to_sort);
+				return (FAILURE);
 			}
 			i++;
 		}
 		env = env->next;
 	}
-	return (envp);
+	return (SUCCESS);
 }
 
-int	display_envp_sorted(t_env *envp)
+t_bool	display_envp_sorted(t_env *env)
 {
-	char **tab_to_sort;
+	char	**tab_to_sort;
 
-	tab_to_sort = ft_calloc(env_size(envp, ALL) + 1, sizeof(*envp));
+	tab_to_sort = ft_calloc(env_size(env, ALL) + 1, sizeof(*env));
 	if (!tab_to_sort)
 		return (ENOMEM);
-	tab_to_sort = env_to_envp_export(envp, tab_to_sort);
-	if(strtab_sort(tab_to_sort) == ENOMEM)
+	if (fill_tab_to_sort(env, tab_to_sort) == FAILURE)
+		return (FAILURE);
+	if (strtab_sort(tab_to_sort) == ENOMEM)
 	{
 		perror("minishell: export");
 		strtab_free(tab_to_sort);
-		return (ENOMEM);
+		return (FAILURE);
 	}
 	strtab_free(tab_to_sort);
-	return (0);
+	return (SUCCESS);
 }
