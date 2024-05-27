@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 22:22:07 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/27 01:45:55 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/27 01:53:46 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	display_envp_sorted(t_env *envp)
 
 	tab_to_sort = ft_calloc(env_size(envp, ALL) + 1, sizeof(*envp));
 	if (!tab_to_sort)
-		return (1);
+		return (ENOMEM);
 	tab_to_sort = env_to_envp_export(envp, tab_to_sort);
 	if(strtab_sort(tab_to_sort) == ENOMEM)
 	{
