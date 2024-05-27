@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:00:03 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/22 15:37:27 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/27 02:54:08 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_bool	node_init(t_env *node, char *str);
 void	env_node_free(t_env *node);
 void	env_node_del(t_env **env, t_env *node);
 t_bool	var_init(t_env *node, char *str, int n);
-int		export_new_node(t_env *env, char *str, int n);
+int		export_new_node(t_env **env, char *str, int n);
 
 // ENV_NODE2 ------------------
 t_bool	env_node_set_value(char *value, t_env *node);

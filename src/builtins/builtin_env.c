@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 18:23:08 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/18 15:33:26 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/27 02:56:16 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	env(t_env *env)
 	return (0);
 }
 
-int	builtin_env(t_cmd *cmd, t_env *envp)
+int	builtin_env(t_cmd *cmd, t_env **envp)
 {
 	t_list	*argv;
 	int		error;
@@ -33,11 +33,11 @@ int	builtin_env(t_cmd *cmd, t_env *envp)
 		fd_printf(STDERR_FD, "minishell: env: args not supported\n");
 		return (1);
 	}
-	error = env(envp);
+	error = env(*envp);
 	if (error == ENOMEM)
 	{
 		cmd_free(cmd);
-		env_free(envp);
+		env_free(*envp);
 		exit(EXIT_FAILURE);
 	}
 	return (error);

@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 15:22:47 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/27 00:55:31 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/27 02:55:23 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	exit_after_execve(int error, char *path, char **argv)
 	exit(error);
 }
 
-void	exec_cmd(t_cmd_m *cmd, t_env_m *env)
+void	exec_cmd(t_cmd_m *cmd, t_env_m **env)
 {
 	char	*path;
 	char	**argv;
@@ -43,19 +43,19 @@ void	exec_cmd(t_cmd_m *cmd, t_env_m *env)
 
 	if (!cmd->argv)
 	{
-		minishell_free(cmd, NULL, NULL, env);
+		minishell_free(cmd, NULL, NULL, *env);
 		exit(EXIT_SUCCESS);
 	}
-	path = cmd_path(cmd, env);
+	path = cmd_path(cmd, *env);
 	if (!path)
-		exit_on_file_error("command not found", cmd, env);
+		exit_on_file_error("command not found", cmd, *env);
 	argv = argvlist_to_argvtab(&cmd->argv);
 	pipeline_free(&cmd);
 	if (!argv)
-		exit_on_failure(NULL, path, NULL, env);
-	envp = env_to_envp(env);
+		exit_on_failure(NULL, path, NULL, *env);
+	envp = env_to_envp(*env);
 	if (!envp)
-		exit_on_failure(NULL, path, argv, env);
+		exit_on_failure(NULL, path, argv, *env);
 	signal(SIGINT, SIG_DFL);
 	execve(path, argv, envp);
 	strtab_free(envp);

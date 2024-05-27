@@ -6,13 +6,13 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 19:14:20 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/26 21:52:28 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/27 02:58:28 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 
-int (*builtin_function(t_list *argv))(t_cmd *, t_env *)
+int (*builtin_function(t_list *argv))(t_cmd *, t_env **)
 {
 	if (!argv)
 		return (NULL);
@@ -33,14 +33,14 @@ int (*builtin_function(t_list *argv))(t_cmd *, t_env *)
 	return (NULL);
 }
 
-int	exec_builtin_alone(t_builtin builtin, t_cmd *cmd, t_env *env)
+int	exec_builtin_alone(t_builtin builtin, t_cmd *cmd, t_env **env)
 {
 	int	fd[2];
 	int	exit_code;
 
 	fd[0] = dup(0);
 	fd[1] = dup(1);
-	if (exec_redir(cmd->redir, env) == FAILURE)
+	if (exec_redir(cmd->redir, *env) == FAILURE)
 	{
 		close(fd[0]);
 		close(fd[1]);
@@ -53,8 +53,8 @@ int	exec_builtin_alone(t_builtin builtin, t_cmd *cmd, t_env *env)
 	close(fd[1]);
 	if (builtin == &builtin_exit && exit_code < 0)
 	{
-		exit_code = exit_status_get_int(env);
-		minishell_free(cmd, NULL, NULL, env);
+		exit_code = exit_status_get_int(*env);
+		minishell_free(cmd, NULL, NULL, *env);
 		exit(exit_code);
 	}
 	return (exit_code);

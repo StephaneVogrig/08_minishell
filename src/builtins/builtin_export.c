@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:13:40 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/27 01:45:18 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/27 02:47:25 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ int	end_var_name(char *str)
 	return (i);
 }
 
-static int	export_run(t_env *env, char *str)
+static int	export_run(t_env **env, char *str)
 {
 	int		n;
 	t_env	*node;
 
 	n = end_var_name(str);
-	node = env_get_node_n(env, str, n);
+	node = env_get_node_n(*env, str, n);
 	if (node && str[n] == '=')
 	{
 		free(node->value);
@@ -81,7 +81,7 @@ static int	export_run(t_env *env, char *str)
 	return (0);
 }
 
-int	export(t_env *envp, char *str)
+int	export(t_env **envp, char *str)
 {
 	if (!is_valid_arg(str))
 	{
@@ -92,7 +92,7 @@ int	export(t_env *envp, char *str)
 	return (export_run(envp, str));
 }
 
-int	builtin_export(t_cmd *cmd, t_env *env)
+int	builtin_export(t_cmd *cmd, t_env **env)
 {
 	t_list	*argv;
 	int		error;
@@ -105,15 +105,15 @@ int	builtin_export(t_cmd *cmd, t_env *env)
 	argv = argv->next;
 	if (!argv)
 	{
-		ret = display_envp_sorted(env);
+		ret = display_envp_sorted(*env);
 		if (ret == ENOMEM)
-			exit_on_failure(cmd, NULL, NULL, env);
+			exit_on_failure(cmd, NULL, NULL, *env);
 	}	
 	while (argv)
 	{
 		error = export(env, argv->content);
 		if (error == ENOMEM)
-			exit_on_failure(cmd, NULL, NULL, env);
+			exit_on_failure(cmd, NULL, NULL, *env);
 		if (error == EXIT_FAILURE)
 			ret = EXIT_FAILURE;
 		argv = argv->next;

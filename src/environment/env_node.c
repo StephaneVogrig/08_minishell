@@ -3,30 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env_node.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 14:09:56 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/19 18:28:15 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/27 02:50:13 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "environment.h"
-
-// t_bool	node_init(t_env *node, char *str, int type)
-// {
-// 	int	index;
-
-// 	index = ft_strchr_i(str, '=');
-// 	node->name = ft_strndup(str, index);
-// 	if (!node->name)
-// 		return (FAILURE);//exit ??
-// 	node->value = ft_strdup(&str[index + 1]);
-// 	if (!node->value)
-// 		return (FAILURE);//exit ??
-// 	node->type = type;
-// 	node->next = NULL;
-// 	return (SUCCESS);
-// }
 
 t_bool	node_init(t_env *node, char *str)
 {
@@ -111,7 +95,7 @@ t_bool	var_init(t_env *node, char *str, int n)
 	return (SUCCESS);
 }
 
-int	export_new_node(t_env *env, char *str, int n)
+int	export_new_node(t_env **env, char *str, int n)
 {
 	t_env *node;
 
@@ -120,6 +104,6 @@ int	export_new_node(t_env *env, char *str, int n)
 		return (ENOMEM);
 	if (!var_init(node, str, n))
 		return (ENOMEM);
-	env_add_back(&env, node);
+	env_add_back(env, node);
 	return (0);
 }

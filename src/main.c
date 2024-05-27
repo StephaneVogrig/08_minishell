@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:55:55 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/22 16:19:30 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/27 03:02:07 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	run_interactive_mode(t_env **env)
 			continue ;
 		}
 		add_history(input);
-		exit_code = exec_input(input, *env);
+		exit_code = exec_input(input, env);
 		exit_status_set(exit_code, *env);
 	}
 	write(2, "exit\n", 5);
@@ -60,7 +60,7 @@ int	run_file_mode(t_env **env)
 			exit_code = 128 + SIGINT;
 			break;
 		}
-		exit_code = exec_input(input, *env);
+		exit_code = exec_input(input, env);
 	}
 	return (exit_code);
 }

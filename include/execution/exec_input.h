@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 20:37:35 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/26 21:45:51 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/27 02:24:13 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@
 
 # define SYNTAX_ERROR 2
 
-int	exec_input(char *input, t_env *envp);
+int	exec_input(char *input, t_env **envp);
 
 #endif

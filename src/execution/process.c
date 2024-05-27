@@ -6,29 +6,29 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 04:15:23 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/26 21:52:43 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/27 02:33:08 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "process.h"
 
-void	exec_cmd_pipe(t_cmd *cmd, t_env *env)
+void	exec_cmd_pipe(t_cmd *cmd, t_env **env)
 {
 	int	exit_code;
 	t_builtin	builtin;
 
-	if (!exec_redir(cmd->redir, env))
-		exit_on_failure(cmd, NULL, NULL, env);
+	if (!exec_redir(cmd->redir, *env))
+		exit_on_failure(cmd, NULL, NULL, *env);
 	builtin = builtin_function(cmd->argv);
 	if (!builtin)
 		exec_cmd(cmd, env);
 	exit_code = builtin(cmd, env);
 	pipeline_free(&cmd);
-	env_free(env);
+	env_free(*env);
 	exit(exit_code);
 }
 
-int	process_first(t_cmd *cmd, int *fd_out, t_env *env, int *pids)
+int	process_first(t_cmd *cmd, int *fd_out, t_env **env, int *pids)
 {
 	int	pid;
 	int	pipe_out[2];
@@ -54,7 +54,7 @@ int	process_first(t_cmd *cmd, int *fd_out, t_env *env, int *pids)
 	return (pid);
 }
 
-int	process_pipes(t_cmd *cmd, int *fd_in, t_env *env, int *pids)
+int	process_pipes(t_cmd *cmd, int *fd_in, t_env **env, int *pids)
 {
 	int	pid;
 	int	pipe_out[2];
@@ -83,7 +83,7 @@ int	process_pipes(t_cmd *cmd, int *fd_in, t_env *env, int *pids)
 	return (pid);
 }
 
-int	process_last(t_cmd *cmd, int fd_in, t_env *env, int *pids)
+int	process_last(t_cmd *cmd, int fd_in, t_env **env, int *pids)
 {
 	int	pid;
 
