@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:13:40 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/19 16:34:33 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/27 01:45:18 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,17 @@ static int	export_run(t_env *env, char *str)
 	if (node && str[n] == '=')
 	{
 		free(node->value);
-		node->type = EXPORTED;
-		node->value = ft_strdup(&str[n + 1]);
+		if(str[n + 1])
+		{		
+			node->type = EXPORTED;
+			node->value = ft_strdup(&str[n + 1]);
+		}
+		else
+		{
+			node->value = malloc(1);
+			node->value[0] = '\0';
+			node->type = EXPORTED;
+		}	
 	}
 	if (node && str[n] == '+')
 	{
@@ -105,8 +114,8 @@ int	builtin_export(t_cmd *cmd, t_env *env)
 		error = export(env, argv->content);
 		if (error == ENOMEM)
 			exit_on_failure(cmd, NULL, NULL, env);
-		if (error == 1)
-			ret = 1;
+		if (error == EXIT_FAILURE)
+			ret = EXIT_FAILURE;
 		argv = argv->next;
 	}
 	return (ret);
