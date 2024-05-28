@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:13:40 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/28 12:15:16 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/28 12:21:21 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	end_var_name(char *str)
 	return (i);
 }
 
-static int	export_run(char *str, t_env *node, int n)
+static int	export_modify_node(char *str, t_env *node, int n)
 {
 	if (node && str[n] == '=')
 	{
@@ -75,7 +75,7 @@ static int	export_run(char *str, t_env *node, int n)
 	return (0);
 }
 
-int	export(t_env **envp, char *str)
+int	export_run(t_env **envp, char *str)
 {
 	int n;
 	t_env	*node;
@@ -91,7 +91,7 @@ int	export(t_env **envp, char *str)
 	if (!node)
 		return (export_new_node(envp, str, n));
 	else
-		return (export_run(str, node, n));
+		return (export_modify_node(str, node, n));
 }
 
 int	builtin_export(t_cmd *cmd, t_env **env)
@@ -113,7 +113,7 @@ int	builtin_export(t_cmd *cmd, t_env **env)
 	}	
 	while (argv)
 	{
-		error = export(env, argv->content);
+		error = export_run(env, argv->content);
 		if (error == ENOMEM)
 			exit_on_failure(cmd, NULL, NULL, *env);
 		if (error == EXIT_FAILURE)
