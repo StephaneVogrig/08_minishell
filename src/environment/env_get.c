@@ -6,11 +6,24 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 18:02:34 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/25 14:29:57 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/27 14:36:42 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "environment.h"
+
+t_env	*env_get_node(t_env *env, char *str)
+{
+	if (!env || !str)
+		return (NULL);
+	while (env)
+	{
+		if (!ft_strcmp(env->name, str))
+			return (env);
+		env = env->next;
+	}
+	return (NULL);
+}
 
 t_env	*env_get_node_n(t_env *env, char *str, int n)
 {

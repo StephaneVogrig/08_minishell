@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:13:40 by smortemo          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/05/27 13:47:08 by svogrig          ###   ########.fr       */
+=======
+/*   Updated: 2024/05/28 13:03:48 by smortemo         ###   ########.fr       */
+>>>>>>> cd_bug_50
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,48 +52,58 @@ int	end_var_name(char *str)
 	return (i);
 }
 
-static int	export_run(t_env **env, char *str)
+static int	export_modify_node(char *str, t_env *node, int n)
 {
-	int		n;
-	t_env	*node;
-
-	n = end_var_name(str);
-	node = env_get_node_n(*env, str, n);
 	if (node && str[n] == '=')
 	{
 		free(node->value);
-		if (str[n + 1])
+		if(str[n + 1])
 		{
-			node->type = EXPORTED;
 			node->value = ft_strdup(&str[n + 1]);
+			if (!node->value)
+				return (ENOMEM);
 		}
 		else
 		{
 			node->value = malloc(1);
+			if (!node->value)
+				return (ENOMEM);
 			node->value[0] = '\0';
-			node->type = EXPORTED;
-		}
+		}	
+		node->type = EXPORTED;
+		return(0);
 	}
-	if (node && str[n] == '+')
-	{
-		node->value = ft_strjoin_free_s1(node->value, &str[n + 2]);
-		if (!node->value)
-			return (ENOMEM);
-	}
-	if (!node)
-		return (export_new_node(env, str, n));
+	node->value = ft_strjoin_free_s1(node->value, &str[n + 2]);
+	if (!node->value)
+		return (ENOMEM);
 	return (0);
 }
 
-int	export(t_env **envp, char *str)
+int	export_run(t_env **envp, char *str)
 {
+	int n;
+	t_env	*node;
+	
 	if (!is_valid_arg(str))
 	{
 		fd_printf(STDERR_FD, "minishel : export : '%s'", str);
 		fd_printf(STDERR_FD, " : not a valid identifier\n");
 		return (1);
 	}
-	return (export_run(envp, str));
+	n = end_var_name(str);
+	node = env_get_node_n(*envp, str, n);	
+	if (!node)
+		return (export_new_node(envp, str, n));
+	else
+	{
+		if ((node->type == DIR || node->type == DIR_NO_VALUE) && str[n] == '\0')
+		{
+			node->type = EXPORTED;
+			return(0);
+		}
+		return (export_modify_node(str, node, n));
+	}
+		
 }
 
 int	builtin_export(t_cmd *cmd, t_env **env)
@@ -110,7 +124,7 @@ int	builtin_export(t_cmd *cmd, t_env **env)
 	}
 	while (argv)
 	{
-		error = export(env, argv->content);
+		error = export_run(env, argv->content);
 		if (error == ENOMEM)
 			exit_on_failure(cmd, NULL, NULL, *env);
 		if (error == EXIT_FAILURE)

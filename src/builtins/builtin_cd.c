@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 23:27:39 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/27 02:56:47 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/28 13:02:43 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,34 @@
 #include "environment.h"
 #include <limits.h>
 
-int	uptdate_PWD_OLPWD(t_env **env)
+
+int	uptdate_PWD_OLPWD(t_env **env_ptr)
 {
 	t_env	*node;
-	char	*str;
+	char	*str = NULL;
 	char	buffer[PATH_MAX];
-
-	str = env_get_type(*env, "PWD", EXPORTED);
-	node = env_get_node_n(*env, "OLDPWD", 6);
-	if (!node)
-		return (1);// creer ancien PWD
-	free(node->value);
-	node->value = ft_strdup(str);
-	if (!node->value)
-		return (ENOMEM);
+	// t_env	*env;
+	int		type;
+	
+	type = DIR;
+	// env = (*env_ptr);
+	str = env_get_type(*env_ptr, "PWD", EXPORTED);
+	if(!str)
+	{	
+		type = DIR_NO_VALUE;
+		str = "\0";
+	}
+	if (env_set_value("OLDPWD", str, *env_ptr) == ENOEXIST)
+	{
+ 		node = env_node_new("OLDPWD", str, type);
+		env_add_back(env_ptr, node);
+	}
 	str = getcwd(buffer, PATH_MAX);
-	node = env_get_node_n(*env, "PWD", 3);
-	if (!node)
-		return (1);
-	free(node->value);
-	node->value = ft_strdup(str);
-	if (!node->value)
-		return (ENOMEM);
+	if (env_set_value("PWD", str, *env_ptr) == ENOEXIST)
+	{
+ 		node = env_node_new("PWD", str, type);
+		env_add_back(env_ptr, node);
+	}
 	return (0);
 }
 

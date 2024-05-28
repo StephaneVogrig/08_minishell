@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:00:03 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/27 13:57:07 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/28 13:35:36 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 # define EXPORTED 2
 # define NO_VALUE 3
 # define ALL 4
+# define DIR 5
+# define DIR_NO_VALUE 6
 
 /* errors */
 # define ENOEXIST 2
@@ -54,6 +56,7 @@ char	*create_home_path(t_env *env);
 int		node_home_cpy(t_env *env);
 
 // ENV_GET --------------------
+t_env	*env_get_node(t_env *env, char *str);
 t_env	*env_get_node_n(t_env *env, char *str, int n);
 char	*env_get_type(t_env *env, char *str, int type);
 char	*env_get(t_env *env, char *str);
@@ -69,7 +72,6 @@ int		export_new_node(t_env **env, char *str, int n);
 // ENV_NODE2 ------------------
 t_bool	env_node_set_value(char *value, t_env *node);
 t_env	*env_node_new(char *name, char *value, int type);
-t_env	*env_get_node(t_env *env, char *str);
 
 // ENVP ----------------------
 t_bool	envp_to_env(char **envp, t_env **env);
