@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:00:03 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/27 14:37:44 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/28 13:02:19 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 # define EXPORTED 2
 # define NO_VALUE 3
 # define ALL 4
+# define DIR 5
+# define DIR_NO_VALUE 6
 
 /* errors */
 # define ENOEXIST 2

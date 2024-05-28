@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:13:40 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/28 12:21:21 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/28 13:03:48 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,15 @@ int	export_run(t_env **envp, char *str)
 	if (!node)
 		return (export_new_node(envp, str, n));
 	else
+	{
+		if ((node->type == DIR || node->type == DIR_NO_VALUE) && str[n] == '\0')
+		{
+			node->type = EXPORTED;
+			return(0);
+		}
 		return (export_modify_node(str, node, n));
+	}
+		
 }
 
 int	builtin_export(t_cmd *cmd, t_env **env)

@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 23:27:39 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/28 11:46:54 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/28 13:02:43 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,27 @@ int	uptdate_PWD_OLPWD(t_env **env_ptr)
 	t_env	*node;
 	char	*str = NULL;
 	char	buffer[PATH_MAX];
-	t_env	*env;
+	// t_env	*env;
+	int		type;
 	
-	env = (*env_ptr);
+	type = DIR;
+	// env = (*env_ptr);
 	str = env_get_type(*env_ptr, "PWD", EXPORTED);
 	if(!str)
+	{	
+		type = DIR_NO_VALUE;
 		str = "\0";
-	if (env_set_value("OLDPWD", str, env) == ENOEXIST)
+	}
+	if (env_set_value("OLDPWD", str, *env_ptr) == ENOEXIST)
 	{
- 		node = env_node_new("OLDPWD", str, EXPORTED);//INTERNAL ??
-		env_add_back(&env, node);
+ 		node = env_node_new("OLDPWD", str, type);
+		env_add_back(env_ptr, node);
 	}
 	str = getcwd(buffer, PATH_MAX);
-	if (env_set_value("PWD", str, env) == ENOEXIST)
+	if (env_set_value("PWD", str, *env_ptr) == ENOEXIST)
 	{
- 		node = env_node_new("PWD", str, EXPORTED);//INTERNAL ??
-		env_add_back(&env, node);
+ 		node = env_node_new("PWD", str, type);
+		env_add_back(env_ptr, node);
 	}
 	return (0);
 }
