@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 23:27:39 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/28 11:36:14 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/28 11:46:54 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,45 +39,6 @@ int	uptdate_PWD_OLPWD(t_env **env_ptr)
 	}
 	return (0);
 }
-
-// int	uptdate_PWD_OLPWD(t_env **env)
-// {
-// 	t_env	*node;
-// 	char	*str;
-// 	char	buffer[PATH_MAX];
-//
-// 	str = env_get_type(*env, "PWD", EXPORTED);
-// 	if(!str)
-// 		str = "\0";
-// 	node = env_get_node_n(*env, "OLDPWD", 6);
-// 	if (!node)
-// 	{
-//  		node = env_node_new("OLDPWD", str, EXPORTED);//INTERNAL??
-// 		env_add_back(env, node);
-// 	}
-// 	else
-// 	{
-// 		free(node->value);
-// 		node->value = ft_strdup(str);
-// 		if (!node->value)
-// 			return (ENOMEM);
-// 	}
-// 	str = getcwd(buffer, PATH_MAX);
-// 	node = env_get_node_n(*env, "PWD", 3);
-// 	if (!node)
-// 	{
-//  		node = env_node_new("PWD", str, EXPORTED);//INTERNAL??
-// 		env_add_back(env, node);
-// 	}
-// 	else
-// 	{
-// 		free(node->value);
-// 		node->value = ft_strdup(str);
-// 		if (!node->value)
-// 			return (ENOMEM);
-// 	}
-// 	return (0);
-// }
 
 int	go_home(t_env **env, char c)
 {
