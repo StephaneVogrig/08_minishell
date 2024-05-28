@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 04:15:23 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/27 02:33:08 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/28 12:03:03 by stephane         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "process.h"
 
@@ -28,7 +28,7 @@ void	exec_cmd_pipe(t_cmd *cmd, t_env **env)
 	exit(exit_code);
 }
 
-int	process_first(t_cmd *cmd, int *fd_out, t_env **env, int *pids)
+int	process_first(t_cmd *cmd, int *fd_out, t_env **env)
 {
 	int	pid;
 	int	pipe_out[2];
@@ -38,7 +38,6 @@ int	process_first(t_cmd *cmd, int *fd_out, t_env **env, int *pids)
 	pid = fork();
 	if (pid == 0)
 	{
-		free(pids);
 		close(pipe_out[READ]);
 		dup2(pipe_out[WRITE], STDOUT_FD);
 		close(pipe_out[WRITE]);
@@ -54,7 +53,7 @@ int	process_first(t_cmd *cmd, int *fd_out, t_env **env, int *pids)
 	return (pid);
 }
 
-int	process_pipes(t_cmd *cmd, int *fd_in, t_env **env, int *pids)
+int	process_pipes(t_cmd *cmd, int *fd_in, t_env **env)
 {
 	int	pid;
 	int	pipe_out[2];
@@ -64,7 +63,6 @@ int	process_pipes(t_cmd *cmd, int *fd_in, t_env **env, int *pids)
 	pid = fork();
 	if (pid == 0)
 	{
-		free(pids);
 		dup2(*fd_in, STDIN_FD);
 		close(*fd_in);
 		close(pipe_out[READ]);
@@ -83,14 +81,13 @@ int	process_pipes(t_cmd *cmd, int *fd_in, t_env **env, int *pids)
 	return (pid);
 }
 
-int	process_last(t_cmd *cmd, int fd_in, t_env **env, int *pids)
+int	process_last(t_cmd *cmd, int fd_in, t_env **env)
 {
 	int	pid;
 
 	pid = fork();
 	if (pid == 0)
 	{
-		free(pids);
 		dup2(fd_in, STDIN_FD);
 		close(fd_in);
 		exec_cmd_pipe(cmd, env);

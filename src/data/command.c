@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:47:14 by stephane          #+#    #+#             */
-/*   Updated: 2024/04/08 03:11:58 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/28 11:47:46 by stephane         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "command.h"
 
@@ -16,13 +16,12 @@ t_cmd	*cmd_new(void)
 {
 	t_cmd	*new;
 	
-	new = malloc(sizeof(*new));
+	new = ft_calloc(1, sizeof(*new));
 	if (!new)
 	{
 		perror("minishell: cmd_new");
 		return (NULL);		
 	}
-	ft_bzero(new, sizeof(*new));
 	return (new);
 }
 
@@ -39,8 +38,6 @@ int	cmd_nbr(t_cmd *pipeline)
 {
 	int	i;
 
-	if (!pipeline)
-		return (0);
 	i = 0;
 	while (pipeline)
 	{

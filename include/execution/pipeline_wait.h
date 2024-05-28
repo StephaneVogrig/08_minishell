@@ -6,7 +6,7 @@
 /*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 23:18:16 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/11 15:20:40 by stephane         ###   ########.fr       */
+/*   Updated: 2024/05/28 10:43:34 by stephane         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -15,7 +15,8 @@
 
 # include <stdlib.h>
 # include <sys/wait.h>
+# include "command.h"
 
-int	wait_process(pid_t *pids);
+int	wait_process(t_cmd *cmd);
 
 #endif

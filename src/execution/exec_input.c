@@ -1,41 +1,44 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   exec_input.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:36:43 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/27 03:02:32 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/28 11:58:04 by stephane         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "exec_input.h"
 
-int	exec_pipeline(t_cmd *pipeline, pid_t *pids, t_env **env)
+int	exec_pipeline(t_cmd *pipeline, t_env **env)
 {
 	int		fd;
-	pid_t	*pid;
+	pid_t	pid;
 
 	fd = 0;
-	pid = pids;
-	*pid = process_first(pipeline, &fd, env, pids);
+	pid = process_first(pipeline, &fd, env);
+	pipeline->pid = pid;
 	pipeline = pipeline->next;
-	while (pipeline->next && *pid > -1)
+	while (pipeline->next &&  pid > -1)
 	{
-		*(++pid) = process_pipes(pipeline, &fd, env, pids);
+		pid = process_pipes(pipeline, &fd, env);
+		pipeline->pid = pid;
 		pipeline = pipeline->next;
 	}
-	if (*pid > -1)
-		*(++pid) = process_last(pipeline, fd, env, pids);
-	if (*pid == -1)
+	if (pid > -1)
+	{
+		pid = process_last(pipeline, fd, env);
+		pipeline->pid = pid;
+	}
+	if (pid == -1)
 		return (FAILURE);
 	return (SUCCESS);
 }
 
 int	exec_alone(t_cmd_m *cmd, t_env **env)
 {
-	pid_t		pid[2];
 	t_builtin	builtin;
 	int			exit_code;
 
@@ -47,35 +50,32 @@ int	exec_alone(t_cmd_m *cmd, t_env **env)
 		cmd_free(cmd);
 		return (exit_code);
 	}
-	pid[1] = 0;
-	*pid = fork();
-	if (*pid == 0)
+	cmd->pid = fork();
+	if (cmd->pid== 0)
 	{
 		if (!exec_redir(cmd->redir, *env))
 			exit_on_failure(cmd, NULL, NULL, *env);
 		exec_cmd(cmd, env);
 	}
-	if (*pid == -1)
+	if (cmd->pid == -1)
 		exit_on_failure(cmd, NULL, NULL, *env);
+	exit_code = wait_process(cmd);
 	cmd_free(cmd);
-	return (wait_process(pid));
+	return (exit_code);
 }
 
 int	exec_pipe(t_cmd_m *pipeline, t_env **env)
 {
-	pid_t	*pids;
 	int		exit_code;
 
-	pids = ft_calloc(sizeof(int), cmd_nbr(pipeline) + 1);
-	if (!pids)
+	if (exec_pipeline(pipeline, env) == FAILURE)
 	{
-		perror("minishell: exec_input: ft_calloc");
-		exit_on_failure(pipeline, NULL, NULL, *env);
+		wait_process(pipeline);
+		exit_code = EXIT_FAILURE;
 	}
-	exec_pipeline(pipeline, pids, env);
+	else
+		exit_code = wait_process(pipeline);
 	pipeline_free(&pipeline);
-	exit_code = wait_process(pids);
-	free(pids);
 	return (exit_code);
 }
 
