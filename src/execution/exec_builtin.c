@@ -6,7 +6,7 @@
 /*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 19:14:20 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/29 11:47:47 by stephane         ###   ########.fr       */
+/*   Updated: 2024/05/29 14:23:02 by stephane         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -49,6 +49,8 @@ int	exec_builtin_alone(t_builtin builtin, t_cmd *cmd, t_env **env)
 	}
 	else if (exit_code == SUCCESS)
 		exit_code = builtin(cmd, env);
+	else 
+		exit_code = EXIT_FAILURE;
 	dup2(fd[0], 0);
 	dup2(fd[1], 1);
 	close(fd[0]);

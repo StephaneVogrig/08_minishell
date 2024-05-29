@@ -6,7 +6,7 @@
 /*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 04:15:23 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/28 12:03:03 by stephane         ###   ########.fr       */
+/*   Updated: 2024/05/29 14:30:06 by stephane         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -17,7 +17,7 @@ void	exec_cmd_pipe(t_cmd *cmd, t_env **env)
 	int	exit_code;
 	t_builtin	builtin;
 
-	if (!exec_redir(cmd->redir, *env))
+	if (exec_redir(cmd->redir, *env) != SUCCESS)
 		exit_on_failure(cmd, NULL, NULL, *env);
 	builtin = builtin_function(cmd->argv);
 	if (!builtin)
