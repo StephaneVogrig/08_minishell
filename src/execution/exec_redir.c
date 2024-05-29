@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   exec_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:37:10 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/27 01:07:05 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/29 14:10:50 by stephane         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "exec_redir.h"
 
@@ -86,7 +86,7 @@ t_bool	exec_redir(t_redir *redirs, t_env *env)
 			fd_printf(STDERR_FILENO, "minishell: %s: %s\n", redirs->str,
 				strerror(errno));
 			redirlist_unlink_heredoc(redirs);
-			return (FAILURE);
+			return (-1);
 		}
 		if (redirs->type & IN)
 			dup2(fd, STDIN_FILENO);
