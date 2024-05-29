@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   expanse.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 16:03:55 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/22 17:10:38 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/29 11:07:08 by stephane         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "expanse.h"
 
@@ -24,7 +24,10 @@ char	*end_name(char *str)
 
 char	*expanse_special_parameter(t_buff *buffer, char *str, t_env *env)
 {
-	if (buff_add_str(buffer, env_get(env, str)) == FAILURE)
+	char *value;
+	
+	value = env_get_n(env, str, 1);
+	if (buff_add_str(buffer, value) == FAILURE)
 			return (NULL);
 	return (++str);		
 }
@@ -73,7 +76,7 @@ t_bool	split_word(char *str, t_buff *buffer, t_list **argv)
 char	*expanse_unquoted(t_buff *buffer, char *str, t_list **argv, t_env *env)
 {
 	char	*end;
-
+	
 	if (*str == '\'' || *str == '\"')
 		return (str);
 	if (is_special_parameter(*str))
