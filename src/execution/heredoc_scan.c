@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   heredoc_scan.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:05:04 by stephane          #+#    #+#             */
-/*   Updated: 2024/06/01 13:23:13 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/06/01 16:48:43 by stephane         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "heredoc.h"
 
@@ -76,13 +76,20 @@ t_bool	is_scan_end(char *input, char *limiter)
 	return (FALSE);
 }
 
+static int	event(void)
+{
+	return (0);
+}
+
 int	heredoc_scan(int fd, t_redir *redir, t_env *env)
 {
 	char	*input;
 
 	while (1)
 	{
+		rl_event_hook = event;
 		input = readline(">");
+		rl_event_hook = NULL;
 		if (g_signal == SIGINT)
 		{
 			g_signal = 0;
