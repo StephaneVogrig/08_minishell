@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 23:27:39 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/31 15:56:59 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/06/01 13:39:08 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	uptdate_pwd_oldpwd(t_env **env_ptr)
 	str = env_get_type(*env_ptr, "PWD", EXPORTED);
 	if (!str)
 	{
-		type = DIR_NO_VALUE;
+		type = DIR_NO_VAL;
 		str = "\0";
 	}
 	if (env_set_value("OLDPWD", str, *env_ptr) == ENOEXIST)
