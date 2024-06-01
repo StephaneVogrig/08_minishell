@@ -6,13 +6,13 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 19:14:20 by smortemo          #+#    #+#             */
-/*   Updated: 2024/06/01 13:54:26 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/06/01 14:19:38 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 
-int (*builtin_function(t_list *argv))(t_cmd *, t_env **)
+int	(*builtin_function(t_list *argv))(t_cmd *, t_env **)
 {
 	if (!argv)
 		return (NULL);
