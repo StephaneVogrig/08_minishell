@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   pipeline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 03:11:28 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/31 16:15:04 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/06/01 13:49:31 by stephane         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "pipeline.h"
 
@@ -51,15 +51,6 @@ t_cmd	*pipeline_add_newcmd(t_cmd **pipeline)
 	return (cmd);
 }
 
-t_cmd	*cmdlist_head(t_cmd *cmd)
-{
-	if (!cmd)
-		return (cmd);
-	while (cmd->previous)
-		cmd = cmd->previous;
-	return (cmd);
-}
-
 void	redirlist_unlink_heredoc(t_redir *redir)
 {
 	while (redir)
@@ -72,7 +63,10 @@ void	redirlist_unlink_heredoc(t_redir *redir)
 
 void	cmdlist_unlink_heredoc(t_cmd *cmd)
 {
-	cmd = cmdlist_head(cmd);
+	if (!cmd)
+		return ;
+	while (cmd->previous)
+		cmd = cmd->previous;
 	while (cmd)
 	{
 		redirlist_unlink_heredoc(cmd->redir);
