@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 03:36:13 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/31 16:40:20 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/06/01 13:15:40 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "libft.h"
 
-typedef struct	s_buff_save{
+typedef struct s_buff_save{
 	char				data[BUFFER_SIZE];
 	int					offset;
 	struct s_buff_save	*next;

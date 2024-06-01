@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:36:25 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/31 16:31:37 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/06/01 13:23:06 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,8 @@ char	*cmd_path(t_cmd_m *cmd, t_env_m *env)
 		return (NULL);
 	if (*path == '.' && *(path + 1) == '\0')
 	{
-		fd_printf(STDERR_FD, "minishell: %s: filename argument required\n", path);
+		fd_printf(STDERR_FD, "minishell: %s: filename argument required\n",
+			path);
 		fd_printf(STDERR_FD, ".: usage: . filename [arguments]\n");
 		minishell_free(cmd, NULL, NULL, env);
 		exit(2);

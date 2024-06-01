@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:05:04 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/31 16:27:47 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/06/01 13:23:13 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ t_bool	is_scan_end(char *input, char *limiter)
 {
 	if (!input)
 	{
-		fd_printf(STDERR_FD, "minishell: warning: here-document delimited by end-of-file\n");
+		fd_printf(STDERR_FD,
+			"minishell: warning: here-document delimited by end-of-file\n");
 		return (TRUE);
 	}
 	if (ft_strcmp(input, limiter) == 0)

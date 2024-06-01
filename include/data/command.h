@@ -6,15 +6,15 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:33:09 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/31 16:42:53 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/06/01 13:17:09 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COMMAND_H
 # define COMMAND_H
 
-#include "libft.h"
-#include "redirection.h"
+# include "libft.h"
+# include "redirection.h"
 
 typedef struct s_cmd{
 	t_redir			*redir;

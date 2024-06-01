@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 22:01:52 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/14 19:54:10 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/01 13:22:47 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,11 @@
 static t_bool	syntax_error_msg(char c)
 {
 	if (c == '\0')
-		fd_printf(STDERR_FD, "minishell: syntax error near unexpected token `newline'\n", c);
+		fd_printf(STDERR_FD,
+			"minishell: syntax error near unexpected token `newline'\n", c);
 	else
-		fd_printf(STDERR_FD, "minishell: syntax error near unexpected token `%c'\n", c);
+		fd_printf(STDERR_FD,
+			"minishell: syntax error near unexpected token `%c'\n", c);
 	return (TRUE);
 }
 
