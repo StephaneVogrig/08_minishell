@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 19:14:20 by smortemo          #+#    #+#             */
-/*   Updated: 2024/06/01 13:39:45 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/06/01 13:54:26 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ int	exec_builtin_alone(t_builtin builtin, t_cmd *cmd, t_env **env)
 	if (exit_code == FAILURE)
 	{
 		close_fd(fd);
-		// close(fd[0]);
-		// close(fd[1]);
 		return (EXIT_FAILURE);
 	}
 	else if (exit_code == SUCCESS)
@@ -61,8 +59,6 @@ int	exec_builtin_alone(t_builtin builtin, t_cmd *cmd, t_env **env)
 	dup2(fd[0], 0);
 	dup2(fd[1], 1);
 	close_fd(fd);
-	// close(fd[0]);
-	// close(fd[1]);
 	if (builtin == &builtin_exit && exit_code < 0)
 	{
 		exit_code = exit_status_get_int(*env);
