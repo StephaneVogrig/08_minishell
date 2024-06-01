@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 23:27:39 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/28 13:02:43 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/31 15:56:59 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,30 @@
 #include "environment.h"
 #include <limits.h>
 
-
-int	uptdate_PWD_OLPWD(t_env **env_ptr)
+int	uptdate_pwd_oldpwd(t_env **env_ptr)
 {
 	t_env	*node;
-	char	*str = NULL;
+	char	*str;
 	char	buffer[PATH_MAX];
-	// t_env	*env;
 	int		type;
-	
+
+	str = NULL;
 	type = DIR;
-	// env = (*env_ptr);
 	str = env_get_type(*env_ptr, "PWD", EXPORTED);
-	if(!str)
-	{	
+	if (!str)
+	{
 		type = DIR_NO_VALUE;
 		str = "\0";
 	}
 	if (env_set_value("OLDPWD", str, *env_ptr) == ENOEXIST)
 	{
- 		node = env_node_new("OLDPWD", str, type);
+		node = env_node_new("OLDPWD", str, type);
 		env_add_back(env_ptr, node);
 	}
 	str = getcwd(buffer, PATH_MAX);
 	if (env_set_value("PWD", str, *env_ptr) == ENOEXIST)
 	{
- 		node = env_node_new("PWD", str, type);
+		node = env_node_new("PWD", str, type);
 		env_add_back(env_ptr, node);
 	}
 	return (0);
@@ -68,7 +66,7 @@ int	go_home(t_env **env, char c)
 		perror("");
 		exit(1);
 	}
-	return (uptdate_PWD_OLPWD(env));
+	return (uptdate_pwd_oldpwd(env));
 }
 
 int	change_dir(t_env **env, char *str)
@@ -81,7 +79,7 @@ int	change_dir(t_env **env, char *str)
 		perror(" ");
 		return (1);
 	}
-	return (uptdate_PWD_OLPWD(env));
+	return (uptdate_pwd_oldpwd(env));
 }
 
 static int	cd(t_env **env, t_cmd *cmd)

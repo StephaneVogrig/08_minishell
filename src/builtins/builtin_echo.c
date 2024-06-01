@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 23:20:41 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/27 02:43:04 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/31 16:07:42 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ int	builtin_echo(t_cmd *cmd, t_env **env)
 	(void)env;
 	argv = cmd->argv;
 	argv = argv->next;
-	// printf("---> argv = %s \n", (char *)argv->content);
 	if (!argv)
 	{
 		write(1, "\n", 1);

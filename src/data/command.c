@@ -1,31 +1,31 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:47:14 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/28 11:47:46 by stephane         ###   ########.fr       */
+/*   Updated: 2024/05/31 16:14:31 by smortemo         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "command.h"
 
 t_cmd	*cmd_new(void)
 {
 	t_cmd	*new;
-	
+
 	new = ft_calloc(1, sizeof(*new));
 	if (!new)
 	{
 		perror("minishell: cmd_new");
-		return (NULL);		
+		return (NULL);
 	}
 	return (new);
 }
 
-void cmd_free(t_cmd *cmd)
+void	cmd_free(t_cmd *cmd)
 {
 	if (cmd->redir)
 		redirection_free(&cmd->redir);

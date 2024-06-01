@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   next_token_dequoted.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 06:42:35 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/21 20:38:34 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/31 16:31:12 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	strlen_dequoted(char *str)
 			}
 			if (*str)
 				str++;
-			continue;
+			continue ;
 		}
 		len++;
 		str++;
@@ -63,13 +63,13 @@ int	strlen_dequoted(char *str)
 	return (len);
 }
 
-char *next_token_dequoted(char *input, char **token, t_bool *dequoted)
+char	*next_token_dequoted(char *input, char **token, t_bool *dequoted)
 {
-	int len;
+	int	len;
 
 	len = strlen_dequoted(input);
 	*token = malloc(len + 1);
-	if	(!*token)
+	if (!*token)
 	{
 		perror("minishell: next_token_unquoted");
 		return (NULL);

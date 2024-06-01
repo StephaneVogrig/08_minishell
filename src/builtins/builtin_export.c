@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:13:40 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/28 13:37:10 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/31 15:50:50 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int	export_modify_node(char *str, t_env *node, int n)
 	if (node && str[n] == '=')
 	{
 		free(node->value);
-		if(str[n + 1])
+		if (str[n + 1])
 		{
 			node->value = ft_strdup(&str[n + 1]);
 			if (!node->value)
@@ -65,9 +65,9 @@ static int	export_modify_node(char *str, t_env *node, int n)
 			if (!node->value)
 				return (ENOMEM);
 			node->value[0] = '\0';
-		}	
+		}
 		node->type = EXPORTED;
-		return(0);
+		return (0);
 	}
 	node->value = ft_strjoin_free_s1(node->value, &str[n + 2]);
 	if (!node->value)
@@ -77,9 +77,9 @@ static int	export_modify_node(char *str, t_env *node, int n)
 
 int	export_run(t_env **envp, char *str)
 {
-	int n;
+	int		n;
 	t_env	*node;
-	
+
 	if (!is_valid_arg(str))
 	{
 		fd_printf(STDERR_FD, "minishel : export : '%s'", str);
@@ -87,7 +87,7 @@ int	export_run(t_env **envp, char *str)
 		return (1);
 	}
 	n = end_var_name(str);
-	node = env_get_node_n(*envp, str, n);	
+	node = env_get_node_n(*envp, str, n);
 	if (!node)
 		return (export_new_node(envp, str, n));
 	else
@@ -95,11 +95,10 @@ int	export_run(t_env **envp, char *str)
 		if ((node->type == DIR || node->type == DIR_NO_VALUE) && str[n] == '\0')
 		{
 			node->type = EXPORTED;
-			return(0);
+			return (0);
 		}
 		return (export_modify_node(str, node, n));
 	}
-		
 }
 
 int	builtin_export(t_cmd *cmd, t_env **env)

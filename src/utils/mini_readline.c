@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_readline.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 16:50:30 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/19 16:51:07 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/31 16:32:26 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*mini_readline(void)
 		if (n < 1)
 			return (NULL);
 		if (c == '\n')
-			break;
+			break ;
 		if (buff_add_char(&buff, c) == FAILURE)
 		{
 			buff_clear(&buff);

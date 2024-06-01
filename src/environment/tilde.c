@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 17:59:17 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/19 21:51:50 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/31 15:50:17 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ char	*create_home_path(t_env *env)
 	char	*str;
 	int		index;
 	char	*home;
-	char buffer[PATH_MAX];
+	char	buffer[PATH_MAX];
 
 	(void)env;
 	str = getcwd(buffer, PATH_MAX);
 	if (!str)
-		return(NULL);
+		return (NULL);
 	index = ft_strstr(str, "/nfs/homes/");
 	while (str[index] != '/')
 		index++;
@@ -41,7 +41,7 @@ int	node_home_cpy(t_env *env)
 	if (!node->name)
 		return (ENOMEM);
 	node->value = create_home_path(env);
-	if(!node->value)
+	if (!node->value)
 		return (ENOMEM);
 	node->type = INTERNAL;
 	node->next = NULL;

@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:36:25 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/22 02:02:11 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/31 16:31:37 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cmd_path.h"
 
-t_bool is_an_existing_file(char *path)
+t_bool	is_an_existing_file(char *path)
 {
-	struct stat buf;
+	struct stat	buf;
 
 	if (stat(path, &buf) == 0 && (S_ISREG(buf.st_mode)))
 		return (TRUE);

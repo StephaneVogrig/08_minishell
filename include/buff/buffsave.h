@@ -1,21 +1,21 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   buffsave.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 03:36:13 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/27 10:19:59 by stephane         ###   ########.fr       */
+/*   Updated: 2024/05/31 16:40:20 by smortemo         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #ifndef BUFFSAVE_H
 # define BUFFSAVE_H
 
 # include "libft.h"
 
-typedef	struct s_buff_save{
+typedef struct	s_buff_save{
 	char				data[BUFFER_SIZE];
 	int					offset;
 	struct s_buff_save	*next;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 23:26:47 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/27 02:51:42 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/31 16:04:37 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@
 
 int	builtin_pwd(t_cmd *cmd, t_env **env)
 {
-	char *str;
-	char buffer[PATH_MAX];
+	char	*str;
+	char	buffer[PATH_MAX];
 
 	(void)env;
 	(void)cmd;
 	str = getcwd(buffer, PATH_MAX);
 	if (!str)
-		return (ENOENT); // voir pour valeur erreur -> Stephane?
+		return (ENOENT);
 	ft_printf("%s\n", str);
 	return (0);
 }

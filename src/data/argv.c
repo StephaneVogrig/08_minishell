@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   argv.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 05:44:26 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/21 01:47:00 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/31 16:09:21 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_bool	strlist_add_buffer(t_list **argv, t_buff *buffer)
 
 	token = buff_to_str(buffer);
 	buff_clear(buffer);
-	if(!token)
+	if (!token)
 		return (FAILURE);
 	return (strlist_add_str(argv, token));
 }

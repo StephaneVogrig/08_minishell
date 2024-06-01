@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   buff.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 01:10:34 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/27 20:25:29 by stephane         ###   ########.fr       */
+/*   Updated: 2024/05/31 15:55:49 by smortemo         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "buff.h"
 
@@ -22,7 +22,7 @@ void	buff_init(t_buff *buffer)
 void	buff_clear(t_buff *buffer)
 {
 	t_buffsave	*temp;
-	
+
 	while (buffer->save_head)
 	{
 		temp = buffer->save_head->next;
@@ -53,7 +53,7 @@ t_char_m	*buff_to_str(t_buff *buffer)
 	int			len;
 	char		*str;
 	t_buffsave	*temp;
-	
+
 	len = buff_len(buffer);
 	new = malloc(sizeof(*str) * (len + 1));
 	if (!new)

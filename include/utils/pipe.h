@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 03:28:21 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/08 04:18:48 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/31 16:44:12 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@
 # define READ 0
 # define WRITE 1
 
-int	pipe_ms(int	fds[2]);
+int	pipe_ms(int fds[2]);
 
 #endif

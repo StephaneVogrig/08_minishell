@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_status.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 14:58:54 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/19 20:58:27 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/31 16:16:01 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_bool	exit_status_init(t_env **env)
 	}
 	*str = '0';
 	node->value = str;
-	env_add_back(env, node);	
+	env_add_back(env, node);
 	return (SUCCESS);
 }
 

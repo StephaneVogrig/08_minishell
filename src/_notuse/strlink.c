@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   strlink.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 15:00:19 by stephane          #+#    #+#             */
-/*   Updated: 2024/04/26 18:29:29 by stephane         ###   ########.fr       */
+/*   Updated: 2024/05/31 15:57:49 by smortemo         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "strlink.h"
 
@@ -22,7 +22,7 @@ void	strlink_init(t_strlink *strlink, char *str, int len, t_strlink *next)
 t_strlink_m	*strlink_add_new(t_strlink *strlink)
 {
 	t_strlink_m	*new;
-	
+
 	new = ft_calloc(1, sizeof(*new));
 	if (!new)
 		return (NULL);
@@ -33,7 +33,7 @@ t_strlink_m	*strlink_add_new(t_strlink *strlink)
 int	strlink_len(t_strlink *strlink)
 {
 	int	len;
-	
+
 	len = 0;
 	while (strlink)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:55:55 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/27 03:02:07 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/31 16:26:39 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,14 @@ int	run_file_mode(t_env **env)
 		{
 			free(input);
 			exit_code = 128 + SIGINT;
-			break;
+			break ;
 		}
 		exit_code = exec_input(input, env);
 	}
 	return (exit_code);
 }
 
-int	main(int argc , char **argv __attribute__((unused)), char **envp)
+int	main(int argc, char **argv __attribute__((unused)), char **envp)
 {
 	t_env	*env;
 	int		exit_code;

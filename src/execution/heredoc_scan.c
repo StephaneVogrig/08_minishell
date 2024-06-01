@@ -6,13 +6,13 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:05:04 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/21 17:07:01 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/05/31 16:27:47 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "heredoc.h"
 
-char	*heredoc_expanse(int fd, char *str,t_env *env)
+char	*heredoc_expanse(int fd, char *str, t_env *env)
 {
 	char	*end;
 	char	*expand;
@@ -94,7 +94,7 @@ int	heredoc_scan(int fd, t_redir *redir, t_env *env)
 			heredoc_save_expanse(fd, input, env);
 		else
 			fd_printf(fd, "%s\n", input);
-		free(input);		
+		free(input);
 	}
 	return (SUCCESS);
 }

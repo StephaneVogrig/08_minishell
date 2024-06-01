@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 20:16:08 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/06 18:57:24 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/31 15:53:06 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void	print_cmd(t_cmd *cmd)
 		ft_putstr_fd("(empty)\n", STDOUT_FD);
 		return ;
 	}
-
 	ft_printf("%s\n", current->content);
 	current = current->next;
 	while (current)

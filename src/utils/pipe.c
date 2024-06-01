@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 03:27:53 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/08 03:40:59 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/31 16:13:56 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipe.h"
 
-int	pipe_ms(int	fds[2])
+int	pipe_ms(int fds[2])
 {
 	if (pipe(fds) == -1)
 	{

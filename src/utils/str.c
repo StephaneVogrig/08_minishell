@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 15:52:14 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/07 06:19:15 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/31 15:57:32 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ char	*skip_blank(char *str)
 	if (!str)
 		return (NULL);
 	while (is_blank(*str))
-		str++;		
-	return (str);	
+		str++;
+	return (str);
 }
 
 void	pipex_strncpy(char *dest, char *src, int n)

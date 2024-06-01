@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env_node.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 14:09:56 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/27 02:50:13 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/31 16:11:20 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "environment.h"
+#include "environment.h"
 
 t_bool	node_init(t_env *node, char *str)
 {
@@ -71,6 +71,7 @@ void	env_node_del(t_env **env, t_env *node)
 		env_node_free(to_del);
 	}
 }
+
 t_bool	var_init(t_env *node, char *str, int n)
 {
 	node->name = mini_strndup(str, n);
@@ -97,7 +98,7 @@ t_bool	var_init(t_env *node, char *str, int n)
 
 int	export_new_node(t_env **env, char *str, int n)
 {
-	t_env *node;
+	t_env	*node;
 
 	node = mem_malloc(sizeof(*node));
 	if (!node)

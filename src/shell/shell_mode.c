@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   shell_mode.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 15:32:09 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/23 16:55:04 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/31 16:15:21 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell_mode.h"
 
-int event(void)
+int	event(void)
 {
 	return (0);
 }

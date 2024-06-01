@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   exec_input.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:36:43 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/29 14:28:19 by stephane         ###   ########.fr       */
+/*   Updated: 2024/05/31 16:20:04 by smortemo         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "exec_input.h"
 
@@ -21,7 +21,7 @@ int	exec_pipeline(t_cmd *pipeline, t_env **env)
 	pid = process_first(pipeline, &fd, env);
 	pipeline->pid = pid;
 	pipeline = pipeline->next;
-	while (pipeline->next &&  pid > -1)
+	while (pipeline->next && pid > -1)
 	{
 		pid = process_pipes(pipeline, &fd, env);
 		pipeline->pid = pid;
@@ -51,7 +51,7 @@ int	exec_alone(t_cmd_m *cmd, t_env **env)
 		return (exit_code);
 	}
 	cmd->pid = fork();
-	if (cmd->pid== 0)
+	if (cmd->pid == 0)
 	{
 		if (exec_redir(cmd->redir, *env) != SUCCESS)
 			exit_on_failure(cmd, NULL, NULL, *env);

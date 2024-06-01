@@ -1,18 +1,18 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 19:14:20 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/29 14:23:02 by stephane         ###   ########.fr       */
+/*   Updated: 2024/05/31 16:33:15 by smortemo         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "builtin.h"
 
-int (*builtin_function(t_list *argv))(t_cmd *, t_env **)
+int	(*builtin_function(t_list *argv))(t_cmd *, t_env **)
 {
 	if (!argv)
 		return (NULL);
@@ -41,7 +41,7 @@ int	exec_builtin_alone(t_builtin builtin, t_cmd *cmd, t_env **env)
 	fd[0] = dup(0);
 	fd[1] = dup(1);
 	exit_code = exec_redir(cmd->redir, *env);
-	if ( exit_code == FAILURE)
+	if (exit_code == FAILURE)
 	{
 		close(fd[0]);
 		close(fd[1]);
@@ -49,7 +49,7 @@ int	exec_builtin_alone(t_builtin builtin, t_cmd *cmd, t_env **env)
 	}
 	else if (exit_code == SUCCESS)
 		exit_code = builtin(cmd, env);
-	else 
+	else
 		exit_code = EXIT_FAILURE;
 	dup2(fd[0], 0);
 	dup2(fd[1], 1);

@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   expanse.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 16:03:55 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/29 11:07:08 by stephane         ###   ########.fr       */
+/*   Updated: 2024/05/31 15:52:34 by smortemo         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "expanse.h"
 
@@ -24,18 +24,18 @@ char	*end_name(char *str)
 
 char	*expanse_special_parameter(t_buff *buffer, char *str, t_env *env)
 {
-	char *value;
-	
+	char	*value;
+
 	value = env_get_n(env, str, 1);
 	if (buff_add_str(buffer, value) == FAILURE)
-			return (NULL);
-	return (++str);		
+		return (NULL);
+	return (++str);
 }
 
 char	*expanse_quoted(t_buff *buffer, char *str, t_env *env)
 {
 	char	*end;
-	
+
 	if (is_special_parameter(*str))
 		return (expanse_special_parameter(buffer, str, env));
 	end = end_name(str);
@@ -47,8 +47,8 @@ char	*expanse_quoted(t_buff *buffer, char *str, t_env *env)
 	}
 	str = env_get_n(env, str, end - str);
 	if (str && buff_add_str(buffer, str) == FAILURE)
-			return (NULL);
-	return (end);		
+		return (NULL);
+	return (end);
 }
 
 t_bool	split_word(char *str, t_buff *buffer, t_list **argv)
@@ -76,7 +76,7 @@ t_bool	split_word(char *str, t_buff *buffer, t_list **argv)
 char	*expanse_unquoted(t_buff *buffer, char *str, t_list **argv, t_env *env)
 {
 	char	*end;
-	
+
 	if (*str == '\'' || *str == '\"')
 		return (str);
 	if (is_special_parameter(*str))
@@ -93,5 +93,5 @@ char	*expanse_unquoted(t_buff *buffer, char *str, t_list **argv, t_env *env)
 		return (end);
 	if (split_word(str, buffer, argv) == FAILURE)
 		return (NULL);
-	return (end);		
+	return (end);
 }

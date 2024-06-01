@@ -1,21 +1,20 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   buffsave.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 03:35:17 by svogrig           #+#    #+#             */
-/*   Updated: 2024/04/27 10:16:30 by stephane         ###   ########.fr       */
+/*   Updated: 2024/05/31 15:53:53 by smortemo         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "buffsave.h"
 
-
 t_buffsave	*buffsave_new(void)
 {
-	t_buffsave *new;
+	t_buffsave	*new;
 
 	new = malloc(sizeof(*new));
 	if (!new)
@@ -27,10 +26,10 @@ t_buffsave	*buffsave_new(void)
 
 t_bool	buffsave_add_new(t_buffsave **save)
 {
-	(*save)->next  = buffsave_new();
-	if (!(*save)->next )
+	(*save)->next = buffsave_new();
+	if (!(*save)->next)
 		return (FAILURE);
-	*save = (*save)->next ;
+	*save = (*save)->next;
 	return (SUCCESS);
 }
 

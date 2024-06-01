@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   next_token_limiter.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 17:07:39 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/21 20:45:17 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/31 15:52:27 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "next_token_limiter.h"
-
 
 char	*strfill_limiter(char *input, char **token, t_bool *dequoted)
 {
@@ -22,7 +21,7 @@ char	*strfill_limiter(char *input, char **token, t_bool *dequoted)
 	dest = *token;
 	while (!is_meta(*input))
 	{
-		if (*input == '$' && (*(input + 1) == '\'' ||  *(input + 1) == '\"'))
+		if (*input == '$' && (*(input + 1) == '\'' || *(input + 1) == '\"'))
 			input++;
 		if (*input == '\'' || *input == '\"')
 		{
@@ -48,7 +47,7 @@ int	strlen_limiteur(char *str)
 	len = 0;
 	while (!is_meta(*str))
 	{
-		if (*str == '$' && (*(str + 1) == '\'' ||  *(str + 1) == '\"'))
+		if (*str == '$' && (*(str + 1) == '\'' || *(str + 1) == '\"'))
 			str++;
 		if (*str == '\'' || *str == '\"')
 		{
@@ -60,7 +59,7 @@ int	strlen_limiteur(char *str)
 			}
 			if (*str)
 				str++;
-			continue;
+			continue ;
 		}
 		len++;
 		str++;
@@ -70,16 +69,15 @@ int	strlen_limiteur(char *str)
 
 char	*next_token_to_limiter(char *input, char **token, t_bool *dequoted)
 {
-	int len;
+	int	len;
 
 	len = strlen_limiteur(input);
 	*token = malloc(len + 1);
-	if	(!*token)
+	if (!*token)
 	{
 		perror("minishell: next_token_to_limiter");
 		return (NULL);
 	}
 	input = strfill_limiter(input, token, dequoted);
 	return (input);
-	
 }

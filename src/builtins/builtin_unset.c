@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:37:23 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/27 02:52:59 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/31 15:58:52 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	unset(t_env **env, char *str)
 
 int	builtin_unset(t_cmd *cmd, t_env **env)
 {
-	t_list *argv;
+	t_list	*argv;
 
 	if (!env)
 		return (0);

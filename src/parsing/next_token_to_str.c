@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   next_token_to_str.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 15:54:29 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/24 19:50:29 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/31 16:26:10 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "next_token_to_str.h"
 
-static int next_token_len(char *str)
+static int	next_token_len(char *str)
 {
 	int		len;
 	char	quote;

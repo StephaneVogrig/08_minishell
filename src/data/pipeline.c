@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 03:11:28 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/07 05:32:09 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/05/31 16:15:04 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ t_cmd	*cmdlist_head(t_cmd *cmd)
 	if (!cmd)
 		return (cmd);
 	while (cmd->previous)
-		cmd = cmd->previous;	
-	return (cmd);	
+		cmd = cmd->previous;
+	return (cmd);
 }
 
 void	redirlist_unlink_heredoc(t_redir *redir)
