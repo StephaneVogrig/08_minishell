@@ -1,28 +1,31 @@
 /******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   process.h                                          :+:      :+:    :+:   */
+/*   argv_expand.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/06 22:21:43 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/02 19:49:54 by stephane         ###   ########.fr       */
+/*   Created: 2024/06/02 19:06:16 by stephane          #+#    #+#             */
+/*   Updated: 2024/06/02 20:13:29 by stephane         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
-#ifndef PROCESS_H
-# define PROCESS_H
+#include "argv_expand.h"
 
-# include <fcntl.h>
-# include "builtin.h"
-# include "command.h"
-# include "exec_cmd.h"
-# include "pipe.h"
-# include "exec_redir.h"
-# include "argv_expand.h"
+t_bool	argv_expand(t_list **argvlist, t_env *env)
+{
+	t_list	*temp;
+	t_list	*expanded;
 
-int		process_first(t_cmd *cmd, int *fd_out, t_env **env);
-int		process_pipes(t_cmd *cmd, int *fd_in, t_env **env);
-int		process_last(t_cmd *cmd, int fd_in, t_env **env);
-
-#endif
+	temp = *argvlist;
+	expanded = NULL;
+	while (temp)
+	{
+		if (expand_and_dequote(temp->content, &expanded, env) == FAILURE)
+			return (FAILURE);
+		temp = temp->next;
+	}
+	ft_lstclear(argvlist, free);
+	*argvlist = expanded;
+	return (SUCCESS);
+}

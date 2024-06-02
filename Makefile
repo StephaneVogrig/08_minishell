@@ -6,7 +6,7 @@
 #    By: stephane <stephane@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/06/01 19:12:36 by stephane         ###   ########.fr        #
+#    Updated: 2024/06/02 20:24:34 by stephane         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -48,10 +48,12 @@ SRC				:=	main.c \
 					environment/environment.c \
 					environment/envp.c \
 					environment/tilde.c \
+					execution/argv_expand.c \
 					execution/cmd_path.c \
 					execution/exec_builtin.c \
 					execution/exec_cmd.c \
 					execution/exec_input.c \
+					execution/expand_and_dequote.c \
 					execution/heredoc_scan.c \
 					execution/heredoc_expand.c \
 					execution/heredoc.c \

@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 19:16:27 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/26 22:14:29 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/02 20:18:43 by stephane         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #ifndef TOKEN_H
 # define TOKEN_H
@@ -21,7 +21,6 @@
 
 t_char_m	*next_token_to_heredoc(char *str, t_redir **redir);
 t_char_m	*next_token_to_redir(char *input, t_redir **redir);
-char		*next_token_to_strlist(char *str, t_list **tokenlist, t_env *env);
-t_bool		is_token_empty(char *str, t_env *env);
+char		*next_token_to_arglist(char *input, t_list **arglist);
 
 #endif

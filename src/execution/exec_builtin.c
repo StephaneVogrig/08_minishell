@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 19:14:20 by smortemo          #+#    #+#             */
-/*   Updated: 2024/06/01 14:19:38 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/06/02 19:30:05 by stephane         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "builtin.h"
 
@@ -39,6 +39,15 @@ static void	close_fd(int *fd)
 	close(fd[1]);
 }
 
+void	exit_minishell(t_cmd *cmd, t_env *env)
+{
+	int	exit_code;
+
+	exit_code = exit_status_get_int(env);
+	minishell_free(cmd, NULL, NULL, env);
+	exit(exit_code);
+}
+
 int	exec_builtin_alone(t_builtin builtin, t_cmd *cmd, t_env **env)
 {
 	int	fd[2];
@@ -60,10 +69,7 @@ int	exec_builtin_alone(t_builtin builtin, t_cmd *cmd, t_env **env)
 	dup2(fd[1], 1);
 	close_fd(fd);
 	if (builtin == &builtin_exit && exit_code < 0)
-	{
-		exit_code = exit_status_get_int(*env);
-		minishell_free(cmd, NULL, NULL, *env);
-		exit(exit_code);
-	}
+		exit_minishell(cmd, *env);
+	cmd_free(cmd);
 	return (exit_code);
 }

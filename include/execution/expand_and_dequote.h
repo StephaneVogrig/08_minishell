@@ -1,28 +1,21 @@
 /******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   process.h                                          :+:      :+:    :+:   */
+/*   expand_and_dequote.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/06 22:21:43 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/02 19:49:54 by stephane         ###   ########.fr       */
+/*   Created: 2024/06/02 20:15:32 by stephane          #+#    #+#             */
+/*   Updated: 2024/06/02 20:17:36 by stephane         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
-#ifndef PROCESS_H
-# define PROCESS_H
+#ifndef EXPAND_AND_DEQUOTE_H
+# define EXPAND_AND_DEQUOTE_H
 
-# include <fcntl.h>
-# include "builtin.h"
-# include "command.h"
-# include "exec_cmd.h"
-# include "pipe.h"
-# include "exec_redir.h"
-# include "argv_expand.h"
+# include "buff.h"
+# include "parse.h"
 
-int		process_first(t_cmd *cmd, int *fd_out, t_env **env);
-int		process_pipes(t_cmd *cmd, int *fd_in, t_env **env);
-int		process_last(t_cmd *cmd, int fd_in, t_env **env);
+t_bool	expand_and_dequote(char *str, t_list **strlist, t_env *env);
 
 #endif

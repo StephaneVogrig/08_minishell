@@ -6,13 +6,13 @@
 /*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:37:10 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/01 19:11:34 by stephane         ###   ########.fr       */
+/*   Updated: 2024/06/02 20:29:43 by stephane         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #include "exec_redir.h"
 
-int	redir_open(char *str, int type)
+static int	redir_open(char *str, int type)
 {
 	int	fd;
 
@@ -25,34 +25,7 @@ int	redir_open(char *str, int type)
 	return (fd);
 }
 
-t_bool	expand_and_dequote(char *str, t_list **strlist, t_env *env)
-{
-	t_buff	buffer;
-
-	if (is_token_empty(str, env))
-		return (SUCCESS);
-	buff_init(&buffer);
-	while (str && *str)
-	{
-		if (*str == '\'')
-			str = parse_spl_quoted(&buffer, str);
-		else if (*str == '\"')
-			str = parse_dbl_quoted(&buffer, str, env);
-		else if (*str == '$')
-			str = expanse_unquoted(&buffer, ++str, strlist, env);
-		else if (buff_add_char(&buffer, *str++) == FAILURE)
-			str = NULL;
-	}
-	if (str && strlist_add_buffer(strlist, &buffer) == FAILURE)
-		str = NULL;
-	buff_clear(&buffer);
-	if (str)
-		return (SUCCESS);
-	ft_lstclear(strlist, free);
-	return (FAILURE);
-}
-
-t_bool	redir_expand_and_dequote(t_redir *redir, t_env *env)
+static t_bool	redir_expand_and_dequote(t_redir *redir, t_env *env)
 {
 	t_list	*strlist;
 

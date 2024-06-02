@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 04:15:23 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/31 16:19:13 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/06/02 19:41:21 by stephane         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "process.h"
 
@@ -18,6 +18,8 @@ void	exec_cmd_pipe(t_cmd *cmd, t_env **env)
 	t_builtin	builtin;
 
 	if (exec_redir(cmd->redir, *env) != SUCCESS)
+		exit_on_failure(cmd, NULL, NULL, *env);
+	if (argv_expand(&cmd->argv, *env) == FAILURE)
 		exit_on_failure(cmd, NULL, NULL, *env);
 	builtin = builtin_function(cmd->argv);
 	if (!builtin)

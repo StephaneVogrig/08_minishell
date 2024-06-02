@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   input_to_pipeline.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:25:18 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/26 22:14:42 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/02 18:36:51 by stephane         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "input_to_pipeline.h"
 
@@ -25,7 +25,7 @@ char	*new_current_cmd(t_cmd **cmd, char *str)
 	return (++str);
 }
 
-char	*parse(char *input, t_cmd **cmd, t_env *env)
+char	*parse(char *input, t_cmd **cmd)
 {
 	if (*input == '|')
 		return (new_current_cmd(cmd, input));
@@ -33,10 +33,10 @@ char	*parse(char *input, t_cmd **cmd, t_env *env)
 		return (next_token_to_heredoc(input + 2, &(*cmd)->redir));
 	if (*input == '>' || *input == '<')
 		return (next_token_to_redir(input, &(*cmd)->redir));
-	return (next_token_to_strlist(input, &((*cmd)->argv), env));
+	return (next_token_to_arglist(input, &((*cmd)->argv)));
 }
 
-t_cmd	*input_to_pipeline(char *input, t_env *env)
+t_cmd	*input_to_pipeline(char *input)
 {
 	t_cmd	*pipeline;
 	t_cmd	*cmd;
@@ -47,7 +47,7 @@ t_cmd	*input_to_pipeline(char *input, t_env *env)
 	pipeline = cmd;
 	while (*input)
 	{
-		input = parse(input, &cmd, env);
+		input = parse(input, &cmd);
 		if (!input)
 		{
 			pipeline_free(&pipeline);
