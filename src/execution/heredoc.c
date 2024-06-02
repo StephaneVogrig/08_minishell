@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:15:30 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/19 17:29:36 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/01 19:08:42 by stephane         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "heredoc.h"
 
@@ -50,7 +50,7 @@ char	*get_path_temp(void)
 	return (NULL);
 }
 
-int	heredoc_fill(t_redir *redir, t_env *env)
+int	heredoc_fill(t_redir *redir)
 {
 	char	*path;
 	int		fd;
@@ -65,14 +65,14 @@ int	heredoc_fill(t_redir *redir, t_env *env)
 		free(path);
 		return (FAILURE);
 	}
-	exit_code = heredoc_scan(fd, redir, env);
+	exit_code = heredoc_scan(fd, redir);
 	free(redir->str);
 	redir->str = path;
 	close(fd);
 	return (exit_code);
 }
 
-int	heredoc_loop(t_cmd_m *cmdlist, t_env_m *env)
+int	heredoc_loop(t_cmd_m *cmdlist)
 {
 	int		exit_code;
 	t_redir	*redir;
@@ -85,7 +85,7 @@ int	heredoc_loop(t_cmd_m *cmdlist, t_env_m *env)
 		{
 			if (redir->type & HEREDOC)
 			{
-				exit_code = heredoc_fill(redir, env);
+				exit_code = heredoc_fill(redir);
 				if (exit_code != SUCCESS)
 					break ;
 			}
@@ -96,14 +96,14 @@ int	heredoc_loop(t_cmd_m *cmdlist, t_env_m *env)
 	return (exit_code);
 }
 
-t_bool	heredoc(t_cmd_m *cmdlist, t_env_m *env)
+t_bool	heredoc(t_cmd_m *cmdlist)
 {
 	int		exit_code;
 	int		fd;
 
 	fd = dup(0);
 	signal(SIGINT, handler_ctrl_c_heredoc);
-	exit_code = heredoc_loop(cmdlist, env);
+	exit_code = heredoc_loop(cmdlist);
 	dup2(fd, 0);
 	close(fd);
 	if (exit_code != SUCCESS)

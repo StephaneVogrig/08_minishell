@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   exec_input.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:36:43 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/31 16:20:04 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/06/01 19:09:35 by stephane         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "exec_input.h"
 
@@ -98,7 +98,7 @@ int	exec_input(t_char_m *input, t_env **env)
 	free(input);
 	if (errno != 0)
 		exit_on_failure(NULL, NULL, NULL, *env);
-	if (!pipeline || heredoc(pipeline, *env) != SUCCESS)
+	if (!pipeline || heredoc(pipeline) != SUCCESS)
 		return (EXIT_SUCCESS);
 	signal(SIGINT, handler_ctrl_c);
 	if (!pipeline->next)

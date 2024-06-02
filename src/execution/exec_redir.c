@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   exec_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:37:10 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/31 16:17:37 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/06/01 19:11:34 by stephane         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "exec_redir.h"
 
@@ -58,6 +58,8 @@ t_bool	redir_expand_and_dequote(t_redir *redir, t_env *env)
 
 	errno = 0;
 	strlist = NULL;
+	if (redir->type & (HEREDOC | EXPANSE))
+		return (heredoc_expand(redir, env));
 	if (expand_and_dequote(redir->str, &strlist, env) == FAILURE)
 		return (FAILURE);
 	if (!strlist || strlist->next)

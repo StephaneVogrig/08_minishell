@@ -1,14 +1,14 @@
-# **************************************************************************** #
+#******************************************************************************#
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
+#    By: stephane <stephane@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/05/26 22:16:11 by svogrig          ###   ########.fr        #
+#    Updated: 2024/06/01 19:12:36 by stephane         ###   ########.fr        #
 #                                                                              #
-# **************************************************************************** #
+#******************************************************************************#
 
 
 NAME			:=	minishell
@@ -53,6 +53,7 @@ SRC				:=	main.c \
 					execution/exec_cmd.c \
 					execution/exec_input.c \
 					execution/heredoc_scan.c \
+					execution/heredoc_expand.c \
 					execution/heredoc.c \
 					execution/process.c \
 					execution/pipeline_wait.c \
