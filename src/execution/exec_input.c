@@ -6,34 +6,24 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:36:43 by stephane          #+#    #+#             */
-/*   Updated: 2024/06/03 16:30:37 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/03 20:38:34 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec_input.h"
 
-int	exec_pipe(t_cmd *pipeline, t_env **env)
+t_bool	exec_pipe(t_cmd *cmdlist, t_env **env)
 {
-	int		fd;
-	pid_t	pid;
+	int	fdin;
 
-	fd = 0;
-	pid = process_first(pipeline, &fd, env);
-	pipeline->pid = pid;
-	pipeline = pipeline->next;
-	while (pipeline->next && pid > -1)
+	fdin = 0;
+	while (cmdlist)
 	{
-		pid = process_pipes(pipeline, &fd, env);
-		pipeline->pid = pid;
-		pipeline = pipeline->next;
+		cmdlist->pid = process(cmdlist, &fdin, env);
+		if (cmdlist->pid == -1)
+			return (FAILURE);
+		cmdlist = cmdlist->next;
 	}
-	if (pid > -1)
-	{
-		pid = process_last(pipeline, fd, env);
-		pipeline->pid = pid;
-	}
-	if (pid == -1)
-		return (FAILURE);
 	return (SUCCESS);
 }
 

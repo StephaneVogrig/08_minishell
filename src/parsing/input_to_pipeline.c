@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:25:18 by stephane          #+#    #+#             */
-/*   Updated: 2024/06/03 16:26:51 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/03 20:31:06 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ char	*new_current_cmd(t_cmd **cmd, char *str)
 	if (!new)
 		return (NULL);
 	new->previous = *cmd;
+	new->flag = PIPE;
 	(*cmd)->next = new;
 	*cmd = new;
 	return (++str);
