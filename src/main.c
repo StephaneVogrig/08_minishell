@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:55:55 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/31 16:26:39 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/06/03 16:12:29 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	main(int argc, char **argv __attribute__((unused)), char **envp)
 	env = env_init(envp);
 	if (!env)
 		return (EXIT_FAILURE);
-	if (isatty(STDIN_FD))
+	if (isatty(STDIN_FILENO))
 		exit_code = run_interactive_mode(&env);
 	else
 		exit_code = run_file_mode(&env);

@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   heredoc_scan.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:05:04 by stephane          #+#    #+#             */
-/*   Updated: 2024/06/02 18:12:32 by stephane         ###   ########.fr       */
+/*   Updated: 2024/06/03 16:15:24 by svogrig          ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "heredoc.h"
 
@@ -39,9 +39,14 @@ int	heredoc_scan(int fd, t_redir *redir)
 
 	while (1)
 	{
-		rl_event_hook = event;
-		input = readline(">");
-		rl_event_hook = NULL;
+		if (isatty(STDIN_FILENO))
+		{
+			rl_event_hook = event;
+			input = readline(">");
+			rl_event_hook = NULL;
+		}
+		else
+			input = get_next_line(fd);
 		if (g_signal == SIGINT)
 		{
 			g_signal = 0;
