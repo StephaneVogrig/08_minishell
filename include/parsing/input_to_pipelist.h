@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_input.h                                       :+:      :+:    :+:   */
+/*   input_to_pipelist.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/05 20:37:35 by stephane          #+#    #+#             */
-/*   Updated: 2024/06/04 13:50:57 by svogrig          ###   ########.fr       */
+/*   Created: 2024/04/04 21:26:45 by stephane          #+#    #+#             */
+/*   Updated: 2024/06/04 13:37:29 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXEC_INPUT_H
-# define EXEC_INPUT_H
+#ifndef INPUT_TO_PIPELINE_H
+# define INPUT_TO_PIPELINE_H
 
-# include "builtin.h"
-# include "heredoc.h"
-# include "input_to_pipelist.h"
-# include "pipeline_wait.h"
-# include "process.h"
-# include "str.h"
-# include "syntax_error.h"
-# include "exec_redir.h"
-#include "exec_pipeline.h"
+# include "token.h"
+# include "pipeline.h"
+# include "redirection.h"
+# include "parse.h"
 
-# define SYNTAX_ERROR 2
-
-int	exec_input(char *input, t_env **envp);
+t_cmd	*input_to_pipelist(char *input);
 
 #endif

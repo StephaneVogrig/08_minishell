@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_to_pipeline.c                                :+:      :+:    :+:   */
+/*   input_to_pipelist.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:25:18 by stephane          #+#    #+#             */
-/*   Updated: 2024/06/04 11:23:03 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/04 13:36:08 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "input_to_pipeline.h"
+#include "input_to_pipelist.h"
 
-t_cmd	*input_to_pipeline(char *input)
+t_cmd	*input_to_pipelist(char *input)
 {
 	t_cmd	*pipeline;
 	t_cmd	*cmd;

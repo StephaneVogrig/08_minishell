@@ -6,7 +6,7 @@
 #    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/06/04 12:48:17 by svogrig          ###   ########.fr        #
+#    Updated: 2024/06/04 13:52:15 by svogrig          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ SRC				:=	main.c \
 					execution/cmd_path.c \
 					execution/exec_builtin.c \
 					execution/exec_cmd.c \
-					execution/exec_input.c \
+					execution/exec_pipeline.c \
 					execution/expand_and_dequote.c \
 					execution/heredoc_scan.c \
 					execution/heredoc_expand.c \
@@ -61,7 +61,7 @@ SRC				:=	main.c \
 					execution/pipeline_wait.c \
 					execution/exec_redir.c \
 					parsing/expanse.c \
-					parsing/input_to_pipeline.c \
+					parsing/input_to_pipelist.c \
 					parsing/next_token_dequoted.c \
 					parsing/next_token_limiter.c \
 					parsing/next_token_to_str.c \
@@ -82,6 +82,7 @@ SRC				:=	main.c \
 
 SRC_MAND		:=	$(SRC) \
 					parsing/char.c \
+					execution/exec_input.c \
 					parsing/parse.c
 						
 
@@ -91,6 +92,7 @@ SRC_MAND		:=	$(SRC_MAND:%=$(DIR_SRC)/%)
 
 SRC_BONUS		:=	$(SRC) \
 					parsing/char_bonus.c \
+					execution/exec_input_bonus.c \
 					parsing/parse_bonus.c
 
 
