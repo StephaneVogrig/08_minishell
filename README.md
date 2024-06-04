@@ -39,7 +39,7 @@
 - [En -> Tuto pas encore lu Part2](https://dev.to/angelotheman/build-your-own-shell-part-2-5gie)
 
 #### wildcard
-- [En -> Tuto pour recup liste files](https://stackoverflow.com/questions/4204666/how-to-list-files-in-a-directory-in-a-c-program)
+- [Tuto pour recup liste des fichiers dans dossier courant](https://stackoverflow.com/questions/4204666/how-to-list-files-in-a-directory-in-a-c-program)
 
 #### test
 [tester](https://github.com/StephaneVogrig/minishell_tester)  
