@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/27 16:21:41 by stephane          #+#    #+#             */
-/*   Updated: 2024/06/04 11:09:44 by svogrig          ###   ########.fr       */
+/*   Created: 2024/06/04 11:16:42 by svogrig           #+#    #+#             */
+/*   Updated: 2024/06/04 11:18:02 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parse.h"
+#include "parse_utils.h"
 
-char	*parse(char *input, t_cmd **cmd)
+char	*new_current_cmd(t_cmd **cmd, char *str)
 {
-	if (*input == '|')
-		return (new_current_cmd(cmd, input));
-	if (*input == '<' && *(input + 1) == '<')
-		return (next_token_to_heredoc(input + 2, &(*cmd)->redir));
-	if (*input == '>' || *input == '<')
-		return (next_token_to_redir(input, &(*cmd)->redir));
-	return (next_token_to_arglist(input, &((*cmd)->argv)));
+	t_cmd	*new;	
+
+	new = cmd_new();
+	if (!new)
+		return (NULL);
+	new->previous = *cmd;
+	new->flag = PIPE;
+	(*cmd)->next = new;
+	*cmd = new;
+	return (++str);
 }
