@@ -6,7 +6,7 @@
 #    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/06/04 11:22:08 by svogrig          ###   ########.fr        #
+#    Updated: 2024/06/04 12:48:17 by svogrig          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,14 +60,12 @@ SRC				:=	main.c \
 					execution/process.c \
 					execution/pipeline_wait.c \
 					execution/exec_redir.c \
-					parsing/char.c \
 					parsing/expanse.c \
 					parsing/input_to_pipeline.c \
 					parsing/next_token_dequoted.c \
 					parsing/next_token_limiter.c \
 					parsing/next_token_to_str.c \
 					parsing/parse_utils.c \
-					parsing/parse.c \
 					parsing/syntax_error.c \
 					parsing/token.c \
 					utils/exit.c \
@@ -81,13 +79,22 @@ SRC				:=	main.c \
 					utils/signal_handler.c \
 					utils/str.c
 
-SRC				:=	$(SRC:%=$(DIR_SRC)/%)
+
+SRC_MAND		:=	$(SRC) \
+					parsing/char.c \
+					parsing/parse.c
+						
+
+SRC_MAND		:=	$(SRC_MAND:%=$(DIR_SRC)/%)
 
 # sources bonus ---------------------------------------------------------------#
 
-SRC_BONUS		:=	$(SRC)
+SRC_BONUS		:=	$(SRC) \
+					parsing/char_bonus.c \
+					parsing/parse_bonus.c
 
-#SRC_BONUS		:=	$(SRC_BONUS:%=$(DIR_SRC)/%)
+
+SRC_BONUS		:=	$(SRC_BONUS:%=$(DIR_SRC)/%)
 
 # includes --------------------------------------------------------------------#
 
@@ -117,9 +124,9 @@ l_FLAG			:=	$(addprefix -l,$(l_FLAG))
 # objects ---------------------------------------------------------------------#
 
 DIR_BUILD		:=	.build
-OBJ				:=	$(SRC:$(DIR_SRC)/%.c=$(DIR_BUILD)/%.o)
+OBJ_MAND		:=	$(SRC_MAND:$(DIR_SRC)/%.c=$(DIR_BUILD)/%.o)
 OBJ_BONUS		:=	$(SRC_BONUS:$(DIR_SRC)/%.c=$(DIR_BUILD)/%.o)
-OBJ_DEBUG		:=	$(SRC:$(DIR_SRC)/%.c=$(DIR_BUILD)/debug/%.o)
+OBJ_DEBUG		:=	$(SRC_MAND:$(DIR_SRC)/%.c=$(DIR_BUILD)/debug/%.o)
 OBJ_DEBUGB		:=	$(SRC_BONUS:$(DIR_SRC)/%.c=$(DIR_BUILD)/debugbonus/%.o)
 OBJ_SAN			:=	$(SRC:$(DIR_SRC)/%.c=$(DIR_BUILD)/sanitize/%.o)
 OBJ_SANB		:=	$(SRC_BONUS:$(Dfd[1]IR_SRC)/%.c=$(DIR_BUILD)/sanitize/%.o)
@@ -242,9 +249,9 @@ $(DIR_BUILD)/sanitize/%.o: $(DIR_SRC)/%.c
 # linkage                                                                      #
 #------------------------------------------------------------------------------#
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ_MAND)
 	@$(MAKE) -j -C libft
-	@$(CC) $(CC_FLAGS) $(OBJ) $(L_FLAG) $(l_FLAG) -o $(NAME)
+	@$(CC) $(CC_FLAGS) $(OBJ_MAND) $(L_FLAG) $(l_FLAG) -o $(NAME)
 	@printf "\033[2K\rcreated: %s\n" $@
 
 $(NAME_BONUS): $(OBJ_BONUS)
