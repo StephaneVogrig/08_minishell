@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 16:21:41 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/31 15:52:42 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/06/04 11:00:05 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,5 @@ char	*parse_dbl_quoted(t_buff *buffer, char *str, t_env *env)
 			return (NULL);
 	}
 	str++;
-	return (str);
-}
-
-char	*parse_unquoted(t_buff *buffer, char *str, t_list **argv, t_env *env)
-{
-	(void)argv;
-	(void)env;
-	if (*str == '$')
-		expanse_unquoted(buffer, ++str, argv, env);
-	if (buff_add_char(buffer, *str++) == FAILURE)
-		return (NULL);
 	return (str);
 }
