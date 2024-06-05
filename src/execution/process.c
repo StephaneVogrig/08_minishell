@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 04:15:23 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/03 20:55:35 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/05 18:22:40 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int	process(t_cmd *cmd, int *fd_in, t_env **env)
 	pid = fork();
 	if (pid == 0)
 	{
+		signal(SIGQUIT, SIG_DFL);
 		handle_pipe_child(need_pipeout, fd_in, pipe_out, cmd);
 		exec_cmd_pipe(cmd, env);
 	}

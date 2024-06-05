@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:57:22 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/04 13:50:48 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/05 18:28:11 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static int	exec_alone(t_cmd_m *cmd, t_env **env)
 	cmd->pid = fork();
 	if (cmd->pid == 0)
 	{
+		signal(SIGQUIT, SIG_DFL);
 		if (exec_redir(cmd->redir, *env) != SUCCESS)
 			exit_on_failure(cmd, NULL, NULL, *env);
 		exec_cmd(cmd, env);
