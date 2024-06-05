@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 16:07:09 by stephane          #+#    #+#             */
-/*   Updated: 2024/05/31 16:03:08 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/06/05 17:45:56 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	handler_ctrl_c(int sigint __attribute__((unused)))
 void	handler_ctrl_c_interactive(int sigint)
 {
 	signal(sigint, SIG_IGN);
+	g_signal = SIGINT;
 	write(2, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);
