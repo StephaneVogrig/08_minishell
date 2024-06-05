@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 15:22:47 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/27 02:55:23 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/05 16:35:52 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	exec_cmd(t_cmd_m *cmd, t_env_m **env)
 	if (!argv)
 		exit_on_failure(NULL, path, NULL, *env);
 	envp = env_to_envp(*env);
+	env_free(*env);
 	if (!envp)
 		exit_on_failure(NULL, path, argv, *env);
 	signal(SIGINT, SIG_DFL);
