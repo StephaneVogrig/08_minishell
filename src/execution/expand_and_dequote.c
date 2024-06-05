@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 20:14:35 by stephane          #+#    #+#             */
-/*   Updated: 2024/06/04 11:05:27 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/05 13:58:41 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ static char	*expand_dbl_quoted(t_buff *buffer, char *str, t_env *env)
 static t_bool	is_token_empty(char *str, t_env *env)
 {
 	char	*end;
+	char	*value;
 
 	if (*str != '$')
 		return (FALSE);
@@ -57,7 +58,8 @@ static t_bool	is_token_empty(char *str, t_env *env)
 			end = end_name(++str);
 			if (end == str)
 				return (FALSE);
-			if (env_get_n(env, str, end - str))
+			value = env_get_n(env, str, end - str);
+			if (value && *value)
 				return (FALSE);
 			str = end;
 		}
