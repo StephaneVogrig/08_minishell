@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:33:09 by stephane          #+#    #+#             */
-/*   Updated: 2024/06/03 19:39:58 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/04 15:57:37 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@
 
 typedef struct s_cmd{
 	t_redir			*redir;
-	t_list			*argv;
+	union {
+		t_list			*argv;
+		struct s_cmd	*pipeline;
+	};
 	struct s_cmd	*next;
 	struct s_cmd	*previous;
 	pid_t			pid;
@@ -30,7 +33,7 @@ typedef t_cmd	t_cmd_m;
 # define PIPE 1
 # define AND 2
 # define OR	4
-# define SUB 8
+# define CMDLIST 8
 
 t_cmd_m	*cmd_new(void);
 void	cmd_free(t_cmd_m *cmd);
