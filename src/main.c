@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:55:55 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/03 16:12:29 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/05 17:48:33 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@ int	run_interactive_mode(t_env **env)
 	{
 		signal(SIGINT, handler_ctrl_c_interactive);
 		input = readline("\001\033[33m\002minishell>\001\033[0m\002");
+		if (g_signal)
+		{
+			exit_status_set(g_signal + 128, *env);
+			g_signal = 0;
+		}
 		signal(SIGINT, SIG_IGN);
 		if (!input)
 			break ;
