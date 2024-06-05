@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:13:40 by smortemo          #+#    #+#             */
-/*   Updated: 2024/06/05 15:54:08 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/06/05 19:27:18 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	export_run(t_env **envp, char *str)
 
 	if (!is_valid_arg(str))
 	{
-		fd_printf(STDERR_FD, "minishel : export : '%s'", str);
+		fd_printf(STDERR_FD, "minishel : export : `%s'", str);
 		fd_printf(STDERR_FD, " : not a valid identifier\n");
 		return (1);
 	}
