@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:27:47 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/04 12:47:26 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/04 23:20:02 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_bool	is_meta(char c)
 {
-	if (ft_strchr("|<> \t;", c))
+	if (ft_strchr("|<> \t;&", c))
 		return (TRUE);
 	return (FALSE);
 }

@@ -6,7 +6,7 @@
 #    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/06/04 13:52:15 by svogrig          ###   ########.fr        #
+#    Updated: 2024/06/04 23:45:24 by svogrig          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ NAME_SANB		:=	$(NAME)_bonussanitize
 # sources ---------------------------------------------------------------------#
 
 DIR_SRC			:=	src
-#SRC				=	$(shell find ./src/ -name *.c)
+
 SRC				:=	main.c \
 					buffer/buff.c \
 					buffer/buffadd.c \
@@ -52,12 +52,10 @@ SRC				:=	main.c \
 					execution/cmd_path.c \
 					execution/exec_builtin.c \
 					execution/exec_cmd.c \
-					execution/exec_pipeline.c \
 					execution/expand_and_dequote.c \
 					execution/heredoc_scan.c \
 					execution/heredoc_expand.c \
 					execution/heredoc.c \
-					execution/process.c \
 					execution/pipeline_wait.c \
 					execution/exec_redir.c \
 					parsing/expanse.c \
@@ -66,12 +64,11 @@ SRC				:=	main.c \
 					parsing/next_token_limiter.c \
 					parsing/next_token_to_str.c \
 					parsing/parse_utils.c \
-					parsing/syntax_error.c \
 					parsing/token.c \
-					utils/exit.c \
 					shell/exit_status.c \
 					shell/prompt.c \
 					shell/shell_mode.c \
+					utils/exit.c \
 					utils/memory.c \
 					utils/mini_readline.c \
 					utils/mini_strtol.c \
@@ -81,9 +78,12 @@ SRC				:=	main.c \
 
 
 SRC_MAND		:=	$(SRC) \
-					parsing/char.c \
 					execution/exec_input.c \
-					parsing/parse.c
+					execution/exec_pipeline.c \
+					execution/process.c \
+					parsing/char.c \
+					parsing/parse.c \
+					parsing/syntax_error.c
 						
 
 SRC_MAND		:=	$(SRC_MAND:%=$(DIR_SRC)/%)
@@ -91,9 +91,13 @@ SRC_MAND		:=	$(SRC_MAND:%=$(DIR_SRC)/%)
 # sources bonus ---------------------------------------------------------------#
 
 SRC_BONUS		:=	$(SRC) \
-					parsing/char_bonus.c \
+					data/pipelist_bonus.c \
 					execution/exec_input_bonus.c \
-					parsing/parse_bonus.c
+					execution/exec_pipeline_bonus.c \
+					execution/process_bonus.c \
+					parsing/char_bonus.c \
+					parsing/parse_bonus.c \
+					parsing/syntax_error_bonus.c
 
 
 SRC_BONUS		:=	$(SRC_BONUS:%=$(DIR_SRC)/%)
@@ -130,7 +134,7 @@ OBJ_MAND		:=	$(SRC_MAND:$(DIR_SRC)/%.c=$(DIR_BUILD)/%.o)
 OBJ_BONUS		:=	$(SRC_BONUS:$(DIR_SRC)/%.c=$(DIR_BUILD)/%.o)
 OBJ_DEBUG		:=	$(SRC_MAND:$(DIR_SRC)/%.c=$(DIR_BUILD)/debug/%.o)
 OBJ_DEBUGB		:=	$(SRC_BONUS:$(DIR_SRC)/%.c=$(DIR_BUILD)/debugbonus/%.o)
-OBJ_SAN			:=	$(SRC:$(DIR_SRC)/%.c=$(DIR_BUILD)/sanitize/%.o)
+OBJ_SAN			:=	$(SRC_MAND:$(DIR_SRC)/%.c=$(DIR_BUILD)/sanitize/%.o)
 OBJ_SANB		:=	$(SRC_BONUS:$(Dfd[1]IR_SRC)/%.c=$(DIR_BUILD)/sanitize/%.o)
 
 DEPS			:=	$(OBJ:.o=.d) $(OBJ_SAN:.o=.d) $(OBJ_BONUS:.o=.d)
@@ -204,7 +208,7 @@ valgrind: debug
 	- valgrind $(VAL_FLAGS) $(VAL_FLAGS_C) $(VAL_SUPPR) ./$(NAME_DEBUG) $(RUNARGS)
 
 valgrindbonus: debugbonus
-	- valgrind $(VAL_FLAGS) $(VAL_FLAGS_C) $(VAL_SUPPR) ./$(NAME_DEBUG) $(RUNARGS_BONUS)
+	- valgrind $(VAL_FLAGS) $(VAL_FLAGS_C) $(VAL_SUPPR) ./$(NAME_DEBUG_B) $(RUNARGS_BONUS)
 
 sanitize:
 	@$(MAKE) -j makesanitize

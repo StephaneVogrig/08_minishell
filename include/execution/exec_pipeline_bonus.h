@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   exec_pipeline_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/03 18:59:23 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/04 18:33:53 by svogrig          ###   ########.fr       */
+/*   Created: 2024/06/04 19:43:05 by svogrig           #+#    #+#             */
+/*   Updated: 2024/06/04 22:09:49 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef EXEC_PIPELINE_BONUS_H
+# define EXEC_PIPELINE_BONUS_H
 
-# include <unistd.h>
-# include <readline/readline.h>
-# include "exec_input.h"
+# include "command.h"
 # include "environment.h"
-# include "buff.h"
-# include "mini_readline.h"
-# include "shell_mode.h"
+# include "process_bonus.h"
+# include "pipeline_wait.h"
+# include <unistd.h>
+
+int	exec_pipeline(t_cmd_m *pipeline, t_env **env);
 
 #endif

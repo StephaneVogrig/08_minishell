@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   pipelist_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/03 18:59:23 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/04 18:33:53 by svogrig          ###   ########.fr       */
+/*   Created: 2024/06/04 20:14:41 by svogrig           #+#    #+#             */
+/*   Updated: 2024/06/04 20:59:20 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "pipelist_bonus.h"
 
-# include <unistd.h>
-# include <readline/readline.h>
-# include "exec_input.h"
-# include "environment.h"
-# include "buff.h"
-# include "mini_readline.h"
-# include "shell_mode.h"
+void	pipelist_free(t_cmd *pipelist)
+{
+	t_cmd	*temp;
 
-#endif
+	while (pipelist->previous)
+		pipelist = pipelist->previous;
+	
+	while (pipelist)
+	{
+		pipeline_free(&pipelist->pipeline);
+		temp = pipelist->next;
+		free(pipelist);
+		pipelist = temp;
+	}
+}
