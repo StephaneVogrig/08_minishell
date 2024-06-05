@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 23:27:39 by smortemo          #+#    #+#             */
-/*   Updated: 2024/06/01 13:39:08 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/06/05 16:03:28 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int	change_dir(t_env **env, char *str)
 	ret = chdir(str);
 	if (ret == -1)
 	{
+		ft_printf("minishel: cd: %s", str);
 		perror(" ");
 		return (1);
 	}

@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:13:40 by smortemo          #+#    #+#             */
-/*   Updated: 2024/06/01 13:24:01 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/06/05 15:54:08 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,9 @@ int	end_var_name(char *str)
 
 static int	export_modify_node(char *str, t_env *node, int n)
 {
-	if (node && str[n] == '=')
+	if (node && str[n] == '\0')
+		return (0);
+	else if (node && str[n] == '=')
 	{
 		free(node->value);
 		if (str[n + 1])
