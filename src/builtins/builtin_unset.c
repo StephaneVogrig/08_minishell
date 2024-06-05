@@ -6,7 +6,7 @@
 /*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:37:23 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/31 15:58:52 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/06/05 17:45:04 by smortemo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ static int	unset(t_env **env, char *str)
 	if (node)
 	{
 		if (node->type == EXPORTED || node->type == NO_VALUE)
+			env_node_del(env, node);
+		if (node->type == DIR || node->type == DIR_NO_VAL)
 			env_node_del(env, node);
 	}
 	return (0);
