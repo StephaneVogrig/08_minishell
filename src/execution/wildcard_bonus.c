@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:42:06 by smortemo          #+#    #+#             */
-/*   Updated: 2024/06/06 02:06:05 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/06/06 04:19:11 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ static char	*add_substr(char *str, t_wildcard *wc)
 		if (*str == '\"' || *str == '\'')
 		{
 			quote = *str;
+			str++;
 			while (*str && *str != quote)
 				str++;
 			if (*str == '\0')
@@ -160,22 +161,36 @@ static t_bool	str_to_wc(char *str, t_wildcard *wc)
 		wc->flags |= WILDCARD_FIRST;
 	while (*str)
 	{
-		if (*str != '*')
-		{
-			str = add_substr(str, wc);
-			if (!str)
-				return (FAILURE);
-		}
 		if (*str == '*')
 		{
 			wc->flags |= WILDCARD_LAST;
 			*str = '\0';
 			str++;
 		}
+		else
+		{
+			str = add_substr(str, wc);
+			if (!str)
+				return (FAILURE);
+		}
+
 	}
 	return (SUCCESS);
 }
 
+void	display_argv_lst(t_list *lst)
+{
+	if (lst == NULL)
+	{
+		ft_printf("argv is null \n");
+		return ;
+	}
+	while (lst != NULL)
+	{
+		ft_printf("-> %s \n", lst->content);
+		lst = lst->next;
+	}
+}
 t_bool	wildcard_to_list(char *format, t_list **strlist)
 {
 	t_wildcard wc;
@@ -184,6 +199,7 @@ t_bool	wildcard_to_list(char *format, t_list **strlist)
 	wc.flags = 0;
 	if (str_to_wc(format, &wc) == FAILURE)
 		return (FAILURE);
+	display_argv_lst(wc.list);
 	// printf("wildcard_to_list\n");
 	if (wildcard_select(&wc, strlist) == FAILURE)
 	{

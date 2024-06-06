@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard_bonus_test.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 01:46:44 by smortemo          #+#    #+#             */
-/*   Updated: 2024/06/06 02:08:37 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/06/06 04:07:30 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,7 @@ int	main(void)
 	test("*n*e*s*");
 	test("n*e*s");
 	test("n*e*s*");
+
+	test("*'*'*");
 
 }
