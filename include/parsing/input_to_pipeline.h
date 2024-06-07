@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipelist_bonus.h                                   :+:      :+:    :+:   */
+/*   input_to_pipeline.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/04 20:19:55 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/07 04:02:56 by svogrig          ###   ########.fr       */
+/*   Created: 2024/04/04 21:26:45 by stephane          #+#    #+#             */
+/*   Updated: 2024/06/06 21:47:14 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPELIST_BONUS_H
-# define PIPELIST_BONUS_H
+#ifndef INPUT_TO_PIPELIST_H
+# define INPUT_TO_PIPELIST_H
 
-# include "command.h"
+# include "token.h"
 # include "pipeline.h"
+# include "redirection.h"
+# include "parse.h"
 
-t_cmd	*pipelist_new(void);
-void	pipelist_free(t_cmd *pipelist);
+t_cmd	*input_to_pipeline(char *input);
 
 #endif

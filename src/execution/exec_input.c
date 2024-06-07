@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:36:43 by stephane          #+#    #+#             */
-/*   Updated: 2024/06/05 17:44:58 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/06 21:44:39 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	exec_input(t_char_m *input, t_env **env)
 {
-	t_cmd_m	*pipelist;
+	t_cmd_m	*pipeline;
 	char	*str;
 	int		exit_code;
 
@@ -24,15 +24,15 @@ int	exec_input(t_char_m *input, t_env **env)
 	if (syntax_error(str))
 		return (SYNTAX_ERROR);
 	errno = 0;
-	pipelist = input_to_pipelist(str);
+	pipeline = input_to_pipeline(str);
 	free(input);
 	if (errno != 0)
 		exit_on_failure(NULL, NULL, NULL, *env);
-	if (!pipelist)
+	if (!pipeline)
 		return (EXIT_SUCCESS);
-	exit_code = heredoc(pipelist);
+	exit_code = heredoc(pipeline);
 	if (exit_code != SUCCESS)
 		return (exit_code);
 	signal(SIGINT, handler_ctrl_c);
-	return (exec_pipeline(pipelist, env));
+	return (exec_pipeline(pipeline, env));
 }

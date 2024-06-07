@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 18:21:05 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/04 20:23:47 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/07 08:09:15 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@
 # include "pipe.h"
 # include "exec_redir.h"
 # include "argv_expand.h"
-# include "pipelist_bonus.h"
 
-int	process(t_cmd *cmd, int *fd_in, t_env **env, t_cmd *pipelist);
+# include "pipelist_bonus.h"
+# include "exec_pipelist_bonus.h"
+
+int	process(t_cmd *cmd, int *fd_in, t_env **env, t_cmd *tofree);
 
 #endif

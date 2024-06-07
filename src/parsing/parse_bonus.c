@@ -6,57 +6,79 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 11:59:27 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/04 18:40:15 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/07 05:14:22 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parse.h"
+#include "parse_bonus.h"
 
-char	*new_bonus_cmd(char *str, t_cmd **cmd, int type)
+char	*end_parenthesis(char *str)
+{
+	int 	open;
+
+	open = 0;
+	str++;
+	while (*str != ')' || open)
+	{
+		if (*str == '(')
+			open++;
+		if (*str == ')')
+			open--;
+		str++;
+	}
+	return (str);
+}
+
+char	*new_bonus_sub(char *str, t_cmd **cmd)
+{
+	char	*end;
+	// t_cmd	*new;
+
+	// new = cmd_new();
+	// if (!new)
+	// 	return (NULL);
+// ft_printf("entre (): %s\n", str);
+	end = end_parenthesis(++str);
+	*end++ = '\0';
+// ft_printf("entre (): %s\n", str);
+	// new->previous = *cmd;
+	(*cmd)->pipelist = input_to_pipelist(str);
+	(*cmd)->flag = SUB;
+	// (*cmd)->next = new;
+	// *cmd = new;
+	return (end);
+}
+
+char	*new_pipeline(char *str, t_cmd **cmd, t_cmd **pipeline, int type)
 {
 	t_cmd	*new;
-	// ft_printf("new bonus cmd, type = %i\n", type);
-	new = cmd_new();
-	if (!new)
-	{
-		perror("minishell: new_bonus_cmd");
-		return (NULL);
-	}
-	new->previous = *cmd;
-	// ft_printf("new->flag=%d\n", new->flag);
 
-	
+	new = pipelist_new();
+	if (!new)
+		return (NULL);
+	new->previous = *pipeline;
 	new->flag = type;
-	// ft_printf("new->flag=%d\n", new->flag);
-	(*cmd)->next = new;
-	*cmd = new;
+	(*pipeline)->next = new;
+	*pipeline = new;
+	*cmd = new->pipeline;
 	return (++str);
 }
 
-char	*parse(char *input, t_cmd **cmdlist)
+char	*parse(char *input, t_cmd **cmd, t_cmd **pipeline)
 {
-	t_cmd	*pipeline;
-
-	if (!(*cmdlist)->pipeline)
-		(*cmdlist)->pipeline = cmd_new();
-	pipeline = (*cmdlist)->pipeline;
-	while (pipeline->next)
-		pipeline = pipeline->next;
-
-
 	if (*input == ';')
-		return (new_bonus_cmd(input, cmdlist, 0));
+		return (new_pipeline(input, cmd, pipeline, 0));
 	if (*input == '&' && *(input + 1) == '&')
-{
-		return (new_bonus_cmd(++input, cmdlist, AND));
-}
+		return (new_pipeline(++input, cmd, pipeline, AND));
 	if (*input == '|' && *(input + 1) == '|')
-		return (new_bonus_cmd(++input, cmdlist, OR));
+		return (new_pipeline(++input, cmd, pipeline, OR));
 	if (*input == '|')
-		return (new_current_cmd(&pipeline, input));
+		return (new_current_cmd(cmd, input));
+	if (*input == '(')
+		return (new_bonus_sub(input, cmd));
 	if (*input == '<' && *(input + 1) == '<')
-		return (next_token_to_heredoc(input + 2, &pipeline->redir));
+		return (next_token_to_heredoc(input + 2, &(*cmd)->redir));
 	if (*input == '>' || *input == '<')
-		return (next_token_to_redir(input, &pipeline->redir));
-	return (next_token_to_arglist(input, &pipeline->argv));
+		return (next_token_to_redir(input, &(*cmd)->redir));
+	return (next_token_to_arglist(input, &(*cmd)->argv));
 }

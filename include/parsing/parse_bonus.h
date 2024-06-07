@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debug.h                                            :+:      :+:    :+:   */
+/*   parse_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/06 20:21:01 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/06 04:18:09 by svogrig          ###   ########.fr       */
+/*   Created: 2024/06/06 21:59:12 by svogrig           #+#    #+#             */
+/*   Updated: 2024/06/07 04:03:39 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEBUG_H
-# define DEBUG_H
+#ifndef PARSE_BONUS_H
+# define PARSE_BONUS_H
 
-# include "command.h"
-# include "libft.h"
-# include "strlink.h"
+# include "token.h"
+# include "parse_utils.h"
+# include "input_to_pipelist_bonus.h"
+# include "pipelist_bonus.h"
 
-void	print_redir(t_redir *redir);
-void	print_cmd(t_cmd *cmd);
-void	strlink_print(t_strlink *strlink);
-void	print_pipeline(t_cmd *pipeline);
-void	display_t_cmd(t_cmd *cmd);
+char	*parse(char *input, t_cmd **cmd, t_cmd **pipeline);
 
 #endif

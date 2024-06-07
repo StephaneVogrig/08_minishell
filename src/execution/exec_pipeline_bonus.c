@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 18:11:14 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/04 23:11:46 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/07 12:02:32 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,15 @@ static int	exec_builtin_alone_bonus(t_builtin builtin, t_cmd *cmd, \
 	return (exit_code);
 }
 
-static t_bool	exec_pipe(t_cmd *pipelist, t_env **env)
+static t_bool	exec_pipe(t_cmd *pipeline, t_env **env, t_cmd *tofree)
 {
 	int	fdin;
-	t_cmd	*pipeline;
 
-	pipeline = pipelist->pipeline;
+// ft_printf("exec_pipe\n");
 	fdin = 0;
 	while (pipeline)
 	{
-		pipeline->pid = process(pipeline, &fdin, env, pipelist);
+		pipeline->pid = process(pipeline, &fdin, env, tofree);
 		if (pipeline->pid == -1)
 			return (FAILURE);
 		pipeline = pipeline->next;
@@ -71,22 +70,25 @@ static t_bool	exec_pipe(t_cmd *pipelist, t_env **env)
 	return (SUCCESS);
 }
 
-static int	exec_alone(t_cmd_m *cmd, t_env **env, t_cmd *pipelist)
+static int	exec_alone(t_cmd_m *cmd, t_env **env, t_cmd *tofree)
 {
 	t_builtin	builtin;
 	int			exit_code;
 
+// ft_printf("exec_alone\n");
+	if (cmd->flag == SUB)
+		return (exec_pipelist(cmd->pipelist, env, tofree));
 	exit_code = 0;
 	if (argv_expand(&cmd->argv, *env) == FAILURE)
 		return (EXIT_FAILURE);
 	builtin = builtin_function(cmd->argv);
 	if (builtin)
-		return (exec_builtin_alone_bonus(builtin, cmd, env, pipelist));
+		return (exec_builtin_alone_bonus(builtin, cmd, env, tofree));
 	cmd->pid = fork();
 	if (cmd->pid == 0)
 	{
-		pipelist->pipeline = NULL;
-		pipelist_free(pipelist);
+		tofree->pipeline = NULL;
+		pipelist_free(tofree);
 		if (exec_redir(cmd->redir, *env) != SUCCESS)
 			exit_on_failure(cmd, NULL, NULL, *env);
 		exec_cmd(cmd, env);
@@ -97,18 +99,21 @@ static int	exec_alone(t_cmd_m *cmd, t_env **env, t_cmd *pipelist)
 	return (exit_code);
 }
 
-int	exec_pipeline(t_cmd_m *pipelist, t_env **env)
+#include "debug.h"
+
+int	exec_pipeline(t_cmd_m *pipeline, t_env **env, t_cmd_m *tofree)
 {
 	int		exit_code;
-
-	if (!pipelist->pipeline->next)
-		return (exec_alone(pipelist->pipeline, env, pipelist));
-	if (exec_pipe(pipelist, env) == FAILURE)
+// ft_printf("\nexec_pipeline\n");
+// print_pipeline(pipeline);
+	if (!pipeline->next)
+		return (exec_alone(pipeline, env, tofree));
+	if (exec_pipe(pipeline, env, tofree) == FAILURE)
 	{
-		wait_process(pipelist->pipeline);
+		wait_process(pipeline);
 		exit_code = EXIT_FAILURE;
 	}
 	else
-		exit_code = wait_process(pipelist->pipeline);
+		exit_code = wait_process(pipeline);
 	return (exit_code);
 }

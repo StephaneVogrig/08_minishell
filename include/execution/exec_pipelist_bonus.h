@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipelist_bonus.h                                   :+:      :+:    :+:   */
+/*   exec_pipelist_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/04 20:19:55 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/07 04:02:56 by svogrig          ###   ########.fr       */
+/*   Created: 2024/06/07 02:37:23 by svogrig           #+#    #+#             */
+/*   Updated: 2024/06/07 08:10:42 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPELIST_BONUS_H
-# define PIPELIST_BONUS_H
+#ifndef EXEC_PIPELIST_BONUS_H
+# define EXEC_PIPELIST_BONUS_H
 
 # include "command.h"
-# include "pipeline.h"
+# include "environment.h"
+# include "exec_pipeline_bonus.h"
 
-t_cmd	*pipelist_new(void);
-void	pipelist_free(t_cmd *pipelist);
+int	exec_pipelist(t_cmd *pipelist, t_env **env, t_cmd *tofree);
 
 #endif

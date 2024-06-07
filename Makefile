@@ -6,7 +6,7 @@
 #    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/06/04 23:45:24 by svogrig          ###   ########.fr        #
+#    Updated: 2024/06/07 12:09:28 by svogrig          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,6 @@ SRC				:=	main.c \
 					execution/pipeline_wait.c \
 					execution/exec_redir.c \
 					parsing/expanse.c \
-					parsing/input_to_pipelist.c \
 					parsing/next_token_dequoted.c \
 					parsing/next_token_limiter.c \
 					parsing/next_token_to_str.c \
@@ -74,7 +73,8 @@ SRC				:=	main.c \
 					utils/mini_strtol.c \
 					utils/pipe.c \
 					utils/signal_handler.c \
-					utils/str.c
+					utils/str.c \
+					_notuse_src/debug.c
 
 
 SRC_MAND		:=	$(SRC) \
@@ -82,6 +82,7 @@ SRC_MAND		:=	$(SRC) \
 					execution/exec_pipeline.c \
 					execution/process.c \
 					parsing/char.c \
+					parsing/input_to_pipeline.c \
 					parsing/parse.c \
 					parsing/syntax_error.c
 						
@@ -94,8 +95,10 @@ SRC_BONUS		:=	$(SRC) \
 					data/pipelist_bonus.c \
 					execution/exec_input_bonus.c \
 					execution/exec_pipeline_bonus.c \
+					execution/exec_pipelist_bonus.c \
 					execution/process_bonus.c \
 					parsing/char_bonus.c \
+					parsing/input_to_pipelist_bonus.c \
 					parsing/parse_bonus.c \
 					parsing/syntax_error_bonus.c
 
@@ -113,7 +116,8 @@ DIR_INC			:=	libft/include \
 					include/execution \
 					include/parsing \
 					include/utils \
-					include/shell
+					include/shell \
+					include/_notuse_h
 					
 I_FLAG			:=	$(addprefix -I,$(DIR_INC)) -MMD -MP
 				
@@ -142,7 +146,7 @@ DEPS			:=	$(OBJ:.o=.d) $(OBJ_SAN:.o=.d) $(OBJ_BONUS:.o=.d)
 # compilation -----------------------------------------------------------------#
 
 CC				:=	cc
-CC_FLAGS		:=	-Wall -Wextra -Werror
+CC_FLAGS		:=	-Wall -Wextra -Werror -g3
 
 # valgrind --------------------------------------------------------------------#
 

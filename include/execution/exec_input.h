@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 20:37:35 by stephane          #+#    #+#             */
-/*   Updated: 2024/06/04 18:36:37 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/07 02:56:04 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,13 @@
 
 # include "builtin.h"
 # include "heredoc.h"
-# include "input_to_pipelist.h"
 # include "pipeline_wait.h"
 # include "str.h"
 # include "syntax_error.h"
 # include "exec_redir.h"
-#include "exec_pipeline.h"
+
+# include "exec_pipeline.h"
+# include "input_to_pipeline.h"
 
 # define SYNTAX_ERROR 2
 

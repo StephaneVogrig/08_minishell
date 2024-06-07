@@ -1,40 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_to_pipelist.c                                :+:      :+:    :+:   */
+/*   input_to_pipelist_bonus.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:25:18 by stephane          #+#    #+#             */
-/*   Updated: 2024/06/04 13:36:08 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/07 09:52:07 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "input_to_pipelist.h"
+
+
+#include "input_to_pipelist_bonus.h"
 
 t_cmd	*input_to_pipelist(char *input)
 {
-	t_cmd	*pipeline;
-	t_cmd	*cmd;
+	t_cmd	*pipelist;
+	t_cmd	*current_cmd;
+	t_cmd	*current_pipeline;
 
-	cmd = cmd_new();
-	if (!cmd)
+	pipelist = pipelist_new();
+	if (!pipelist)
 		return (NULL);
-	pipeline = cmd;
+	current_cmd = pipelist->pipeline;
+	current_pipeline = pipelist;
 	while (*input)
 	{
-		input = parse(input, &cmd);
+		input = parse(input, &current_cmd, &current_pipeline);
 		if (!input)
 		{
-			pipeline_free(&pipeline);
+			pipelist_free(pipelist);
 			return (NULL);
 		}
 		input = skip_blank(input);
 	}
-	if (!cmd->next && !cmd->redir && !cmd->argv && !cmd->previous)
+	if (!current_cmd->next && !current_cmd->redir && !current_cmd->argv && !current_cmd->previous)
 	{
-		free(cmd);
+		pipelist_free(pipelist);
 		return (NULL);
 	}
-	return (pipeline);
+	return (pipelist);
 }

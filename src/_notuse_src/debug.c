@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 20:16:08 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/31 15:53:06 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/06/07 11:45:47 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 #define GOLD "\033[38;2;255;176;0m"
 #define DODGERBLUE "\033[38;5;33m"
+# define RED "\033[31m"
+# define GREEN "\033[32m"
 #define RESET "\033[0m"
 
 void	print_redir(t_redir *redir)
@@ -40,27 +42,6 @@ void	print_redir(t_redir *redir)
 	}
 }
 
-void	print_cmd(t_cmd *cmd)
-{
-	t_list	*current;
-
-	print_redir(cmd->redir);
-	ft_printf("%sargv:%s ", GOLD, RESET);
-	// strlist_print_fd(cmd->argv, STDOUT_FD);
-	current = cmd->argv;
-	if (!current)
-	{
-		ft_putstr_fd("(empty)\n", STDOUT_FD);
-		return ;
-	}
-	ft_printf("%s\n", current->content);
-	current = current->next;
-	while (current)
-	{
-		ft_printf("      %s\n", current->content);
-		current = current->next;
-	}
-}
 
 void	strlink_print(t_strlink *strlink)
 {
@@ -69,19 +50,6 @@ void	strlink_print(t_strlink *strlink)
 		ft_printf("str:%s, len:%i\n", strlink->str, strlink->len);
 		strlink = strlink->next;
 	}
-}
-
-void	print_pipeline(t_cmd *pipeline)
-{
-	ft_printf("**********************************\n");
-	while (pipeline)
-	{
-		print_cmd(pipeline);
-		if (pipeline->next)
-			ft_printf("------------------\n");
-		pipeline = pipeline->next;
-	}
-	ft_printf("**********************************\n");
 }
 
 void	display_argv_lst(t_list *lst)
@@ -111,6 +79,7 @@ void	display_redir_lst(t_redir *lst)
 		lst = lst->next;
 	}
 }
+
 void	display_t_cmd(t_cmd *cmd)
 {
 	t_redir *redir;
@@ -127,4 +96,73 @@ void	display_t_cmd(t_cmd *cmd)
 	display_argv_lst(argv);
 	printf("t_cmd REDIR--------------\n");
 	display_redir_lst(redir);
+}
+
+void	print_cmd(t_cmd *cmd)
+{
+	t_list	*current;
+
+	if (cmd->flag == SUB)
+	{
+		ft_printf("flag SUB\n");
+		print_pipelist(cmd->pipeline, GOLD, DODGERBLUE);
+		return ;
+	}
+
+	print_redir(cmd->redir);
+	ft_printf("%sargv:%s ", GOLD, RESET);
+	// strlist_print_fd(cmd->argv, STDOUT_FD);
+	current = cmd->argv;
+	if (!current)
+	{
+		ft_putstr_fd("(empty)\n", STDOUT_FD);
+		return ;
+	}
+	ft_printf("%s\n", current->content);
+	current = current->next;
+	while (current)
+	{
+		ft_printf("      %s\n", current->content);
+		current = current->next;
+	}
+}
+
+void	print_pipeline(t_cmd *pipeline, char *color)
+{
+	if (!color)
+		color =  GOLD;
+	ft_printf("%s************* pipeline *****************"RESET"\n", color);
+	while (pipeline)
+	{
+		print_cmd(pipeline);
+		if (pipeline->next)
+			ft_printf("%s**********************************"RESET"\n", color);
+		pipeline = pipeline->next;
+	}
+	ft_printf("%s*************** fin ***************"RESET"\n", color);
+}
+
+
+void print_pipelist(t_cmd *pipelist, char *color, char *pipeline_color)
+{
+	if (!color)
+		color =  RED;
+	if (!pipeline_color)
+		pipeline_color =  DODGERBLUE;
+	ft_printf("%s############ pipelist ###########   flag: ",color );
+	while (pipelist)
+	{
+		if (!pipelist->previous)
+			ft_printf("%i"RESET"\n" , pipelist->flag);
+		else
+			ft_printf("%s##################################   flag: %i"RESET"\n",color , pipelist->flag);
+
+		print_pipeline(pipelist->pipeline, pipeline_color);
+		
+		pipelist = pipelist->next;
+		// if (pipelist)
+		// 	ft_printf(GOLD"#############################"RESET"\n");
+	}
+		ft_printf("%s############ fin ###########"RESET"\n", color);
+
 }

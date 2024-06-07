@@ -6,38 +6,13 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:57:43 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/05 17:34:42 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/07 12:02:46 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec_input_bonus.h"
 
-int exec_pipelist(t_cmd *pipelist, t_env **env)
-{
-	int		exit_code;
-	t_cmd	*pipelist_head;
-
-	exit_code = EXIT_SUCCESS;
-	pipelist_head = pipelist;
-	while (pipelist)
-	{	
-		if (pipelist->flag == AND && exit_code != EXIT_SUCCESS)
-		{
-			pipelist = pipelist->next;
-			continue ;
-		}
-		if (pipelist->flag == OR && exit_code == EXIT_SUCCESS)
-		{
-			pipelist = pipelist->next;
-			continue ;
-		}
-		exit_code = exec_pipeline(pipelist, env);
-		pipelist = pipelist->next;
-	}
-	pipelist_free(pipelist_head);
-	return (exit_code);
-}
-
+#include "debug.h"
 int	exec_input(t_char_m *input, t_env **env)
 {
 	t_cmd_m	*pipelist;
@@ -60,5 +35,8 @@ int	exec_input(t_char_m *input, t_env **env)
 	if (exit_code != SUCCESS)
 		return (exit_code);
 	signal(SIGINT, handler_ctrl_c);
-	return (exec_pipelist(pipelist, env));
+// print_pipelist(pipelist, NULL, NULL);
+	exit_code = exec_pipelist(pipelist, env, pipelist);
+	pipelist_free(pipelist);
+	return (exit_code);
 }
