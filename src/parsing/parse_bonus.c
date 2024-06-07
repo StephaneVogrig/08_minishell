@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 11:59:27 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/07 05:14:22 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/07 18:27:54 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,11 @@ char	*end_parenthesis(char *str)
 char	*new_bonus_sub(char *str, t_cmd **cmd)
 {
 	char	*end;
-	// t_cmd	*new;
 
-	// new = cmd_new();
-	// if (!new)
-	// 	return (NULL);
-// ft_printf("entre (): %s\n", str);
 	end = end_parenthesis(++str);
 	*end++ = '\0';
-// ft_printf("entre (): %s\n", str);
-	// new->previous = *cmd;
 	(*cmd)->pipelist = input_to_pipelist(str);
 	(*cmd)->flag = SUB;
-	// (*cmd)->next = new;
-	// *cmd = new;
 	return (end);
 }
 

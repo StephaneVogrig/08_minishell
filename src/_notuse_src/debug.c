@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 20:16:08 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/07 11:45:47 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/07 18:56:55 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,10 +108,8 @@ void	print_cmd(t_cmd *cmd)
 		print_pipelist(cmd->pipeline, GOLD, DODGERBLUE);
 		return ;
 	}
-
 	print_redir(cmd->redir);
 	ft_printf("%sargv:%s ", GOLD, RESET);
-	// strlist_print_fd(cmd->argv, STDOUT_FD);
 	current = cmd->argv;
 	if (!current)
 	{
@@ -125,6 +123,8 @@ void	print_cmd(t_cmd *cmd)
 		ft_printf("      %s\n", current->content);
 		current = current->next;
 	}
+	ft_printf("previous: %10p - next: %10p\n", cmd->previous, cmd->next);
+
 }
 
 void	print_pipeline(t_cmd *pipeline, char *color)

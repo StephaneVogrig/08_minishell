@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   process_bonus.h                                    :+:      :+:    :+:   */
+/*   exit_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/04 18:21:05 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/07 14:55:16 by svogrig          ###   ########.fr       */
+/*   Created: 2024/03/26 19:56:00 by svogrig           #+#    #+#             */
+/*   Updated: 2024/06/07 18:54:02 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROCESS_BONUS_H
-# define PROCESS_BONUS_H
+#include "exit_bonus.h"
 
-# include <fcntl.h>
-# include "builtin.h"
-# include "command.h"
-# include "exec_cmd_bonus.h"
-# include "pipe.h"
-# include "exec_redir.h"
-# include "argv_expand.h"
+void	exit_on_file_error_bonus(const char *msg, t_cmd *cmd, t_env *env, t_cmd *tofree)
+{
+	fd_printf(STDERR_FD, "%s: %s\n", cmd->argv->content, msg);
+	pipelist_free(tofree);
+	env_free(env);
+	exit(127);
+}
 
-# include "pipelist_bonus.h"
-# include "exec_pipelist_bonus.h"
-# include "exit_bonus.h"
+void	exit_on_failure_bonus(t_cmd *pipelist, t_env *env)
+{
+	pipelist_free(pipelist);
+	env_free(env);
+	exit(EXIT_FAILURE);
+}
 
-int	process(t_cmd *cmd, int *fd_in, t_env **env, t_cmd *tofree);
-
-#endif

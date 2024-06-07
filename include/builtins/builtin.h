@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:37:55 by smortemo          #+#    #+#             */
-/*   Updated: 2024/06/01 13:36:40 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/06/07 15:48:45 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define BUILTIN_H
 
 # include "builtin_exit_utils.h"
-# include "exec_cmd.h"
+// # include "exec_cmd.h"
 # include "exec_redir.h"
 # include "libft.h"
 # include <errno.h>

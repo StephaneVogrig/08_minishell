@@ -6,10 +6,9 @@
 #    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/06/07 12:09:28 by svogrig          ###   ########.fr        #
+#    Updated: 2024/06/07 18:54:18 by svogrig          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
 
 NAME			:=	minishell
 NAME_BONUS		:=	$(NAME)_bonus
@@ -51,7 +50,6 @@ SRC				:=	main.c \
 					execution/argv_expand.c \
 					execution/cmd_path.c \
 					execution/exec_builtin.c \
-					execution/exec_cmd.c \
 					execution/expand_and_dequote.c \
 					execution/heredoc_scan.c \
 					execution/heredoc_expand.c \
@@ -76,8 +74,8 @@ SRC				:=	main.c \
 					utils/str.c \
 					_notuse_src/debug.c
 
-
 SRC_MAND		:=	$(SRC) \
+					execution/exec_cmd.c \
 					execution/exec_input.c \
 					execution/exec_pipeline.c \
 					execution/process.c \
@@ -93,6 +91,7 @@ SRC_MAND		:=	$(SRC_MAND:%=$(DIR_SRC)/%)
 
 SRC_BONUS		:=	$(SRC) \
 					data/pipelist_bonus.c \
+					execution/exec_cmd_bonus.c \
 					execution/exec_input_bonus.c \
 					execution/exec_pipeline_bonus.c \
 					execution/exec_pipelist_bonus.c \
@@ -100,7 +99,8 @@ SRC_BONUS		:=	$(SRC) \
 					parsing/char_bonus.c \
 					parsing/input_to_pipelist_bonus.c \
 					parsing/parse_bonus.c \
-					parsing/syntax_error_bonus.c
+					parsing/syntax_error_bonus.c \
+					utils/exit_bonus.c
 
 
 SRC_BONUS		:=	$(SRC_BONUS:%=$(DIR_SRC)/%)
