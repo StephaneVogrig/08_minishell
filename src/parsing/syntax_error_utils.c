@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 18:32:26 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/08 19:59:17 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/08 23:04:06 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,11 @@ t_bool	syntax_error_msg(char c)
 	return (TRUE);
 }
 
-char	*end_quote(char *str)
+char	*syntax_end_quote(char *str)
 {
-	char	quote;
-
-	quote = *str;
-	str++;
-	while (*str)
-	{
-		if (*str == quote)
-			return (++str);
-		str++;
-	}
+	str = end_quote(str);
+	if (*str)
+		return (++str);
 	syntax_error_msg('\0');
 	return (NULL);
 }

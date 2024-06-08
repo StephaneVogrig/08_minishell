@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 22:01:52 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/08 19:59:26 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/08 22:49:05 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_bool	syntax_error(char *input)
 		else if (*input == '<' || *input == '>')
 			input = next_token_redir(input);
 		else if (*input == '\"' || *input == '\'')
-			input = end_quote(input);
+			input = syntax_end_quote(input);
 		else
 			input++;
 		if (!input)

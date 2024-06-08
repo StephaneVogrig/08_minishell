@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 15:52:14 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/31 15:57:32 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/06/08 23:08:04 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,14 @@ t_char_m	*mini_strdup(char *str)
 		return (NULL);
 	}
 	return (new);
+}
+
+char	*end_quote(char *str)
+{
+	char	quote;
+
+	quote = *str++;
+	while (*str && !(*str == quote))
+		str++;
+	return (str);
 }

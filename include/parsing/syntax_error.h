@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 22:02:24 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/08 19:59:37 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/08 22:49:14 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@ t_bool	syntax_error(char *input);
 
 /* syntax error utils */
 t_bool	syntax_error_msg(char c);
-char	*end_quote(char *str);
+char	*syntax_end_quote(char *str);
 
 #endif
