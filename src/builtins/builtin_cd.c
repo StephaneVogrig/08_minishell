@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 23:27:39 by smortemo          #+#    #+#             */
-/*   Updated: 2024/06/05 17:51:47 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/06/08 15:46:59 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	go_home(t_env **env, char c)
 		str = env_get_type(*env, "HOME_cpy", INTERNAL);
 	if (!str)
 	{
-		fd_printf(STDERR_FD, "minishell: cd: HOME not set\n");
+		fd_printf(STDERR_FILENO, "minishell: cd: HOME not set\n");
 		return (1);
 	}
 	if (str[0] == '\0')
@@ -76,8 +76,8 @@ int	change_dir(t_env **env, char *str)
 	ret = chdir(str);
 	if (ret == -1)
 	{
-		ft_printf("minishel: cd: %s", str);
-		perror(" ");
+		fd_printf(STDERR_FILENO, "minishell: cd: %s: ", str);
+		perror("");
 		return (1);
 	}
 	return (uptdate_pwd_oldpwd(env));
