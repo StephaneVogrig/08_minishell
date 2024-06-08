@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 15:52:14 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/08 23:08:04 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/08 23:42:39 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*end_quote(char *str)
 	char	quote;
 
 	quote = *str++;
-	while (*str && !(*str == quote))
+	while (*str && *str != quote)
 		str++;
 	return (str);
 }

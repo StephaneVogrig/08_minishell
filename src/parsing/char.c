@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 06:16:23 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/22 17:23:22 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/09 00:24:57 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_bool	is_meta(char c)
 
 t_bool	is_blank(char c)
 {
-	if (c == ' ' || c == '\t' || c == '\n')
+	if (c == ' ' || c == '\t')
 		return (TRUE);
 	return (FALSE);
 }
