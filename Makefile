@@ -6,7 +6,7 @@
 #    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/06/07 18:54:18 by svogrig          ###   ########.fr        #
+#    Updated: 2024/06/08 18:46:36 by svogrig          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,7 @@ SRC				:=	main.c \
 					parsing/next_token_limiter.c \
 					parsing/next_token_to_str.c \
 					parsing/parse_utils.c \
+					parsing/syntax_error_utils.c \
 					parsing/token.c \
 					shell/exit_status.c \
 					shell/prompt.c \
@@ -266,7 +267,7 @@ $(NAME): $(OBJ_MAND)
 
 $(NAME_BONUS): $(OBJ_BONUS)
 	@$(MAKE) -j -C libft
-	@$(CC) $(CC_FLAGS) $(OBJ_BONUS) $(L_FLAG) $(l_FLAG) -o $(NAME_BONUS)
+	@$(CC) $(CC_FLAGS) $(OBJ_BONUS) $(L_FLAG) $(l_FLAG) -o $(NAME)
 	@printf "\033[2K\rcreated: %s\n" $@
 
 $(NAME_DEBUG): $(OBJ_DEBUG)

@@ -6,25 +6,14 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 23:35:01 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/04 23:48:42 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/08 20:02:29 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "syntax_error.h"
 
-static t_bool	syntax_error_msg(char c)
-{
-	if (c == '\0')
-		fd_printf(STDERR_FD,
-			"minishell: syntax error near unexpected token `newline'\n", c);
-	else
-		fd_printf(STDERR_FD,
-			"minishell: syntax error near unexpected token `%c'\n", c);
-	return (TRUE);
-}
-
-static char	*next_token_pipe(char *str)
+char	*next_token_pipe(char *str)
 {
 	str++;
 	while (is_blank(*str))
@@ -37,7 +26,7 @@ static char	*next_token_pipe(char *str)
 	return (str);
 }
 
-static char	*next_token_redir(char *str)
+char	*next_token_redir(char *str)
 {
 	char	*ptr;
 
@@ -47,7 +36,7 @@ static char	*next_token_redir(char *str)
 		str++;
 	while (is_blank(*str))
 		str++;
-	ptr = ft_strchr("|<>", *str);
+	ptr = ft_strchr("|<>&", *str);
 	if (ptr)
 	{
 		syntax_error_msg(*ptr);
@@ -56,32 +45,18 @@ static char	*next_token_redir(char *str)
 	return (str);
 }
 
-static char	*end_quote(char *str)
-{
-	char	quote;
-
-	quote = *str;
-	str++;
-	while (*str)
-	{
-		if (*str == quote)
-			return (++str);
-		str++;
-	}
-	syntax_error_msg('\0');
-	return (NULL);
-}
-
 t_bool	syntax_error(char *input)
 {
-	if (*input == '|')
-		return (syntax_error_msg('|'));
+	if (*input == '|' || *input == '&')
+		return (syntax_error_msg(*input));
 	while (*input)
 	{
 		if (*input == '&' && *(input + 1) == '&')
 			input = next_token_pipe(++input);
 		else if (*input == '|' && *(input + 1) == '|')
 			input = next_token_pipe(++input);
+		else if (*input == '(')
+			input = next_token_pipe(input);
 		else if (*input == '|')
 			input = next_token_pipe(input);
 		else if (*input == '<' || *input == '>')
