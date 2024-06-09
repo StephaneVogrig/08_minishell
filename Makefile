@@ -6,7 +6,7 @@
 #    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/06/09 19:22:35 by svogrig          ###   ########.fr        #
+#    Updated: 2024/06/09 22:47:51 by svogrig          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,7 @@ SRC				:=	main.c \
 					execution/heredoc.c \
 					execution/pipeline_wait.c \
 					execution/exec_redir.c \
-					parsing/expanse.c \
+					execution/expanse.c \
 					parsing/next_token_dequoted.c \
 					parsing/next_token_limiter.c \
 					parsing/next_token_to_str.c \
