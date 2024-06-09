@@ -6,7 +6,7 @@
 #    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/06/08 18:46:36 by svogrig          ###   ########.fr        #
+#    Updated: 2024/06/09 19:22:35 by svogrig          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -101,6 +101,9 @@ SRC_BONUS		:=	$(SRC) \
 					parsing/input_to_pipelist_bonus.c \
 					parsing/parse_bonus.c \
 					parsing/syntax_error_bonus.c \
+					parsing/tokenise_parse_bonus.c \
+					parsing/tokenise.c \
+					parsing/tokenlist.c \
 					utils/exit_bonus.c
 
 
