@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 01:46:44 by smortemo          #+#    #+#             */
-/*   Updated: 2024/06/06 04:07:30 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/09 22:25:56 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	test(char *format)
 
 	format = ft_strdup(format);
 
-	wildcard_to_list(format, &strlist);
+	wildcard_format_to_list(format, &strlist);
 	// printf("strlist= %p\n", strlist);
 
 	strlist_print_fd(strlist, 2);

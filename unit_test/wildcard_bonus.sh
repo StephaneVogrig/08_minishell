@@ -3,15 +3,16 @@
 #                                                         :::      ::::::::    #
 #    wildcard_bonus.sh                                  :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+         #
+#    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/06 00:08:40 by smortemo          #+#    #+#              #
-#    Updated: 2024/06/06 02:04:47 by smortemo         ###   ########.fr        #
+#    Updated: 2024/06/09 22:30:48 by svogrig          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 SRC="	src/wildcard_bonus_test.c
+		../src/execution/wildcard_utils_bonus.c
 		../src/execution/wildcard_bonus.c
 	"
 
