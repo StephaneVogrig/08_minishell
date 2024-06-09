@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:13:40 by smortemo          #+#    #+#             */
-/*   Updated: 2024/06/05 19:27:18 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/09 23:26:58 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	export_run(t_env **envp, char *str)
 		return (export_new_node(envp, str, n));
 	else
 	{
-		if ((node->type == DIR || node->type == DIR_NO_VAL) && str[n] == '\0')
+		if ((node->type == DIR_ || node->type == DIR_NO_VAL) && str[n] == '\0')
 		{
 			node->type = EXPORTED;
 			return (0);

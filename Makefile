@@ -6,7 +6,7 @@
 #    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/06/09 23:09:04 by svogrig          ###   ########.fr        #
+#    Updated: 2024/06/09 23:22:22 by svogrig          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,6 @@ SRC				:=	main.c \
 					execution/argv_expand.c \
 					execution/cmd_path.c \
 					execution/exec_builtin.c \
-					execution/expand_and_dequote.c \
 					execution/expand_utils.c \
 					execution/expanse.c \
 					execution/heredoc_scan.c \
@@ -80,6 +79,7 @@ SRC_MAND		:=	$(SRC) \
 					execution/exec_cmd.c \
 					execution/exec_input.c \
 					execution/exec_pipeline.c \
+					execution/expand_and_dequote.c \
 					execution/process.c \
 					parsing/char.c \
 					parsing/input_to_pipeline.c \
@@ -97,6 +97,7 @@ SRC_BONUS		:=	$(SRC) \
 					execution/exec_input_bonus.c \
 					execution/exec_pipeline_bonus.c \
 					execution/exec_pipelist_bonus.c \
+					execution/expand_and_dequote_bonus.c \
 					execution/process_bonus.c \
 					parsing/char_bonus.c \
 					parsing/input_to_pipelist_bonus.c \

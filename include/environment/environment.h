@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:00:03 by smortemo          #+#    #+#             */
-/*   Updated: 2024/06/01 13:24:16 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/06/09 23:26:11 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define EXPORTED 2
 # define NO_VALUE 3
 # define ALL 4
-# define DIR 5
+# define DIR_ 5
 # define DIR_NO_VAL 6
 
 /* errors */

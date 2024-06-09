@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 23:27:39 by smortemo          #+#    #+#             */
-/*   Updated: 2024/06/08 15:46:59 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/09 23:29:26 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	uptdate_pwd_oldpwd(t_env **env_ptr)
 	int		type;
 
 	str = NULL;
-	type = DIR;
+	type = DIR_;
 	str = env_get(*env_ptr, "PWD");
 	if (!str)
 	{
