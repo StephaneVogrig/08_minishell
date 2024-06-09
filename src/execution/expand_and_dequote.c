@@ -6,67 +6,55 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 20:14:35 by stephane          #+#    #+#             */
-/*   Updated: 2024/06/05 13:58:41 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/09 23:07:08 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expand_and_dequote.h"
 
-static char	*expand_spl_quoted(t_buff *buffer, char *str)
+t_bool	split_word(char *str, t_buff *buffer, t_list **argv)
 {
-	char	*temp;
-
-	str++;
-	temp = str;
-	while (*temp != '\'')
-		temp++;
-	if (buff_add_str_n(buffer, str, temp - str) == FAILURE)
-		return (NULL);
-	temp++;
-	return (temp);
-}
-
-static char	*expand_dbl_quoted(t_buff *buffer, char *str, t_env *env)
-{
-	str++;
-	while (*str != '\"')
+	while (*str)
 	{
-		if (*str == '$')
+		if (is_blank(*str))
 		{
-			str = expanse_quoted(buffer, ++str, env);
-			if (!str)
-				return (NULL);
+			if (strlist_add_buffer(argv, buffer) == FAILURE)
+				return (FAILURE);
+			buff_clear(buffer);
+			while (is_blank(*str))
+				str++;
 		}
-		else if (buff_add_char(buffer, *str++) == FAILURE)
-			return (NULL);
+		while (*str && !is_blank(*str))
+		{
+			if (buff_add_char(buffer, *str) == FAILURE)
+				return (FAILURE);
+			str++;
+		}
 	}
-	str++;
-	return (str);
+	return (SUCCESS);
 }
 
-static t_bool	is_token_empty(char *str, t_env *env)
+char	*expanse_unquoted(t_buff *buffer, char *str, t_list **argv, t_env *env)
 {
 	char	*end;
-	char	*value;
 
-	if (*str != '$')
-		return (FALSE);
-	while (*str && !is_meta(*str))
+	if (*str == '\'' || *str == '\"')
+		return (str);
+	if (is_special_parameter(*str))
+		return (expanse_special_parameter(buffer, str, env));
+	end = end_name(str);
+	if (end == str)
 	{
-		if (*str == '$')
-		{
-			end = end_name(++str);
-			if (end == str)
-				return (FALSE);
-			value = env_get_n(env, str, end - str);
-			if (value && *value)
-				return (FALSE);
-			str = end;
-		}
-		else
-			return (FALSE);
+		if (buff_add_char(buffer, '$') == FAILURE)
+			return (NULL);
+		return (str);
 	}
-	return (TRUE);
+	str = env_get_n(env, str, end - str);
+	if (!str)
+		return (end);
+	if (split_word(str, buffer, argv) == FAILURE)
+		return (NULL);
+	return (end);
 }
 
 t_bool	expand_and_dequote(char *str, t_list **strlist, t_env *env)
