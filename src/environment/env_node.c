@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_node.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 14:09:56 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/31 16:11:20 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/06/09 20:38:30 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,10 @@ t_bool	var_init(t_env *node, char *str, int n)
 		return (FAILURE);
 	if (str[n] != '\0')
 	{
-		node->value = mini_strdup(&str[n + 1]);
+		if (str[n] == '+')
+			node->value = mini_strdup(&str[n + 2]);
+		else
+			node->value = mini_strdup(&str[n + 1]);
 		if (!node->value)
 			return (FAILURE);
 		node->type = EXPORTED;
