@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:48:10 by smortemo          #+#    #+#             */
-/*   Updated: 2024/06/09 22:33:04 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/10 01:11:23 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 typedef struct s_wildcard {
 	t_list	*list;
 	int		flags;
-
 }	t_wildcard;
 
 /* flags */
