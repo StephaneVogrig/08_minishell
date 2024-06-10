@@ -6,11 +6,21 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 21:57:51 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/09 22:32:44 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/10 03:55:33 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wildcard_bonus.h"
+
+t_bool	wc_list_add_str(cahr *str, t_wildcard *wc)
+{
+	if (ft_lstadd_back_new(&wc->list, str) == FAILURE)
+	{
+		perror("minishell: wc_list_add_str: ft_lstadd_back_new");
+		return (FAILURE);
+	}
+	return (SUCCESS)
+}
 
 void	wc_free(t_wildcard *wc)
 {

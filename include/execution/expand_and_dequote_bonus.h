@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 01:39:43 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/10 02:26:24 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/10 04:29:36 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ char	*expanse_special_parameter(t_tmpdata *data, char *str, t_env *env);
 char	*expanse_quoted(t_tmpdata *data, char *str, t_env *env);
 char	*expand_spl_quoted(t_tmpdata *data, char *str);
 char	*expand_dbl_quoted(t_tmpdata *data, char *str, t_env *env);
+t_bool	data_buffer_to_wclist(t_tmpdata *data);
 
 #endif
 

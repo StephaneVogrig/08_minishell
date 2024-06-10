@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 02:08:03 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/10 02:33:52 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/10 03:57:23 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,15 @@ void	data_init(t_tmpdata *data)
 {
 	buff_init(&data->buffer);
 	buff_init(&data->format);
+	data->wc.list = NULL;
+	data->wc.flags = 0;	
 }
 
 void	data_clear(t_tmpdata *data)
 {
 	buff_clear(&data->buffer);
 	buff_clear(&data->format);
+	ft_lstclear(data->wc.list);
 }
 
 t_bool	data_add_char(t_tmpdata *data, char c)

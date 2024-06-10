@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 23:00:13 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/10 02:29:56 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/10 04:29:08 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,23 @@ char	*expand_dbl_quoted(t_tmpdata *data, char *str, t_env *env)
 	}
 	str++;
 	return (str);
+}
+
+t_bool	data_buffer_to_wclist(t_tmpdata *data)
+{
+	char	*str;
+
+	if (buff_len(data->buffer) == 0)
+		return (SUCCESS);
+	str = buff_to_str(&data->buffer);
+	if (!str)
+		return (FAILURE);
+	if (wc_list_add_str(str, &data->wc) == FAILURE)
+	{
+		free(str);
+		return (FAILURE);
+	}
+	wc->flags &= ~WILDCARD_LAST;
+	buff_clear(&data->buffer);
+	return (SUCCESS);
 }

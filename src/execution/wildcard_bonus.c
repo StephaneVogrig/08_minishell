@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:42:06 by smortemo          #+#    #+#             */
-/*   Updated: 2024/06/09 22:32:48 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/10 04:26:38 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ t_bool	wildcard_select(t_wildcard *wc, t_list **lst)
 	return (SUCCESS);
 }
 
-static char	*add_substr(char *str, t_wildcard *wc)
+char	*add_substr(char *str, t_wildcard *wc)
 {
 	char	quote;
 	
