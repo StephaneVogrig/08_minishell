@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 19:14:20 by smortemo          #+#    #+#             */
-/*   Updated: 2024/06/11 18:48:56 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/11 20:55:56 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ void	exit_minishell(t_cmd *cmd, t_env *env)
 	int	exit_code;
 
 	exit_code = exit_status_get_int(env);
-	minishell_free(cmd, NULL, NULL, env);
 	if (shell_mode_is_interactive(env))
 		rl_clear_history();
+	minishell_free(cmd, NULL, NULL, env);
 	exit(exit_code);
 }
 
