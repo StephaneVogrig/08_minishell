@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 15:32:09 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/03 16:28:34 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/11 17:19:21 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_bool	shell_mode_init_file(t_env **env)
 	return (SUCCESS);
 }
 
-t_bool	shell_is_interactive(t_env *env)
+t_bool	shell_mode_is_interactive(t_env *env)
 {
 	char	*mode;
 

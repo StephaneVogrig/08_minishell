@@ -6,11 +6,28 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:55:55 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/11 16:04:29 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/11 17:22:49 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+t_bool	is_not_valid_input(char *input, t_env **env)
+{
+	if (!*input)
+	{
+		free(input);
+		return (TRUE);
+	}
+	if (shell_mode_is_interactive(*env))
+		add_history(input);
+	if (is_empty(input))
+	{
+		free(input);
+		return (TRUE);
+	}
+	return (FALSE);
+}
 
 int	run_interactive_mode(t_env **env)
 {
@@ -32,12 +49,8 @@ int	run_interactive_mode(t_env **env)
 		signal(SIGINT, SIG_IGN);
 		if (!input)
 			break ;
-		if (!*input)
-		{
-			free(input);
+		if (is_not_valid_input(input, env))
 			continue ;
-		}
-		add_history(input);
 		exit_code = exec_input(input, env);
 		exit_status_set(exit_code, *env);
 	}
@@ -50,9 +63,7 @@ int	run_file_mode(t_env **env)
 	char	*input;
 	int		exit_code;
 
-	exit_code = 0;
-	if (shell_mode_init_file(env) == FAILURE)
-		return (EXIT_FAILURE);
+	exit_code = EXIT_SUCCESS;
 	while (TRUE)
 	{
 		signal(SIGINT, handler_ctrl_c_file);
@@ -61,11 +72,14 @@ int	run_file_mode(t_env **env)
 		{
 			if (input)
 				free(input);
+			input = NULL;
 			exit_code = 128 + SIGINT;
 			break ;
 		}
 		if (!input)
 			break ;
+		if (is_not_valid_input(input, env))
+			continue ;
 		exit_code = exec_input(input, env);
 		exit_status_set(exit_code, *env);
 	}
