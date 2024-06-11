@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:28:18 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/11 14:55:17 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/11 19:12:35 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "command.h"
 # include "environment.h"
 # include "mini_strtol.h"
+# include "shell_mode.h"
 
 t_bool	is_in_pipe(t_cmd *cmd);
 void	print_exit(t_cmd *cmd, t_env *env);

@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:26:21 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/23 18:06:13 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/11 19:18:01 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_bool	is_in_pipe(t_cmd *cmd)
 
 void	print_exit(t_cmd *cmd, t_env *env)
 {
-	if (!is_in_pipe(cmd) && ft_strchr(env_get(env, "-"), 'i'))
+	if (!is_in_pipe(cmd) && shell_mode_is_interactive(env))
 		write(STDERR_FD, "exit\n", 5);
 }
 
