@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:42:06 by smortemo          #+#    #+#             */
-/*   Updated: 2024/06/11 02:43:37 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/11 19:53:54 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ t_bool	wildcard_match(char *str, t_wildcard *wc)
 	node = wc->list;
 	if (!node)
 		return (TRUE);
-	if (!(wc->flags & WILDCARD_FIRST))
+	if ((wc->flags & WILDCARD_LAST) == 0)
+		if (ft_strcmp_rev(str, (ft_lstlast(wc->list))->content) != 0)
+			return (FALSE);
+	if ((wc->flags & WILDCARD_FIRST) == 0)
 	{
 		len = ft_strlen(node->content);
 		if (ft_strncmp(str, node->content, len) != 0)
@@ -35,9 +38,6 @@ t_bool	wildcard_match(char *str, t_wildcard *wc)
 			return (FALSE);
 		node = node->next;
 	}
-	if (!(wc->flags & WILDCARD_LAST))
-		if (ft_strcmp_rev(str, (ft_lstlast(wc->list))->content) != 0)
-			return (FALSE);
 	return (TRUE);
 }
 
