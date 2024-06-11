@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 02:36:32 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/07 12:02:18 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/10 19:06:43 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int exec_pipelist(t_cmd *pipelist, t_env **env, t_cmd_m *tofree)
 // ft_printf("\nexec_pipelist\n");
 // print_pipeline(pipelist->pipeline, NULL);
 		exit_code = exec_pipeline(pipelist->pipeline, env, tofree);
+		exit_status_set(exit_code, *env);
+// enregistrer le code d'erreur
 		pipelist = pipelist->next;
 	}
 	return (exit_code);

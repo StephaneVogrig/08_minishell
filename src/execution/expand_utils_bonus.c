@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 23:00:13 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/10 04:29:08 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/10 14:41:51 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ t_bool	data_buffer_to_wclist(t_tmpdata *data)
 {
 	char	*str;
 
-	if (buff_len(data->buffer) == 0)
+	if (buff_len(&data->buffer) == 0)
 		return (SUCCESS);
 	str = buff_to_str(&data->buffer);
 	if (!str)
@@ -87,7 +87,7 @@ t_bool	data_buffer_to_wclist(t_tmpdata *data)
 		free(str);
 		return (FAILURE);
 	}
-	wc->flags &= ~WILDCARD_LAST;
+	data->wc.flags &= ~WILDCARD_LAST;
 	buff_clear(&data->buffer);
 	return (SUCCESS);
 }

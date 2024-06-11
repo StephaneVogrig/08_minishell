@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 23:35:01 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/09 20:05:17 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/10 19:15:54 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	check_semicolon(t_tokenlist	*token)
 {
 	if (token->next == NULL)
 		return (SUCCESS);
-	if (token->next->type >= SEMI_COLON)
+	if (token->next->type >= PARENTHESIS_CLOSE)
 		return (syntax_error_msg_token(token->next));
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 02:08:03 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/10 03:57:23 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/10 14:36:38 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	data_clear(t_tmpdata *data)
 {
 	buff_clear(&data->buffer);
 	buff_clear(&data->format);
-	ft_lstclear(data->wc.list);
+	ft_lstclear(&data->wc.list, free);
 }
 
 t_bool	data_add_char(t_tmpdata *data, char c)

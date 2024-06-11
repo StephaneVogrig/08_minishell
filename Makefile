@@ -6,7 +6,7 @@
 #    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/06/10 02:35:22 by svogrig          ###   ########.fr        #
+#    Updated: 2024/06/11 02:56:28 by svogrig          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -98,9 +98,12 @@ SRC_BONUS		:=	$(SRC) \
 					execution/exec_pipeline_bonus.c \
 					execution/exec_pipelist_bonus.c \
 					execution/expand_and_dequote_bonus.c \
+					execution/expand_and_dequote_utils_bonus.c \
 					execution/expand_utils_bonus.c \
 					execution/process_bonus.c \
 					execution/tmpdata_bonus.c \
+					execution/wildcard_bonus.c \
+					execution/wildcard_utils_bonus.c \
 					parsing/char_bonus.c \
 					parsing/input_to_pipelist_bonus.c \
 					parsing/parse_bonus.c \
@@ -154,7 +157,7 @@ DEPS			:=	$(OBJ:.o=.d) $(OBJ_SAN:.o=.d) $(OBJ_BONUS:.o=.d)
 # compilation -----------------------------------------------------------------#
 
 CC				:=	cc
-CC_FLAGS		:=	-Wall -Wextra -Werror -g3
+CC_FLAGS		:=	-Wall -Wextra -Werror
 
 # valgrind --------------------------------------------------------------------#
 

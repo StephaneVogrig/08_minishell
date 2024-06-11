@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:42:06 by smortemo          #+#    #+#             */
-/*   Updated: 2024/06/10 04:26:38 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/11 02:43:37 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,18 @@
 t_bool	wildcard_match(char *str, t_wildcard *wc)
 {
 	t_list	*node;
+	int	len;
+
 	node = wc->list;
 	if (!node)
 		return (TRUE);
 	if (!(wc->flags & WILDCARD_FIRST))
 	{
-		if (ft_strncmp(str, node->content, ft_strlen(node->content)) != 0)
+		len = ft_strlen(node->content);
+		if (ft_strncmp(str, node->content, len) != 0)
 			return (FALSE);
+		str += len;
+		node = node->next;
 	}
 	while (node)
 	{
@@ -31,11 +36,34 @@ t_bool	wildcard_match(char *str, t_wildcard *wc)
 		node = node->next;
 	}
 	if (!(wc->flags & WILDCARD_LAST))
-	{
 		if (ft_strcmp_rev(str, (ft_lstlast(wc->list))->content) != 0)
 			return (FALSE);
-	}
 	return (TRUE);
+}
+
+t_bool	check_path(char *str, t_wildcard *wc, t_list **lst)
+{
+	char	*temp;
+
+	if (wc->flags & WILDCARD_FIRST && *str == '.')
+		return (SUCCESS);
+	if (wildcard_match(str, wc) == TRUE)
+	{
+		temp = ft_strdup(str);
+		if (!temp)
+		{
+			perror("minishell: check_path: ft_strdup");
+			return (FAILURE);
+		}
+		if (ft_lstadd_back_new(lst, temp) == FAILURE)
+		{
+			perror("minishell: ft_lstadd_back_new: ft_strdup");
+			free(temp);
+			ft_lstclear(lst, free);
+			return (FAILURE);
+		}
+	}
+	return (SUCCESS);
 }
 
 t_bool	wildcard_select(t_wildcard *wc, t_list **lst)
@@ -52,9 +80,8 @@ t_bool	wildcard_select(t_wildcard *wc, t_list **lst)
 	dirent = readdir(directory);
 	while (dirent != NULL)
 	{
-		if (wildcard_match(dirent->d_name, wc) == TRUE)
-			if (ft_lstadd_back_new(lst, dirent->d_name) == FAILURE)
-				return (FAILURE);
+		if (check_path(dirent->d_name, wc, lst) == FAILURE)
+			return (FAILURE);
 		dirent = readdir(directory);
 	}
 	closedir(directory);
@@ -86,47 +113,4 @@ char	*add_substr(char *str, t_wildcard *wc)
 		str++;
 	}
 	return (str);	
-}
-
-t_bool	str_to_wc(char *str, t_wildcard *wc)
-{
-	char	*temp;
-
-	if (!str)
-		return (SUCCESS);
-	if (*str == '*')
-		wc->flags |= WILDCARD_FIRST;
-	while (*str)
-	{
-		if (*str == '*')
-		{
-			wc->flags |= WILDCARD_LAST;
-			*str = '\0';
-			str++;
-		}
-		else
-		{
-			str = add_substr(str, wc);
-			if (!str)
-				return (FAILURE);
-		}
-	}
-	return (SUCCESS);
-}
-
-t_bool	wildcard_format_to_list(char *format, t_list **strlist)
-{
-	t_wildcard wc;
-
-	wc.list = NULL;
-	wc.flags = 0;
-	if (str_to_wc(format, &wc) == FAILURE)
-		return (FAILURE);
-	if (wildcard_select(&wc, strlist) == FAILURE)
-	{
-		wc_free(&wc);
-		return (FAILURE);
-	}
-	wc_free(&wc);
-	return (SUCCESS);
 }
