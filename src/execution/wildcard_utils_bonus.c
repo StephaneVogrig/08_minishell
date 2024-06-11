@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 21:57:51 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/10 14:53:42 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/11 04:01:21 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	*mini_strstr(const char *big, const char *little)
 			while (big[i] == little[i] && big[i])
 				i++;
 			if (little[i] == '\0')
-				return ((char *)big);
+				return ((char *)(big + i));
 		}
 		big++;
 	}

@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 23:18:52 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/11 02:53:13 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/11 03:33:17 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,18 @@ t_bool	expand_and_dequote(char *str, t_list **strlist, t_env *env)
 		else if (data_add_char(&data, *str++) == FAILURE)
 			str = NULL;
 	}
-	if (data_buffer_to_wclist(&data) == FAILURE)
-		str = NULL;
-	if (str && select_with_data(&data, strlist) == SUCCESS)
-		return (SUCCESS);
+	if (str && (data.wc.flags || data.wc.list))
+	{
+		if (data_buffer_to_wclist(&data) == FAILURE)
+			str = NULL;
+		if (str && select_with_data(&data, strlist) == FAILURE)
+			str = NULL;
+	}
+	else if (str && strlist_add_buffer(strlist, &data.buffer) == FAILURE)
+			str = NULL;
 	data_clear(&data);
+	if (str)
+		return (SUCCESS);
 	ft_lstclear(strlist, free);
 	return (FAILURE);
 }
