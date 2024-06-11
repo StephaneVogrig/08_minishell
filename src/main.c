@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:55:55 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/05 17:48:33 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/11 16:04:29 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,17 @@ int	run_file_mode(t_env **env)
 	{
 		signal(SIGINT, handler_ctrl_c_file);
 		input = mini_readline();
-		if (!input)
-			break ;
 		if (g_signal)
 		{
-			free(input);
+			if (input)
+				free(input);
 			exit_code = 128 + SIGINT;
 			break ;
 		}
+		if (!input)
+			break ;
 		exit_code = exec_input(input, env);
+		exit_status_set(exit_code, *env);
 	}
 	return (exit_code);
 }
