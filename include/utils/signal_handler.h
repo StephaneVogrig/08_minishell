@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 16:08:46 by stephane          #+#    #+#             */
-/*   Updated: 2024/06/11 14:56:40 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/11 23:35:13 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ void	handler_ctrl_c(int sigint);
 void	handler_ctrl_c_interactive(int signal);
 void	handler_ctrl_c_heredoc(int signal);
 void	handler_ctrl_c_file(int signal);
+int		heredoc_readline_event(void);
 
 #endif

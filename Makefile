@@ -6,7 +6,7 @@
 #    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/06/11 14:45:16 by svogrig          ###   ########.fr        #
+#    Updated: 2024/06/12 00:54:32 by svogrig          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,9 +51,8 @@ SRC				:=	main.c \
 					execution/cmd_path.c \
 					execution/exec_builtin.c \
 					execution/expanse.c \
-					execution/heredoc_scan.c \
+					execution/heredoc_utils.c \
 					execution/heredoc_expand.c \
-					execution/heredoc.c \
 					execution/pipeline_wait.c \
 					execution/exec_redir.c \
 					parsing/next_token_limiter.c \
@@ -77,6 +76,7 @@ SRC_MAND		:=	$(SRC) \
 					execution/exec_pipeline.c \
 					execution/expand_and_dequote.c \
 					execution/expand_utils.c \
+					execution/heredoc.c \
 					execution/process.c \
 					parsing/char.c \
 					parsing/input_to_pipeline.c \
@@ -96,6 +96,7 @@ SRC_BONUS		:=	$(SRC) \
 					bonus/execution/expand_and_dequote_bonus.c \
 					bonus/execution/expand_and_dequote_utils_bonus.c \
 					bonus/execution/expand_utils_bonus.c \
+					execution/heredoc_bonus.c \
 					bonus/execution/process_bonus.c \
 					bonus/execution/tmpdata_bonus.c \
 					bonus/execution/wildcard_bonus.c \

@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 16:07:09 by stephane          #+#    #+#             */
-/*   Updated: 2024/06/05 17:45:56 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/11 23:30:32 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,9 @@ void	handler_ctrl_c_heredoc(int sigint)
 void	handler_ctrl_c_file(int sigint __attribute__((unused)))
 {
 	g_signal = SIGINT;
+}
+
+int	heredoc_readline_event(void)
+{
+	return (0);
 }
