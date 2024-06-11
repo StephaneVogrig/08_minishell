@@ -6,14 +6,13 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:26:45 by stephane          #+#    #+#             */
-/*   Updated: 2024/06/06 21:47:14 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/11 14:39:15 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INPUT_TO_PIPELIST_H
-# define INPUT_TO_PIPELIST_H
+#ifndef INPUT_TO_PIPELINE_H
+# define INPUT_TO_PIPELINE_H
 
-# include "token.h"
 # include "pipeline.h"
 # include "redirection.h"
 # include "parse.h"

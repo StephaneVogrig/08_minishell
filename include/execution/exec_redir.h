@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 12:14:31 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/03 16:35:25 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/11 14:55:48 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include "heredoc.h"
 # include "redirection.h"
 # include "environment.h"
-# include "token.h"
 # include <unistd.h>
 # include <string.h>
 # include <errno.h>

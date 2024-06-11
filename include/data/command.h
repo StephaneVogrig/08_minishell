@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:33:09 by stephane          #+#    #+#             */
-/*   Updated: 2024/06/07 02:03:21 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/11 14:54:15 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include "libft.h"
 # include "redirection.h"
 
-typedef struct s_cmd t_cmd;
-typedef t_cmd	t_cmd_m;
+typedef struct s_cmd	t_cmd;
+typedef t_cmd			t_cmd_m;
 
 struct s_cmd{
 	t_redir	*redir;
@@ -31,7 +31,6 @@ struct s_cmd{
 	pid_t	pid;
 	int		flag;
 };
-
 
 # define PIPE 1
 # define AND 2

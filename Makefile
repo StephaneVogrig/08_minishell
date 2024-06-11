@@ -6,7 +6,7 @@
 #    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/06/11 02:56:28 by svogrig          ###   ########.fr        #
+#    Updated: 2024/06/11 14:45:16 by svogrig          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,12 +56,10 @@ SRC				:=	main.c \
 					execution/heredoc.c \
 					execution/pipeline_wait.c \
 					execution/exec_redir.c \
-					parsing/next_token_dequoted.c \
 					parsing/next_token_limiter.c \
 					parsing/next_token_to_str.c \
 					parsing/parse_utils.c \
 					parsing/syntax_error_utils.c \
-					parsing/token.c \
 					shell/exit_status.c \
 					shell/prompt.c \
 					shell/shell_mode.c \
@@ -71,8 +69,7 @@ SRC				:=	main.c \
 					utils/mini_strtol.c \
 					utils/pipe.c \
 					utils/signal_handler.c \
-					utils/str.c \
-					_notuse_src/debug.c
+					utils/str.c
 
 SRC_MAND		:=	$(SRC) \
 					execution/exec_cmd.c \
@@ -85,34 +82,33 @@ SRC_MAND		:=	$(SRC) \
 					parsing/input_to_pipeline.c \
 					parsing/parse.c \
 					parsing/syntax_error.c
-						
 
 SRC_MAND		:=	$(SRC_MAND:%=$(DIR_SRC)/%)
 
 # sources bonus ---------------------------------------------------------------#
 
 SRC_BONUS		:=	$(SRC) \
-					data/pipelist_bonus.c \
-					execution/exec_cmd_bonus.c \
-					execution/exec_input_bonus.c \
-					execution/exec_pipeline_bonus.c \
-					execution/exec_pipelist_bonus.c \
-					execution/expand_and_dequote_bonus.c \
-					execution/expand_and_dequote_utils_bonus.c \
-					execution/expand_utils_bonus.c \
-					execution/process_bonus.c \
-					execution/tmpdata_bonus.c \
-					execution/wildcard_bonus.c \
-					execution/wildcard_utils_bonus.c \
-					parsing/char_bonus.c \
-					parsing/input_to_pipelist_bonus.c \
-					parsing/parse_bonus.c \
-					parsing/syntax_error_bonus.c \
-					parsing/tokenise_parse_bonus.c \
-					parsing/tokenise.c \
-					parsing/tokenlist.c \
-					utils/exit_bonus.c
-
+					bonus/data/pipelist_bonus.c \
+					bonus/execution/exec_cmd_bonus.c \
+					bonus/execution/exec_input_bonus.c \
+					bonus/execution/exec_pipeline_bonus.c \
+					bonus/execution/exec_pipelist_bonus.c \
+					bonus/execution/expand_and_dequote_bonus.c \
+					bonus/execution/expand_and_dequote_utils_bonus.c \
+					bonus/execution/expand_utils_bonus.c \
+					bonus/execution/process_bonus.c \
+					bonus/execution/tmpdata_bonus.c \
+					bonus/execution/wildcard_bonus.c \
+					bonus/execution/wildcard_utils_bonus.c \
+					bonus/parsing/char_bonus.c \
+					bonus/parsing/input_to_pipelist_bonus.c \
+					bonus/parsing/parse_bonus.c \
+					bonus/parsing/syntax_error_bonus.c \
+					bonus/parsing/syntax_error_utils_bonus.c \
+					bonus/parsing/tokenise_parse_bonus.c \
+					bonus/parsing/tokenise_bonus.c \
+					bonus/parsing/tokenlist_bonus.c \
+					bonus/utils/exit_bonus.c
 
 SRC_BONUS		:=	$(SRC_BONUS:%=$(DIR_SRC)/%)
 
@@ -128,8 +124,11 @@ DIR_INC			:=	libft/include \
 					include/parsing \
 					include/utils \
 					include/shell \
-					include/_notuse_h
-					
+					include/bonus/data \
+					include/bonus/execution \
+					include/bonus/parsing \
+					include/bonus/utils
+
 I_FLAG			:=	$(addprefix -I,$(DIR_INC)) -MMD -MP
 				
 # library ---------------------------------------------------------------------#

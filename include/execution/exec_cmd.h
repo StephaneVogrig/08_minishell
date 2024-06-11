@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 02:38:28 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/27 02:35:46 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/11 14:55:40 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 
 # include "libft.h"
 # include "cmd_path.h"
-# include "token.h"
 # include "pipeline.h"
 # include "redirection.h"
 # include "signal.h"
+# include "argv.h"
 # include <sys/stat.h>
 
 void	exec_cmd(t_cmd *cmd, t_env **env);

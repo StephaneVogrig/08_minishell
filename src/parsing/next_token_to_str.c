@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   next_token_to_str.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 15:54:29 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/31 16:26:10 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/06/11 12:18:41 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ t_char_m	*next_token_to_str(char **str)
 	new = ft_calloc(next_token_len(*str) + 1, 1);
 	if (!new)
 	{
-		perror("minishell: next_token_to_str: malloc");
+		perror("minishell: next_token_to_str: ft_alloc");
 		return (NULL);
 	}
 	*str = next_token_cpy(new, *str);
