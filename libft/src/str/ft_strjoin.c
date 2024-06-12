@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 23:13:37 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/05 21:35:50 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/06/12 22:41:07 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,48 +36,20 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 char	*ft_strjoin_free_s1(char const *s1, char const *s2)
 {
-	unsigned int	i;
-	char			*tab;
-	int				k;
+	char			*str;
 
-	tab = NULL;
-	if (s1 == 0 || s2 == 0)
-		return (malloc(0));
-	tab = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2)) + 1);
-	if (!tab)
-		return (NULL);
-	i = 0;
-	k = 0;
-	while (s1[i] != '\0')
-		tab[k++] = s1[i++];
-	i = 0;
-	while (s2[i] != '\0')
-		tab[k++] = s2[i++];
-	tab[k] = '\0';
-	free((char *)s1);
-	return (tab);
+	str = ft_strjoin(s1, s2);
+	if (s1)
+		free ((char *) s1);
+	return (str);
 }
 
 char	*ft_strjoin_free_s2(char const *s1, char const *s2)
 {
-	unsigned int	i;
-	char			*tab;
-	int				k;
+	char			*str;
 
-	tab = NULL;
-	if (s1 == 0 || s2 == 0)
-		return (malloc(0));
-	tab = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2)) + 1);
-	if (!tab)
-		return (NULL);
-	i = 0;
-	k = 0;
-	while (s1[i] != '\0')
-		tab[k++] = s1[i++];
-	i = 0;
-	while (s2[i] != '\0')
-		tab[k++] = s2[i++];
-	tab[k] = '\0';
-	free((char *)s2);
+	str = ft_strjoin(s1, s2);
+	if (s2)
+		free((char *)s2);
 	return (tab);
 }
