@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:15:30 by smortemo          #+#    #+#             */
-/*   Updated: 2024/06/11 23:33:32 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/12 01:58:25 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	heredoc_loop(t_cmd_m *cmdlist)
 	int		exit_code;
 	t_redir	*redir;
 
-	exit_code = SUCCESS;
+	exit_code = EXIT_SUCCESS;
 	while (cmdlist)
 	{
 		redir = cmdlist->redir;
@@ -26,8 +26,8 @@ int	heredoc_loop(t_cmd_m *cmdlist)
 			if (redir->type & HEREDOC)
 			{
 				exit_code = heredoc_fill(redir);
-				if (exit_code != SUCCESS)
-					break ;
+				if (exit_code != EXIT_SUCCESS)
+					return (exit_code) ;
 			}
 			redir = redir->next;
 		}
@@ -46,7 +46,7 @@ t_bool	heredoc(t_cmd_m *cmdlist)
 	exit_code = heredoc_loop(cmdlist);
 	dup2(fd, 0);
 	close(fd);
-	if (exit_code != SUCCESS)
+	if (exit_code != EXIT_SUCCESS)
 		pipeline_free(&cmdlist);
 	signal(SIGINT, handler_ctrl_c_interactive);
 	return (exit_code);

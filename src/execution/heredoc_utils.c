@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   heredoc_scan.c                                     :+:      :+:    :+:   */
+/*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:05:04 by stephane          #+#    #+#             */
-/*   Updated: 2024/06/11 23:32:46 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/12 01:54:11 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	heredoc_scan(int fd, t_redir *redir)
 		fd_printf(fd, "%s\n", input);
 		free(input);
 	}
-	return (SUCCESS);
+	return (EXIT_SUCCESS);
 }
 
 int	heredoc_fill(t_redir *redir)
@@ -102,13 +102,13 @@ int	heredoc_fill(t_redir *redir)
 
 	path = get_path_temp();
 	if (path == NULL)
-		return (FAILURE);
+		return (EXIT_FAILURE);
 	fd = open(path, O_RDWR | O_CREAT, 0644);
 	if (fd == -1)
 	{
 		perror("minishell: heredoc_fill: open");
 		free(path);
-		return (FAILURE);
+		return (EXIT_FAILURE);
 	}
 	exit_code = heredoc_scan(fd, redir);
 	free(redir->str);
