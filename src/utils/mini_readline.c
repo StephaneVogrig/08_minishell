@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 16:50:30 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/12 13:25:38 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/12 14:22:24 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ char	*mini_readline(void)
 	{
 		n = read(STDIN_FILENO, &c, 1);
 		if (n < 1)
+		{
+			buff_clear(&buff);
 			return (NULL);
+		}
 		if (c == '\n')
 			break ;
 		if (buff_add_char(&buff, c) == FAILURE)

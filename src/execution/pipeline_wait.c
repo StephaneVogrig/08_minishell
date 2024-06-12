@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 23:19:24 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/05 18:33:20 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/12 18:42:53 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int	wait_process(t_cmd *cmd)
 	{
 		if (WCOREDUMP(wstatus))
 			write (STDERR_FILENO, "Quit (core dumped)\n", 20);
+		else if (WTERMSIG(wstatus) == SIGQUIT)
+			write (STDERR_FILENO, "Quit\n", 5);
 		exit_code = 128 + WTERMSIG(wstatus);
 	}
 	return (exit_code);

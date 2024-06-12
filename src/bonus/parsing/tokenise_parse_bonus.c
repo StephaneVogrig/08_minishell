@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 23:53:08 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/11 15:11:53 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/12 18:25:25 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	*tokenise_word(char *str, t_tokenlist **tokens)
 {
 	if (tokenlist_add(tokens, str, WORD) == FAILURE)
 		return (NULL);
-	while (ft_strchr(" \t|&<>()", *str) == NULL)
+	while (!is_meta(*str))
 	{
 		if (*str == '\'' || *str == '\"')
 		{
