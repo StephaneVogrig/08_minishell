@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 18:20:33 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/11 15:06:29 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/12 03:53:36 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ void	exec_cmd_pipe(t_cmd *cmd, t_env **env, t_cmd *data)
 	int			exit_code;
 	t_builtin	builtin;
 
-	if (exec_redir(cmd->redir, *env) != SUCCESS)
-		exit_on_failure_bonus(data, *env);
 	if (argv_expand(&cmd->argv, *env) == FAILURE)
 		exit_on_failure_bonus(data, *env);
 	builtin = builtin_function(cmd->argv);
@@ -66,6 +64,7 @@ void	subshell(t_cmd *pipelist, t_env **env, t_cmd *data)
 	exit(exit_code);
 }
 
+// not exit if pid = -1 because need to wait the other fork
 int	process(t_cmd *cmd, int *fd_in, t_env **env, t_cmd *data)
 {
 	int		pid;
@@ -78,6 +77,8 @@ int	process(t_cmd *cmd, int *fd_in, t_env **env, t_cmd *data)
 	{
 		signal(SIGQUIT, SIG_DFL);
 		handle_pipe_child(fd_in, pipe_out, cmd);
+		if (exec_redir(cmd->redir, *env) != SUCCESS)
+			exit_on_failure_bonus(data, *env);
 		if (cmd->flag == SUB)
 			subshell(cmd->pipelist, env, data);
 		exec_cmd_pipe(cmd, env, data);

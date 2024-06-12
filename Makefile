@@ -6,7 +6,7 @@
 #    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/06/12 00:54:32 by svogrig          ###   ########.fr        #
+#    Updated: 2024/06/12 04:14:57 by svogrig          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -92,6 +92,7 @@ SRC_BONUS		:=	$(SRC) \
 					bonus/execution/exec_cmd_bonus.c \
 					bonus/execution/exec_input_bonus.c \
 					bonus/execution/exec_pipeline_bonus.c \
+					bonus/execution/exec_pipeline_utils_bonus.c \
 					bonus/execution/exec_pipelist_bonus.c \
 					bonus/execution/expand_and_dequote_bonus.c \
 					bonus/execution/expand_and_dequote_utils_bonus.c \
