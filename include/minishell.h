@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:59:23 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/11 14:56:26 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/12 02:20:35 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <unistd.h>
 # include <readline/readline.h>
+# include <readline/history.h>
 # include "exec_input.h"
 # include "environment.h"
 # include "buff.h"

@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:15:30 by smortemo          #+#    #+#             */
-/*   Updated: 2024/06/12 01:58:25 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/12 02:26:29 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	heredoc_loop(t_cmd_m *cmdlist)
 			{
 				exit_code = heredoc_fill(redir);
 				if (exit_code != EXIT_SUCCESS)
-					return (exit_code) ;
+					return (exit_code);
 			}
 			redir = redir->next;
 		}
