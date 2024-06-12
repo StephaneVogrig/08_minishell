@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 18:42:06 by smortemo          #+#    #+#             */
-/*   Updated: 2024/06/11 19:53:54 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/12 04:20:27 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_bool	wildcard_match(char *str, t_wildcard *wc)
 {
 	t_list	*node;
-	int	len;
+	int		len;
 
 	node = wc->list;
 	if (!node)
@@ -91,7 +91,7 @@ t_bool	wildcard_select(t_wildcard *wc, t_list **lst)
 char	*add_substr(char *str, t_wildcard *wc)
 {
 	char	quote;
-	
+
 	if (ft_lstadd_back_new(&wc->list, str) == FAILURE)
 	{
 		perror("minishell: str_to_wc: ft_lstadd_back_new");
@@ -108,9 +108,9 @@ char	*add_substr(char *str, t_wildcard *wc)
 			while (*str && *str != quote)
 				str++;
 			if (*str == '\0')
-				break;
+				break ;
 		}
 		str++;
 	}
-	return (str);	
+	return (str);
 }

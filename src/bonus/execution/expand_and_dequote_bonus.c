@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 23:18:52 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/11 15:06:49 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/12 04:30:39 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,22 @@ char	*expanse_unquoted(t_tmpdata *data, char *str, t_list **argv, t_env *env)
 	return (end);
 }
 
+char	*flush_data(t_tmpdata *data, char *str, t_list **strlist)
+{
+	if (!str)
+		return (NULL);
+	if (data->wc.flags || data->wc.list)
+	{
+		if (data_buffer_to_wclist(data) == FAILURE)
+			return (NULL);
+		if (str && select_with_data(data, strlist) == FAILURE)
+			return (NULL);
+	}
+	else if (strlist_add_buffer(strlist, &data->buffer) == FAILURE)
+		return (NULL);
+	return (str);
+}
+
 t_bool	expand_and_dequote(char *str, t_list **strlist, t_env *env)
 {
 	t_tmpdata	data;
@@ -89,15 +105,7 @@ t_bool	expand_and_dequote(char *str, t_list **strlist, t_env *env)
 		else if (data_add_char(&data, *str++) == FAILURE)
 			str = NULL;
 	}
-	if (str && (data.wc.flags || data.wc.list))
-	{
-		if (data_buffer_to_wclist(&data) == FAILURE)
-			str = NULL;
-		if (str && select_with_data(&data, strlist) == FAILURE)
-			str = NULL;
-	}
-	else if (str && strlist_add_buffer(strlist, &data.buffer) == FAILURE)
-		str = NULL;
+	str = flush_data(&data, str, strlist);
 	data_clear(&data);
 	if (str)
 		return (SUCCESS);

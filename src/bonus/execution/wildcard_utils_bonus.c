@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 21:57:51 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/11 04:01:21 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/12 04:20:58 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	wc_free(t_wildcard *wc)
 	t_list	*node;
 	t_list	*temp;
 
-	node =  wc->list;
+	node = wc->list;
 	while (node)
 	{
 		temp = node->next;
@@ -40,11 +40,11 @@ void	wc_free(t_wildcard *wc)
 int	ft_strcmp_rev(const char *big, const char *little)
 {
 	int	i;
-	int j;
+	int	j;
 
 	i = ft_strlen(big) - ft_strlen(little);
 	j = 0;
-	if ( i < 0)
+	if (i < 0)
 		return (-1);
 	while (little[j])
 	{
