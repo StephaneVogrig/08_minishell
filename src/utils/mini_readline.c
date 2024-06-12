@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_readline.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 16:50:30 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/31 16:32:26 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/06/12 13:25:38 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*mini_readline(void)
 	buff_init(&buff);
 	while (TRUE)
 	{
-		n = read(STDIN_FD, &c, 1);
+		n = read(STDIN_FILENO, &c, 1);
 		if (n < 1)
 			return (NULL);
 		if (c == '\n')

@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:15:43 by smortemo          #+#    #+#             */
-/*   Updated: 2024/06/12 02:23:38 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/12 13:41:02 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "exit.h"
 # include "pipeline.h"
 # include "signal_handler.h"
+# include "mini_readline.h"
 # include <readline/readline.h>
 
 /* heredoc.c ******************************************************************/

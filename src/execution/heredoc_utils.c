@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:05:04 by stephane          #+#    #+#             */
-/*   Updated: 2024/06/12 01:54:11 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/12 13:40:52 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static t_bool	is_scan_end(char *input, char *limiter)
 {
 	if (!input)
 	{
-		fd_printf(STDERR_FD,
+		fd_printf(STDERR_FILENO,
 			"minishell: warning: here-document delimited by end-of-file\n");
 		return (TRUE);
 	}
@@ -79,7 +79,7 @@ int	heredoc_scan(int fd, t_redir *redir)
 			rl_event_hook = NULL;
 		}
 		else
-			input = get_next_line(STDIN_FILENO);
+			input = mini_readline();
 		if (g_signal == SIGINT)
 		{
 			g_signal = 0;
