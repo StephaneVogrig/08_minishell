@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 23:13:37 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/12 22:41:07 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/12 22:43:17 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,5 @@ char	*ft_strjoin_free_s2(char const *s1, char const *s2)
 	str = ft_strjoin(s1, s2);
 	if (s2)
 		free((char *)s2);
-	return (tab);
+	return (str);
 }
