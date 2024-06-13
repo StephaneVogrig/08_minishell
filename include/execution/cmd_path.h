@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 04:48:37 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/11 14:55:38 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/13 15:34:50 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@
 # include "exit.h"
 # include <sys/stat.h>
 
-char	*cmd_path(t_cmd_m *cmd, t_env_m *envp);
+char	*cmd_path(t_cmd_m *cmd, t_env_m *envp, t_cmd *data);
 
 #endif

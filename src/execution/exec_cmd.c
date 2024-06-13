@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 15:22:47 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/13 03:44:01 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/13 15:34:11 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ void	exec_cmd(t_cmd_m *cmd, t_env_m **env, t_cmd *data)
 
 	if (!cmd->argv)
 	{
-		minishell_free(cmd, NULL, NULL, *env);
+		minishell_free(data, NULL, NULL, *env);
 		exit(EXIT_SUCCESS);
 	}
-	path = cmd_path(cmd, *env);
+	path = cmd_path(cmd, *env, data);
 	if (!path)
 		exit_on_file_error("command not found", cmd, *env, data);
 	argv = argvlist_to_argvtab(&cmd->argv);
