@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 14:09:56 by smortemo          #+#    #+#             */
-/*   Updated: 2024/06/13 00:04:57 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/13 15:16:32 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,12 +108,12 @@ int	export_new_node(t_env **env, char *str, int n)
 
 	node = mem_malloc(sizeof(*node));
 	if (!node)
-		return (ENOMEM);
+		return (FAILURE);
 	if (!var_init(node, str, n))
 	{
 		env_node_free(node);
-		return (ENOMEM);
+		return (FAILURE);
 	}
 	env_add_back(env, node);
-	return (0);
+	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:13:40 by smortemo          #+#    #+#             */
-/*   Updated: 2024/06/13 13:54:17 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/13 15:13:35 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	export_run(t_env **envp, char *str)
 	{
 		fd_printf(STDERR_FD, "minishel : export : `%s'", str);
 		fd_printf(STDERR_FD, " : not a valid identifier\n");
-		return (1);
+		return (FAILURE);
 	}
 	n = end_var_name(str);
 	node = env_get_node_n(*envp, str, n);
@@ -85,7 +85,7 @@ int	export_run(t_env **envp, char *str)
 		if ((node->type == DIR_ || node->type == DIR_NO_VAL) && str[n] == '\0')
 		{
 			node->type = EXPORTED;
-			return (0);
+			return (SUCCESS);
 		}
 		return (export_modify_node(str, node, n));
 	}
