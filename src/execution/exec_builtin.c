@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 19:14:20 by smortemo          #+#    #+#             */
-/*   Updated: 2024/06/11 20:55:56 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/13 02:02:34 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	exit_minishell(t_cmd *cmd, t_env *env)
 	exit(exit_code);
 }
 
-int	exec_builtin_alone(t_builtin builtin, t_cmd *cmd, t_env **env)
+int	exec_builtin_alone(t_builtin builtin, t_cmd *cmd, t_env **env, t_cmd *data)
 {
 	int	fd[2];
 	int	exit_code;
@@ -71,7 +71,6 @@ int	exec_builtin_alone(t_builtin builtin, t_cmd *cmd, t_env **env)
 	dup2(fd[1], 1);
 	close_fd(fd);
 	if (builtin == &builtin_exit && exit_code < 0)
-		exit_minishell(cmd, *env);
-	cmd_free(cmd);
+		exit_minishell(data, *env);
 	return (exit_code);
 }

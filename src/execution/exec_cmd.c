@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 15:22:47 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/05 16:35:52 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/13 03:44:01 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	exit_after_execve(int error, char *path, char **argv)
 	exit(error);
 }
 
-void	exec_cmd(t_cmd_m *cmd, t_env_m **env)
+void	exec_cmd(t_cmd_m *cmd, t_env_m **env, t_cmd *data)
 {
 	char	*path;
 	char	**argv;
@@ -48,9 +48,9 @@ void	exec_cmd(t_cmd_m *cmd, t_env_m **env)
 	}
 	path = cmd_path(cmd, *env);
 	if (!path)
-		exit_on_file_error("command not found", cmd, *env);
+		exit_on_file_error("command not found", cmd, *env, data);
 	argv = argvlist_to_argvtab(&cmd->argv);
-	pipeline_free(&cmd);
+	minishell_free(data, NULL, NULL, NULL);
 	if (!argv)
 		exit_on_failure(NULL, path, NULL, *env);
 	envp = env_to_envp(*env);

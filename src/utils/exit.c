@@ -6,25 +6,16 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 19:56:00 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/21 15:22:02 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/13 03:54:20 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exit.h"
 
-void	minishell_free(t_cmd *cmd, char *str, char **argv, t_env *env)
-{
-	if (str)
-		free(str);
-	strtab_free(argv);
-	env_free(env);
-	pipeline_free(&cmd);
-}
-
-void	exit_on_file_error(const char *msg, t_cmd *cmd, t_env *env)
+void	exit_on_file_error(char *msg, t_cmd *cmd, t_env *env, t_cmd *data)
 {
 	fd_printf(STDERR_FD, "%s: %s\n", cmd->argv->content, msg);
-	minishell_free(cmd, NULL, NULL, env);
+	minishell_free(data, NULL, NULL, env);
 	exit(127);
 }
 

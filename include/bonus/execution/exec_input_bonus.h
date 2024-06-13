@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 18:31:21 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/11 14:54:42 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/13 02:08:33 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@
 # include "str.h"
 # include "syntax_error.h"
 # include "exec_redir.h"
-
-# include "exec_pipeline_bonus.h"
+# include "exec_pipeline.h"
 # include "input_to_pipelist_bonus.h"
 # include "pipelist_bonus.h"
 # include "exec_pipelist_bonus.h"

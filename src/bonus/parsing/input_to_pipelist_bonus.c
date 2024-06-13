@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:25:18 by stephane          #+#    #+#             */
-/*   Updated: 2024/06/11 12:48:47 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/13 04:49:55 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ t_cmd	*input_to_pipelist(char *input)
 	pipelist = pipelist_new();
 	if (!pipelist)
 		return (NULL);
-	current_cmd = pipelist->pipeline;
 	current_pipeline = pipelist;
+	current_cmd = pipelist->pipeline;
 	while (*input)
 	{
 		input = parse(input, &current_cmd, &current_pipeline);
@@ -32,11 +32,6 @@ t_cmd	*input_to_pipelist(char *input)
 			return (NULL);
 		}
 		input = skip_blank(input);
-	}
-	if (!current_cmd->next && !current_cmd->redir && !current_cmd->argv && !current_cmd->previous)
-	{
-		pipelist_free(pipelist);
-		return (NULL);
 	}
 	return (pipelist);
 }

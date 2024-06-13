@@ -6,7 +6,7 @@
 #    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/06/12 04:14:57 by svogrig          ###   ########.fr        #
+#    Updated: 2024/06/13 04:41:19 by svogrig          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,10 +50,13 @@ SRC				:=	main.c \
 					execution/argv_expand.c \
 					execution/cmd_path.c \
 					execution/exec_builtin.c \
+					execution/exec_cmd.c \
 					execution/expanse.c \
 					execution/heredoc_utils.c \
 					execution/heredoc_expand.c \
 					execution/pipeline_wait.c \
+					execution/process_utils.c \
+					execution/exec_pipeline.c \
 					execution/exec_redir.c \
 					parsing/next_token_limiter.c \
 					parsing/next_token_to_str.c \
@@ -71,9 +74,8 @@ SRC				:=	main.c \
 					utils/str.c
 
 SRC_MAND		:=	$(SRC) \
-					execution/exec_cmd.c \
 					execution/exec_input.c \
-					execution/exec_pipeline.c \
+					execution/exec_alone.c \
 					execution/expand_and_dequote.c \
 					execution/expand_utils.c \
 					execution/heredoc.c \
@@ -81,7 +83,8 @@ SRC_MAND		:=	$(SRC) \
 					parsing/char.c \
 					parsing/input_to_pipeline.c \
 					parsing/parse.c \
-					parsing/syntax_error.c
+					parsing/syntax_error.c \
+					utils/minishell_free.c
 
 SRC_MAND		:=	$(SRC_MAND:%=$(DIR_SRC)/%)
 
@@ -89,10 +92,8 @@ SRC_MAND		:=	$(SRC_MAND:%=$(DIR_SRC)/%)
 
 SRC_BONUS		:=	$(SRC) \
 					bonus/data/pipelist_bonus.c \
-					bonus/execution/exec_cmd_bonus.c \
 					bonus/execution/exec_input_bonus.c \
-					bonus/execution/exec_pipeline_bonus.c \
-					bonus/execution/exec_pipeline_utils_bonus.c \
+					bonus/execution/exec_alone_bonus.c \
 					bonus/execution/exec_pipelist_bonus.c \
 					bonus/execution/expand_and_dequote_bonus.c \
 					bonus/execution/expand_and_dequote_utils_bonus.c \
@@ -110,7 +111,7 @@ SRC_BONUS		:=	$(SRC) \
 					bonus/parsing/tokenise_parse_bonus.c \
 					bonus/parsing/tokenise_bonus.c \
 					bonus/parsing/tokenlist_bonus.c \
-					bonus/utils/exit_bonus.c
+					bonus/utils/minishell_free_bonus.c
 
 SRC_BONUS		:=	$(SRC_BONUS:%=$(DIR_SRC)/%)
 

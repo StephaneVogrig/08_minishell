@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 14:09:56 by smortemo          #+#    #+#             */
-/*   Updated: 2024/06/09 20:38:30 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/13 00:04:57 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ t_bool	node_init(t_env *node, char *str)
 	}
 	node->name = ft_strndup(str, index);
 	if (!node->name)
+	{
+		free(node->value);
 		return (FAILURE);
+	}
 	node->next = NULL;
 	return (SUCCESS);
 }
@@ -107,7 +110,10 @@ int	export_new_node(t_env **env, char *str, int n)
 	if (!node)
 		return (ENOMEM);
 	if (!var_init(node, str, n))
+	{
+		env_node_free(node);
 		return (ENOMEM);
+	}
 	env_add_back(env, node);
 	return (0);
 }

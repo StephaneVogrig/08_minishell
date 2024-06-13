@@ -6,61 +6,19 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 18:20:33 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/12 03:53:36 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/13 04:47:08 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "process_bonus.h"
+#include "process.h"
+#include "exec_pipelist_bonus.h"
 
-void	exec_cmd_pipe(t_cmd *cmd, t_env **env, t_cmd *data)
-{
-	int			exit_code;
-	t_builtin	builtin;
-
-	if (argv_expand(&cmd->argv, *env) == FAILURE)
-		exit_on_failure_bonus(data, *env);
-	builtin = builtin_function(cmd->argv);
-	if (!builtin)
-		exec_cmd(cmd, env, data);
-	exit_code = builtin(cmd, env);
-	pipelist_free(data);
-	env_free(*env);
-	exit(exit_code);
-}
-
-void	handle_pipe_child(int *fd_in, int pipe_out[2], t_cmd *cmd)
-{
-	if (cmd->previous != NULL)
-	{
-		dup2(*fd_in, STDIN_FD);
-		close(*fd_in);
-	}
-	if (cmd->next)
-	{
-		close(pipe_out[READ]);
-		dup2(pipe_out[WRITE], STDOUT_FD);
-		close(pipe_out[WRITE]);
-	}
-}
-
-void	handle_pipe_parent(int *fd_in, int pipe_out[2], t_cmd *cmd)
-{
-	if (cmd->previous != NULL)
-		close(*fd_in);
-	if (cmd->next)
-	{
-		close(pipe_out[WRITE]);
-		*fd_in = pipe_out[READ];
-	}
-}
-
-void	subshell(t_cmd *pipelist, t_env **env, t_cmd *data)
+static void	exec_subshell(t_cmd *pipelist, t_env **env, t_cmd *data)
 {
 	int		exit_code;
 
 	exit_code = exec_pipelist(pipelist, env, data);
-	env_free(*env);
-	pipelist_free(data);
+	minishell_free(data, NULL, NULL, *env);
 	exit(exit_code);
 }
 
@@ -78,9 +36,9 @@ int	process(t_cmd *cmd, int *fd_in, t_env **env, t_cmd *data)
 		signal(SIGQUIT, SIG_DFL);
 		handle_pipe_child(fd_in, pipe_out, cmd);
 		if (exec_redir(cmd->redir, *env) != SUCCESS)
-			exit_on_failure_bonus(data, *env);
+			exit_on_failure(data, NULL, NULL, *env);
 		if (cmd->flag == SUB)
-			subshell(cmd->pipelist, env, data);
+			exec_subshell(cmd->pipelist, env, data);
 		exec_cmd_pipe(cmd, env, data);
 	}
 	if (pid == -1)

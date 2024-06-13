@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 11:16:42 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/11 12:57:12 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/13 00:21:20 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,10 @@ char	*next_token_to_heredoc(char *input, t_redir **redir)
 	else
 		type = IN | HEREDOC | EXPANSE;
 	if (!redir_add_str(redir, token, type))
+	{
+		free(token);
 		return (NULL);
+	}
 	return (input);
 }
 

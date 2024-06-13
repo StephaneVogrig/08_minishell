@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit_bonus.c                                       :+:      :+:    :+:   */
+/*   exec_alone.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/26 19:56:00 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/11 15:01:14 by svogrig          ###   ########.fr       */
+/*   Created: 2024/06/13 04:35:58 by svogrig           #+#    #+#             */
+/*   Updated: 2024/06/13 04:42:41 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exit_bonus.h"
+#ifndef EXEC_ALONE_H
+# define EXEC_ALONE_H
 
-void	exit_on_file_error_bonus(const char *msg, t_cmd *cmd, t_env *env, \
-																t_cmd *tofree)
-{
-	fd_printf(STDERR_FD, "%s: %s\n", cmd->argv->content, msg);
-	pipelist_free(tofree);
-	env_free(env);
-	exit(127);
-}
+# include "command.h"
+# include "environment.h"
+# include "pipeline_wait.h"
+# include "exec_cmd.h"
+# include "exit.h"
+# include "builtin.h"
+# include "argv_expand.h"
 
-void	exit_on_failure_bonus(t_cmd *pipelist, t_env *env)
-{
-	pipelist_free(pipelist);
-	env_free(env);
-	exit(EXIT_FAILURE);
-}
+int	exec_alone(t_cmd *cmd, t_env **env, t_cmd_m *data);
+
+#endif
