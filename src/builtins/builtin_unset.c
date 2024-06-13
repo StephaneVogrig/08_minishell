@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:37:23 by smortemo          #+#    #+#             */
-/*   Updated: 2024/06/09 23:27:54 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/13 14:56:31 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	unset(t_env **env, char *str)
 	{
 		if (node->type == EXPORTED || node->type == NO_VALUE)
 			env_node_del(env, node);
-		if (node->type == DIR_ || node->type == DIR_NO_VAL)
+		else if (node->type == DIR_ || node->type == DIR_NO_VAL)
 			env_node_del(env, node);
 	}
 	return (0);
