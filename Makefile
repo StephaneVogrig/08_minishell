@@ -1,14 +1,14 @@
-# **************************************************************************** #
+#******************************************************************************#
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
+#    By: stephane <stephane@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/06/13 04:41:19 by svogrig          ###   ########.fr        #
+#    Updated: 2024/06/13 23:14:07 by stephane         ###   ########.fr        #
 #                                                                              #
-# **************************************************************************** #
+#******************************************************************************#
 
 NAME			:=	minishell
 NAME_BONUS		:=	$(NAME)_bonus
@@ -84,7 +84,7 @@ SRC_MAND		:=	$(SRC) \
 					parsing/input_to_pipeline.c \
 					parsing/parse.c \
 					parsing/syntax_error.c \
-					utils/minishell_free.c
+					utils/minish_free.c
 
 SRC_MAND		:=	$(SRC_MAND:%=$(DIR_SRC)/%)
 
@@ -111,7 +111,7 @@ SRC_BONUS		:=	$(SRC) \
 					bonus/parsing/tokenise_parse_bonus.c \
 					bonus/parsing/tokenise_bonus.c \
 					bonus/parsing/tokenlist_bonus.c \
-					bonus/utils/minishell_free_bonus.c
+					bonus/utils/minish_free_bonus.c
 
 SRC_BONUS		:=	$(SRC_BONUS:%=$(DIR_SRC)/%)
 

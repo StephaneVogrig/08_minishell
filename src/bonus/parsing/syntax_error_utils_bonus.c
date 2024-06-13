@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   syntax_error_utils_bonus.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 13:07:43 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/11 15:11:16 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/13 23:34:49 by stephane         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "syntax_error_bonus.h"
 
@@ -38,7 +38,7 @@ char	*token_type_to_str(int token_type)
 int	check_parenthesis_close(t_tokenlist	*token, int *lvl_parenthesis)
 {
 	*lvl_parenthesis -= 1;
-	if (lvl_parenthesis < 0)
+	if (*lvl_parenthesis < 0)
 		return (syntax_error_msg_token(token));
 	while (token->next)
 	{

@@ -1,27 +1,24 @@
 /******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.h                                             :+:      :+:    :+:   */
+/*   minish_free_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/26 20:00:10 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/13 23:14:51 by stephane         ###   ########.fr       */
+/*   Created: 2024/06/13 23:11:33 by stephane          #+#    #+#             */
+/*   Updated: 2024/06/13 23:37:28 by stephane         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
-#ifndef EXIT_H
-# define EXIT_H
 
-# include <string.h>
-# include <errno.h>
-# include "minish_free.h"
+#include "minish_free.h"
+#include "pipelist_bonus.h"
 
-# define NO_SUCH_FILE 0
-# define CMD_NOT_FOUND 1
-
-void	exit_on_file_error(char *msg, t_cmd *cmd, t_env *env, t_cmd *data);
-void	exit_on_open_error(char *file_path, int fd);
-void	exit_on_failure(t_cmd *cmd, char *str, char **argv, t_env *env);
-
-#endif
+void	minishell_free(t_cmd *cmd, char *str, char **argv, t_env *env)
+{
+	if (str)
+		free(str);
+	strtab_free(argv);
+	env_free(env);
+	pipelist_free(cmd);
+}

@@ -1,27 +1,22 @@
 /******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.h                                             :+:      :+:    :+:   */
+/*   minish_free.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/26 20:00:10 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/13 23:14:51 by stephane         ###   ########.fr       */
+/*   Created: 2024/06/13 22:58:30 by stephane          #+#    #+#             */
+/*   Updated: 2024/06/13 23:01:44 by stephane         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
-#ifndef EXIT_H
-# define EXIT_H
+#ifndef MINISH_FREE_H
+# define MINISH_FREE_H
 
-# include <string.h>
-# include <errno.h>
-# include "minish_free.h"
+# include "libft.h"
+# include "command.h"
+# include "environment.h"
 
-# define NO_SUCH_FILE 0
-# define CMD_NOT_FOUND 1
-
-void	exit_on_file_error(char *msg, t_cmd *cmd, t_env *env, t_cmd *data);
-void	exit_on_open_error(char *file_path, int fd);
-void	exit_on_failure(t_cmd *cmd, char *str, char **argv, t_env *env);
+void	minishell_free(t_cmd *data, char *str, char **argv, t_env *env);
 
 #endif
