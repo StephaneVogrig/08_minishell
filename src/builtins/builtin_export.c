@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:13:40 by smortemo          #+#    #+#             */
-/*   Updated: 2024/06/13 15:13:35 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/13 16:45:25 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,10 +107,7 @@ int	builtin_export(t_cmd *cmd, t_env **env)
 	while (argv)
 	{
 		if (export_run(env, argv->content) == FAILURE)
-		{
 			exit_code = EXIT_FAILURE;
-			break ;
-		}
 		argv = argv->next;
 	}
 	return (exit_code);

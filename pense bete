@@ -1,0 +1,3 @@
+pour connaitre le nombre de fonction de son projet
+
+ctags -x -R |grep "function" |wc -l
