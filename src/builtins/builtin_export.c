@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:13:40 by smortemo          #+#    #+#             */
-/*   Updated: 2024/06/09 23:26:58 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/13 13:54:17 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_bool	is_valid_arg(char *str)
 
 	i = 0;
 	if (!ft_isalpha(str[0]) && str[0] != '_')
-		return (0);
+		return (FALSE);
 	while (str[i] && str[i] != '=')
 	{
 		if (!ft_isalnum(str[i]) && str[i] != '_')
@@ -48,33 +48,21 @@ int	end_var_name(char *str)
 	return (i);
 }
 
-static int	export_modify_node(char *str, t_env *node, int n)
+static t_bool	export_modify_node(char *str, t_env *node, int n)
 {
-	if (node && str[n] == '\0')
-		return (0);
-	else if (node && str[n] == '=')
+	if (str[n] == '\0')
+		return (SUCCESS);
+	else if (str[n] == '=')
 	{
 		free(node->value);
-		if (str[n + 1])
-		{
-			node->value = ft_strdup(&str[n + 1]);
-			if (!node->value)
-				return (ENOMEM);
-		}
-		else
-		{
-			node->value = malloc(1);
-			if (!node->value)
-				return (ENOMEM);
-			node->value[0] = '\0';
-		}
-		node->type = EXPORTED;
-		return (0);
+		node->value = ft_strdup(&str[n + 1]);
 	}
-	node->value = ft_strjoin_free_s1(node->value, &str[n + 2]);
+	else
+		node->value = ft_strjoin_free_s1(node->value, &str[n + 2]);
 	if (!node->value)
-		return (ENOMEM);
-	return (0);
+		return (FAILURE);
+	node->type = EXPORTED;
+	return (SUCCESS);
 }
 
 int	export_run(t_env **envp, char *str)
@@ -106,27 +94,24 @@ int	export_run(t_env **envp, char *str)
 int	builtin_export(t_cmd *cmd, t_env **env)
 {
 	t_list	*argv;
-	int		error;
-	int		ret;
+	int		exit_code;
 
-	ret = EXIT_SUCCESS;
-	if (!env)
-		return (0);
+	exit_code = EXIT_SUCCESS;
 	argv = cmd->argv;
 	argv = argv->next;
 	if (!argv)
 	{
 		if (display_envp_sorted(*env) == FAILURE)
-			exit_on_failure(cmd, NULL, NULL, *env);
+			return (EXIT_FAILURE);
 	}
 	while (argv)
 	{
-		error = export_run(env, argv->content);
-		if (error == ENOMEM)
-			exit_on_failure(cmd, NULL, NULL, *env);
-		if (error == EXIT_FAILURE)
-			ret = EXIT_FAILURE;
+		if (export_run(env, argv->content) == FAILURE)
+		{
+			exit_code = EXIT_FAILURE;
+			break ;
+		}
 		argv = argv->next;
 	}
-	return (ret);
+	return (exit_code);
 }
