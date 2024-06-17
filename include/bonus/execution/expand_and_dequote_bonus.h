@@ -1,20 +1,21 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   expand_and_dequote_bonus.h                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 01:39:43 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/11 14:50:21 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/16 18:54:12 by stephane         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #ifndef EXPAND_AND_DEQUOTE_BONUS_H
 # define EXPAND_AND_DEQUOTE_BONUS_H
 
 # include "tmpdata_bonus.h"
 # include "expanse.h"
+# include "sortlist.h"
 
 t_bool	expand_and_dequote(char *str, t_list **strlist, t_env *env);
 

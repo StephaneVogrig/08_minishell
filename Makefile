@@ -6,7 +6,7 @@
 #    By: stephane <stephane@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/06/13 23:14:07 by stephane         ###   ########.fr        #
+#    Updated: 2024/06/16 18:40:59 by stephane         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -111,7 +111,8 @@ SRC_BONUS		:=	$(SRC) \
 					bonus/parsing/tokenise_parse_bonus.c \
 					bonus/parsing/tokenise_bonus.c \
 					bonus/parsing/tokenlist_bonus.c \
-					bonus/utils/minish_free_bonus.c
+					bonus/utils/minish_free_bonus.c \
+					bonus/utils/sortlist.c
 
 SRC_BONUS		:=	$(SRC_BONUS:%=$(DIR_SRC)/%)
 
