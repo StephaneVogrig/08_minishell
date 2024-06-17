@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 23:20:41 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/31 16:07:42 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/06/17 16:22:11 by stephane         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "builtin.h"
 #include "environment.h"
@@ -25,7 +25,7 @@ static int	echo_n(t_list *argv)
 		size--;
 	}
 	ft_printf("%s", argv->content);
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 static int	echo(t_list *argv)
@@ -40,8 +40,7 @@ static int	echo(t_list *argv)
 		size--;
 	}
 	ft_printf("%s\n", argv->content);
-	return (0);
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 t_bool	check_if_n(char *str)
@@ -71,7 +70,7 @@ int	builtin_echo(t_cmd *cmd, t_env **env)
 	if (!argv)
 	{
 		write(1, "\n", 1);
-		return (0);
+		return (EXIT_SUCCESS);
 	}
 	if (!check_if_n(argv->content))
 		return (echo(argv));
@@ -83,5 +82,5 @@ int	builtin_echo(t_cmd *cmd, t_env **env)
 		else
 			return (echo_n(argv));
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }
