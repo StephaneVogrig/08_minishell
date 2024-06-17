@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   builtin_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 23:26:47 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/31 16:04:37 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/06/17 16:24:35 by stephane         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "builtin.h"
 #include "environment.h"
@@ -23,7 +23,7 @@ int	builtin_pwd(t_cmd *cmd, t_env **env)
 	(void)cmd;
 	str = getcwd(buffer, PATH_MAX);
 	if (!str)
-		return (ENOENT);
+		return (EXIT_FAILURE);
 	ft_printf("%s\n", str);
-	return (0);
+	return (EXIT_SUCCESS);
 }
