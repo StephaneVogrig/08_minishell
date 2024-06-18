@@ -1,14 +1,14 @@
-#******************************************************************************#
+# **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: stephane <stephane@student.42.fr>          +#+  +:+       +#+         #
+#    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/06/16 18:40:59 by stephane         ###   ########.fr        #
+#    Updated: 2024/06/18 20:05:27 by svogrig          ###   ########.fr        #
 #                                                                              #
-#******************************************************************************#
+# **************************************************************************** #
 
 NAME			:=	minishell
 NAME_BONUS		:=	$(NAME)_bonus
@@ -112,7 +112,7 @@ SRC_BONUS		:=	$(SRC) \
 					bonus/parsing/tokenise_bonus.c \
 					bonus/parsing/tokenlist_bonus.c \
 					bonus/utils/minish_free_bonus.c \
-					bonus/utils/sortlist.c
+					bonus/utils/sortlist_bonus.c
 
 SRC_BONUS		:=	$(SRC_BONUS:%=$(DIR_SRC)/%)
 

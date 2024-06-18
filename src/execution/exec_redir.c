@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:37:10 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/03 16:28:41 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/18 20:02:30 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ t_bool	exec_redir(t_redir *redirs, t_env *env)
 		{
 			fd_printf(STDERR_FILENO, "minishell: %s: %s\n", redirs->str,
 				strerror(errno));
-			redirlist_unlink_heredoc(redirs);
 			return (-1);
 		}
 		if (redirs->type & IN)
@@ -68,8 +67,6 @@ t_bool	exec_redir(t_redir *redirs, t_env *env)
 		else
 			dup2(fd, STDOUT_FILENO);
 		close(fd);
-		if (redirs->type & HEREDOC)
-			unlink(redirs->str);
 		redirs = redirs->next;
 	}
 	return (SUCCESS);

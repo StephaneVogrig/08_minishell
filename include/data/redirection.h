@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 03:33:33 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/11 14:54:24 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/18 19:32:07 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # define HEREDOC 4
 # define EXPANSE 8
 # define APPEND 16
+# define UNLINK 32
 
 typedef struct s_redir{
 	t_char_m		*str;

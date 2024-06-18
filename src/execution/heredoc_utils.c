@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:05:04 by stephane          #+#    #+#             */
-/*   Updated: 2024/06/12 13:40:52 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/18 19:32:29 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ int	heredoc_fill(t_redir *redir)
 	exit_code = heredoc_scan(fd, redir);
 	free(redir->str);
 	redir->str = path;
+	redir->type |= UNLINK;
 	close(fd);
 	return (exit_code);
 }

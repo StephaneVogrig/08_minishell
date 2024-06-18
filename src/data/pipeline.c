@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 03:11:28 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/07 06:16:58 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/18 20:02:46 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,27 +49,4 @@ t_cmd	*pipeline_add_newcmd(t_cmd **pipeline)
 		temp = temp->next;
 	temp->next = cmd;
 	return (cmd);
-}
-
-void	redirlist_unlink_heredoc(t_redir *redir)
-{
-	while (redir)
-	{
-		if (redir->type & HEREDOC)
-			unlink(redir->str);
-		redir = redir->next;
-	}
-}
-
-void	cmdlist_unlink_heredoc(t_cmd *cmd)
-{
-	if (!cmd)
-		return ;
-	while (cmd->previous)
-		cmd = cmd->previous;
-	while (cmd)
-	{
-		redirlist_unlink_heredoc(cmd->redir);
-		cmd = cmd->next;
-	}
 }
