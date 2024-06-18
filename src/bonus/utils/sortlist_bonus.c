@@ -1,27 +1,27 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   sortlist.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stephane <stephane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 17:11:00 by stephane          #+#    #+#             */
-/*   Updated: 2024/06/16 23:44:40 by stephane         ###   ########.fr       */
+/*   Updated: 2024/06/18 17:41:37 by svogrig          ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
- #include "sortlist.h"
+#include "sortlist_bonus.h"
 
- t_list	*pop(t_list **strlist)
- {
+t_list	*pop(t_list **strlist)
+{
 	t_list	*temp;
 
 	if (*strlist == NULL)
 		return (NULL);
-	temp =*strlist;
+	temp = *strlist;
 	*strlist = temp->next;
 	return (temp);
- }
+}
 
 void	insert(t_list *elem, t_list **strlist)
 {
