@@ -6,11 +6,27 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 11:59:27 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/13 04:46:36 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/18 16:48:53 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse_bonus.h"
+
+void	mark_flag_in_sub(t_cmd	*pipelist)
+{
+	t_cmd	*pipeline;
+
+	while (pipelist)
+	{
+		pipeline = pipelist->pipeline;
+		while (pipeline)
+		{
+			pipeline->flag |= IN_SUB;
+			pipeline = pipeline->next;
+		}
+		pipelist = pipelist->next;
+	}
+}
 
 char	*end_parenthesis(char *str)
 {
@@ -38,6 +54,7 @@ char	*new_subshell(char *str, t_cmd **cmd)
 	(*cmd)->pipelist = input_to_pipelist(str);
 	if (!(*cmd)->pipelist)
 		return (NULL);
+	mark_flag_in_sub((*cmd)->pipelist);
 	(*cmd)->flag = SUB;
 	return (end);
 }

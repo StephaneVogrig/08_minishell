@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:33:09 by stephane          #+#    #+#             */
-/*   Updated: 2024/06/11 14:54:15 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/18 16:05:20 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ struct s_cmd{
 # define OR	4
 # define CMDLIST 8
 # define SUB 16
+# define IN_SUB 32
 
 t_cmd_m	*cmd_new(void);
 void	cmd_free(t_cmd_m *cmd);
