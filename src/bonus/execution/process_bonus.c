@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 18:20:33 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/13 04:47:08 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/18 17:17:18 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	process(t_cmd *cmd, int *fd_in, t_env **env, t_cmd *data)
 		handle_pipe_child(fd_in, pipe_out, cmd);
 		if (exec_redir(cmd->redir, *env) != SUCCESS)
 			exit_on_failure(data, NULL, NULL, *env);
-		if (cmd->flag == SUB)
+		if (cmd->flag & SUB)
 			exec_subshell(cmd->pipelist, env, data);
 		exec_cmd_pipe(cmd, env, data);
 	}

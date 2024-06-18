@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 04:08:43 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/13 04:44:02 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/18 17:17:11 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	exec_alone(t_cmd *cmd, t_env **env, t_cmd_m *data)
 {
 	t_builtin	builtin;
 
-	if (cmd->flag == SUB)
+	if (cmd->flag & SUB)
 		return (exec_subshell(cmd, env, data));
 	if (argv_expand(&cmd->argv, *env) == FAILURE)
 		return (EXIT_FAILURE);

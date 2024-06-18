@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 20:14:41 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/11 15:04:44 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/18 17:16:57 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	pipeline_free_bonus(t_cmd *cmd)
 
 	while (cmd)
 	{
-		if (cmd->flag == SUB)
+		if (cmd->flag & SUB)
 		{
 			pipelist_free(cmd->pipelist);
 			cmd->pipelist = NULL;

@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 20:16:08 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/07 18:56:55 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/18 17:17:59 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	print_cmd(t_cmd *cmd)
 {
 	t_list	*current;
 
-	if (cmd->flag == SUB)
+	if (cmd->flag & SUB)
 	{
 		ft_printf("flag SUB\n");
 		print_pipelist(cmd->pipeline, GOLD, DODGERBLUE);

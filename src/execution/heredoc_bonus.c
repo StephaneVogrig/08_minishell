@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:15:30 by smortemo          #+#    #+#             */
-/*   Updated: 2024/06/12 02:13:17 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/18 17:18:06 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	heredoc_cmd(t_cmd_m *cmd)
 		}
 		redir = redir->next;
 	}
-	if (cmd->flag == SUB)
+	if (cmd->flag & SUB)
 		exit_code = heredoc_loop(cmd->pipelist);
 	return (exit_code);
 }

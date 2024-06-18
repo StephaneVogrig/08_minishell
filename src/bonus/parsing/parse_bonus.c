@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 11:59:27 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/18 16:48:53 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/18 17:17:45 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*new_subshell(char *str, t_cmd **cmd)
 	if (!(*cmd)->pipelist)
 		return (NULL);
 	mark_flag_in_sub((*cmd)->pipelist);
-	(*cmd)->flag = SUB;
+	(*cmd)->flag |= SUB;
 	return (end);
 }
 
