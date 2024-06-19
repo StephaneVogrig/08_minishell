@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 00:53:31 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/08 00:59:15 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/19 22:29:16 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 
 t_bool	ft_lstadd_back_new(t_list **list, t_char_m *str)
 {
-	t_list *new;
+	t_list	*new;
 
 	new = ft_lstnew(str);
 	if (!new)
 		return (FAILURE);
 	ft_lstadd_back(list, new);
-
 	return (SUCCESS);
 }

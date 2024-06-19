@@ -1,45 +1,45 @@
 Mandatory
 
-- [ ] one global variable max
+- [x] one global variable max
 - [x] prompt on waiting
 - [x] working history
-- [ ] execution commande
-	- [ ] search executable using relative path
-	- [ ] search executable using absolute path
-	- [ ] search executable based on PATH
-	- [ ] launch executable
-- [ ] quotes
-	- [ ] ''
-	- [ ] ""
-- [ ] redirection
-	- [ ] >
-	- [ ] >>
-	- [ ] <
-	- [ ] <<
-- [ ] | pipes
-- [ ] expansion parametres
-	- [ ] $
-	- [ ] $?
-	- [ ] "$"
-- [ ] signaux
+- [x] execution commande
+	- [x] search executable using relative path
+	- [x] search executable using absolute path
+	- [x] search executable based on PATH
+	- [x] launch executable
+- [x] quotes
+	- [x] ''
+	- [x] ""
+- [x] redirection
+	- [x] >
+	- [x] >>
+	- [x] <
+	- [x] <<
+- [x] | pipes
+- [x] expansion parametres
+	- [x] $
+	- [x] $?
+	- [x] "$"
+- [x] signaux
 	- [x] ctrl-c displays a new prompt on a new line.
 	- [x] ctrl-d exit the shell
 	- [x] ctrl-\ does nothig
-- [ ] builtins
-	- [ ] echo with no option
-	- [ ] echo -n
-	- [ ] cd with relative path
-	- [ ] cd with absolute path
-	- [ ] pwd with no option
-	- [ ] export with no option
-	- [ ] unset with no option
-	- [ ] env with no option
-	- [ ] exit with no option
+- [x] builtins
+	- [x] echo with no option
+	- [x] echo -n
+	- [x] cd with relative path
+	- [x] cd with absolute path
+	- [x] pwd with no option
+	- [x] export with no option
+	- [x] unset with no option
+	- [x] env with no option
+	- [x] exit with no option
 
 Bonus :
 
-- [ ] operateur
-	- [ ] &&
-	- [ ] ||
-	- [ ] ()
-- [ ] * for current directory
+- [x] operateur
+	- [x] &&
+	- [x] ||
+	- [x] ()
+- [x] * for current directory

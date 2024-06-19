@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   strtab_free.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 23:16:47 by stephane          #+#    #+#             */
-/*   Updated: 2024/04/10 21:15:47 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/06/19 22:34:22 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	strtab_free(char **strtab)
 		free(*current++);
 	free(strtab);
 }
-
 
 int	ft_strtab_size(char **strtab)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 19:04:55 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/21 18:02:28 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/06/19 22:34:41 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,6 @@ t_si32				si32_max(t_si32 a, t_si32 b);
 long long			ft_atol(const char *str);
 int					len_num(long long num);
 int					len_str_num(char *str);
-
-
-
 
 /* lst -----------------------------------------------------------------------*/
 typedef struct s_list

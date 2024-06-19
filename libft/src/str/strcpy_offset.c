@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:04:09 by svogrig           #+#    #+#             */
-/*   Updated: 2024/03/13 15:26:50 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/19 22:34:04 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 // return a pointer on the the next character in dest after copy 
 char	*strcpy_offset(char *dest, const char *src)
 {
-	
 	while (*src)
 		*dest++ = *src++;
 	*dest = '\0';
