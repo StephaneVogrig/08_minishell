@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_shlvl.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 17:39:44 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/31 15:49:47 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/06/19 18:38:08 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,9 @@ t_bool	node_shlvl(t_env **env)
 	node = mem_malloc(sizeof(*node));
 	if (!node)
 		return (FAILURE);
+	env_add_back(env, node);
 	if (node_init(node, "SHLVL=1") == SUCCESS)
-	{
-		env_add_back(env, node);
 		return (SUCCESS);
-	}
 	return (FAILURE);
 }
 

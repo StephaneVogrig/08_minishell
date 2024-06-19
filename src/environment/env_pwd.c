@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_pwd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 19:02:40 by smortemo          #+#    #+#             */
-/*   Updated: 2024/06/01 14:17:52 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/06/19 18:48:45 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@ t_bool	env_pwd_init(t_env **env)
 		node = malloc(sizeof(*node));
 		if (!node)
 			return (FAILURE);
-		node_init(node, str);
 		env_add_back(env, node);
+		if (node_init(node, str) == FAILURE)
+			return (FAILURE);
 	}
 	else
 		return (env_set_value("PWD", getcwd(buffer, PATH_MAX), *env));

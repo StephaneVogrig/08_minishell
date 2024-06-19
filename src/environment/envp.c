@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 17:54:58 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/27 13:32:45 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/19 18:46:48 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,12 @@ t_bool	envp_to_env(char **envp, t_env **env)
 			env_free(*env);
 			return (FAILURE);
 		}
-		node_init(node, envp[i]);
 		env_add_back(env, node);
+		if (node_init(node, envp[i]) == FAILURE)
+		{
+			env_free(*env);
+			return (FAILURE);
+		}
 		i++;
 	}
 	return (SUCCESS);

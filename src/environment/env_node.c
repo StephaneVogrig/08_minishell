@@ -6,41 +6,11 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 14:09:56 by smortemo          #+#    #+#             */
-/*   Updated: 2024/06/13 15:16:32 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/19 18:49:14 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "environment.h"
-
-t_bool	node_init(t_env *node, char *str)
-{
-	int	index;
-
-	if (ft_strchr(str, '='))
-	{
-		index = ft_strchr_i(str, '=');
-		node->value = ft_strdup(&str[index + 1]);
-		if (!node->value)
-			return (FAILURE);
-		node->type = EXPORTED;
-	}
-	else
-	{
-		index = ft_strlen(str);
-		node->value = malloc(1);
-		if (!node->value)
-			return (FAILURE);
-		node->type = INTERNAL;
-	}
-	node->name = ft_strndup(str, index);
-	if (!node->name)
-	{
-		free(node->value);
-		return (FAILURE);
-	}
-	node->next = NULL;
-	return (SUCCESS);
-}
 
 void	env_node_free(t_env *node)
 {
@@ -51,6 +21,29 @@ void	env_node_free(t_env *node)
 	if (node->value)
 		free(node->value);
 	free(node);
+}
+
+t_bool	node_init(t_env *node, char *str)
+{
+	int	index;
+
+	if (ft_strchr(str, '='))
+	{
+		index = ft_strchr_i(str, '=');
+		node->value = ft_strdup(&str[index + 1]);
+		node->type = EXPORTED;
+		node->name = ft_strndup(str, index);
+	}
+	else
+	{
+		node->value = malloc(1);
+		node->type = INTERNAL;
+		node->name = ft_strndup(str, ft_strlen(str));
+	}
+	if (!node->name || !node->value)
+		return (FAILURE);
+	node->next = NULL;
+	return (SUCCESS);
 }
 
 void	env_node_del(t_env **env, t_env *node)
