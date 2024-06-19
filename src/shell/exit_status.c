@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_status.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 14:58:54 by svogrig           #+#    #+#             */
-/*   Updated: 2024/05/31 16:16:01 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/06/19 19:30:28 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_bool	exit_status_init(t_env **env)
 	return (SUCCESS);
 }
 
+// node->value is a char* of len fixed to 12 by exit_status_init
 void	exit_status_set(int n, t_env *env)
 {
 	t_env		*node;
