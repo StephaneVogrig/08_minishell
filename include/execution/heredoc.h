@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:15:43 by smortemo          #+#    #+#             */
-/*   Updated: 2024/06/12 13:41:02 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/19 20:22:37 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,12 @@
 # include "pipeline.h"
 # include "signal_handler.h"
 # include "mini_readline.h"
+# include "shell_mode.h"
 # include <readline/readline.h>
 
 /* heredoc.c ******************************************************************/
 
-t_bool	heredoc(t_cmd_m *pipeline);
+t_bool	heredoc(t_cmd_m *pipeline, t_env *env);
 int		heredoc_loop(t_cmd *pipelist);
 
 /* heredoc_utils.c ************************************************************/

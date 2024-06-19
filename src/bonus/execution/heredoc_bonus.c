@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:15:30 by smortemo          #+#    #+#             */
-/*   Updated: 2024/06/18 17:18:06 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/19 20:41:23 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,18 +56,17 @@ int	heredoc_loop(t_cmd *pipelist)
 	return (EXIT_SUCCESS);
 }
 
-t_bool	heredoc(t_cmd_m *pipelist)
+t_bool	heredoc(t_cmd_m *pipelist, t_env *env)
 {
 	int		exit_code;
-	int		fd;
 
-	fd = dup(0);
 	signal(SIGINT, handler_ctrl_c_heredoc);
 	exit_code = heredoc_loop(pipelist);
-	dup2(fd, 0);
-	close(fd);
 	if (exit_code != EXIT_SUCCESS)
 		pipelist_free(pipelist);
-	signal(SIGINT, handler_ctrl_c_interactive);
+	if (shell_mode_is_interactive(env))
+		signal(SIGINT, handler_ctrl_c_interactive);
+	else
+		signal(SIGINT, handler_ctrl_c_file);
 	return (exit_code);
 }

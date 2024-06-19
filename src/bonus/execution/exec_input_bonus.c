@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:57:43 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/13 00:47:53 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/19 20:27:30 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	exec_input(t_char_m *input, t_env **env)
 	free(input);
 	if (!pipelist)
 		return (EXIT_SUCCESS);
-	exit_code = heredoc(pipelist);
+	exit_code = heredoc(pipelist, *env);
 	if (exit_code != EXIT_SUCCESS)
 		return (exit_code);
 	signal(SIGINT, handler_ctrl_c);

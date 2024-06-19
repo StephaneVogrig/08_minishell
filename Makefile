@@ -6,7 +6,7 @@
 #    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/06/19 20:06:47 by svogrig          ###   ########.fr        #
+#    Updated: 2024/06/19 20:29:03 by svogrig          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -280,7 +280,7 @@ $(NAME): $(OBJ_MAND)
 
 $(NAME_BONUS): $(OBJ_BONUS)
 	@$(MAKE) -j -C libft
-	@$(CC) $(CC_FLAGS) $(OBJ_BONUS) $(L_FLAG) $(l_FLAG) -o $(NAME)
+	@$(CC) $(CC_FLAGS) $(OBJ_BONUS) $(L_FLAG) $(l_FLAG) -o $(NAME_BONUS)
 	@printf "\033[2K\rcreated: %s\n" $@
 
 $(NAME_DEBUG): $(OBJ_DEBUG)
