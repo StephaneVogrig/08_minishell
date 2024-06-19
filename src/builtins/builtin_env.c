@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 18:23:08 by smortemo          #+#    #+#             */
-/*   Updated: 2024/06/05 19:24:28 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/19 16:59:06 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	env(t_env *env)
 	if (env == NULL)
 		return (127);
 	env_display(env, EXPORTED);
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 int	builtin_env(t_cmd *cmd, t_env **envp)
@@ -33,11 +33,5 @@ int	builtin_env(t_cmd *cmd, t_env **envp)
 		return (125);
 	}
 	error = env(*envp);
-	if (error == ENOMEM)
-	{
-		cmd_free(cmd);
-		env_free(*envp);
-		exit(EXIT_FAILURE);
-	}
 	return (error);
 }

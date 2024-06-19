@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 17:11:00 by stephane          #+#    #+#             */
-/*   Updated: 2024/06/19 16:37:57 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/19 16:54:50 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,8 @@ int	mini_strcmp(char *s1, char *s2)
 		s2++;
 	}
 	return (*s1 - *s2);
-
 }
-#include <string.h>
+
 void	insert(t_list *elem, t_list **strlist)
 {
 	t_list	*previous;

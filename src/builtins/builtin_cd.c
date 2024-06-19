@@ -6,22 +6,18 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 23:27:39 by smortemo          #+#    #+#             */
-/*   Updated: 2024/06/09 23:29:26 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/19 18:00:32 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
-#include "environment.h"
-#include <limits.h>
 
-int	uptdate_pwd_oldpwd(t_env **env_ptr)
+int	update_pwd_oldpwd(t_env **env_ptr)
 {
-	t_env	*node;
 	char	*str;
-	char	buffer[PATH_MAX];
 	int		type;
+	char	buffer[PATH_MAX];
 
-	str = NULL;
 	type = DIR_;
 	str = env_get(*env_ptr, "PWD");
 	if (!str)
@@ -30,17 +26,13 @@ int	uptdate_pwd_oldpwd(t_env **env_ptr)
 		str = "\0";
 	}
 	if (env_set_value("OLDPWD", str, *env_ptr) == ENOEXIST)
-	{
-		node = env_node_new("OLDPWD", str, type);
-		env_add_back(env_ptr, node);
-	}
+		if (env_add_new("OLDPWD", str, type, env_ptr) == NULL)
+			return (EXIT_FAILURE);
 	str = getcwd(buffer, PATH_MAX);
 	if (env_set_value("PWD", str, *env_ptr) == ENOEXIST)
-	{
-		node = env_node_new("PWD", str, type);
-		env_add_back(env_ptr, node);
-	}
-	return (0);
+		if (env_add_new("PWD", str, type, env_ptr) == NULL)
+			return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
 
 int	go_home(t_env **env, char c)
@@ -66,27 +58,14 @@ int	go_home(t_env **env, char c)
 		perror("");
 		exit(1);
 	}
-	return (uptdate_pwd_oldpwd(env));
-}
-
-int	change_dir(t_env **env, char *str)
-{
-	int	ret;
-
-	ret = chdir(str);
-	if (ret == -1)
-	{
-		fd_printf(STDERR_FILENO, "minishell: cd: %s: ", str);
-		perror("");
-		return (1);
-	}
-	return (uptdate_pwd_oldpwd(env));
+	return (update_pwd_oldpwd(env));
 }
 
 static int	cd(t_env **env, t_cmd *cmd)
 {
 	t_list	*argv;
 	char	*str;
+	char	*msg;
 
 	str = NULL;
 	argv = cmd->argv;
@@ -96,11 +75,16 @@ static int	cd(t_env **env, t_cmd *cmd)
 	if (!argv)
 		return (go_home(env, ' '));
 	if (str[0] == '\0')
-		return (0);
+		return (EXIT_SUCCESS);
 	if ((str[0] == '~' && str[1] == '\0'))
 		return (go_home(env, '~'));
-	else
-		return (change_dir(env, str));
+	if (chdir(str) == -1)
+	{
+		msg = "minishell: cd:";
+		fd_printf(STDERR_FILENO, "%s %s: %s\n", msg, str, strerror(errno));
+		return (EXIT_FAILURE);
+	}
+	return (update_pwd_oldpwd(env));
 }
 
 int	builtin_cd(t_cmd *cmd, t_env **env)
@@ -117,11 +101,5 @@ int	builtin_cd(t_cmd *cmd, t_env **env)
 		return (1);
 	}
 	error = cd(env, cmd);
-	if (error == ENOMEM)
-	{
-		cmd_free(cmd);
-		env_free(*env);
-		exit(EXIT_FAILURE);
-	}
 	return (error);
 }
