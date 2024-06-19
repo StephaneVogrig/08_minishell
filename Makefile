@@ -6,7 +6,7 @@
 #    By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/03 16:51:41 by svogrig           #+#    #+#              #
-#    Updated: 2024/06/18 20:05:27 by svogrig          ###   ########.fr        #
+#    Updated: 2024/06/19 20:06:47 by svogrig          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -98,7 +98,7 @@ SRC_BONUS		:=	$(SRC) \
 					bonus/execution/expand_and_dequote_bonus.c \
 					bonus/execution/expand_and_dequote_utils_bonus.c \
 					bonus/execution/expand_utils_bonus.c \
-					execution/heredoc_bonus.c \
+					bonus/execution/heredoc_bonus.c \
 					bonus/execution/process_bonus.c \
 					bonus/execution/tmpdata_bonus.c \
 					bonus/execution/wildcard_bonus.c \
