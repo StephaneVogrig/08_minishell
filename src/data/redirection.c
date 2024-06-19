@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 01:36:10 by svogrig           #+#    #+#             */
-/*   Updated: 2024/06/18 20:01:21 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/19 21:50:47 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,7 @@ void	redirection_free(t_redir **redirs)
 	{
 		temp = (*redirs)->next;
 		if ((*redirs)->str)
-		{
-			if ((*redirs)->type & UNLINK)
-				unlink((*redirs)->str);
 			free((*redirs)->str);
-		}
 		free(*redirs);
 		*redirs = temp;
 	}

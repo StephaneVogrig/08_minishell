@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 17:47:12 by smortemo          #+#    #+#             */
-/*   Updated: 2024/06/19 19:18:33 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/19 22:07:49 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static t_bool	env_init_shellvar(t_env **env)
 	if (success)
 		success = exit_status_init(env);
 	if (success && node_home_cpy(*env) == ENOMEM)
-			return (FAILURE);
+		return (FAILURE);
 	return (success);
 }
 

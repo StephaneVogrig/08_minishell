@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:36:43 by stephane          #+#    #+#             */
-/*   Updated: 2024/06/19 20:46:08 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/19 21:57:57 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	exec_input(t_char_m *input, t_env **env)
 	}
 	signal(SIGINT, handler_ctrl_c);
 	exit_code = exec_pipeline(pipeline, env, pipeline);
+	pipeline_redir_unlink(pipeline);
 	pipeline_free(&pipeline);
 	return (exit_code);
 }
