@@ -6,7 +6,7 @@
 /*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 17:39:44 by smortemo          #+#    #+#             */
-/*   Updated: 2024/06/19 18:38:08 by svogrig          ###   ########.fr       */
+/*   Updated: 2024/06/19 19:04:41 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,6 @@ t_bool	env_shlvl_init(t_env **env)
 	if (!new)
 		return (FAILURE);
 	free(node->value);
-	node->value = ft_strdup(new);
-	free(new);
-	if (!value)
-		return (FAILURE);
+	node->value = new;
 	return (SUCCESS);
 }
