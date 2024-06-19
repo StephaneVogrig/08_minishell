@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tilde.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smortemo <smortemo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: svogrig <svogrig@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 17:59:17 by smortemo          #+#    #+#             */
-/*   Updated: 2024/05/31 15:50:17 by smortemo         ###   ########.fr       */
+/*   Updated: 2024/06/19 19:22:07 by svogrig          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ char	*create_home_path(t_env *env)
 	while (str[index] != '/')
 		index++;
 	home = ft_strndup(str, index + 1);
+	if (!home)
+	{
+		free(str);
+		return (NULL);
+	}
 	return (home);
 }
 
@@ -46,5 +51,5 @@ int	node_home_cpy(t_env *env)
 	node->type = INTERNAL;
 	node->next = NULL;
 	env_add_back(&env, node);
-	return (0);
+	return (SUCCESS);
 }
